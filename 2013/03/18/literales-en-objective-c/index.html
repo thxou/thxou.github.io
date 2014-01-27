@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Literales en Objective-C - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Los literales son simplemente unos valores que los programadores podemos escribir &#8220;tal cual&#8221; en el código. En Objective-C (y por lo tanto &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2013/03/18/literales-en-objective-c">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Literales en Objective-C</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-18T19:04:13+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Los literales son simplemente unos valores que los programadores podemos escribir &#8220;tal cual&#8221; en el código. En Objective-C (y por lo tanto en C) ya conocemos algunos ejemplos de esto con los valores primitivos:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">float</span> <span class="n">altura</span> <span class="o">=</span> <span class="mf">23.5</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">piezas</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Estos son: un literal float y un literal int respectivamente. Estos literales son comunes en la mayoría de los lenguajes, no obstante Objective-C tiene sus propios literales a parte de los mencionados, concretamente los que están basados en objetos:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">tarea</span> <span class="o">=</span> <span class="err">@”</span><span class="n">Buscar</span> <span class="n">piso</span><span class="err">”</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Claro, a simple vista podemos decir: Vaya chorrada, lo he usado mil veces!, pero detente un momento a pensar en el ahorro que implica en líneas de código el hecho de tenerlos: como escribirías un número &#8220;sin números&#8221;?, algo aún más terrorífico, plantearse escribir un string de miles de caracteres &#8220;sin strings&#8221;.</p><p>Dicho esto, es fácil darse cuenta de que los literales son una pieza fundamental de cualquier lenguaje por lo que nos ahorran, a parte de por los casos vistos, por la legibilidad en el código, así que vamos a conocer unos cuantos más pero específicos de Objective-C.</p><h2>La nueva moda en literales</h2><p>Hasta la salida de la versión 4.0 del compilador LLVM de Apple, Objective-C aún estaba un poco en pañales con respecto a lo que se refiere a literales. Mientras lenguajes basados en C como Perl o Python ya habían incluido literales para colecciones y más, Objective-C se resistía. Ahora eso ya es parte del pasado y vamos a ver cuales son las novedades en literales.</p><h3>Literales para colecciones</h3><h4>NSArray</h4><p>Clang, el front end de LLVM, introdujo la sintaxis <code>@[ ]</code> para definir arrays, en el cual solo se deben incluir objetos separados por comas. Ojo!, solo objetos, nada de tipos escalares. Así, lo que antes escribíamos así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;Barcelona&quot;</span><span class="p">,</span> <span class="s">@&quot;Lima&quot;</span><span class="p">,</span> <span class="s">@&quot;Lyon&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ahora nos queda así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lima</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lyon</span><span class="err">”</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Al ser una característica del lenguaje ya no es necesario definir el centinela nil, de hecho si lo pones como valor, tu ordenador explotará, ya que se realiza una validación como para el método <code>[NSArrayarrayWithObjects:count:]</code>, en el que se requiere que ningún objeto sea nil. Por lo tanto si quieres pasar nil como valor tendrás que hacerlo con el objeto <code>[NSNull null]</code>, que es su equivalente.</p><h4>NSDictionary</h4><p>Aquí se introduce la sintaxis <code>@{ }</code>, similar a la de JSON o Javascript, pero con el @ característico de Objective-C. Esta sintaxis crea un diccionario de pares key-value, donde key tiene que ser un objeto que implemente el protocolo NSCopying (los string de toda la vida, vamos!) y value, como en el caso anterior, sólo pueden ser punteros a objetos Objective-C. Algo como:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span><span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">nombre</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ahora se escribiría:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="err">@”</span><span class="n">nombre</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">};</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Como en el caso de los arrays, aquí tampoco es necesaria la centinela nil.</p><h4>NSSet</h4><p>Pobre, se olvidaron de él. No se ha introducido nada para esta colección, no obstante con los literales de NSArray se puede aprovechar mucho para NSSet cuando necesitamos pasarlos como argumentos de los métodos inicializadores y métodos de conveniencia.</p><h2>Literales de NSNumber</h2><p>Para los que no sabéis cómo definir NSNumber, pues es una clase que nos permite envolver valores escalares (otros literales de tipo <code>int</code>, <code>bool</code>, <code>float</code>, etc) en objetos Objective-C.</p><p>Ahora, cualquier valor escalar que empiece por el símbolo ‘@’ devolverá un objeto NSNumber inicializado con ese valor. Esto ya lo veíamos con los strings de C. Cuando escribíamos algo como:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">queja</span> <span class="o">=</span> <span class="s">@&quot;El billete de metro está caro&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>En realidad estamos convirtiendo un string en C a un objeto NSString con codificación UTF-8. Este literal está desde los inicios, pero para los otros valores escalares usábamos el método <code>numberWith<em>Tipo</em>:</code> para inicializar los objetos NSNumber. Ahora haremos:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">bool</span> <span class="o">=</span> <span class="err">@</span><span class="n">NO</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithBool:NO]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">char</span> <span class="o">=</span> <span class="sc">@&#39;d&#39;</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithChar:’d’]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">unsignedInt</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23</span><span class="n">U</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithUnsignedInt:23U]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">int</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithInt:23]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">long</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23L</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithLong:23L]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">longlong</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23L</span><span class="n">L</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithLongLong:23LL]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">float</span> <span class="o">=</span> <span class="err">@</span><span class="mf">5.2303F</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithFloat:5.2303F]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">double</span> <span class="o">=</span> <span class="err">@</span><span class="mf">2.2808</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithDouble:2.2808]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Me encanta este literal, por lo menos a mi me ayuda haciendo más legible el código, sobre todo cuando tengo que hacer una lectura rápida.</p><h2>Expresiones “en caja” (Boxed Expressions)</h2><p>Si la intuición os ha llevado a pensar: ¿Y qué pasa si hago <code>@2+2</code>, el compilador me lo pillará sin enfadarse?. Pues no, ya que hay una nueva sintaxis para esto y es envolver nuestras expresiones entre paréntesis: <code>@()</code>. Esto nos devolvería un objeto NSNumber inicializado con el resultado de la expresión que está entre estos. Y lo que antes hacíamos así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithDouble:</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ahora lo hacemos así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Mucho más claro y sencillo. Lo genial es que también funciona pasándole propiedades de algunos objetos Objective-C que devuelven valores escalares. Por ejemplo si tenías que guardar en Core Data el valor de un objeto UISwitch, lo hacíamos así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ahora también lo puedes hacer simplemente así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>También funciona para enumeraciones:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">Barcelona</span><span class="p">,</span> <span class="n">Lima</span><span class="p">,</span> <span class="n">Lyon</span> <span class="p">}</span> <span class="n">Ciudad</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">ciudad</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">Lyon</span><span class="p">);</span> <span class="c1">// nos devolverá 1 y es equivalente a [NSNumber numberWithInt:((int)Lyon)]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>En este caso, para poder usar algún valor de la enumeración tenemos que envolverlo también como si se tratara de una expresión para poder usarlo como literal.</p><h2>Subíndices de objeto (Object Subscripting)</h2><p>Esta última tanda de literales de la que vamos a hablar suple una necesidad en mi que vengo deseando ver desde que dejé C++ para embarcarme en Objective-C, y tiene que ver con la forma de acceder y obtener datos de colecciones, concretamente de arrays y diccionarios.</p><h3>Subíndices para Arrays</h3><p>Para los arrays podemos usar un index para referirnos a la posición de un objeto dentro de ese array, tal como se hacía en C con valores escalares:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;Barcelona&quot;</span><span class="p">,</span> <span class="s">@&quot;Lima&quot;</span><span class="p">,</span> <span class="s">@&quot;Lyon&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">ciudad</span> <span class="o">=</span> <span class="n">ciudades</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// ciudad = @&quot;Lyon&quot;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Aquí se nos devuelve el elemento en la posición 2 que es <code>@"Lyon"</code>. Esto el compilador lo traduce por su equivalente en Objective-C: <code>[ciudades objectAtIndexedSubscript:2]</code>, lo cual es exactamente lo mismo que hacer: <code>[ciudades objectAtIndex:2]</code>.</p><p>De la misma forma, si tenemos un array mutable, entonces podemos hacer asignación directa de valores con esta misma sintaxis:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">ciudades</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">@&quot;Roma&quot;</span><span class="p">;</span> <span class="c1">// el array quedaría: @[@&quot;Barcelona&quot;, @&quot;Roma&quot;, @&quot;Lyon&quot;]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>El valor en la posición 1 es cambiado por el nuevo. Aquí el compilador hace una traducción al método <code>[ciudades setObject:@"Roma" atIndexedSubscript:1]</code></p><h3>Subíndices para diccionarios</h3><p>Para los diccionarios en vez de usar un index usamos keys para obtener los valores:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="s">@&quot;nombre&quot;</span> <span class="o">:</span> <span class="s">@&quot;ThXou&quot;</span><span class="p">,</span> <span class="s">@&quot;ubicacion&quot;</span> <span class="o">:</span> <span class="s">@&quot;Barcelona&quot;</span><span class="p">};</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">ubicacion</span> <span class="o">=</span> <span class="n">usuario</span><span class="p">[</span><span class="s">@&quot;ubicacion&quot;</span><span class="p">];</span> <span class="c1">// ubicacion = @&quot;Barcelona&quot;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>El compilador hace la traducción a <code>[usuario objectForKeyedSubscript:@"ubicacion"]</code>, el cual es a su vez equivalente a <code>[usuario objectForKey:@"ubicacion"]</code>.</p><p>Como en los arrays, pasa lo mismo para los diccionarios mutables y podemos reemplazar el valor correspondiente a la key que referenciemos:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">usuario</span><span class="p">[</span><span class="s">@&quot;nombre&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">@&quot;ThXou soy yo&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// el diccionario quedaría: @{@&quot;nombre&quot; : @&quot;ThXou soy yo&quot;, @&quot;ubicacion&quot; : @&quot;Barcelona&quot;}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>La traducción correspondiente es <code>[usuario setObject:@"ThXou soy yo" forKeyedSubscript:@"nombre"]</code>.</p><h2>Conclusión</h2><p>Esta nueva sintaxis como se puede observar, ayuda a que nuestro código sea más legible, a la par que nos ahorra tiempo escribiendo sus métodos equivalentes. Va a ser hora de pasarnos a la nueva moda, nunca es tarde aunque ya lleve unos cuantos meses rulando por internet. Es muy importante recordar pasar únicamente objetos al momento de crear objetos usando literales, como también no pasar nunca un <code>nil</code> como un valor.</p><h2>Fuentes:</h2><ul><li><a href="http://clang.llvm.org/docs/ObjectiveCLiterals.html">http://clang.llvm.org/docs/ObjectiveCLiterals.html</a></li><li><a href="http://www.mikeash.com/pyblog/friday-qa-2012-06-22-objective-c-literals.html">http://www.mikeash.com/pyblog/friday-qa-2012-06-22-objective-c-literals.html</a></li></ul></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-18T19:04:13+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/aspectos-basicos/'>Aspectos Básicos</a>, <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2013/03/18/literales-en-objective-c/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2013/03/18/literales-en-objective-c/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/" title="Previous Post: NSNotificationCenter y las notificaciones">&laquo; NSNotificationCenter y las notificaciones</a>
+      
+      
+        <a class="basic-alignment right" href="/2013/06/18/un-vistazo-al-nuevo-ios-7/" title="Next Post: Un vistazo al nuevo iOS 7">Un vistazo al nuevo iOS 7 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2013/03/18/literales-en-objective-c/';
+        var disqus_url = 'http://ThXou.github.io/2013/03/18/literales-en-objective-c/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

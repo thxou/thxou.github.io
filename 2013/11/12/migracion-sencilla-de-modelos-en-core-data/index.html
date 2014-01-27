@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Migración Sencilla De Modelos en Core Data - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Probablemente los que ya habéis usado Core Data en vuestras aplicaciones, os habréis encontrado con que cada vez que modificas el modelo de datos, al &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Migración Sencilla De Modelos en Core Data</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-12T02:21:29+01:00" pubdate data-updated="true">Nov 12<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Probablemente los que ya habéis usado Core Data en vuestras aplicaciones, os habréis encontrado con que cada vez que modificas el modelo de datos, al volver a instalar la app en el simulador o dispositivo, la aplicación genera una excepción y se cierra. En el entorno de desarrollo, la solución inmediata es borrar la aplicación del simulador o dispositivo y volverla a instalar, no obstante esto no nos sirve de cara a actualizar nuestra app que ya está subida a la App Store, por razones obvias.</p><h2>El problema!</h2><p>Sucede que el sistema de almacenamiento en Core Data solo puede ser abierto por el mismo modelo que se ha usado para crearlo, es por eso que cuando cambias el modelo (añades algún atributo, entidad, etc), el modelo modificado deja de ser igual al modelo que se ha usado para crear el almacenamiento, por lo tanto, son incompatibles y el modelo nuevo resulta no apto para llevar a cabo la tarea.</p><p>La solución es llevar a cabo una migración entre versiones del modelo (la anterior y la modificada). Para hacer esta migración, Core Data usa un<strong> modelo de Mapeo</strong> que le permite saber que cambios tiene que realizar para que el nuevo modelo sea capaz de abrir el almacenamiento como lo hacía el modelo anterior.</p><p>Poniéndonos ya en materia, existen 2 tipos de migración:<strong> la migración automática</strong>, de la que hablaremos ahora, y <strong>la migración manual</strong>. Estas 2 tan solo difieren en una cosa: El modelo de mapeo usado para hacer la migración. Os paso a explicar más detalladamente el tema.</p><h2>Migración automática</h2><p>También se le conoce como migración ligera. Es el camino fácil para realizar la tarea, y consiste en que Core Data es quien provee el modelo de mapeo a usarse en la migración, hace esto intentando deducir los cambios que se han hecho a través de un análisis en los esquemas de los 2 modelos.</p><p>Este tipo de migración requiere que el modelo modificado tan solo haya sufrido sencillos cambios en su estructura. Ahora, que entiende Core Data como &#8220;sencillos cambios&#8221;?. Pues los siguientes:</p><ul><li>Añadir o quitar un atributo.</li><li>Cambiar la propiedad <code>optional</code> de los atributos.</li><li>Asignar un valor por defecto a un atributo.</li><li>Renombrar entidades o atributos usando el campo <em>Renaming ID</em>.</li></ul><p>Para casos más complejos es necesario usar la migración manual, en ese caso te toca a ti proveer el mapeo para la migración, proceso que se complica un poco, así que lo dejaremos para otra entrada.</p><h2>Añadiendo un nuevo modelo</h2><p>Vamos con una aplicación práctica para ver mejor como va el tema. Para esto, he creado un proyecto que usa Core Data con un modelo muy sencillo ya definido y que puedes <a href="http://sl.thxou.com/?https://app.box.com/s/2nuh2hgzxq09qtt49t5b">descargar aquí</a>.</p><p>Ya que para hacer una migración son imprescindibles 2 versiones de un modelo, vamos a crear otro diferente a la que ya tenemos en el proyecto yendo al menú <strong>Editor &gt; Add Model Version</strong>. Dejemos el nombre por defecto por esta vez y luego clic en <em>Finish</em>. Esto nos creará <em>Notes 2.xcdatamodel</em> y una especie de carpeta contenedora llamada <em>Notes.xcdatamodeld</em>, en la cual también verás incluido nuestro modelo por defecto.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-20.12.37.png"><img class="aligncenter size-full wp-image-2650" alt="Core Data Migration en ThXou" src="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-20.12.37.png" width="256" height="90" /></a></p><p>Si nos fijamos, uno de los modelos aparece con un check de color verde. Esto quiere decir que es ese el modelo que estamos usando actualmente. Como queremos usar el nuevo modelo a partir de ahora, seleccionamos la carpeta contenedora <em>Notes.xcdatamodeld</em> y en panel<em> File Inspector</em> de la derecha, en el apartado<em> Model Version</em>, cambiamos la opción<em> Current</em> a<em> Notes 2</em>, que es nuestro nuevo modelo.</p><p>Vamos a hacer un par de modificaciones a <em>Notes 2</em>. Selecciona la entidad <strong>Note</strong> y añade un nuevo atributo llamado <strong>descriptionText</strong> de tipo <strong>String</strong>. Ahora vamos a renombrar el atributo <strong>backgroundColor</strong> a solo <strong>background</strong>.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-23.58.32.png"><img class="aligncenter  wp-image-2651" alt="Core Data Migration in ThXou" src="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-23.58.32.png" width="526" height="134" /></a></p><p>Vamos a sanear cualquier error que pueda ocurrir después del cambio en el modelo de nuestra aplicación haciendo la migración, pero antes comentarte que al renombrar entidades o atributos es necesario definir el campo <em>Renaming ID</em>. Selecciona el atributo que hemos renombrado: <strong>background</strong>, y en el panel <em>Data Model Inspector</em> de la derecha, escribe en el campo <em>Renaming ID</em>, el nombre anterior del atributo, osea <strong>backgroundColor</strong> (Si no te acuerdas puedes mirar en la primera versión del modelo). Esto es obligatorio para cuando vayas a renombrar entidades o atributos.</p><p><a href="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-12-at-00.06.30.png"><img class="aligncenter size-full wp-image-2652" alt="Core Data Migration" src="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-12-at-00.06.30.png" width="254" height="83" /></a></p><h2>Haciendo la mudanza</h2><p>Lo que nos queda ahora es decirle a Core Data que haga la migración automática al iniciar la aplicación. Para esto nos tenemos que dirigir al <em>Core Data Stack</em> localizado en el fichero <em>AppDelegate.m</em>. En el vas a encontrar el método getter del Persistent Store Coordinator. Modifícalo con el siguiente código:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSPersistentStoreCoordinator</span> <span class="o">*</span><span class="p">)</span><span class="nf">persistentStoreCoordinator</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">_persistentStoreCoordinator</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">_persistentStoreCoordinator</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">storeURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">self</span> <span class="n">applicationDocumentsDirectory</span><span class="p">]</span> <span class="nl">URLByAppendingPathComponent:</span><span class="s">@&quot;Notes.sqlite&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">_persistentStoreCoordinator</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSPersistentStoreCoordinator</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithManagedObjectModel:</span><span class="p">[</span><span class="n">self</span> <span class="n">managedObjectModel</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// (2)</span>
+</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">options</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSMigratePersistentStoresAutomaticallyOption:</span><span class="err">@</span><span class="n">YES</span><span class="p">,</span> <span class="nl">NSInferMappingModelAutomaticallyOption:</span><span class="err">@</span><span class="n">YES</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">_persistentStoreCoordinator</span> <span class="nl">addPersistentStoreWithType:</span><span class="n">NSSQLiteStoreType</span> <span class="nl">configuration:</span><span class="nb">nil</span> <span class="nl">URL:</span><span class="n">storeURL</span> <span class="nl">options:</span><span class="n">options</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// (1)</span>
+</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Unresolved error %@, %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">userInfo</span><span class="p">]);</span>
+</span><span class='line'>        <span class="n">abort</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">_persistentStoreCoordinator</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Dentro hay que modificar el método <code>addPersistentStoreWithType:configuration:URL:options:error:</code>(1), que es quien crea el almacenamiento para la app, en concreto el parámetro <code>options:</code>, a quien por defecto se le pasa <code>nil</code>, pero nosotros le asignamos el diccionario <code>options</code> con las keys que van a decirle a Core Data que lleve a cabo la migración automática (2).</p><p>Hasta este punto, ya puedes poner a correr la aplicación que estés migrando, verás que todo marcha sobre ruedas. Si no te salta ningún error ni ocurre ningún problema es porque la migración se ha realizado satisfactoriamente.</p><h2>Como se si mi app puede migrar automáticamente?</h2><p>Esto es un extra, por si se te plantea la pregunta para tus proyectos. Hemos visto que hay 2 formas de hacer la migración: automática (Fácil) y manual (difícil), como saber si mi app puede migrar automáticamente?. La respuesta está en preguntarle a la clase <code>NSMappingModel</code> si es capaz o no de crear el <strong>modelo de mapeo</strong> por si mismo. Esto lo hacemos con el método<code> inferredMappingModelForSourceModel:destinationModel:error:</code>:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">miModeloPuedeMigrar</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">modeloAntiguoURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span> <span class="nl">URLForResource:</span><span class="s">@&quot;Notes&quot;</span> <span class="nl">withExtension:</span><span class="s">@&quot;momd&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSManagedObjectModel</span> <span class="o">*</span><span class="n">modeloAntiguo</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSManagedObjectModel</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithContentsOfURL:</span><span class="n">modeloAntiguoURL</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">modeloNuevoURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span> <span class="nl">URLForResource:</span><span class="s">@&quot;Notes 2&quot;</span> <span class="nl">withExtension:</span><span class="s">@&quot;momd&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSManagedObjectModel</span> <span class="o">*</span><span class="n">modeloNuevo</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSManagedObjectModel</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithContentsOfURL:</span><span class="n">modeloNuevoURL</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSMappingModel</span> <span class="o">*</span><span class="n">modeloDeMapeo</span> <span class="o">=</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">NSMappingModel</span> <span class="nl">inferredMappingModelForSourceModel:</span><span class="n">modeloAntiguo</span>
+</span><span class='line'>                        <span class="nl">destinationModel:</span><span class="n">modeloNuevo</span> <span class="nl">error:</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// si Core Data es capaz de crear el modelo entonces </span>
+</span><span class='line'>    <span class="c1">// retornamos YES de lo contrario NO</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">modeloDeMapeo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Este método lo puedes usar en el método<code> application:didFinishLaunchingWithOptions:launchOptions</code> del <em>AppDelegate.m</em>, con un <code>NSLog</code> que te devuelva SI o NO dependiendo del valor de retorno del método <code>miModeloPuedeMigrar</code>.</p><h2>Conclución</h2><p>Este tutorial, como dije antes, es para cuando tienes que hacer ciertos cambios de los listados arriba. Si lo tuyo requiere algo diferente te va a tocar optar por aprender a realizar un mapeo personalizado.</p><p>Ten en cuenta cuando renombres entidades, que las clases modelo asociadas no se cambian, por lo que es algo de lo que te tienes que ocupar tu manualmente o usando la herramienta de refactorización de Xcode.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-12T02:21:29+01:00" pubdate data-updated="true">Nov 12<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/" title="Previous Post: Disponible la segunda beta de iOS 7 para desarrolladores">&laquo; Disponible la segunda beta de iOS 7 para desarrolladores</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data/';
+        var disqus_url = 'http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

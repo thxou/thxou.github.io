@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iOS: Enviar Correo Electrónico Desde La Aplicación - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Mientras trabajaba en mi aplicación Listed quise que los usuarios pudieran enviar sus listas por correo, y la verdad pensé que iba a ser difícil de &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iOS: Enviar Correo Electrónico Desde La Aplicación</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-07T19:06:11+02:00" pubdate data-updated="true">Aug 7<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/photo-1.png"><img title="photo-1" src="http://www.thxou.com/wp-content/uploads/2012/08/photo-1-200x300.png" alt="" width="200" height="300" /></a><a href="http://www.thxou.com/wp-content/uploads/2012/08/photo-1.png"><br /> </a></p><p>Mientras trabajaba en mi aplicación <a href="http://itunes.apple.com/us/app/listed/id461792168?ls=1&amp;mt=8">Listed</a> quise que los usuarios pudieran enviar sus listas por correo, y la verdad pensé que iba a ser difícil de hacer pero no fue así.</p><p>Apple provee una clase llamada <code>MFMailComposeViewController</code> dentro del framework <em>MessageUI</em> que hace muy sencillo el hecho de enviar correos sin tener que salir de la aplicación siquiera, esto, a través de la misma interfaz que usas en la aplicación Mail. Además te permite definir el contenido inicial de los campos del correo y también enviar uno o varios archivos adjuntos, como también provee de funcionalidad para responder a los eventos del usuario como enviar, cancelar o guardar un mensaje de correo.</p><p>La aplicación que toca esta vez va a permitir a los usuarios enviar un correo electrónico desde la aplicación. Usando el único método del delegado <code>MFMailComposeViewControllerDelegate</code>, vamos a mostrar al usuario mensajes dependiendo de si el correo se ha enviado, cancelado, guardado en borradores o ha fallado en el envío.</p><p>[note]<strong>Nota:</strong>Es importante resaltar que cuando hablo de envío, me refiero a que el correo ha sido puesto en la cola de envío (carpeta de Salida en Mail), <strong>no que ya se ha enviado</strong>. Lo mismo para cuando cancelamos el envío, en realidad quiere decir que el correo no se ha puesto en la cola de envío.[/note]</p><h2>Preparando el terreno</h2><p>Para este proyecto he creado uno de tipo <em>Single View Application</em> y le he puesto de nombre &#8221;<em>emailMe</em>&#8221;.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-07-at-16.02.39.png"><img title="framwork-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-07-at-16.02.39.png" alt="" width="258" height="96" /></a></p><p>Lo primero que haremos será añadir el framework <em>MessageUI</em> a nuestra aplicación, luego vamos a definir un <em>Outlet</em> <code>UILabel</code> y una acción, así como también hacemos a <em>ViewController</em> <a href="http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/">conforme al protocolo</a> <code>MFMailComposeViewControllerDelegate</code>. Para esto vamos al fichero ViewController.h y ponemos el siguiente código:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &amp;lt;UIKit/UIKit.h&amp;gt;</span>
+</span><span class='line'><span class="cp">#import &amp;lt;MessageUI/MessageUI.h&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">@</span><span class="n">interface</span><span class="err"> </span><span class="n">ViewController</span><span class="err"> </span><span class="o">:</span> <span class="n">UIViewControler</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">MFMailComposeViewControllerDelegate</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">UILabel</span><span class="err"> </span> <span class="o">*</span><span class="n">estado</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span><span class="err"> </span><span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">retain</span><span class="p">)</span> <span class="kt">IBOutlet</span><span class="err"> </span><span class="n">UILabel</span><span class="err"> </span><span class="o">*</span><span class="n">estado</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">enviarCorreo:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Acto seguido pasamos a la interfaz de usuario, así que abrimos el fichero <em>ViewController.xib</em> y añadimos simplemente 2 objetos, uno de tipo <code>UIButton</code> y otro <code>UILabel</code>. El botón es para abrir la ventana modal desde donde escribiremos el correo y el label es para mostrar el estado del envío. Una vez añadidos, conectamos el <code>UILabel</code> con el código. Hacemos esto presionando la tecla <em>Ctrl</em> y arrastrando el cursor desde el <em>File&#8217;s Owner</em> hasta el objeto <code>UILabel</code> en el Interface Builder y luego seleccionando el correspondiente de la lista que aparece.</p><h2>Implementación de la funcionalidad</h2><p>Hay un método al que siempre tenemos que llamar antes de mostrar la interfaz de envío de correo, y es: <code>canSendMail</code>, este nos va a servir para verificar si el dispositivo del usuario está habilitado para usar esta característica. En caso contrario, yo he decidido mostrar una alerta diciendo que el dispositivo no soporta el envío de correo.</p><p>Abrimos el ViewController.m para implementar nuestro método creado anteriormente:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="err">@</span><span class="n">synthetize</span> <span class="n">estado</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">enviarCorreo:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// verificamos si es posible enviar correo desde este dispositivo</span>
+</span><span class='line'>    <span class="k">if</span><span class="err"> </span><span class="p">([</span><span class="n">MFMailComposeViewController</span><span class="err"> </span><span class="n">canSendMail</span><span class="p">])</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">MFMailComposeViewController</span> <span class="o">*</span><span class="n">email</span><span class="err"> </span><span class="o">=</span> <span class="p">[[[</span><span class="n">MFMailComposeViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">email</span><span class="p">.</span><span class="n">mailComposeDelegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// definimos el asunto del correo</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">email</span><span class="err"> </span><span class="nl">setSubject:</span><span class="s">@&quot;Te envío una Web que mola&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// definimos el contenido inicial del correo</span>
+</span><span class='line'>        <span class="n">NSMutableString</span><span class="err"> </span><span class="o">*</span><span class="n">cuerpo</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableString</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="err">       </span> <span class="p">[</span><span class="n">cuerpo</span><span class="err"> </span><span class="nl">appendString:</span><span class="s">@&quot;Hey!, he encontrado esta web y me ha gustado : )&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;&amp;lt;a href=&#39;http://www.thxou.com&#39;&amp;gt;http://www.thxou.com&amp;lt;/a&amp;gt;&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// asignamos el cuerpo del mensaje y le decimos que lo interprete como HTML</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">email</span><span class="err"> </span><span class="nl">setMessageBody:</span><span class="n">cuerpo</span> <span class="nl">isHTML:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">cuerpo</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// adjuntamos una imagen desde nuestro bundle</span>
+</span><span class='line'>        <span class="n">UIImage</span><span class="err"> </span><span class="o">*</span><span class="n">imagen</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span><span class="err"> </span><span class="nl">imageNamed:</span><span class="s">@&quot;logo-thxou.png&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">NSData</span><span class="err"> </span><span class="o">*</span><span class="n">imagenData</span><span class="err"> </span><span class="o">=</span> <span class="n">UIImagePNGRepresentation</span><span class="p">(</span><span class="n">imagen</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">email</span> <span class="nl">addAttachmentData:</span><span class="n">imagenData</span><span class="err"> </span><span class="nl">mimeType:</span><span class="s">@&quot;image/png&quot;</span> <span class="nl">fileName:</span><span class="s">@&quot;thxoulogo&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// mostramos la ventana modal con la interfaz de envío de correo</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="err"> </span><span class="nl">presentViewController:</span><span class="n">email</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span><span class="err"> </span><span class="p">{</span>
+</span><span class='line'>        <span class="c1">// mostramos una alerta si el dispositivo no puede enviar correo</span>
+</span><span class='line'>        <span class="n">UIAlertView</span><span class="err"> </span><span class="o">*</span><span class="n">alert</span><span class="err"> </span><span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;Error&quot;</span>
+</span><span class='line'>                                                        <span class="nl">message:</span><span class="n">NSLocalizedString</span><span class="p">(</span><span class="s">@&quot;Tu dispositivo no soporta esta característica&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>                                                       <span class="nl">delegate:</span><span class="nb">nil</span>
+</span><span class='line'>                                              <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;OK&quot;</span>
+</span><span class='line'>                                              <span class="nl">otherButtonTitles:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">alert</span><span class="err"> </span><span class="n">show</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">alert</span><span class="err"> </span><span class="n">release</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Como veis es muy sencillo implementar esta funcionalidad en una aplicación, con lo poco que hemos escrito ya es posible enviar un correo, no obstante aún nos falta la parte de manipular los eventos que dije al principio.</p><p>El método <code>setMessageBody:isHTML:</code> como puedes observar te permite asignar un contenido inicial para el correo. Si deseas que este contenido sea interpretado como código HTML, lo haces a través etiqueta <code>isHTML:</code>, la cual te permite especificarlo.</p><p>Luego tenemos el método <code>addAttachmentData:mimeType:fileName:</code> que nos va a permitir enviar datos adjuntos al correo. El primer argumento requiere un objeto de tipo <code>NSData</code>, así que lo que sea que queramos enviar tiene que estar primero convertido a este tipo de datos, en mi caso el logo de la web en formato <em>.png</em>.</p><p>El segundo argumento (<code>mimeType:</code>) es el tipo MIME del archivo que vamos a enviar, esto no te lo tienes que inventar ya que es un stardard predefinido y puedes ver el tipo MIME correspondiente a tu archivo en <a href="http://www.iana.org/assignments/media-types/">http://www.iana.org/assignments/media-types/</a>. El tercer argumento es simplemente el nombre que deseas que tenga el archivo cuando sea transferido a su destino. Puedes repetir este método para cada uno de los archivos que desees adjuntar.</p><p>Hay otros métodos como <code>setToRecipients:</code>, <code>setCcRecipients:</code> y <code>setBccRecipients:</code> que cumplen exactamente la misma función que en un correo ordinario.</p><h2>Manipulando el resultado del envío</h2><p>Como se puede ver en la línea 8 del código de arriba, asignamos como delegado a la clase <em>ViewController</em>, por lo tanto esta va a ser la encargada de cerrar la ventana desde donde enviamos el correo y manipular los resultados del envío, por lo tanto se espera que también implemente el método delegado <code>mailComposeController:didFinishWithResult:error:</code> de la clase <code>MFMailComposeViewControllerDelegate</code>. Nosotros si lo haremos:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">mailComposeController:</span><span class="p">(</span><span class="n">MFMailComposeViewController</span><span class="o">*</span><span class="p">)</span><span class="nv">controller</span><span class="err"> </span><span class="nl">didFinishWithResult:</span><span class="p">(</span><span class="n">MFMailComposeResult</span><span class="p">)</span><span class="n">result</span><span class="err"> </span><span class="nl">error:</span><span class="p">(</span><span class="n">NSError</span><span class="o">*</span><span class="p">)</span><span class="n">error</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">switch</span><span class="err"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">MFMailComposeResultCancelled:</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">estado</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;La operación ha sido cancelada&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">MFMailComposeResultSaved:</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">estado</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;El correo ha sido guardado en la carpeta borradores&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">MFMailComposeResultSent:</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">estado</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;Correo puesto en la cola de envío satisfactoriamente&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">MFMailComposeResultFailed:</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">estado</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;No se ha podido enviar o guardar el correo debido a un error&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="err"> </span>   <span class="c1">// cerramos la ventana modal de envío de correo</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">controller</span><span class="err"> </span><span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Dependiendo de cual sea el evento, se devuelve un código de resultado diferente, esto nos permite personalizar la respuesta en cada caso.</p><h2>Conclusión</h2><p>Hoy hemos aprendido a enviar un mensaje de correo electrónico desde la misma aplicación. También hemos aprendido a mostrar la interfaz de envío con unos valores iniciales por defecto, así como a interceptar los mensajes de estado del envío del correo. Con respecto a esta clase, no hay mucho más que aprender, tan solo queda un par de cosas relacionadas con los mensajes de error en el método delegado, pero por lo demás, si haz comprendido bien este tutorial, ya puedes decir que dominas la clase <code>MFMailComposeViewController</code> :). No obstante para más detalle acerca de esta clase puedes pasarte por <a href="http://developer.apple.com/library/ios/#DOCUMENTATION/MessageUI/Reference/MFMailComposeViewController_class/Reference/Reference.html#//apple_ref/occ/cl/MFMailComposeViewController">la documentación</a> un momento, que siempre viene bien.</p><p>Espero que les haya gustado y servido. Cualquier duda, objeción o sugerencia la espero en los comentarios.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/78f56fb99c4d9929957d"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-07T19:06:11+02:00" pubdate data-updated="true">Aug 7<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont/" title="Previous Post: iOS: Textos con fuente personalizada usando UIFont">&laquo; iOS: Textos con fuente personalizada usando UIFont</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/09/03/aprender-a-usar-url-schemes-en-ios-url-personalizada/" title="Next Post: Aprender a usar URL Schemes en iOS - URL personalizada">Aprender a usar URL Schemes en iOS - URL personalizada &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/';
+        var disqus_url = 'http://ThXou.github.io/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

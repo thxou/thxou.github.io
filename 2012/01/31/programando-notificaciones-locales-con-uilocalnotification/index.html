@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iOS: Programando Notificaciones Locales Con UILocalNotification - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Aquí estamos otra vez con un nuevo tutorial. Esta vez intentaré explicarles de manera teórica y práctica el proceso para programar una notificación &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2012/01/31/programando-notificaciones-locales-con-uilocalnotification">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iOS: Programando Notificaciones Locales Con UILocalNotification</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-31T03:02:05+01:00" pubdate data-updated="true">Jan 31<span>st</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img class="alignright" title="notifyme-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/01/Screen-shot-2012-01-30-at-20.05.49.png" alt="" width="310" height="264" />Aquí estamos otra vez con un nuevo tutorial. Esta vez intentaré explicarles de manera teórica y práctica el proceso para programar una notificación local. Es relativamente sencillo de implementar y hay pocas opciones que configurar. La clase <code>UILocalNotification</code> te permite representar notificaciones locales como la de la imagen (similares a las notificaciones Push que trabajan con un servidor externo, no hablaremos de esto ahora), que tu aplicación podría programar para que sean presentadas a tus usuarios en una fecha y hora determinadas. El sistema operativo es el encargado de gestionar estas notificaciones y permite programar hasta <strong>64 notificaciones</strong> por aplicación. Esta clase adopta el protocolo <code>NSCopying</code>, y una de sus ventajas es que nos permite copiar notificaciones ya programadas, también modificarlas y cancelarlas. Todo en el cuadro de notificación, excepto el color, se puede personalizar al completo: puedes definir un título, el texto de la notificación, cuantos botones va a tener, un sonido personalizado el cual se reproduzca al mostrarse, etc. Todas estas opciones las vamos a aprender a configurar nosotros mismos a continuación con un ejemplo práctico.</p><h2>Llevándolo a la práctica</h2><p>He creado otra mini-app llamada notifyme que te puedes descargar desde el botón enorme del final de este artículo (Muy recomendado descargarla y seguir el toturial con ella). Lo que vas a aprender con esta app es a <strong>programar una notificación local con configuraciones personalizadas y recibir un texto juntamente con la notificación para mostrarla al usuario</strong>, en este caso, la mostraremos en un cuadro de texto de la pantalla principal, pero también se podría mostrar como una alerta.</p><p>Abrimos la aplicación en Xcode y en el <em>Project Navigator </em>podemos ver nuestro controlador de la aplicación: AppDelegate.h y .m, y también el controlador de la vista principal ViewController.h y .m. Abrimos el ViewController.m y nos vamos al método:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">programarNotificacion</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">localNot</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILocalNotification</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">localNot</span><span class="p">.</span><span class="n">fireDate</span> <span class="o">=</span> <span class="p">[</span><span class="n">pickerCaducidad</span> <span class="n">date</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">localNot</span><span class="p">.</span><span class="n">timeZone</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimeZone</span> <span class="n">defaultTimeZone</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">localNot</span><span class="p">.</span><span class="n">alertBody</span> <span class="o">=</span> <span class="s">@&quot;Mi primera notificación&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">localNot</span><span class="p">.</span><span class="n">alertAction</span> <span class="o">=</span> <span class="s">@&quot;Mostrar&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">localNot</span><span class="p">.</span><span class="n">soundName</span> <span class="o">=</span> <span class="n">UILocalNotificationDefaultSoundName</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">localNot</span><span class="p">.</span><span class="n">applicationIconBadgeNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">userDict</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObject:</span><span class="n">textoNotificacion</span><span class="p">.</span><span class="n">text</span> <span class="nl">forKey:</span><span class="n">kNotificationTextKey</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">localNot</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">=</span> <span class="n">userDict</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="nl">scheduleLocalNotification:</span><span class="n">localNot</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">localNot</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Este método es la parte principal de nuestra aplicación ya que es el que va a programar la notificación, así que voy a explicarles las partes que lo componen y su configuración.</p><p>Como ya sabemos, para trabajar con clases hay que hacerlo a través de objetos, y estos objetos los creamos a través de instancias de clases, así que lo que hacemos primero es crear una instancia de la clase <code>UILocalNotification</code> llamada &#8221;<em>localNot</em>&#8221;. Esta instancia va a representar esta notificación en la cola de notificaciones del sistema operativo. Bien, este objeto tiene las siguientes propiedades:</p><ul><li><strong>fireDate:</strong> La fecha y hora exacta en la que deseamos mostrar la notificación.</li><li><strong>timeZone:</strong> Trabaja juntamente con fireDate y sirve para que la notificación se muestre adaptada para una zona horaria específica. Nosotros usamos <code>defaultTimeZone</code> que utiliza la zona horaria de la aplicación.</li><li><strong>alertBody:</strong> Es el cuerpo del mensaje que se muestra junto con la notificación.</li><li><strong>alertAction:</strong> Es el texto del botón de acción. En la imagen dice &#8221;<em>Mostrar</em>&#8221; y al pulsarlo va a abrir la aplicación.</li><li><strong>soundName:</strong> El sonido personalizado que quieres que se reproduzca al mostrarse la notificación. <code>UILocalNotificationDefaultSoundName</code> espeficica el sonido por defecto del sistema, pero podemos poner el que nosotros queramos, siempre y cuando dure <strong>30 segundos</strong> y sean de formato <code>aiff</code>, <code>wav</code> o <code>caf.</code></li><li><strong>applicationIconBadgeNumber:</strong> Si os habéis fijado, hay aplicaciones que muestran un circulo rojo en la parte superior derecha del icono de la app. A esto se refiere esta propiedad. Es un entero de tipo <code>NSInteger</code> al que podemos asignarle un número.</li><li><strong>userInfo:</strong> Esta propiedad es un diccionario tipo <code>NSDictionary</code>, en la que podemos guardar información para luego recuperarla cuando se muestre nuestra app después de presionar el botón de acción.</li></ul><p>Existen otras propiedades más, aparte de las usadas en esta aplicación, algunas un poco menos importantes pero que te las explico en una línea:</p><ul><li><strong>repeatInterval:</strong> Sirve para reprogramar la notificación en un intervalo de tiempo específico.</li><li><strong>repeatCalendar:</strong> El calendario en el que la aplicación se basará para reprogramar la notificación.</li><li><strong>hasAction:</strong> Es un propiedad de tipo <code>BOOL</code>, que especifica si se muestra o no el botón de acción.</li><li><strong>alertLaunchImage:</strong> La imagen que se muestra inmediatamente cuando se presiona el botón de acción.</li></ul><p>Aquí cabe explicar un poco el campo <strong>userInfo</strong>. Yo he creado una constante a la que he llamado <strong><code>kNotificationTextKey</code></strong> para usarla como el texto que quiero que acompañe a la notificación. La he declarado en el AppDelegate.h y luego asignado un string que es el nombre con el que se guardará juntamente con la aplicación. También la he declarado como <strong><code>extern</code></strong>, para que esté disponible fuera de la clase AppDelegate. Como podéis ver, el valor de esta constante es el que escribimos en el UITextField de la interfaz gráfica (textoNotificacion).</p><p>Explicado esto, es el momento de <strong>enviar la notificación (nuestro objeto &#8221;<em>localNot</em>&#8221;) al sistema operativo</strong> para que la gestione. Para esto utilizamos un método de la clase <code>UIApplication</code> llamado <code>scheduleLocalNotification:localNot</code>. Este método utiliza el valor del campo <strong>fireDate</strong> para programar la notificación y que se muestre en una fecha y hora concretas. Otro método que también interesa es <code>presentLocalNotificationNow:</code>, el cual muestra la notificación inmediatamente por pantalla.</p><p>En este mismo archivo podemos ver el método: <strong><code>-(IBAction)prepararNotificacion:(id)sender</code></strong>. Lo que va a hacer es, a parte de ejecutar el método de arriba, cancelar todas las notificaciones programadas anteriormente utilizando el método de  <code>UIApplication</code> llamado <code>cancelAllLocalNotifications</code>. Si por el contrario, solo queremos hacerlo para una notificación específica utilizaremos <code>cancelLocalNotification:localNot</code>.</p><h2>Mostrando la notificación</h2><p>Vale, ya hemos programado  la notificación, ahora nos toca recibir y manipular la información que trae consigo la notificación cuando se muestra, así podemos personalizarla más a nuestro gusto. Hay <strong>2 estados</strong> en los que podría encontrarse la aplicación al recibir la notificación: <strong>cuando está visible y cuando está cerrada</strong>. Como ya sabemos, al presionar en el botón de acción (o deslizar el dedo cuando el dispositivo está bloqueado) se abre la aplicación, al abrirse, dependiendo de en cual de estos 2 estados se encuentra, se ejecutan 2 métodos de UIApplication. Estos métodos los podemos encontrar ya implementados en el archivo del controlador principal de la aplicación <strong>AppDelegate.m</strong>. Si la aplicación no está visible se ejecuta el método <code>application:didFinishLaunchingWithOptions:</code>. El siguiente código es lo que he añadido al predeterminado para manipular los datos de la notificación:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="c1">//Notificaciones</span>
+</span><span class='line'>    <span class="n">application</span><span class="p">.</span><span class="n">applicationIconBadgeNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">notification</span> <span class="o">=</span> <span class="p">[</span><span class="n">launchOptions</span> <span class="nl">objectForKey:</span>
+</span><span class='line'>                                         <span class="n">UIApplicationLaunchOptionsLocalNotificationKey</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">notification</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">NSString</span> <span class="o">*</span><span class="n">reminderText</span> <span class="o">=</span> <span class="p">[</span><span class="n">notification</span><span class="p">.</span><span class="n">userInfo</span>
+</span><span class='line'>                                  <span class="nl">objectForKey:</span><span class="n">kNotificationTextKey</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_viewController</span> <span class="nl">despliegaNotificacion:</span><span class="n">reminderText</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Nota que el método tiene un parámetro llamado <code>launchOptions</code>. Este parámetro es un diccionario (<code>NSDictionary</code>) que lleva consigo información acerca del porque de que se haya abierto la aplicación. En este caso, cuando uno de los motivos es una notificación, esta se guarda en una constante del sistema designada para esto: <code>UIApplicationLaunchOptionsLocalNotificationKey</code>. Si esta constante contiene la notificación, entonces este ha sido el motivo de su apertura, así que guardamos esta notificación en un puntero que hemos llamado &#8221;<em>notification</em>&#8221;. Si os acordáis, antes guardamos un texto en la constante <strong><code>kNotificationTextKey</code></strong>, por lo que ahora lo recuperamos en el string <code>reminderText</code>.</p><p>Si se da el otro caso, en el que la aplicación está visible entonces se ejecuta otro método de <code>UIApplication</code> llamado <code>application:didReceiveLocalNotification:</code>. No se muestran alertas ni se reproducen sonidos, pero si se puede tratar con la información que viene con la notificación:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didReceiveLocalNotification:</span><span class="p">(</span><span class="n">UILocalNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">notification</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">application</span><span class="p">.</span><span class="n">applicationIconBadgeNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>	<span class="n">NSString</span> <span class="o">*</span><span class="n">reminderText</span> <span class="o">=</span> <span class="p">[</span><span class="n">notification</span><span class="p">.</span><span class="n">userInfo</span>
+</span><span class='line'>                              <span class="nl">objectForKey:</span><span class="n">kNotificationTextKey</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_viewController</span> <span class="nl">despliegaNotificacion:</span><span class="n">reminderText</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Aquí hacemos similar al anterior método. Quitamos el <code>badgeNumber</code> y luego recuperamos el texto de la constante <code>kNotificationTextKey</code> en el string <code>reminderText</code>.</p><p>No obstante, y para finalizar, la siguiente línea:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="p">[</span><span class="n">_viewController</span> <span class="nl">despliegaNotificacion:</span><span class="n">reminderText</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Utiliza el objeto <code>_viewController</code>, creado automáticamente por Xcode al crear un nuevo proyecto, para comunicarse con el controlador de nuestra vista principal (ViewController.h y .m), cuya clase tiene implementado el método <strong><code>despliegaNotificacion:</code></strong>, todo esto con el fin de mostrarnos el texto recuperado en <code>reminderText</code> en la pantalla principal.</p><p>Pongan en marcha la aplicación para verla en funcionamiento. No temas cambiar el código y probar tus propias ideas. Hazlo, y si sale mal entonces aprende de tus errores. Si bien es cierto este tutorial se pudo haber hecho en menos palabras, he querido detallarlo para que puedan comprender realmente como funciona. Si me dejo algo, o digo algo en lo que me estoy equivocando, agradecería mucho vuestro feedback :). Disfruten y compartan este artículo. Hasta otra!.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/s2oi1l7m4zhyvipv7kl6"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-31T03:02:05+01:00" pubdate data-updated="true">Jan 31<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/11/04/programando-para-ios-patron-de-diseno-mvc/" title="Previous Post: Programando para iOS: Patrón de diseño MVC al detalle">&laquo; Programando para iOS: Patrón de diseño MVC al detalle</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/" title="Next Post: iOS: Aprendiendo sobre delegación, protocolos y la clase UIAlertView">iOS: Aprendiendo sobre delegación, protocolos y la clase UIAlertView &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/';
+        var disqus_url = 'http://ThXou.github.io/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

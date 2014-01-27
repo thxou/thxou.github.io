@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iPhone @ca | Luis Cardenas ThXou]]></title>
+  <link href="http://ThXou.github.io/blog/categories/iphone-at-ca/atom.xml" rel="self"/>
+  <link href="http://ThXou.github.io/"/>
+  <updated>2014-01-28T00:48:09+01:00</updated>
+  <id>http://ThXou.github.io/</id>
+  <author>
+    <name><![CDATA[Luis Cardenas]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[iOS: Usant NSUserDefaults Per Assignar Configuracions Per Defecte]]></title>
+    <link href="http://ThXou.github.io/2012/10/25/ios-usant-nsuserdefaults-per-assignar-configuracions-per-defecte/"/>
+    <updated>2012-10-25T14:06:57+02:00</updated>
+    <id>http://ThXou.github.io/2012/10/25/ios-usant-nsuserdefaults-per-assignar-configuracions-per-defecte</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/07/photo-1.png"><img title="MyDefaults-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/07/photo-1-200x300.png" alt="" width="200" height="300" /></a><a href="http://www.thxou.com/wp-content/uploads/2012/07/photo-1.png">
+</a></p>
+
+
+<p style="text-align: left;">Cada aplicació té un sistema d'emmagatzematge per defecte per a cada usuari anomenat <strong>User Default System</strong> (Des d'ara UDS), el qual està compost per una base de dades en la qual, a través d'uns paràmetres i mètodes, podem emmagatzemar i recuperar certs valors, que solen ser petites quantitats de dades que usem comunament en la nostra aplicació. A aquests valors per defecte se'ls crida: preferències de l'usuari. Per exemple, podríem voler permetre-li als usuaris triar cuan periòdicament sincronitzar certes dades amb iCloud, aquest valor de temps ho podem emmagatzemar en el UDS i recuperar-ho a l'inici de l'aplicació.</p>
+
+
+<p>Podem classificar les preferències d'usuari en 2 categories: les que canvien freqüentment i les que no. En aquesta oportunitat treballarem amb les quals canvien freqüentment, l'altra categoria la veurem en articles posteriors ja que requereix una mica més de profunditat.</p>
+
+<p>La classe <code>NSUserDefaults</code> ens permet interactuar amb el UDS, proveint diversos mètodes per guardar i recuperar dades des d'aquesta base de dades per defecte.</p>
+
+<h2 dir="ltr">Algunes característiques d'aquesta classe</h2>
+
+
+<p dir="ltr">Solament existeix una única instància d'aquesta classe per aplicació.</p>
+
+
+<p>Un avantatge és l'emmagatzematge en caché de la informació. Un sistema com aquest implicaria obrir la base de dades constantment, en concret cada vegada que l'usuari demani informació. Per evitar aquesta constant obertura, la classe emmagatzema les dades en caché. El mètode <code>synchronize</code> és invocat periòdicament i s'encarrega d'escriure les dades noves en caché i d'actualitzar els ja existents, i això ho fa de forma transparent a l'usuari. No obstant això si no desitges esperar a la sincronització automàtica, pots usar aquest mètode per actualitzar les dades immediatament, anant amb compte de cridar-ho només quan hagis fet alguna modificació. Així ens evitem una sobrecàrrega de connexions amb la base de dades.</p>
+
+<p>Un altre punt important a tenir en compte és que tots els valors retornats des de la base de dades són immutables (és a dir, que no es poden modificar), fins i tot encara que guardessis un valor mutable (per exemple una instància de <code>NSMutableString</code>), en retornar-ho a l'usuari seria immutable.</p>
+
+<h2 dir="ltr">Obtenint i escrivint dades</h2>
+
+
+<p>Explicaré millor el tema amb una mini aplicació que he fet cridada <em>MyDefaults</em>. Aquesta aplicació té certes característiques que mostrar com: l'hora actual a intervals de temps, un missatge de benvinguda a l'inici i la data i hora de l'última vegada que es va obrir l'aplicació. La primera dada que guardarem serà de tipus <code>float</code> i serà l'interval en segons en el qual es va a actualitzar l'hora; el segon és de tipus booleà, ens permetrà definir si volem, o no, mostrar el missatge de benvinguda; el tercer és un string que conté el nostre nom per mostrar-ho en el missatge de benvinguda i en la vista principal; i el quart és de tipus <code>NSDate</code> per a l'última visita. Podrem personalitzar cadascun d'aquests valors des d'una finestra modal cridada: Preferències.</p>
+
+<p>Per interactuar amb les dades de la base de dades, <code>NSUserDefaults</code> posa a la nostra disposició una sèrie de mètodes de conveniència. Ara, quines dades se'ns permet guardar i obtenir?, concretament els mateixos que en una Property List: <code>NSString</code>, <code>NSNumber</code> (booleans, integers, floats i doubles), <code>NSDate</code>, <code>NSArray</code> o <code>NSDictionary</code>. Per a tipus diferents a aquests podem arxivar-los amb <code>NSData</code>, que també ens permet dades d'aquest tipus.</p>
+
+<p>Com he dit abans, solament hi ha una instància d'aquesta classe per aplicació, així que per accedir a ella usem el mètode de classe <code>standardUserDefaults</code>:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Ja tenim la nostra instància de la classe, per tant ja podem obtenir i guardar dades. Això ho fem usant els mètodes de conveniència dels quals vaig parlar anteriorment (Al final d'aquest article hi ha enllaços cap a la documentació per veure la relació sencera de mètodes disponibles). Nosaltres anem a obtenir i a mostrar aquests valors en iniciar el controlador <em>ViewController</em> en el mètode <code>viewDidLoad:</code>:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// obtenim el nom des de la base de dades</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">nombre</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">stringForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">kMiNombre</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// vam mostrar el missatge de benvinguda amb el nom si el valor de la base de dades ens ho permet</span>
+</span><span class='line'><span class="kt">BOOL</span> <span class="n">mostrarMensaje</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">boolForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">kMostrarMensaje</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">mostrarMensaje</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">UIAlertView</span> <span class="o">*</span><span class="n">mensaje</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;MyDefaults&quot;</span>
+</span><span class='line'>                                                  <span class="nl">message:</span><span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;Hola %@, bienvenido a MyDefaults&quot;</span><span class="p">,</span> <span class="n">nombre</span><span class="p">]</span>
+</span><span class='line'>                                                 <span class="nl">delegate:</span><span class="n">self</span>
+</span><span class='line'>                                        <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;Ok&quot;</span>
+</span><span class='line'>                                        <span class="nl">otherButtonTitles:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">mensaje</span> <span class="n">show</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">mensaje</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// obtenim la data de la ultima visita</span>
+</span><span class='line'><span class="n">NSDate</span> <span class="o">*</span><span class="n">ultimaVisita</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">objectForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">kUltimaVisita</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// com a aquesta key li assignem per defecte nil, comprovem que no sigui (osigui que hi hagi alguna data), en cas contrari vam mostrar un missatge alternatiu</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">ultimaVisita</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// formatem la data i hora obtinguda de la base de dades</span>
+</span><span class='line'><span class="n">NSDateFormatter</span> <span class="o">*</span><span class="n">formatter</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSDateFormatter</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">formatter</span> <span class="nl">setDateStyle:</span><span class="n">NSDateFormatterMediumStyle</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">formatter</span> <span class="nl">setTimeStyle:</span><span class="n">NSDateFormatterMediumStyle</span><span class="p">];</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">lblVisita</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">formatter</span> <span class="nl">stringFromDate:</span><span class="n">ultimaVisita</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">formatter</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">self</span><span class="p">.</span><span class="n">lblVisita</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;Hola, esta es la primera vez que accedes : )&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// guardem la data de l&#39;última visita</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject:</span><span class="p">[</span><span class="n">NSDate</span> <span class="n">date</span><span class="p">]</span> <span class="nl">forKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">kUltimaVisita</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="n">synchronize</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Com poden observar aquests mètodes són molt intuïtius i són de la forma:<strong><em> </em></strong><code><strong><em>tipus</em></strong>ForKey:</code>. On <strong>tipus</strong> és el tipus de dada que vols obtenir, en el nostre cas és <code>float</code>, <code>bool</code>, <code>string</code> i <code>object</code> (pel de tipus <code>NSDate</code>). Les <em>Keys</em>, són simples strings que identifiquen a un valor en concret dins de la base de dades i no poden haver-hi 2 iguals. Jo he usat uns quants objectes <code>UILabel</code> connectats amb el Interface Builder per mostrar aquestes dades d'una millor manera, com també he usat la classe <code>NSDateFormatter</code> per donar format a la data que ve des de la base de dades en cas que ja s'hagi guardat alguna abans. Els comentaris en verd t'ajudaran a entendre millor cada part del codi.</p>
+
+<p>Si van una mica més a baix en el codi veuran que hi ha un mètode anomenat <code>viewWillApperar:</code>, aquest mètode és llançat quan la pantalla és a punt de ser mostrada. En aquest mètode usem un objecte <code>NSTimer</code> per programar l'actualització de l'hora a l'interval de temps que hem obtingut de la base de dades.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// Carreguem el valor de l&#39;hora. Usarem un timer per actualitzar l&#39;hora cada x temps</span>
+</span><span class='line'><span class="n">NSTimeInterval</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">floatForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">kIntervaloHora</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// posem el timer en funcionament i s&#39;actualitzarà cada &amp;ldquo;interval&amp;rdquo; segons</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">timer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="n">interval</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>                                          <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                        <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">actualizaHora</span><span class="p">)</span>
+</span><span class='line'>                                        <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                         <span class="nl">repeats:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Ja tenim les dades mostrades en la UI (Interfície d'Usuari) per fer tots els canvis que vam crear convenients (Fes-los!) i després guardar-los. Per a això anem al controlador <em>SettingsViewController</em> i aquí trobarem el mètode <code>guardar:</code>, el qual, accionat pel botó <strong>Guardar</strong> de la barra d'eines, ens guardarà les dades en la *caché per després sincronitzar-los, a través del mètode <code>syncronize</code>, amb la base de dades:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nl">guardar:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">sender</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Guardem el *intérvalo d&#39;actualització de l&#39;hora</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="nl">setFloat:</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">txtHora</span><span class="p">.</span><span class="n">text</span> <span class="n">floatValue</span><span class="p">]</span> <span class="nl">forKey:</span><span class="s">@&quot;kIntervaloHora&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Guardem l&#39;estat del UISwitch com un booleà</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="nl">setBool:</span><span class="n">self</span><span class="p">.</span><span class="n">switchMsg</span><span class="p">.</span><span class="n">on</span> <span class="nl">forKey:</span><span class="s">@&quot;kMostrarMensaje&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Guardem el nom que hem definit</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject:</span><span class="n">self</span><span class="p">.</span><span class="n">txtNombre</span><span class="p">.</span><span class="n">text</span> <span class="nl">forKey:</span><span class="s">@&quot;kMiNombre&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// sincronitzem la caché i la base de dades</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="n">synchronize</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// tanquem la finestra modal</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">dismissModalViewControllerAnimated:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Aquí usem novament mètodes de conveniència, els quals tenen la forma: <code>set<em><strong>Tipus</strong></em>:forKey:</code>, on <strong>tipus</strong> pot ser dels tipus escalessis (<code>integer</code>, <code>float</code>, <code>bool</code> o <code>double</code>), <code>NSUrl</code> u <code>object</code> per a qualsevol altre tipus d'objecte dels esmentats més amunt.</p>
+
+<p>Si ens fixem, també tenim redefinit el mètode <code>viewDidLoad:</code> com va passar en el controlador de la pantalla principal. Fem el mateix, carregar les dades guardades per mostrar-los en la pantalla de preferències.</p>
+
+<h2>Registrant preferències per defecte</h2>
+
+
+<p>Això seria tot pel que fa a guardar i obtenir dades de la base de dades del <strong>User Default System</strong>. No obstant això he volgut explicar breument com registrar preferències per defecte per a la nostra aplicació. Per exemple si és la primera vegada que l'executem, probablement ens agradaria que la base de dades ja tingui uns valors emmagatzemats per defecte. Això ho fem en el mètode <code>application:didFinishLaunchingWithOptions:</code> del controlador principal <em>AppDelegate</em>, que és cridat immediatament després d'acabar de carregar l'aplicació:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">defaults</span> <span class="nl">boolForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">kValoresGuardados</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;])</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">defaultValues</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span>
+</span><span class='line'>                               <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithFloat:</span><span class="mf">1.0</span><span class="p">],</span> <span class="s">@&quot;kIntervaloHora&quot;</span><span class="p">,</span>
+</span><span class='line'>                               <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">YES</span><span class="p">],</span> <span class="s">@&quot;kMostrarMensaje&quot;</span><span class="p">,</span>
+</span><span class='line'>                               <span class="s">@&quot;ThXou&quot;</span><span class="p">,</span> <span class="s">@&quot;kMiNombre&quot;</span><span class="p">,</span>
+</span><span class='line'>                               <span class="nb">nil</span><span class="p">,</span> <span class="s">@&quot;kUltimaVisita&quot;</span><span class="p">,</span>
+</span><span class='line'>                               <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">YES</span><span class="p">],</span> <span class="s">@&quot;kValoresGuardados&quot;</span><span class="p">,</span>
+</span><span class='line'>                               <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="nl">registerDefaults:</span><span class="n">defaultValues</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Al mètode <code>registerDefaults:</code> li passem un diccionari amb els valors i les <em>keys</em> que volem tenir per defecte en la nostra base de dades a l'inici de l'aplicació. És important tenir en compte que per als valors de tipus escalar hem d'usar instàncies de <code>NSNumber</code> com es pot observar en el codi. He afegit una nova <em>key </em>cridada <code>kValoresGuardados</code> per evitar que ens torni a guardar aquests mateixos valors cada vegada que iniciem l'aplicació i que solament ho faci la primera vegada.</p>
+
+<h2>I ara que?</h2>
+
+
+<p>Avui hem après a usar la classe <code>NSUserDefaults</code> para a assignar preferències i configuracions per defecte per a la nostra aplicació, així com una sèrie de mètodes per interactuar amb el <strong>User Default System</strong>. Per continuar aprenent sobre aquest tema et recomano que et passis per <a href="http://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSUserDefaults_Class/Reference/Reference.html">la documentació d'Apple</a> sobre aquesta classe i facis totes les proves possibles fins que entenguis correctament el seu funcionament.</p>
+
+<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/9bfb660d5c26adf2f1c1"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS: Programant Notificacions Locals Amb UILocalNotification]]></title>
+    <link href="http://ThXou.github.io/2012/10/18/ios-programant-notificacions-locals-amb-uilocalnotification/"/>
+    <updated>2012-10-18T13:21:05+02:00</updated>
+    <id>http://ThXou.github.io/2012/10/18/ios-programant-notificacions-locals-amb-uilocalnotification</id>
+    <content type="html"><![CDATA[<p><img class="alignright" title="notifyme-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/01/Screen-shot-2012-01-30-at-20.05.49.png" alt="" width="310" height="264" />Aquí estem una altra vegada amb un nou tutorial. Aquesta vegada intentaré explicar-los de manera teòrica i pràctica el procés per programar una notificació local. És relativament senzill d'implementar i hi ha poques opcions que configurar.</p>
+
+<p>La classe <code>UILocalNotification</code> et permet representar notificacions locals com la de la imatge (similars a les notificacions Push que treballen amb un servidor extern. No parlarem d'això ara), que la teva aplicació podria programar perquè siguin presentades als teus usuaris en una data i hora determinades. El sistema operatiu és l'encarregat de gestionar aquestes notificacions i <strong>permet programar fins a 64 notificacions per aplicació</strong>.</p>
+
+<p><code>UILocalNotification</code> adopta el protocol <code>NSCopying</code>, i una dels seus avantatges és que ens permet copiar notificacions ja programades, també modificar-les i cancel·lar-les. Tot en el quadre de notificació, excepte el color, es pot personalitzar al complet: pots definir un títol, el text de la notificació, quants botons va a tenir, un so personalitzat el qual es reprodueixi en mostrar-se, etc. Totes aquestes opcions les anem a aprendre a configurar nosaltres mateixos a continuació amb un exemple pràctic.</p>
+
+<h2>Portant-ho a la pràctica</h2>
+
+
+<p>He creat una altra mini-app trucada <em>notifyme</em> que et pots descarregar des del botó enorme del final d'aquest article (Molt recomanat descarregar-la i seguir el toturial amb ella). El que vas a aprendre amb aquesta app és a programar una notificació local amb configuracions personalitzades i rebre un text juntament amb la notificació per mostrar-la a l'usuari, en aquest cas, la mostrarem en un quadre de text de la pantalla principal, però també es podria mostrar com una alerta.</p>
+
+<p>Obrim l'aplicació en*Xcode i en el <em>Project Navigator</em> podem veure el nostre controlador de l'aplicació: AppDelegate.h i .m, i també el controlador de la vista principal ViewController.h i .m. Obrim el ViewController.m i ens anem al mètode:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">programarNotificacion</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">localNot</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILocalNotification</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="n">localNot</span><span class="p">.</span><span class="n">fireDate</span> <span class="o">=</span> <span class="p">[</span><span class="n">pickerCaducidad</span> <span class="n">date</span><span class="p">];</span>
+</span><span class='line'><span class="n">localNot</span><span class="p">.</span><span class="n">timeZone</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimeZone</span> <span class="n">defaultTimeZone</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">localNot</span><span class="p">.</span><span class="n">alertBody</span> <span class="o">=</span> <span class="s">@&quot;Mi primera notificación&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">localNot</span><span class="p">.</span><span class="n">alertAction</span> <span class="o">=</span> <span class="s">@&quot;Mostrar&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">localNot</span><span class="p">.</span><span class="n">soundName</span> <span class="o">=</span> <span class="n">UILocalNotificationDefaultSoundName</span><span class="p">;</span>
+</span><span class='line'><span class="n">localNot</span><span class="p">.</span><span class="n">applicationIconBadgeNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">userDict</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObject:</span><span class="n">textoNotificacion</span><span class="p">.</span><span class="n">text</span> <span class="nl">forKey:</span><span class="n">kNotificationTextKey</span><span class="p">];</span>
+</span><span class='line'><span class="n">localNot</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">=</span> <span class="n">userDict</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="nl">scheduleLocalNotification:</span><span class="n">localNot</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">localNot</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Aquest mètode és la part principal de la nostra aplicació ja que és el que va a programar la notificació, així que vaig a explicar-los les parts que ho componen i la seva configuració.</p>
+
+<p>Com ja sabem, per treballar amb classes cal fer-ho a través d'objectes, i aquests objectes els vam crear a través d'instàncies de classes, així que el que fem primer és crear una instància de la classe <code>UILocalNotification</code> trucada &ldquo;<em>localNot</em>&rdquo;. Aquesta instància va a representar aquesta notificació en la cua de notificacions del sistema operatiu. Bé, aquest objecte té les següents propietats:</p>
+
+<ul>
+    <li><strong>fireDate:</strong> La data i hora exacta en la qual desitgem mostrar la notificació.</li>
+    <li><strong>timeZone:</strong> Treballa juntament amb <code>fireDate</code> i serveix perquè la notificació es mostri adaptada per a una zona horària específica. Nosaltres usem <code>defaultTimeZone</code> que utilitza la zona horària de l'aplicació.</li>
+    <li><strong>alertBody:</strong> És el cos del missatge que es mostra juntament amb la notificació.</li>
+    <li><strong>alertAction:</strong> És el text del botó d'acció. En la imatge diu "Mostrar" i en prémer-ho va a obrir l'aplicació.</li>
+    <li><strong>soundName:</strong> El so personalitzat que vols que es reprodueixi en mostrar-se la notificació. <code>UILocalNotificationDefaultSoundName</code> especifica el so per defecte del sistema, però podem posar el que nosaltres vulguem, sempre que duri <strong>30 segons</strong> i siguin de format <code>aiff</code>, <code>wav</code> o <code>caf</code>.</li>
+    <li><strong>applicationIconBadgeNumber:</strong> Si us heu fixat, hi ha aplicacions que mostren un circulo vermell en la part superior dreta de la icona de la app. A això es refereix aquesta propietat. És un enter de tipus <code>NSInteger</code> al que podem assignar-li un nombre.</li>
+    <li><strong>userInfo:</strong> Aquesta propietat és un diccionari tipus <code>NSDictionary</code>, en la qual podem guardar informació per després recuperar-la quan es mostri nostra app després de pressionar el botó d'acció.</li>
+</ul>
+
+
+<p>Existeixen altres propietats més, a part de les usades en aquesta aplicació, algunes una mica menys importants però que te les explico en una línia:</p>
+
+<ul>
+    <li><strong>repeatInterval:</strong> Serveix per reprogramar la notificació en un interval de temps específic.</li>
+    <li><strong>repeatCalendar:</strong> El calendari en el qual l'aplicació es basarà per reprogramar la notificació.</li>
+    <li><strong>hasAction:</strong> És un propietat de tipus <code>BOOL</code>, que especifica si es mostra o no el botó d'acció.</li>
+    <li><strong>alertLaunchImage:</strong> La imatge que es mostra immediatament quan es pressiona el botó d'acció.</li>
+</ul>
+
+
+<p>Aquí cal explicar una mica el camp <code>userInfo</code>. Jo he creat una constant a la qual he cridat <code>kNotificationTextKey</code> per usar-la com el text que vull que acompanyi a la notificació. L'he declarat en el AppDelegate.h i després assignat un string que és el nom amb el qual es guardarà juntament amb l'aplicació. També l'he declarat com <code>extern</code>, perquè estigui disponible anés de la classe AppDelegate. Com podeu veure, el valor d'aquesta constant és el que escrivim en el <code>UITextField</code> de la interfície gràfica (<code>textoNotificacion</code>).</p>
+
+<p>Explicat això, és el moment d'enviar la notificació (el nostre objecte <code>localNot</code>) al sistema operatiu perquè la gestioni. Per a això utilitzem un mètode de la classe <code>UIApplication</code> anomenat <code>scheduleLocalNotification:localNot</code>. Aquest mètode utilitza el valor del camp <code>fireDate</code> per programar la notificació i que es mostri en una data i hora concretes. Un altre mètode que també interessa és <code>presentLocalNotificationNow:</code>, el qual mostra la notificació immediatament per pantalla.</p>
+
+<p>En aquest mateix arxiu podem veure el mètode: <code>&ndash;(IBAction)prepararNotificacion:(id)sender</code>. El que va a fer és, a part d'executar el mètode d'a dalt, cancel·lar totes les notificacions programades anteriorment utilitzant el mètode de <code>UIApplication</code> anomenat <code>cancelAllLocalNotifications</code>. Si per contra, solament volem fer-ho per a una notificació específica utilitzarem <code>cancelLocalNotification:localNot</code>.</p>
+
+<h2>Mostrant la notificació</h2>
+
+
+<p>Val, ja hem programat  la notificació, ara ens toca rebre i manipular la informació que porta amb si la notificació quan es mostra, així podem personalitzar-la més al nostre gust. Hi ha 2 estats en els quals podria trobar-se l'aplicació en rebre la notificació: quan està visible i quan està tancada. Com ja sabem, en pressionar en el botó d'acció (o lliscar el dit quan el dispositiu està bloquejat) s'obre l'aplicació, en obrir-se, depenent d'en qual d'aquests 2 estats es troba, s'executen 2 mètodes de <code>UIApplication</code>. Aquests mètodes els podem trobar ja implementats en l'arxiu del controlador principal de l'aplicació AppDelegate.m. Si l'aplicació no està visible s'executa el mètode <code>application:didFinishLaunchingWithOptions:</code>. El següent codi és el que he afegit al predeterminat per manipular les dades de la notificació:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// Notificacions</span>
+</span><span class='line'><span class="n">application</span><span class="p">.</span><span class="n">applicationIconBadgeNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="n">UILocalNotification</span> <span class="o">*</span><span class="n">notification</span> <span class="o">=</span> <span class="p">[</span><span class="n">launchOptions</span> <span class="nl">objectForKey:</span>
+</span><span class='line'>                                     <span class="n">UIApplicationLaunchOptionsLocalNotificationKey</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">notification</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">reminderText</span> <span class="o">=</span> <span class="p">[</span><span class="n">notification</span><span class="p">.</span><span class="n">userInfo</span>
+</span><span class='line'>                              <span class="nl">objectForKey:</span><span class="n">kNotificationTextKey</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_viewController</span> <span class="nl">despliegaNotificacion:</span><span class="n">reminderText</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Nota que el mètode té un paràmetre anomenat <code>launchOptions</code>. Aquest paràmetre és un diccionari (<code>NSDictionary</code>) que porta amb si informació sobre el perquè que s'hagi obert l'aplicació. En aquest cas, quan un dels motius és una notificació, aquesta es guarda en una constant del sistema designada per a això: <code>UIApplicationLaunchOptionsLocalNotificationKey</code>. Si aquesta constant conté la notificació, llavors est ha estat el motiu de la seva obertura, així que guardem aquesta notificació en un punter que hem cridat &ldquo;*notification&rdquo;. Si us acordeu, abans guardem un text en la constant <code>kNotificationTextKey</code>, per la qual cosa ara ho recuperem en el string <code>reminderText</code>.</p>
+
+<p>Si es dóna l'altre cas, en el qual l'aplicació està visible llavors s'executa un altre mètode de <code>UIApplication</code> anomenat <code>application:didReceiveLocalNotification:</code>. No es mostren alertes ni es reprodueixen sons, però si es pot tractar amb la informació que ve amb la notificació:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">application</span> <span class="nl">didReceiveLocalNotification:</span><span class="p">(</span><span class="n">UILocalNotification</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">notification</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">application</span><span class="p">.</span><span class="n">applicationIconBadgeNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">reminderText</span> <span class="o">=</span> <span class="p">[</span><span class="n">notification</span><span class="p">.</span><span class="n">userInfo</span>
+</span><span class='line'>                          <span class="nl">objectForKey:</span><span class="n">kNotificationTextKey</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">_viewController</span> <span class="nl">despliegaNotificacion:</span><span class="n">reminderText</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Aquí fem similar a l'anterior mètode. Llevem el <code>badgeNumber</code> i després recuperem el text de la constant <code>kNotificationTextKey</code> en el string <code>reminderText</code>.</p>
+
+<p>No obstant això, i per finalitzar, la següent línia:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">_viewController</span> <span class="nl">despliegaNotificacion:</span><span class="n">reminderText</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Utilitza l'objecte <code>_viewController</code>, creat automàticament per Xcode en crear un nou projecte, per comunicar-se amb el controlador de la nostra vista principal (ViewController.h i .m), la classe de la qual té implementat el mètode <code>despliegaNotificacion:</code>, tot això amb la finalitat de mostrar-nos el text recuperat en <code>reminderText</code> en la pantalla principal.</p>
+
+<p>Engeguin l'aplicació per veure-la en funcionament. No temes canviar el codi i provar les teves pròpies idees. Fes-ho, i si surt malament llavors aprèn dels teus errors. Si bé és cert aquest tutorial es va poder haver fet en menys paraules, he volgut detallar-ho perquè puguin comprendre realment com funciona. Si em deixo alguna cosa, o dic alguna cosa en el que m'estic equivocant, agrairia molt el vostre feedback :). Gaudeixin i comparteixin aquest article. Fins a una altra!.</p>
+
+<p style="text-align: center;"><a href="https://www.box.com/s/s2oi1l7m4zhyvipv7kl6"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Treballant Amb El Social Framework De iOS 6: SLRequest, Publicar en Twitter I Obtenir El Timeline]]></title>
+    <link href="http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/"/>
+    <updated>2012-09-20T16:57:56+02:00</updated>
+    <id>http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png"><img class="size-full wp-image-2359" title="totweet-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png" alt="" width="319" height="479" /></a></p>
+
+
+<p>Seguint amb els tutorials sobre iOS 6, avui ens toca Twittear (o com s'escrigui) i mostrar el nostre timeline de Twitter en una aplicació.</p>
+
+<p>Abans quan volíem comunicar-nos amb Twitter i obtenir dades i actualitzar-los calia fer una connexió a través de OAuth amb uns tokens i secret-keys, això normalment es podia digerir millor usant algun framework o classe externa que servia d'interfície de connexió entre el client i el servei. Des de l'arribada del framework de Twitter i la integració amb iOS 5 les coses es van posar extraordinàriament més fàcils, això ens va permetre l'intercanvi de dades amb Twitter en tan sol pocs passos.</p>
+
+<p>En el Social *Framework tenim una classe anomenada <code>SLRequest</code>, molt similar a <code>TWRequest</code> del framework de twitter. Aquesta classe encapsula les propietats d'una petició HTTP en mètodes fàcils d'utilitzar, amb els quals enviem peticions a Twitter per poder obtenir i actualitzar dades dels nostres comptes configurats en el dispositiu.</p>
+
+<p>Bàsicament enviem una petició HTTP amb uns paràmetres que configuren el que volem dur a terme en el servei, si Twitter diu que no hi ha problema, rebem una resposta amb unes dades que hem de manipular i mostrar a l'usuari, en cas contrari rebem una informació d'error.</p>
+
+<h2>Autenticant la petició</h2>
+
+
+<p>Com els deia paràgrafs enrere, abans calia usar tokens i secret-keys per autenticar-nos en Twitter i així poder validar les nostres peticions. Amb el Social Framework fem el mateix però de forma automàtica, més transparent a l'usuari, i en certa forma al desenvolupador, ja que en cap moment hem de manipular tokens.</p>
+
+<p>Des de iOS 5 tenim el Accounts Framework, el qual proveeix un sistema centralitzat de comptes d'usuari. A través de l'es emmagatzemen tots els comptes de Twitter (I d'altres serveis) configurades en el dispositiu: informació d'usuari i contrasenya i altra, això ens permet saltar-nos aquesta típica finestra d'inici de sessió sense haver de preocupar-nos per proveir un sistema per emmagatzemar nosaltres mateixos les credencials.</p>
+
+<p>Hi ha poques coses que podem fer sense autenticació d'usuari, i obtenir el timeline és una d'elles. No obstant això, per fer que això funcioni amb qualsevol compte, centralitzarem totes les peticions en els comptes obtinguts de la base de dades de comptes del dispositiu. Comencem:</p>
+
+<p>El primer serà importar els frameworks:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Accounts</span><span class="o">/</span><span class="n">Accounts</span><span class="p">.</span><span class="n">h</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Social</span><span class="o">/</span><span class="n">Social</span><span class="p">.</span><span class="n">h</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Després fem la màgia d'obtenir els comptes del dispositiu amb el Accounts Framework:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">ACAccountStore</span><span class="err"> </span><span class="o">*</span><span class="n">accountStore</span><span class="err"> </span><span class="o">=</span> <span class="p">[[</span><span class="n">ACAccountStore</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// creguem un objecte accountType especificant que solament volem obtenir els comptes de Twitter</span>
+</span><span class='line'><span class="n">ACAccountType</span><span class="err"> </span><span class="o">*</span><span class="n">accountType</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">accountTypeWithAccountTypeIdentifier:</span><span class="n">ACAccountTypeIdentifierTwitter</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">requestAccessToAccountsWithType:</span><span class="n">accountType</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>                                  <span class="nl">options:</span><span class="nb">nil</span>
+</span><span class='line'>                               <span class="nl">completion:</span><span class="o">^</span><span class="p">(</span><span class="kt">BOOL</span><span class="err"> </span><span class="n">granted</span><span class="p">,</span> <span class="n">NSError</span><span class="err"> </span><span class="o">*</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">granted</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// guardem els comptes de twitter en un array </span>
+</span><span class='line'>    <span class="n">NSArray</span><span class="err"> </span><span class="o">*</span><span class="n">accountsArray</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">accountsWithAccountType:</span><span class="n">accountType</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// armem la petició aquí</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span><span class="err"> </span><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Error no se pudo acceder a las cuentas: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>El que fem aquí és crear una instància de la base de dades de comptes. Després a través de la classe <code>ACAccountType</code> diem que solament volem els comptes de Twitter, passant-li la constant  <code>ACAccountTypeIdentifierTwitter</code> com a argument en la inicialització. Tot seguit demanem accés a les comptes amb el mètode <code>requestAccessToAccountsWithType:options:completion:</code>. Aquest mètode té com a argument el bloc <code>completion:</code>, el qual és un handler (Un objecte &ldquo;manipulador&rdquo; per així dir-ho) en els paràmetres del qual és retornada la resposta del mètode. Si tot va bé emmagatzemem tots els comptes obtinguts en el array <code>accountsArray</code> o vam mostrar un error en cas contrari. Simple.</p>
+
+<p>Recorda aquesta dinàmica d'executar un mètode i rebre una resposta per ser manipulada en un bloc, perquè ho veuràs molt sovint des d'ara.</p>
+
+<h2>Construint la petició per obtenir el timeline</h2>
+
+
+<p>Amb el Social Framework és definitivament molt més fàcil construir una petició HTTP. Sabem que està composta per:</p>
+
+<ol>
+    <li>Una URL que identifica l'operació que volem realitzar en el servei.</li>
+    <li>Un mètode de petició, que pot ser GET, POST o DELETE.</li>
+    <li>I uns paràmetres de configuració.</li>
+</ol>
+
+
+<p>El mètode <code>requestForServiceType:requestMethod:URL:parameters:</code> passa totes aquestes dades com els seus arguments i això ens permet crear la petició en tan sol una línia de codi si així ho desitgem.</p>
+
+<p>El que nosaltres volem és obtenir el timeline, per tant necessitem anar a la <a title="Versión 1.1 de la API de Twitter" href="http://securelink.thxou.com/?https://dev.twitter.com/docs/api/1.1" target="_blank">documentació oficial</a> per veure el que hem d'usar. En entrar en l'enllaç i seleccionar l'operació de la qual volem veure els detalls (en aquest cas és: <code>GET</code> <code>statuses/home_timeline</code>), veurem en l'apartat <strong>Resourse Information</strong> certa informació molt important:</p>
+
+<p style="text-align: center;"><img class="size-full wp-image-2326 aligncenter" title="twitter-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-11-at-17.08.28.png" alt="" width="249" height="392" /></p>
+
+
+<p>Tenim el mètode de la petició (GET), el format de resposta (JSON) i l'objecte de resposta (Tweets). Després està l'apartat <strong>Resource URL</strong> que és la URL que li passarem i l'apartat <strong>Parameters</strong>, que conté els paràmetres per configurar-la. Usant aquesta informació construïm la petició:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// guardem el compte</span>
+</span><span class='line'><span class="n">ACAccount</span><span class="err"> </span><span class="o">*</span><span class="n">twitterAccount</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountsArray</span><span class="err"> </span><span class="nl">objectAtIndex:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">cuenta</span> <span class="o">=</span> <span class="n">twitterAccount</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// creguem la petició</span>
+</span><span class='line'><span class="n">NSURL</span><span class="err"> </span><span class="o">*</span><span class="n">url</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span><span class="err"> </span><span class="nl">URLWithString:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://api.twitter.com/1.1/statuses/home_timeline.json&quot;</span><span class="o">&gt;</span><span class="nl">https:</span><span class="c1">//api.twitter.com/1.1/statuses/home_timeline.json&lt;/a&gt;&amp;rdquo;];&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">NSDictionary</span><span class="err"> </span><span class="o">*</span><span class="n">parametros</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span><span class="err"> </span><span class="nl">dictionaryWithObjectsAndKeys:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>                            <span class="s">@&quot;25&quot;</span><span class="p">,</span> <span class="s">@&quot;count&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">SLRequest</span> <span class="o">*</span><span class="n">request</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">SLRequest</span> <span class="nl">requestForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>                                    <span class="nl">requestMethod:</span><span class="n">SLRequestMethodGET</span>
+</span><span class='line'>                                              <span class="nl">URL:</span><span class="n">url</span>
+</span><span class='line'>                                       <span class="nl">parameters:</span><span class="n">parametros</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// associem el compte a la petició</span>
+</span><span class='line'><span class="p">[</span><span class="n">request</span><span class="err"> </span><span class="nl">setAccount:</span><span class="n">twitterAccount</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Per motius de brevetat tan solament utilitzarem el primer compte de les quals hi ha en el array.</p>
+
+<p>He creat la propietat <code>cuenta</code> de tipus <code>ACAccount</code>, en ella emmagatzemem aquest compte per posteriorment poder enviar-la al controlador des del qual publicarem un missatge d'estat (el que és un Tweet) al nostre timeline, això més endavant.</p>
+
+<p>Com poden veure tenim un diccionari per als paràmetres. El meu solament té una key: <code>count</code>, aquesta ens permet limitar la quantitat de tweets que ens va a retornar el timeline que per defecte és 20, però jo l'he posat a 25. En la documentació de la API estan tots els paràmetres que podem usar per configurar la petició.</p>
+
+<p>El següent és assignar-li a la propietat <code>account</code> de la nostra petició, el compte que hem triat del array i amb la qual volem treballar per mostrar el timeline i altres coses.</p>
+
+<h2>Enviant la petició i manipulant els resultats</h2>
+
+
+<p>Una vegada construïda la petició procedim a enviar-la. Per a això usem el mètode <code>performRequestWithHandler:</code> que envia la petició i recull els resultats en el seu únic argument. Est és al seu torn un bloc, el qual és executat una vegada estan disponibles les dades de la resposta.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// realitzem la petició especificant un mètode per manipular la resposta</span>
+</span><span class='line'><span class="p">[</span><span class="n">request</span><span class="err"> </span><span class="nl">performRequestWithHandler:</span><span class="o">^</span><span class="p">(</span><span class="n">NSData</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">responseData</span><span class="p">,</span> <span class="n">NSHTTPURLResponse</span><span class="err"> </span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">urlResponse</span><span class="p">,</span> <span class="n">NSError</span><span class="err"> </span><span class="o">*</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">responseData</span><span class="err"> </span><span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">tweets</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span><span class="err"> </span><span class="nl">JSONObjectWithData:</span><span class="n">responseData</span>
+</span><span class='line'>                                                  <span class="nl">options:</span><span class="n">kNilOptions</span>
+</span><span class='line'>                                                    <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Aquest bloc té 3 paràmetres, el més important és <code>responseData</code>, perquè és el que va a contenir els tweets. Aquests tweets estan en format JSON com vam veure abans, per tant necessitem parsearlos i així passar-los a un format manipulable en Objective-C. Per fer això existeix la classe <code>NSJSONSerialization</code>, que agafa les dades en <code>NSData</code> (en aquest cas <code>responseData</code>), els parsea i retorna. Aquestes dades retornades els emmagatzemem en el array <code>tweets</code>, que a continuació usarem per mostrar-los a l'usuari.</p>
+
+<p>[tip]Pots aprendre més sobre com parsear dades en format JSON i la classe <code>NSJSONSerialization</code> en el nostre pràctic tutorial sobre el tema fent <a href="http://www.thxou.com/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/"><strong>clic aquí</strong></a>.[/tip]</p>
+
+<h2>Mostrant els resultats</h2>
+
+
+<p>Bé, ja tenim fet gairebé tot el treball, ara solament ens queda mostrar els resultats, i para això tenim l'objecte <code>tweetsTableView</code>. A causa que ja tenim tots els Tweets en un array, és relativament senzill mostrar-los en el tableView, per això anem directament a implementar els mètodes convenients:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nl">numberOfSectionsInTableView:</span><span class="p">(</span><span class="n">UITableView</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="n">tableView</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span><span class="err"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nl">tableView:</span><span class="p">(</span><span class="n">UITableView</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="n">tableView</span><span class="err"> </span><span class="nl">numberOfRowsInSection:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">section</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span><span class="err"> </span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tweets</span> <span class="n">count</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">(</span><span class="n">UITableViewCell</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nl">tableView:</span><span class="p">(</span><span class="n">UITableView</span><span class="err"> </span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">tableView</span><span class="err"> </span><span class="nl">cellForRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">static</span><span class="err"> </span><span class="n">NSString</span><span class="err"> </span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">CellIdentifier</span><span class="err"> </span><span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Cell</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'>  <span class="n">UITableViewCell</span><span class="err"> </span><span class="o">*</span><span class="n">cell</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">tableView</span><span class="err"> </span><span class="nl">dequeueReusableCellWithIdentifier:</span><span class="n">CellIdentifier</span><span class="p">];</span>
+</span><span class='line'>  <span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">cell</span><span class="err"> </span><span class="o">==</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">cell</span><span class="err"> </span><span class="o">=</span> <span class="p">[[[</span><span class="n">UITableViewCell</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithStyle:</span><span class="n">UITableViewCellStyleSubtitle</span><span class="err"> </span><span class="nl">reuseIdentifier:</span><span class="n">CellIdentifier</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">NSDictionary</span><span class="err"> </span><span class="o">*</span><span class="n">tweet</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tweets</span> <span class="nl">objectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">text</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</span><span class='line'>  <span class="n">cell</span><span class="p">.</span><span class="n">detailTextLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">user</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]</span> <span class="nl">objectForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">screen_name</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c1">// carreguem les imatges dels quals envien el tweet, de forma asíncrona</span>
+</span><span class='line'>  <span class="n">dispatch_queue_t</span> <span class="n">queue</span><span class="err"> </span><span class="o">=</span> <span class="n">dispatch_queue_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">com</span><span class="p">.</span><span class="n">thxou</span><span class="p">.</span><span class="n">totweet</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">dispatch_queue_t</span> <span class="n">main</span> <span class="o">=</span> <span class="n">dispatch_get_main_queue</span><span class="p">();</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">dispatch_async</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+</span><span class='line'>      <span class="n">NSURL</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">imageURL</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span><span class="err"> </span><span class="nl">URLWithString:</span><span class="p">[[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">user</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]</span> <span class="nl">objectForKey:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">profile_image_url</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]];</span>
+</span><span class='line'>      <span class="n">NSData</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">imageData</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nl">dataWithContentsOfURL:</span><span class="n">imageURL</span><span class="p">];</span>
+</span><span class='line'>      <span class="n">dispatch_async</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+</span><span class='line'>          <span class="n">cell</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span><span class="err"> </span><span class="nl">imageWithData:</span><span class="n">imageData</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>  <span class="n">dispatch_release</span><span class="p">(</span><span class="n">queue</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">return</span> <span class="n">cell</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p></li>
+</ul>
+
+
+<p>Aquí hi ha algunes línies que els sonaran a xinès, no obstant això explicaré una mica per damunt que està succeint.</p>
+
+<p>Al parsearse les dades aquests són emmagatzemats en el array <code>tweets</code>, però els tweets dins del, són emmagatzemats en forma de diccionaris, fàcilment recuperables usant la classe <code>NSDictionary</code>. Llavors recuperem cada camp d'aquest array en un diccionari que jo he anomenat <code>tweet</code> per fer-ho més identificable (en realitat això és el que representa). Com ja saben, accedim als valors d'un diccionari a través de keys, però quines són aquestes keys?, ens anem a la <a href="https://dev.twitter.com/docs/platform-objects/tweets">documentació oficial</a> i ho mirem allí. El que fem és simplement mostrar el text del tweet com a títol i el nom &ldquo;del que tweetea&rdquo; com subtitulo en cada cel·la.</p>
+
+<p>Per mostrar la imatge el que fem és usar el <strong>GCD</strong> (Grand Central Dispatch) d'Apple. A grans trets explicar-los que la descàrrega de dades de la xarxa sempre deuria ser de forma asíncrona, això és perquè és un procés que triga una mica a dur-se a terme i per tant no pot fer-se en el mateix thread (fil) ja que podem bloquejar-ho, i això deixaria inutilitzable la interfície d'usuari fins que es completi el procés, cosa que pel bé dels nostres usuaris, no volem. Doncs aquest problema ho soluciona el <strong>GCD</strong>, fent que certs mètodes s'executin de forma asíncrona (en un altre fil o thread), d'aquesta forma evitem bloquejar la interfície d'usuari.</p>
+
+<h2>Enviant un tweet</h2>
+
+
+<p>Doncs fer això és una mica més del mateix. Jo he creat un nou controlador per fer això anomenat <code>EnviarTweetViewController</code>, el qual es mostra en una finestra modal i té un TextView i dos botons: un per enviar el tweet i un altre per cancel·lar l'operació.</p>
+
+<p>El d'enviar el tweet executa el mètode <code>enviarTweet:</code>:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nl">enviarTweet:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">sender</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// comprovem si el camp per escriure el tweet no està buit</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tweet</span><span class="p">.</span><span class="n">text</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;&quot;</span><span class="p">])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="s">@&quot;https://api.twitter.com/1.1/statuses/update.json&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">parametros</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span>
+</span><span class='line'>                                <span class="n">self</span><span class="p">.</span><span class="n">tweet</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">@&quot;status&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">SLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">SLRequest</span> <span class="nl">requestForServiceType:</span><span class="n">SLServiceTypeTwitter</span>
+</span><span class='line'>                                            <span class="nl">requestMethod:</span><span class="n">SLRequestMethodPOST</span>
+</span><span class='line'>                                                      <span class="nl">URL:</span><span class="n">url</span>
+</span><span class='line'>                                               <span class="nl">parameters:</span><span class="n">parametros</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// assignem el compte que usarem per publicar el tweet</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">request</span> <span class="nl">setAccount:</span><span class="n">self</span><span class="p">.</span><span class="n">cuenta</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="p">[</span><span class="n">request</span> <span class="nl">performRequestWithHandler:</span><span class="o">^</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="n">responseData</span><span class="p">,</span> <span class="n">NSHTTPURLResponse</span> <span class="o">*</span><span class="n">urlResponse</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'>     <span class="p">{</span>
+</span><span class='line'>         <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">resultado</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">JSONObjectWithData:</span><span class="n">responseData</span>
+</span><span class='line'>                                                                   <span class="nl">options:</span><span class="n">kNilOptions</span>
+</span><span class='line'>                                                                     <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>     <span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">cancelar:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Com podeu observar es fa exactament el mateix. Tan solament canvien els paràmetres, la URL i el mètode de la petició, i tot això el podem trobar en la documentació oficial.</p>
+
+<p>A diferència de l'anterior, aquí no accedim a tots els comptes del dispositiu, sinó que simplement passem a aquest controlador el compte que hem obtingut abans, així ens assegurem que el compte que està seleccionada és des de la qual s'envia el tweet i sobre la qual es fan les operacions sol·licitades. No hi ha misteri.</p>
+
+<h2>Conclusió</h2>
+
+
+<p>El procediment per dur a terme totes aquestes accions en Twitter porten la mateixa estructura. Tan solament varien els paràmetres, la URL i el mètode de la petició. Pel que, si volem fer qualsevol cosa,  hem d'anar a la documentació i mirar el que necessitem. Després reemplaçar les dades que hem vist abans amb els nous, enviar la petició i mostrar a l'usuari les dades obtingudes. Així de fàcil és treballar amb el Social Framework.</p>
+
+<p>Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234">documentació d'Apple</a> sobre aquest tema i també visitar el nostre tutorial sobre com parsear i manipular fitxers JSON de forma nativa i així estendre una mica més els teus coneixements.</p>
+
+<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/c0bb4xgyatv10t5nhvll"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
+
+]]></content>
+  </entry>
+  
+</feed>

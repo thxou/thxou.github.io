@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Trabajando Con El Social Framework De iOS 6: Publicar en Twitter Y Facebook - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Aquí les traigo un tutorial bastante fresco sobre el recién nacido iOS 6. Como sabéis cada nuevo iOS trae consigo muchas novedades y este no va a ser &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Trabajando Con El Social Framework De iOS 6: Publicar en Twitter Y Facebook</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-20T02:00:25+02:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Aquí les traigo un tutorial bastante fresco sobre el recién nacido<strong> iOS 6</strong>. Como sabéis cada nuevo iOS trae consigo muchas novedades y este no va a ser la excepción, tenemos cientos de nuevas APIs y cambios con respecto a iOS 5, y por si fuera poco también tenemos 3 nuevos frameworks para estudiar e implementar en nuestras apps. Queda aún trabajo por hacer.</p><p>Hoy voy a comenzar con el primero de una serie de tutoriales para ir introduciéndonos en el mundillo de iOS 6 poco a poco. Empezaré con uno de los 3 nuevos frameworks que incluye este nuevo iOS: el <strong>Social Framework</strong>.</p><p>Este framework reemplaza al de Twitter y se hace más generico para ser compatible con las redes sociales de Facebook y Sina Weibo (la de los chinos). Lo genial es que implementarlo en nuestras apps es sencillo, nosotros de momento vamos a publicar nuestro estado en Twitter y Facebook a través de la interfaz nativa del framework. Tiene otras aplicaciones como mostrar el timeline y hacer follows en Twitter y cosas así, pero estas las veremos más adelante ya que son un poco (y solo un poco) más complejas.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57.png"><img class="aligncenter size-full wp-image-2285" style="border: 2px solid black; margin-top: 15px; margin-bottom: 15px;" title="social-framework-ios6-thxou" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57-e1346428236807.png" alt="" width="319" height="194" /></a></p><p>Una de las 2 clases que componen el Social Framework es <code>SLComposeViewController</code>, esta clase te permite mostrar una vista al usuario desde la cual el puede componer y publicar un mensaje en cualquiera de las redes sociales mencionadas arriba, incluyendo una imagen o URL con el mensaje.</p><h2 dir="ltr">Empezando con iOS 6 y el framework</h2><p>Lo primero es tener Xcode 4.5 y el SDK de iOS 6 instalado, luego tener una cuenta de facebook y/o twitter configurada en el dispositivo.</p><p>Abrimos Xcode 4.5 y añadimos el <em>Social Framework</em> a nuestro proyecto. Para esto como ya sabemos nos vamos a la raiz del proyecto, seleccionamos nuestro target y en la pestaña <strong>Summary</strong> encontraremos el apartado <strong>Linked Frameworks and Libraries </strong>desde donde podemos agregarlo.</p><p>Acto seguido importamos en nuestro controlador la correspondiente cabecera y ya estamos listo para empezar a usarlo:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &amp;lt;Social/Social.h&amp;gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+<h2>Diferencias con el framework de Twitter</h2><p>Este nuevo framework es casi idéntico al anterior de Twitter, a grandes razgos la única diferencia que vamos a encontrar es en la forma de inicializar la clase, ya que en esta nueva tenemos que especificar el tipo de servicio al que nos estamos refiriendo, este servicio está definido en la propiedad <code>serviceType</code> y puede tener los siguientes valores:</p><ul><li><code id="jumpTo_14">SLServiceTypeFacebook</code></li><li><code id="jumpTo_15">SLServiceTypeTwitter</code></li><li><code id="jumpTo_16">SLServiceTypeSinaWeibo</code></li></ul><p>Uno para cada red social, vamos. Por lo tanto, mientras en el de Twitter hacíamos una inicialización normal con alloc e init, en este nuevo le pasamos el servicio, de manera que nos queda así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">SLComposeViewController</span> <span class="o">*</span><span class="n">twitter</span> <span class="o">=</span> <span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">composeViewControllerForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Luego hay que hacer la comprobación de que el servicio es accesible y de si hay por lo menos una cuenta configurada para ese servicio en concreto en el dispositivo:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">isAvailableForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Esto devuelve <code>YES</code> o <code>NO</code> dependiendo de la configuración que haya. Si nos devuelve <code>YES</code> vamos a mostrar la interfaz, de lo contrario mostraremos un error.</p><h2>Mostrando la interfaz</h2><p>Supongamos que todo ha ido bien hasta ahora en el código, pues ya estamos listos para mostrar al usuario la intefaz, así que primero vamos a dar algunos valores iniciales a los campos. Este paso si que es idéntico al del framework de Twitter ya que tiene las mismas propiedades con los mismos nombres:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// ponemos un texto inicial para la publicación</span>
+</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setInitialText:</span><span class="n">self</span><span class="p">.</span><span class="n">tvPost</span><span class="p">.</span><span class="n">text</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// añadimos una imagen a nuestra publicación</span>
+</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;logo_thxou.png&quot;</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// añadimos también una URL</span>
+</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addURL:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="s">@&quot;http://www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/&quot;</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// asignamos el completionHandler para manipular los resultados del envío</span>
+</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setCompletionHandler:</span><span class="n">completionHandler</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// por último mostramos la interfaz de publicación</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">presentViewController:</span><span class="n">twitter</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Tener muy en cuenta de asignar las propiedades antes de presentar la vista al usuario, de lo contrario os va a retornar un <code>NO</code> y la imagen o URL no se va a cargar junto con el mensaje. También os puede retornar <code>NO</code> si la imagen es demasiado grande o si hay demasiados caracteres en la URL, no obstante esto depende de las restricciones de que Twitter y Facebook ponen en las respectivas páginas oficiales de sus APIs.</p><p>Hecho todo esto presentamos al usuario la interfaz como lo haríamos con cualquier controlador.</p><h2>Manipular los resultados</h2><p>Lo único que nos queda por hacer es comunicarle al usuario si se ha enviado correctamente la publicación o no, para esto tenemos los resultados del envío devueltos en el argumento <code>result</code> de la propiedad <code>completionHandler</code> de la clase. Esta propiedad es un objeto de tipo bloque y es llamada justo antes de cerrase la interfaz de envío. Ya que el bloque es lo último que se va a ejecutar, tenemos que cerrar la interfaz dentro de este bloque:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// manipulamos los mensajes de error si hay usando la propiedad completionHandler</span>
+</span><span class='line'><span class="n">SLComposeViewControllerCompletionHandler</span> <span class="n">completionHandler</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="n">SLComposeViewControllerResult</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">SLComposeViewControllerResultCancelled:</span>
+</span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;La publicación ha sido cancelada.&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">SLComposeViewControllerResultDone:</span>
+</span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Se ha publicado satisfactoriamente.&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+<h2>Conclusión</h2><p>Como hemos podido observar es realmente sencillo mostrar la interfaz de envío por defecto al usuario. No obstante esto tiene sus limitaciones evidentes, como la de querer saltarse la interfaz y enviar directamente el mensaje a Twitter. En el <a href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/">siguiente tutorial</a> veremos como hacer todo esto y alguna cosa más, es un poco más complejo, pero como veréis el framework lo hace todo mucho más sencillo y hace mucho trabajo por nosotros.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/qv5nu4k6jh00fhttgz89"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-20T02:00:25+02:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores/" title="Previous Post: iOS 6 Golden Master ya disponible para los desarrolladores">&laquo; iOS 6 Golden Master ya disponible para los desarrolladores</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/" title="Next Post: Treballant amb el Social Framework de iOS 6: SLRequest, publicar en Twitter i obtenir el Timeline">Treballant amb el Social Framework de iOS 6: SLRequest, publicar en Twitter i obtenir el Timeline &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/';
+        var disqus_url = 'http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

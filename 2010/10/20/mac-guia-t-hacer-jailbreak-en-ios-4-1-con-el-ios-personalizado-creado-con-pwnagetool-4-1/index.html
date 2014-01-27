@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 Con El iOS Personalizado Creado Con PwnageTool 4.1 - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 Con El iOS Personalizado Creado Con PwnageTool 4.1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-20T22:09:54+02:00" pubdate data-updated="true">Oct 20<span>th</span>, 2010</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un firmware personalizado y restaurándolo posteriormente con iTunes.
+
+[aviso]Utiliza este tutorial bajo los requisitos requeridos. No somos responsables del mal uso del tutorial y/o las herramientas.[/aviso]
+
+[importante]<strong>Importante:</strong>
+<ul>
+	<li>Por defecto la opción de hactivation está habilitada. Si eres de los que tienen un iPhone con la SIM original,<strong> asegúrate de desactivar esta opción</strong>.</li>
+	<li>Funciona también en el Apple TV 2G, pero de momento solo se puede acceder por SSH y ejecutar comandos de consola dentro del dispositivo.</li>
+	<li>Luego de restaurar tu firmware personalizado, podrás <a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">utilizar Ultrasn0w</a> para liberar/desbloquear tu iPhone.[/importante]</li>
+</ul>
+Dispositivos compatibles:
+<ul>
+	<li>AppleTV 2G.</li>
+	<li>iPad (firmware 3.2.2).</li>
+	<li>iPod touch 4G.</li>
+	<li>iPod touch 3G.</li>
+	<li>iPhone4.</li>
+	<li>iPhone 3GS.</li>
+	<li>iPhone 3G.</li>
+</ul>
+Vamos a ello. Primero tenemos que descargar:
+<ul>
+	<li><a href="http://blog.iphone-dev.org/post/1359246784/20102010-event">PwnageTool 4.1 para Mac</a>.</li>
+	<li><a href="http://www.thxou.com/firmwares/">Firmware del iOS 4.1</a> correspondiente a tu dispositivo.</li>
+</ul>
+<strong><span style="color: #99cc00;">PASO 1.</span></strong> Creamos una carpeta en el escritorio y metemos en ella el firmware que nos hemos descargado y PwnageTool (Monta el .dmg y arrastra el icono hacia la carpeta).
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/1.png"><img class="alignnone size-full wp-image-1814" title="1" src="http://www.thxou.com/wp-content/uploads/2010/10/1.png" alt="" width="500" height="347" /></a></p>
+<strong><span style="color: #99cc00;">PASO 2.</span></strong> Abrimos PwnageTool y damos en aceptar en la advertencia que nos aparece. En la segunda nos advierte sobre si nuestra tarjeta SIM es original o no. En el menú de la parte superior seleccionamos &#8221;<strong>Expert Mode</strong>&#8221;. Luego tiense que seleccionar la imagen correspondiente a tu dispositivo y seguidamente presionar en la flecha para seguir.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/3.png"><img class="alignnone size-full wp-image-1815" title="3" src="http://www.thxou.com/wp-content/uploads/2010/10/3.png" alt="" width="450" height="401" /></a></p>
+<strong><span style="color: #99cc00;">PASO 3.</span></strong> En la siguiente pantalla haz clic en el botón &#8221;<strong>Browse for IPSW&#8230;</strong>&#8221; y en la ventana que aparece, selecciona el firmware que haz descargado a la carpeta de tu escritorio. Haz clic en &#8220;Open&#8221; y luego continúa.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/4.png"><img class="alignnone size-full wp-image-1816" title="4" src="http://www.thxou.com/wp-content/uploads/2010/10/4.png" alt="" width="500" height="446" /></a></p>
+<strong><span style="color: #99cc00;">PASO 4.</span></strong> En esta pantalla selecciona la opción &#8221;<strong>General</strong>&#8221; y luego continúa para seguir configurando.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/51.png"><img class="alignnone size-full wp-image-1822" title="51" src="http://www.thxou.com/wp-content/uploads/2010/10/51.png" alt="" width="500" height="446" /></a></p>
+<strong><span style="color: #99cc00;">PASO 5.</span></strong> En la siguientes pantallas podrás configurar si deseas Activar el iPhone. Este proceso engaña a iTunes para que te permita utilizar una SIM que no es oficial. Si tienes una oficial, <strong>NO MANTENGAS SELECCIONADA LA OPCION</strong>.
+
+También, en los iPhone 3G puedes habilitar la multitarea, la batería con porcentaje y el fondo de pantalla personalizado si deseas.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/6.png"><img class="alignnone size-full wp-image-1817" title="6" src="http://www.thxou.com/wp-content/uploads/2010/10/6.png" alt="" width="500" height="446" /></a></p>
+<strong><span style="color: #99cc00;">PASO 6.</span></strong> Desde esta pantalla puedes personalizar como quieres que esté Cydia. Puedes agregarle sources para que estén instaladas por defecto cuando ya tengas el Jailbreak hecho. También puedes agregar paquetes personalizados .deb que deseas tener instalados por defecto.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/7.png"><img class="alignnone size-full wp-image-1819" title="7" src="http://www.thxou.com/wp-content/uploads/2010/10/7.png" alt="" width="500" height="446" /></a></p>
+<strong><span style="color: #99cc00;">PASO 7.</span></strong> Ahora ya que haz terminado de configurarlo todo, haz clic en &#8221;<strong>Build</strong>&#8221; para empezar a crear el firmware personalizado. Cuando te aparezca la pantalla de guardar, guardalo en la carpeta que creamos al principio.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/8.png"><img class="alignnone size-full wp-image-1820" title="8" src="http://www.thxou.com/wp-content/uploads/2010/10/8.png" alt="" width="500" height="446" /></a></p>
+<span style="color: #99cc00;"><strong>PASO 8.</strong></span> Una vez construido el firmware personalizado, se te <strong>pedirá conectar el dispositivo al Mac</strong> para ponerlo en modo DFU. Sigue las instrucciones que pone en pantalla:
+<ol>
+	<li>Mantén pulsado el botón de encendido y el de Inicio durante 10 segundos.</li>
+	<li>Pasado ese tiempo, suelta el botón de encendido y sigue presionando el botón Inicio durante 10 segundos.</li>
+	<li>Una vez que tengas el iPhone en modo DFU, PwnageTool lo detectará y le pedirá que abra iTunes.</li>
+</ol>
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/951.png"><img class="alignnone size-full wp-image-1825" title="951" src="http://www.thxou.com/wp-content/uploads/2010/10/951.png" alt="" width="490" height="212" /></a></p>
+<strong><span style="color: #99cc00;">PASO 9.</span></strong> Este es el último paso, al abrir iTunes, este debería detectar tu iPhone en modo DFU. Das aceptar en la venta que aparece y seguidamente procedes a restaurar el firmware personalizado que tienes en la carpeta que creamos al principio.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/961.png"><img class="alignnone size-full wp-image-1826" title="961" src="http://www.thxou.com/wp-content/uploads/2010/10/961.png" alt="" width="500" height="243" /></a></p>
+Luego de que el proceso de restauración termine se reiniciará y al volver ya tendremos nuestro dispositivo con iOS 4.1 y Jailbreak instalado.
+
+[nota]Luego de haber hecho Jailbreak, puedes seguir <strong><a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">este tutorial</a></strong> para liberar/desbloquear tu iPhone y dejarlo libre de compañías móviles.[/nota]
+
+Cualquier duda escríbela en los comentarios.
+<p style="text-align: right;"><a href="http://www.actualidadiphone.com/2010/10/20/tutorial-para-instalar-ios-4-1-con-pwnagetool/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+ActualidadIphone+(Actualidad+iPhone)">Vía</a></p>
+<p style="text-align: center;"></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-20T22:09:54+02:00" pubdate data-updated="true">Oct 20<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cydia/'>Cydia</a>, <a class='category' href='/blog/categories/jailbreak/'>Jailbreak</a>, <a class='category' href='/blog/categories/liberar-slash-desbloquear/'>Liberar/desbloquear</a>, <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/personaliza-tu-iphone/'>Personaliza tu iPhone</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ipad/'>iPad</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa/" title="Previous Post: [Video] FullScreen for Safari: Navega con Safari Mobile a pantalla completa">&laquo; [Video] FullScreen for Safari: Navega con Safari Mobile a pantalla completa</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena/" title="Next Post: Locktopus: Bloquea tus aplicaciones con contraseña">Locktopus: Bloquea tus aplicaciones con contraseña &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/';
+        var disqus_url = 'http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

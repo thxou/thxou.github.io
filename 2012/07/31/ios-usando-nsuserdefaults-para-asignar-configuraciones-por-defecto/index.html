@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iOS: Usando NSUserDefaults Para Asignar Configuraciones Por Defecto - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Cada aplicación tiene un sistema de almacenamiento por defecto para cada usuario llamado User Default System (Desde ahora UDS), el cual está &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2012/07/31/ios-usando-nsuserdefaults-para-asignar-configuraciones-por-defecto">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iOS: Usando NSUserDefaults Para Asignar Configuraciones Por Defecto</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-31T23:41:57+02:00" pubdate data-updated="true">Jul 31<span>st</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/07/photo-1.png"><img title="MyDefaults-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/07/photo-1-200x300.png" alt="" width="200" height="300" /></a><a href="http://www.thxou.com/wp-content/uploads/2012/07/photo-1.png"><br /> </a></p><p style="text-align: left;">Cada aplicación tiene un sistema de almacenamiento por defecto para cada usuario llamado <strong>User Default System</strong> (Desde ahora <strong>UDS</strong>), el cual está compuesto por una base de datos en la que, a través de unos parámetros y métodos, podemos almacenar y recuperar ciertos valores, que suelen ser pequeñas cantidades de datos que usamos comúnmente en nuestra aplicación. A estos valores por defecto se les llama: preferencias del usuario. Por ejemplo, podríamos querer permitirle a los usuarios elegir cuán periódicamente sincronizar ciertos datos con iCloud, este valor de tiempo lo podemos almacenar en el <strong>UDS</strong> y recuperarlo al inicio de la aplicación.</p><p>Podemos clasificar las preferencias de usuario en 2 categorías: las que cambian frecuentemente y las que no. En esta oportunidad trabajaremos con las que cambian frecuentemente, la otra categoría la veremos en artículos posteriores ya que requiere un poco más de profundidad.</p><p>La clase <code>NSUserDefaults</code> nos permite interactuar con el <strong>UDS</strong>, proveyendo diversos métodos para guardar y recuperar datos desde esta base de datos por defecto.</p><h2 dir="ltr">Algunas características de esta clase</h2><p dir="ltr">Solo existe una única instancia de esta clase por aplicación.</p><p>Una ventaja es el almacenamiento en caché de la información. Un sistema como éste implicaría abrir la base de datos constantemente, en concreto cada vez que el usuario pida información. Para evitar esta constante apertura, la clase almacena los datos en caché. El método <code><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSUserDefaults_Class/Reference/Reference.html#//apple_ref/occ/instm/NSUserDefaults/synchronize">synchronize</a></code> es invocado periódicamente y se encarga de escribir los datos nuevos en caché y de actualizar los ya existentes, y esto lo hace de forma transparente al usuario. No obstante si no deseas esperar a la sincronización automática, puedes usar este método para actualizar los datos inmediatamente, teniendo cuidado de llamarlo sólo cuando hayas hecho alguna modificación. Así nos evitamos una sobrecarga de conexiones con la base de datos.</p><p>Otro punto importante a tener en cuenta es que todos los valores retornados desde la base de datos son inmutables (es decir, que no se pueden modificar), incluso aunque guardaras un valor mutable (por ejemplo una instancia de <code>NSMutableString</code>), al retornarlo al usuario sería inmutable.</p><h2 dir="ltr">Obteniendo y escribiendo datos</h2><p>Explicaré mejor el tema con una mini aplicación que he hecho llamada <em>MyDefaults</em>. Esta aplicación tiene ciertas características que mostrar como: la hora actual a intervalos de tiempo, un mensaje de bienvenida al inicio y la fecha y hora de la última vez que se abrió la aplicación. El primer dato que guardaremos será de tipo float y será el intervalo en segundos en el que se va a actualizar la hora; el segundo es de tipo booleano, nos permitirá definir si queremos, o no, mostrar el mensaje de bienvenida; el tercero es un string que contiene nuestro nombre para mostrarlo en el mensaje de bienvenida y en la vista principal; y el cuarto es de tipo <code>NSDate</code> para la última visita. Podremos personalizar cada uno de estos valores desde una ventana modal llamada: Preferencias.</p><p>Para interactuar con los datos de la base de datos, <code>NSUserDefaults</code> pone a nuestra disposición una serie de métodos de conveniencia. Ahora, qué datos se nos permite guardar y obtener?, concretamente los mismos que en una <em>Property List</em>: <code>NSString</code>, <code>NSNumber</code> (booleanos, integers, floats y doubles), <code>NSDate</code>, <code>NSArray</code> o <code>NSDictionary</code>. Para tipos diferentes a estos podemos archivarlos con <code>NSData</code>, que también nos permite datos de este tipo.</p><p>Como he dicho antes, solo hay una instancia de esta clase por aplicación, así que para acceder a ella usamos el método de clase <code><a href="http://developer.apple.com/library/ios/DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSUserDefaults_Class/Reference/Reference.html#//apple_ref/occ/clm/NSUserDefaults/standardUserDefaults">standardUserDefaults</a>:</code></p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ya tenemos nuestra instancia de la clase, por lo tanto ya podemos obtener y guardar datos. Esto lo hacemos usando los métodos de conveniencia de los que hablé anteriormente (Al final de este artículo hay enlaces hacia la documentación para ver la relación entera de métodos disponibles). Nosotros vamos a obtener y a mostrar estos valores al iniciar el controlador <em>ViewController</em> en el método <code>viewDidLoad:</code>:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// obtenemos el nombre desde la base de datos</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">nombre</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">stringForKey:</span><span class="s">@&quot;kMiNombre&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// mostramos el mensaje de bienvenida con el nombre si el valor</span>
+</span><span class='line'><span class="c1">// de la base de datos nos lo permite</span>
+</span><span class='line'><span class="kt">BOOL</span> <span class="n">mostrarMensaje</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">boolForKey:</span><span class="s">@&quot;kMostrarMensaje&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">mostrarMensaje</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">UIAlertView</span> <span class="o">*</span><span class="n">mensaje</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;MyDefaults&quot;</span>
+</span><span class='line'>                                                      <span class="nl">message:</span><span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;Hola %@, bienvenido a MyDefaults&quot;</span><span class="p">,</span> <span class="n">nombre</span><span class="p">]</span>
+</span><span class='line'>                                                     <span class="nl">delegate:</span><span class="n">self</span>
+</span><span class='line'>                                            <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;Ok&quot;</span>
+</span><span class='line'>                                            <span class="nl">otherButtonTitles:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">mensaje</span> <span class="n">show</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">mensaje</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// obtenemos la fecha de la ultima visita</span>
+</span><span class='line'><span class="n">NSDate</span> <span class="o">*</span><span class="n">ultimaVisita</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">objectForKey:</span><span class="s">@&quot;kUltimaVisita&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// como a esta key le asignamos por defecto nil, comprobamos que no sea (osea que haya alguna</span>
+</span><span class='line'><span class="c1">// fecha), de lo contrario mostramos un mensaje alternativo</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">ultimaVisita</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// formateamos la fecha y hora obtenida de la base de datos</span>
+</span><span class='line'>    <span class="n">NSDateFormatter</span> <span class="o">*</span><span class="n">formatter</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSDateFormatter</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">formatter</span> <span class="nl">setDateStyle:</span><span class="n">NSDateFormatterMediumStyle</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">formatter</span> <span class="nl">setTimeStyle:</span><span class="n">NSDateFormatterMediumStyle</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">lblVisita</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">formatter</span> <span class="nl">stringFromDate:</span><span class="n">ultimaVisita</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">formatter</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">lblVisita</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;Hola, esta es la primera vez que accedes : )&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// guardamos la fecha de la última visita</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject:</span><span class="p">[</span><span class="n">NSDate</span> <span class="n">date</span><span class="p">]</span> <span class="nl">forKey:</span><span class="s">@&quot;kUltimaVisita&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">defaults</span> <span class="n">synchronize</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Como pueden observar estos métodos son muy intuitivos y son de la forma: <code><em><strong>tipo</strong></em>ForKey:</code>. Donde <em><strong>tipo</strong> </em>es el tipo de dato que quieres obtener, en nuestro caso es <code>float</code>, <code>bool</code>, <code>string</code> y <code>object</code> (para el de tipo <code>NSDate</code>). Las <em>Keys</em>, son simples strings que identifican a un valor en concreto dentro de la base de datos y no pueden haber 2 iguales. Yo he usado unos cuantos objetos <code>UILabel</code> conectados con el <em>Interface Builder</em> para mostrar estos datos de una mejor manera, como también he usado la clase <code>NSDateFormatter</code> para dar formato a la fecha que viene desde la base de datos en caso de que ya se haya guardado alguna antes. Los comentarios en verde te ayudarán a entender mejor cada parte del código.</p><p>Si van un poco más abajo en el código verán que hay un método llamado <code>viewWillApperar:</code>, este método es lanzado cuando la pantalla está a punto de ser mostrada. En este método usamos un objeto <code>NSTimer</code> para programar la actualización de la hora al intervalo de tiempo que hemos obtenido de la base de datos.</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Cargamos el valor de la hora. Usaremos un timer para actualizar la hora cada x tiempo</span>
+</span><span class='line'><span class="n">NSTimeInterval</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">defaults</span> <span class="nl">floatForKey:</span><span class="s">@&quot;kIntervaloHora&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// ponemos el timer en funcionamiento y se actualizará cada &quot;interval&quot; segundos</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">timer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="n">interval</span>
+</span><span class='line'>                                              <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                            <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">actualizaHora</span><span class="p">)</span>
+</span><span class='line'>                                            <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                             <span class="nl">repeats:</span><span class="n">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ya tenemos los datos mostrados en la UI (Interfaz de Usuario) para hacer todos los cambios que creamos convenientes (Hazlos!) y luego guardarlos. Para esto vamos al controlador <em>SettingsViewController</em> y ahí encontraremos el método <code>guardar:</code>, el cual, accionado por el botón <em>&#8220;Guardar&#8221;</em> de la barra de herramientas, nos guardará los datos en la caché para luego sincronizarlos, a través del método <code>syncronize</code>, con la base de datos:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">guardar:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Guardamos el intérvalo de actualización de la hora</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">defaults</span> <span class="nl">setFloat:</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">txtHora</span><span class="p">.</span><span class="n">text</span> <span class="n">floatValue</span><span class="p">]</span> <span class="nl">forKey:</span><span class="s">@&quot;kIntervaloHora&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Guardamos el estado del UISwitch como un booleano</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">defaults</span> <span class="nl">setBool:</span><span class="n">self</span><span class="p">.</span><span class="n">switchMsg</span><span class="p">.</span><span class="n">on</span> <span class="nl">forKey:</span><span class="s">@&quot;kMostrarMensaje&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Guardamos el nombre que hemos definido</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">defaults</span> <span class="nl">setObject:</span><span class="n">self</span><span class="p">.</span><span class="n">txtNombre</span><span class="p">.</span><span class="n">text</span> <span class="nl">forKey:</span><span class="s">@&quot;kMiNombre&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// sincronizamos la caché y la base de datos</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">defaults</span> <span class="n">synchronize</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="c1">// cerramos la ventana modal</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">dismissModalViewControllerAnimated:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Aquí usamos nuevamente métodos de conveniencia, los cuales tienen la forma: <code>set<em><strong>Tipo</strong></em>:forKey:</code>, donde <strong><em>tipo</em> </strong>puede ser de los tipos escalares (<code>integer</code>, <code>float</code>, <code>bool</code> o <code>double</code>), <code>NSUrl</code> u <code>object</code> para cualquier otro tipo de objeto de los mencionados más arriba.</p><p>Si nos fijamos, también tenemos redefinido el método <code>viewDidLoad:</code> como pasó en el controlador de la pantalla principal. Hacemos lo mismo, cargar los datos guardados para mostrarlos en la pantalla de preferencias.</p><h2>Registrando preferencias por defecto</h2><p>Eso sería todo con respecto a guardar y obtener datos de la base de datos del <strong>User Default System</strong>. No obstante he querido explicar brevemente como registrar preferencias por defecto para nuestra aplicación. Por ejemplo si es la primera vez que la ejecutamos, probablemente nos gustaría que la base de datos ya tenga unos valores almacenados por defecto. Esto lo hacemos en el método <code>application:didFinishLaunchingWithOptions:</code> del controlador principal <em>AppDelegate</em>, que es llamado inmediatamente después de terminar de cargar la aplicación:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSUserDefaults</span> <span class="o">*</span><span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSUserDefaults</span> <span class="n">standardUserDefaults</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">defaults</span> <span class="nl">boolForKey:</span><span class="s">@&quot;kValoresGuardados&quot;</span><span class="p">])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">defaultValues</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span>
+</span><span class='line'>                                   <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithFloat:</span><span class="mf">1.0</span><span class="p">],</span> <span class="s">@&quot;kIntervaloHora&quot;</span><span class="p">,</span>
+</span><span class='line'>                                   <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">YES</span><span class="p">],</span> <span class="s">@&quot;kMostrarMensaje&quot;</span><span class="p">,</span>
+</span><span class='line'>                                   <span class="s">@&quot;ThXou&quot;</span><span class="p">,</span> <span class="s">@&quot;kMiNombre&quot;</span><span class="p">,</span>
+</span><span class='line'>                                   <span class="nb">nil</span><span class="p">,</span> <span class="s">@&quot;kUltimaVisita&quot;</span><span class="p">,</span>
+</span><span class='line'>                                   <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">YES</span><span class="p">],</span> <span class="s">@&quot;kValoresGuardados&quot;</span><span class="p">,</span>
+</span><span class='line'>                                   <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">defaults</span> <span class="nl">registerDefaults:</span><span class="n">defaultValues</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Al método <code>registerDefaults:</code> le pasamos un diccionario con los valores y las keys que queremos tener por defecto en nuestra base de datos al inicio de la aplicación. Es importante tener en cuenta de que para los valores de tipo escalar tenemos que usar instancias de <code>NSNumber</code> como se puede observar en el código. He añadido una nueva <em>key</em> llamada <code>@"kValoresGuardados"</code> para evitar que nos vuelva a guardar estos mismos valores cada vez que iniciemos la aplicación y que solo lo haga la primera vez.</p><h2>Y ahora que?</h2><p>Hoy hemos aprendido a usar la clase <code>NSUserDefaults</code> para a asignar preferencias y configuraciones por defecto para nuestra aplicación, así como una serie de métodos para interactuar con el <strong>User Default System</strong>. Para continuar aprendiendo sobre este tema te recomiendo que te pases <a href="http://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSUserDefaults_Class/Reference/Reference.html">por la documentación de Apple</a> acerca de esta clase y hagas todas las pruebas posibles hasta que entiendas correctamente su funcionamiento.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/9bfb660d5c26adf2f1c1"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-31T23:41:57+02:00" pubdate data-updated="true">Jul 31<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2012/07/31/ios-usando-nsuserdefaults-para-asignar-configuraciones-por-defecto/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2012/07/31/ios-usando-nsuserdefaults-para-asignar-configuraciones-por-defecto/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/" title="Previous Post: iOS: Aprendiendo sobre delegación, protocolos y la clase UIAlertView">&laquo; iOS: Aprendiendo sobre delegación, protocolos y la clase UIAlertView</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont/" title="Next Post: iOS: Textos con fuente personalizada usando UIFont">iOS: Textos con fuente personalizada usando UIFont &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2012/07/31/ios-usando-nsuserdefaults-para-asignar-configuraciones-por-defecto/';
+        var disqus_url = 'http://ThXou.github.io/2012/07/31/ios-usando-nsuserdefaults-para-asignar-configuraciones-por-defecto/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

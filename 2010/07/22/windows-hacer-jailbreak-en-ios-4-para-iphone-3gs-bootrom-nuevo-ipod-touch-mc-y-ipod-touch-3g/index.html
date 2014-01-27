@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Windows] Hacer Jailbreak en iOS 4 Para iPhone 3GS (Bootrom Nuevo), iPod Touch (MC) Y iPod Touch 3G - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="[aviso]Utiliza este tutorial siguiendo los pasos al detalle y bajo los requisitos requeridos. No nos responsabilizamos de daños causados por el mal &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[Windows] Hacer Jailbreak en iOS 4 Para iPhone 3GS (Bootrom Nuevo), iPod Touch (MC) Y iPod Touch 3G</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-22T01:02:35+02:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2010</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p style="text-align: center;"><img class="alignnone size-full wp-image-863" title="jailbreak-ios4.0-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/07/l_500_500_043A5A21-27E7-416E-A04B-D02EBB826197.jpeg" alt="" width="180" height="180" /></p>
+[aviso]Utiliza este tutorial siguiendo los pasos al detalle y bajo los requisitos requeridos. No nos responsabilizamos de daños causados por el mal uso del tutorial y/o las herramientas. Es todo con fines educativos. Recomiendo leer todo el tutorial antes de proceder.[/aviso]
+
+<strong>Nivel:  <a href="http://www.thxou.com/wp-content/uploads/2010/03/estrella.gif"><img title="Principiante" src="http://www.thxou.com/wp-content/uploads/2010/03/estrella.gif" alt="" width="20" height="20" /></a><strong><a href="http://www.thxou.com/wp-content/uploads/2010/03/estrella.gif"><img title="Principiante" src="http://www.thxou.com/wp-content/uploads/2010/03/estrella.gif" alt="" width="20" height="20" /></a></strong></strong> Medio.
+
+[importante]Antes de empezar considera lo siguiente:
+<ul>
+	<li>Si no estás en el firmware 3.1.2 , <strong>este tutorial no te sirve, NO CONTINUES</strong>. De lo contrario, HAZ UNA COPIA DE SEGURIDAD DE TU DISPOSITIVO antes de continuar.</li>
+	<li>Por que no puedo estar en el firmware 3.1.3?: Porque el exploit que permitía hacer el Jailbreak ha sido cerrado.</li>
+	<li>Este Jailbreak es <strong>tethered</strong>.[/importante]</li>
+</ul>
+Que necesitamos?:
+<ul>
+	<li>Un <strong>iPhone 3G[S], iPod Touch 2G (Modelos MC) o un iPod Touch 3G (Con BootRom nueva)</strong>.</li>
+	<li>El Firmware 3.1.2 o el Firmware 3.1.2 instalado con SHSH blobs (Downgrade).</li>
+	<li>Descargar <a href="http://www.mediafire.com/?ndznjyjkwjz">Payload Pwner-r6</a>.</li>
+	<li>Descargar <a href="http://ih8sn0w.com/index.php/download/file/sn0wbreeze16/pc">sn0wbreeze V1.7</a>.</li>
+	<li>Descargar <a href="http://www.mediafire.com/?y1umjywjzmk">iBooty V1.6</a>.</li>
+	<li>Descargar los <a href="http://www.thxou.com/firmwares/">Firmwares 3.1.2 y 4.0</a> para tu dispositivo.</li>
+	<li>iTunes 9.2 instalado.</li>
+</ul>
+Vamos a ello:
+<h2><strong>PASO 1. Pwning iBoot</strong></h2>
+<strong> </strong>
+<ol>
+	<li>Descarga: <a href="http://www.mediafire.com/?ndznjyjkwjz">Payload Pwner-r6</a> (Esto te ayudará a crear el Payload).</li>
+	<li>Extrae el archivo a una carpeta y ejecuta &#8221;<strong>Pwner.exe</strong>&#8221;<strong>.</strong></li>
+</ol>
+<strong><span style="color: #ff0000;">IMPORTANTE: </span>Guarda el PAYLOAD donde esté iBooty.</strong>
+<h2><strong>PASO 2. Haciendo un IPSW personalizado</strong></h2>
+<ol>
+	<li>Descargar <a href="http://ih8sn0w.com/index.php/download/file/sn0wbreeze16/pc">sn0wbreeze V1.7</a>.</li>
+	<li>Abrir lo y utilizar el MODO EXPERTO.</li>
+	<li>En el apartado “<strong>General</strong>”, marca la opción “<strong>Disable NOR Flash</strong>” (Muy importante).</li>
+	<li>Crea el ISPW y estará ubicado en tu escritorio.</li>
+</ol>
+<strong><strong><span style="color: #ff0000;">IMPORTANTE:</span> </strong>Los logos personalizados no funcionan el los Bootrom nuevos.</strong>
+<h2><strong> </strong><strong>PASO 3. Preparar iBooty</strong></h2>
+Solo funcionará si ubicas bien los archivos.
+<ol>
+	<li>Descargar <a href="http://www.mediafire.com/?y1umjywjzmk">iBooty V1.6</a> y extraerlo.</li>
+	<li>Extrae el IPSW personalizado que haz creado <strong>en el paso 2</strong> con sn0wbreeze con 7-Zip o cualquier descompresor de archivos.</li>
+	<li>Mueve el kernelcache a la misma carpeta donde está el iBooty.</li>
+	<li>Mueve también el iBEC desde la carpeta &#8220;Firmware/dfu&#8221; a la carpeta del iBooty.</li>
+	<li>Y mueve también el DeviceTree de la carpeta &#8220;Firmware\all_flash\all_flash.n88ap.production\DeviceTree.n88ap&#8221; a la carpeta del iBooty.</li>
+	<li>Renombramos:</li>
+</ol>
+<ul>
+	<li>
+<ul>
+	<li>&#8220;Kernel 4.0-Custom&#8221; a &#8221;<strong>kernel.40</strong>&#8221;.</li>
+	<li>&#8220;iBEC 4.0-Custom&#8221; a &#8221;<strong>ibec</strong><strong>.40</strong>&#8221;.</li>
+	<li>&#8220;DeviceTree 4.0-Custom&#8221; a &#8221;<strong>devtree</strong><strong>.40</strong>&#8221;.</li>
+</ul>
+</li>
+</ul>
+<strong><span style="color: #ff0000;">IMPORTANTE:</span></strong><strong> Asegúrate de remover las extensiones de &#8220;.img3/.dfu/etc&#8221;.</strong>
+
+La carpeta te debería quedar así:
+<ul>
+	<li><strong>iboot</strong><strong>.</strong><strong>payload</strong><strong> </strong>&lt;– Creado con Payload Pwner.exe.</li>
+	<li><strong>devtree</strong><strong>.40 </strong>&lt;– Tomado del IPSW personalizado hecho con sn0wbreeze.</li>
+	<li><strong>ibec</strong><strong>.40 </strong>&lt;– Tomado del IPSW personalizado hecho con sn0wbreeze.</li>
+	<li><strong>bspatch</strong><strong>.</strong><strong>exe</strong> &lt;– Viene con iBooty.</li>
+	<li><strong>iBooty</strong><strong>.</strong><strong>exe</strong> &lt;– Viene con iBooty.</li>
+	<li><strong>kernel.40 </strong>&lt;– Tomado del IPSW personalizado hecho con sn0wbreeze.</li>
+	<li><strong>sn0w.img3 </strong>&lt;– Viene con iBooty.</li>
+	<li><strong>wait</strong><strong>.img3</strong> &lt;– Viene con iBooty.</li>
+</ul>
+<h2><strong>PASO 4. Restaurando a iOS 4.0</strong></h2>
+<strong><span style="color: #ff0000;">IMPORTANTE: </span>Asegúrate de tener instalado el firmware 3.1.2.</strong>
+<ol>
+	<li>Ejecuta iBooty y selecciona &#8221;<strong>Prepare Device for Custom Firmware</strong>&#8221;. <strong>Asegúrate de que el dispositivo está en modo recuperación (El logo de iTunes con el cable)</strong>. Ejecuta el proceso y espera a ver la imagen de un copo de nieve.</li>
+	<li>Abre iTunes y restaura al firmware personalizado 4.0 (<em>Mayúsculas o shift+restaurar</em>).</li>
+</ol>
+<strong><span style="color: #ff0000;">NOTA:</span> Al terminar tu dispositivo entrará en modo de recuperación y no iniciará.</strong>
+<h2><strong>PASO 5. Booting</strong></h2>
+<ol>
+	<li>Vuelve a ejecutar iBooty y selecciona &#8221;<strong>Boot It</strong>&#8221;.</li>
+</ol>
+Listo. Si todo ha ido bien, el dispositivo reiniciará con normalidad y al iniciar tendrás tu iPhone 3GS (Bootrom nuevo), iPod Touch (MC) y iPod Touch 3G con Jailbreak.
+
+Si ahora deseas liberar tu iPhone 3GS para usarlo con cualquier operador, puedes seguir <a href="http://www.thxou.com/2010/07/16/liberar-el-iphone-3g-y-iphone-3gs-ios-3-x-hasta-ios-4-0-1-con-ultrasn0w-0-93/">este tutorial</a>.
+
+No olvides seguir los pasos al detalle. Espero haberte ayudado.</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-22T01:02:35+02:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jailbreak/'>Jailbreak</a>, <a class='category' href='/blog/categories/liberar-slash-desbloquear/'>Liberar/desbloquear</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/07/21/features-for-iphone-3g-habilita-las-funciones-del-ios-4-en-el-iphone-3g/" title="Previous Post: Features for iPhone 3G: Habilita las funciones del iOS 4 en el iPhone 3G">&laquo; Features for iPhone 3G: Habilita las funciones del iOS 4 en el iPhone 3G</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/07/22/skype-se-actualiza-para-ofrecernos-la-ansiada-multitarea/" title="Next Post: Skype: Se actualiza para ofrecernos la ansiada multitarea">Skype: Se actualiza para ofrecernos la ansiada multitarea &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g/';
+        var disqus_url = 'http://ThXou.github.io/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

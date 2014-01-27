@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Mac] Ver Los Archivos Del iPhone/iPod Touch/iPad Desde El Finder - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Hay muchas formas de acceder mediante SSH al nuestros dispositivos. La más usada es siempre a travez de un programa que permita realizar conexiónes &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2010/05/12/mac-ver-los-archivos-del-iphoneipod-touchipad-desde-el-finder">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[Mac] Ver Los Archivos Del iPhone/iPod Touch/iPad Desde El Finder</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-12T19:05:28+02:00" pubdate data-updated="true">May 12<span>th</span>, 2010</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">Hay muchas formas de acceder mediante SSH al nuestros dispositivos. La más usada es siempre a travez de un programa que permita realizar conexiónes por FTP a travéz del Wifi en una red local, otra es a travez del terminal, etc.
+
+Aquí os muestro otra manera de hacerlo: <strong>acceder al iPhone/iPod Touch/iPad a travez del finder de tu mac</strong>. Solamente necesitamos un <a href="http://www.thxou.com/2010/05/05/hacer-jailbreak-al-iphoneipadipod-touch-para-los-firmware-3-1-2-3-1-3-y-3-2-con-spirit/">dispositivo con Jailbreak y Cydia instalado</a>.
+
+Empezemos:
+
+<strong>Paso 1.</strong> Conectar el dispositivo al mac y a la red Wi-Fi a la que está conectada el mac.
+
+<strong>Paso 2.</strong> Buscamos e instalamos <strong>OpenSSH</strong> (en caso de no haberlo instalado al principio) y luego instalamos <strong>Netatalk</strong>, todo esto desde Cydia. Reiniciar el dispositivo.
+<p style="text-align: center;"><img class="alignnone size-full wp-image-394" title="Netatalk" src="http://www.thxou.com/wp-content/uploads/2010/05/IMG_02261-160x240.png" alt="" width="160" height="240" /></p>
+<strong>Paso 2.</strong> En la barra lateral del finder buscamos nuestro dispositivo conectado y accedemos a el haciendo clic. Luego presionamos el botón <strong>&#8220;conectar como&#8230;&#8221;</strong> (imagen: Cydia).
+<p style="text-align: center;"><img class="size-full wp-image-397 alignnone" title="finder" src="http://www.thxou.com/wp-content/uploads/2010/05/finder.png" alt="" width="174" height="283" /><img class="size-full wp-image-398 alignnone" title="finder" src="http://www.thxou.com/wp-content/uploads/2010/05/step1.png" alt="" width="313" height="200" /></p>
+<strong>Paso 3.</strong> Al presionar el botón nos aparecerá el cuadro &#8220;conectar como&#8221; y escribimos com0 nombre: <strong>&#8220;root&#8221;</strong> y como contraseña: <strong>&#8220;alpine&#8221;</strong> (Si no la haz modificado antes).
+<p style="text-align: center;"><img class="size-full wp-image-396 aligncenter" title="netatalk" src="http://www.thxou.com/wp-content/uploads/2010/05/Captura-de-pantalla-2010-05-12-a-las-00.14.28-300x170.png" alt="" width="300" height="170" /></p>
+Luego de esto ya podremos visualizar los archivos de nuestro dispositivo.
+<p style="text-align: center;"><img class="size-full wp-image-395 aligncenter" title="finder" src="http://www.thxou.com/wp-content/uploads/2010/05/Captura-de-pantalla-2010-05-12-a-las-00.10.32-300x171.png" alt="" width="300" height="171" /></p>
+<p style="text-align: right;">Tutorial visto en | <a href="http://www.esferaiphone.com/tutoriales/como-acceder-al-iphoneipad-desde-el-finder-de-mac">EsferaiPhone</a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-12T19:05:28+02:00" pubdate data-updated="true">May 12<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cydia/'>Cydia</a>, <a class='category' href='/blog/categories/jailbreak/'>Jailbreak</a>, <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ipad/'>iPad</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2010/05/12/mac-ver-los-archivos-del-iphoneipod-touchipad-desde-el-finder/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2010/05/12/mac-ver-los-archivos-del-iphoneipod-touchipad-desde-el-finder/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/05/10/descarga-todo-lo-que-quieras-con-safari-download-manager-cydia/" title="Previous Post: Descarga todo lo que quieras con Safari Download Manager - Cydia">&laquo; Descarga todo lo que quieras con Safari Download Manager - Cydia</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/05/18/tema-iphone-os-4-0-tu-iphoneipod-touch-como-si-tuviera-el-os-4-0-instalado/" title="Next Post: [Tema] iPhone OS 4.0, tu iPhone/iPod Touch como si tuviera el OS 4.0 instalado">[Tema] iPhone OS 4.0, tu iPhone/iPod Touch como si tuviera el OS 4.0 instalado &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2010/05/12/mac-ver-los-archivos-del-iphoneipod-touchipad-desde-el-finder/';
+        var disqus_url = 'http://ThXou.github.io/2010/05/12/mac-ver-los-archivos-del-iphoneipod-touchipad-desde-el-finder/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

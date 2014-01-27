@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Downgrade Del iOS 4.0.1 Al 4.0 O Anterior (Requiere SHSH Blobs) - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Si actualizaste al reciente iOS 4.0.1 y ahora deseas volver al Firmware 4.0 o alguno anterior por el motivo que sea. Sigue estos pasos al detalle. [ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2010/07/22/downgrade-del-ios-4-0-1-al-4-0-o-anterior-requiere-shsh-blobs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Downgrade Del iOS 4.0.1 Al 4.0 O Anterior (Requiere SHSH Blobs)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-22T22:27:37+02:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2010</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p style="text-align: center;"><img class="alignnone size-full wp-image-900" title="downgrade-from-ios4.0.1-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/07/Captura-de-pantalla-2010-07-22-a-las-19.57.56.png" alt="" width="493" height="316" /></p>
+Si actualizaste al <a href="http://www.thxou.com/2010/07/15/ya-esta-disponible-el-ios-4-0-1/">reciente iOS 4.0.1</a> y ahora deseas volver al Firmware 4.0 o alguno anterior por el motivo que sea. Sigue estos pasos al detalle.
+
+[importante]<strong>Es necesario tener el SH</strong><strong>SH Blobs (Certificado ECID) del Firmware al que deseas volver</strong>. Si no sabes lo que es, lo más probable es que no lo tengas. Si deseas sabes que es el SHSH Blobs<a href="http://www.thxou.com/2010/07/15/guardar-el-certificado-ecid-del-firmware-con-tinyumbrella/"> entra aquí</a>.[/importante]
+
+Dispositivos compatibles:
+<ul>
+	<li>iPhone 3GS.</li>
+	<li>iPhone 3G.</li>
+	<li>iPod Touch 2G.</li>
+	<li>iPod Touch 3G.</li>
+</ul>
+Que necesitamos?:
+<ul>
+	<li>El firmware para tu dispositivo del iOS 4.0 o de cualquiera al que desees volver. <a href="http://www.thxou.com/firmwares/">Descarga todos los firmware oficiales desde aquí</a>.</li>
+	<li>Descargar TinyUmbrella: <a href="http://securelink.thxou.com/?http://www.mediafire.com/file/ju4a29txeceltgi/umbrella-4.01.03.exe" target="_blank">Windows</a>, <a href="http://securelink.thxou.com/?http://www.mediafire.com/file/9hmamaibcmu84v9/Umbrella-4.01.03.dmg" target="_blank">Mac</a> y <a href="http://securelink.thxou.com/?http://www.mediafire.com/file/2gjczrcll2g8wr7/umbrella-4.01.03.jar" target="_blank">Linux</a>.</li>
+	<li>iTunes 9.2 instalado.</li>
+</ul>
+Vamos a por el Downgrade:
+
+<strong>PASO 1.</strong> Poner el iPhone en <a href="http://www.thxou.com/2010/07/20/poner-el-iphone-en-modo-dfu/">modo DFU</a>.
+
+<strong>PASO 2.</strong> Si tienes un iPhone 3G o un iPod Touch 2G puedes ir directamente al <strong>paso 5</strong>.
+
+<strong>PASO 3.</strong> Ejecuta el TinyUmbrella y haz click en “<strong>Display SHSHs</strong>” (Solo funcionará si guardaste el SHSH Blobs con TinyUmbrella). Una vez localizamos el archivo, lo arrastramos dentro de TinyUmbrella y hacemos click en “<strong>Start TSS Server</strong>”.
+
+<strong>PASO 4.</strong> Localizamos nuestro archivo “<strong>hosts</strong>” que se encuentra en: “C:/Windows/System32/drivers/etc/” en Windows y “/etc/” en MAC. Una vez localizado, lo abrimos y lo editamos con cualquier editor de texto simple. Añadimos la siguiente linea al final del archivo (Mirar la imagen del principio):
+<blockquote><strong>74.208.105.171 gs.apple.com</strong></blockquote>
+<strong><span style="font-weight: normal;">Esto engañará a iTunes y le hará creer que se conecta a Apple para verificar la validez del Firmware junto con el SHSH Blobs, pero en realidad conectará con el servidor de Saurik.</span></strong>
+
+<strong>PASO 5.</strong> Abrimos iTunes y presionamos ALT+Restaurar (Mac) o Mayúsculas o Shift+Restaurar (Windows) y buscamos el firmware iOS4 original que nos hemos descargado o al que queramos bajar. Como en la mayoría de los Downgrades, luego de restaurar, iTunes nos dará los errores 1015, 1013 o 1011. Los ignoramos y presionamos &#8221;<strong>OK</strong>&#8221;.
+
+<strong>PASO 6.</strong> Luego de la restauración, nuestro iPhone se encontrará en Modo Recovery. Para sacarlo de ahí, vamos al TinyUbrella y hacemos click en el botón “<strong>Kick Device Out of Recovery</strong>” que está debajo de “<strong>Start TSS Server</strong>”.
+
+Al iniciar ya estaremos en el firmware que queríamos.</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-22T22:27:37+02:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2010/07/22/downgrade-del-ios-4-0-1-al-4-0-o-anterior-requiere-shsh-blobs/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2010/07/22/downgrade-del-ios-4-0-1-al-4-0-o-anterior-requiere-shsh-blobs/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/07/22/downgrade-del-ios-4-1-beta-al-ios-4/" title="Previous Post: Downgrade del iOS 4.1 Beta al iOS 4">&laquo; Downgrade del iOS 4.1 Beta al iOS 4</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/07/22/guardar-los-shsh-blobs-del-iphone-3g3gs-y-ipod-touch-2g3g-desde-cydia/" title="Next Post: Guardar los SHSH Blobs del iPhone 3G/3GS y iPod Touch 2G/3G desde Cydia">Guardar los SHSH Blobs del iPhone 3G/3GS y iPod Touch 2G/3G desde Cydia &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2010/07/22/downgrade-del-ios-4-0-1-al-4-0-o-anterior-requiere-shsh-blobs/';
+        var disqus_url = 'http://ThXou.github.io/2010/07/22/downgrade-del-ios-4-0-1-al-4-0-o-anterior-requiere-shsh-blobs/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

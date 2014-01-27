@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GUIA-T | [Mac] Hacer Jailbreak Al iPhone 3G Y iPod Touch 2G en iOS 4.1 Con Redsn0w 0.9.6b1 - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Como era de esperarse, ya van saliendo las herramientas para hacer Jailbreak al iOS 4.1 y ahora es el turno de Redsn0w. [aviso]Utiliza este tutorial &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2010/09/21/guia-t-mac-hacer-jailbreak-al-iphone-3g-y-ipod-touch-2g-en-ios-4-1-con-redsn0w-0-9-6b1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">GUIA-T | [Mac] Hacer Jailbreak Al iPhone 3G Y iPod Touch 2G en iOS 4.1 Con Redsn0w 0.9.6b1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-21T11:44:04+02:00" pubdate data-updated="true">Sep 21<span>st</span>, 2010</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/rs096b1.png"><img class="size-full wp-image-1463 aligncenter" title="rs096b1-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/rs096b1.png" alt="" width="368" height="397" /></a></p>
+Como era de esperarse, ya van saliendo las herramientas para hacer Jailbreak al iOS 4.1 y ahora es el turno de Redsn0w.
+
+[aviso]Utiliza este tutorial siguiendo los pasos al detalle. Nos nos hacemos responsables de lo que pueda sucederle a tu dispositivo de hacer mal las cosas.[/aviso]
+
+Esta es una versión beta y <strong>u</strong><strong>tiliza el mismo exploit &#8220;pwnage2 DFU-mode&#8221; </strong>que se ha estado usando desde el iOS 2.x.<strong> No incluye el SHAtter exploit </strong>desarrollado por pod2g, por lo que habrá que esperar para este. Así que nada nuevo se revela a Apple con sobre el nuevo jailbreak.
+
+[importante]
+<ul>
+	<li>Si utilizas ultrasn0w para <strong>DESBLOQUEAR</strong> tu iPhone, debes esperar a que salga PwnageTool <strong>y no usar Redsn0w</strong>. Solo debes usar esta herramienta si usas tu iPhone con el operador oficial de tu teléfono móvil. Si no <strong>perderás la liberación.</strong></li>
+	<li><strong> </strong>Si tienes un iPod Touch modelo &#8221;<strong>MC</strong>&#8221;, lamento decirte que tu Jailbreak será &#8221;<strong>tethered</strong>&#8221; (Requiere Jailbreak con cada reinicio del dispositivo).[/importante]</li>
+</ul>
+Actualmente, esta versión de redsn0w 0.9.6 está disponible <strong>solo para Mac OS X, pero</strong> se espera pronto la versión para Windows. Bien, vamos a ello:
+
+Primero necesitamos descargar lo siguiente:
+<ul>
+	<li><a href="http://www.megaupload.com/?d=V0X9WRQP" target="_blank">Redsn0w 0.9.6b1 para </a><a href="http://www.megaupload.com/?d=V0X9WRQP" target="_blank">Mac</a>.</li>
+	<li><a href="http://www.thxou.com/firmwares/" target="_blank">Firmware del iOS 4.1 para iPhone 3G y iPod Touch 2G</a>.</li>
+</ul>
+Pasos a seguir:
+<ul>
+	<li>Ejecuta Redsn0w 0.9.6b1.</li>
+	<li>Selecciona el iOS 4.1, correspondiente a tu dispositivo, que acabas de descargar.</li>
+	<li>Marca la opción &#8221;<strong>Install Cydia</strong>&#8221; y &#8221;<strong>Enable battery percentage</strong>&#8221;, este último en caso de que desees tener esta característica.</li>
+	<li>Sigue los pasos que aparecen en la pantalla para poner el iPhone en DFU.</li>
+</ul>
+Al reiniciar el dispositivo tendrás tu iPhone 3G o iPod Touch 2G con Jailbreak,</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-21T11:44:04+02:00" pubdate data-updated="true">Sep 21<span>st</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cydia/'>Cydia</a>, <a class='category' href='/blog/categories/jailbreak/'>Jailbreak</a>, <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2010/09/21/guia-t-mac-hacer-jailbreak-al-iphone-3g-y-ipod-touch-2g-en-ios-4-1-con-redsn0w-0-9-6b1/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2010/09/21/guia-t-mac-hacer-jailbreak-al-iphone-3g-y-ipod-touch-2g-en-ios-4-1-con-redsn0w-0-9-6b1/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/09/20/covert-navega-de-forma-privada-desde-safari-mobile/" title="Previous Post: Covert: Navega de forma privada desde Safari Mobile">&laquo; Covert: Navega de forma privada desde Safari Mobile</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/09/22/video-panorama-haz-una-panoramica-sin-tomar-fotos-sino-con-video/" title="Next Post: Video Panorama: Haz una panorámica sin tomar fotos, sino con video">Video Panorama: Haz una panorámica sin tomar fotos, sino con video &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2010/09/21/guia-t-mac-hacer-jailbreak-al-iphone-3g-y-ipod-touch-2g-en-ios-4-1-con-redsn0w-0-9-6b1/';
+        var disqus_url = 'http://ThXou.github.io/2010/09/21/guia-t-mac-hacer-jailbreak-al-iphone-3g-y-ipod-touch-2g-en-ios-4-1-con-redsn0w-0-9-6b1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

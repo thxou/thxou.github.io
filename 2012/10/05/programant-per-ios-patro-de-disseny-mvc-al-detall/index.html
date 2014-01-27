@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Programant Per iOS: Patró De Disseny MVC Al Detall - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Hola de nou readers!. He volgut canviar una mica el xip i centrar-me en el que més m&#8217;omple en aquest món de la informàtica: La programació. És &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2012/10/05/programant-per-ios-patro-de-disseny-mvc-al-detall">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Programant Per iOS: Patró De Disseny MVC Al Detall</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-05T15:14:14+02:00" pubdate data-updated="true">Oct 5<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">Hola de nou readers!. He volgut canviar una mica el xip i centrar-me en el que més m&#8217;omple en aquest món de la informàtica: La programació. És per això que començo aquesta sèrie de posts dedicats a la programació per a diverses plataformes. En la qual més em vaig a centrar és en iOS per iPhone, iPod i iPad, ja que indagant una mica m&#8217;ha cridat moltíssim l&#8217;atenció, així que mantinguin-se al tant del blog que va a estar molt interessant.
+
+Sense més que dir, comencem. Existeixen molts patrons de disseny per organitzar el codi i la forma de programar aplicacions. A la programació<strong> per iOS utilitzarem el MVC o Model View Controller (Model-Vista-Controlador)</strong>.
+
+He volgut començar amb això perquè és un tema que, encara que a molts us ha estat fàcil d&#8217;entendre, al meu no, així que ho faré que sigui el més comprensible possible perquè no hagin de tornar a llegir sobre aquest tema en el futur.
+
+Principalment consisteix a dividir la teva aplicació en aquestes 3 capes. Cada classe que escriguis, botó que posis en el <em>Interface Builder</em>, o tros de codi que hagis d&#8217;escriure, va a pertànyer a alguna d&#8217;aquestes 3 capes.
+<p style="text-align: center;"><img class="alignnone  wp-image-2118" title="MVC" src="http://www.thxou.com/wp-content/uploads/2011/11/MVC.png" alt="MVC-thxou.com" width="430" height="360" /></p>
+<strong>La Vista</strong> és tot el que pots veure de l&#8217;aplicació i amb la qual l&#8217;usuari pot interactuar, dins d&#8217;aquesta trobem els botons, labels, camps de text, etc; en general, la majoria dels objectes que són subclasses de <code>UIView</code> (També les classes predefinides per l&#8217;usuari).
+
+<strong>El Model</strong> inclou objectes que ens permeten emmagatzemar i manipular dades. Això no té res a veure amb la interfície d&#8217;usuari i li diu a l&#8217;aplicació com dur a terme tal o com tasca, o també que característiques van a tenir certs objectes.
+
+<strong>El Controlador</strong> és el cervell d&#8217;aquest patró de disseny. El va a fer treballar a la vista i el model en sincronització perquè puguis veure coses en la pantalla o perquè en pressionar un botó, sigui efectuada alguna acció.
+
+El MVC s&#8217;entén millor si mirem la imatge:
+<ul>
+	<li>L&#8217;usuari interactua amb l&#8217;aplicació i la vista (O objecte de la vista) a través de la interfície d&#8217;usuari.</li>
+	<li>La vista li envia un missatge al controlador dient-li per exemple que hem pressionat un botó i volem que això respongui a alguna acció.</li>
+	<li>El controlador rep el missatge i contacta amb el model per realitzar l&#8217;acció i actualitzar la informació pertinent.</li>
+	<li>El controlador recull la informació requerida per la vista però actualitzada pel model i per ultimo actualitza la vista amb els canvis que  s&#8217;han fet en el model.</li>
+</ul>
+Senzill veritat?. Si t&#8217;adones el model no contacta directament amb el controlador, sinó que és aquest qui manipula i interpreta les dades del model, els recull i procedeix a actualitzar la vista.
+
+És molt necessari tenir en compte les següents regles:
+<ul>
+	<li>El controlador pot comunicar-se amb el Model i la Vista directament.</li>
+	<li>La capa Modelo i la capa Vista no es poden comunicar entre si.</li>
+	<li>La capa Vista no es comunica directament amb el controlador, però si interactuen d&#8217;alguna forma, a través d&#8217;accions com veurem una mica més endavant en aquesta entrada.</li>
+	<li>El Model no es pot comunicar directament amb el seu el Controlador, però si poden comunicar-se amb altres capes Modelo d&#8217;altres MVC.</li>
+	<li>Pot existir també comunicació entre diferents Controladors.</li>
+</ul>
+Si alteres alguna d&#8217;aquestes regles ja no existiria el patró de disseny MVC.
+<h2>Aplicació pràctica</h2>
+Com tot el que s&#8217;aprèn a nivell practico s&#8217;aprèn més ràpid i millor, he creat un projecte molt simple per explicar una mica aquest patró de disseny *MVC, aquesta *mini aplicació mostra per pantalla 2 textos en pressionar un botó. Pots descarregar el projecte des del botó al final d&#8217;aquesta entrada i seguir-ho juntament amb aquest tutorial.
+
+En obrir el projecte veuràs en el panell de més a la teva esquerra (<em>Project Navigator</em>: És important que et vagis quedant amb aquests noms) la llista dels arxius que componen el teu projecte. El que salta a simple vista és una classe anomenada <strong>MVCAppDelegate.h i .m</strong> (AppDelegate.h si uses XCode 4.2 o superior). Aquesta classe és el controlador de l&#8217;aplicació i s&#8217;encarrega de carregar la vista per defecte i l&#8217;aplicació en si. Bé, si obrim el AppDelegate.h veurem això si uses XCode 4.2:
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &amp;lt;UIKit/UIKit.h&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@class</span> <span class="nc">ViewController</span>;
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">AppDelegate</span> : <span class="nc">UIResponder</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">UIApplicationDelegate</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIWindow</span> <span class="o">*</span><span class="n">window</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">ViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+De moment anem a deixar de costat algunes coses d&#8217;aquest codi perquè les explicaré en entrades posteriors.
+
+Ja podem començar a identificar objectes. <code>UIWindow </code>és una classe pertanyent al UIKit Framework i que defineix un objecte finestra (En aquest cas la variable d&#8217;instància <code>window</code>) de la interfície d&#8217;usuari (D&#8217;aquí les inicials <strong>&#8220;UI&#8221; de User Interface</strong>). Cada aplicació va a tenir en general un sol objecte d&#8217;aquests. Per això aquest objecte, a l&#8217;ésser de la interfície d&#8217;usuari, pertany a la part de la Vista del MVC.
+
+Si tornem al <em>Project Navigator</em> veurem una classe anomenada &#8220;ViewController&#8221;. Com el seu mateix nom ho indica és un controlador, i és per a una vista específica, en aquest cas la vista principal que veuràs en arrencar l&#8217;aplicació.
+[nota]
+<strong>NOTA:</strong> Pel que fa als noms per als controladors, és molt recomanable que el nom inclogui al final les paraules &#8221;<strong>Controller</strong>&#8221; o &#8221;<strong>View Controller</strong>&#8221; ja que això et va a permetre organitzar millor la teva <em>Project Navigator</em> i situar més ràpid els teus fitxers per editar-los. En general (per no dir sempre) et vas a trobar amb projectes en què els controladors tenen noms com: ListasViewController o GameController. Si són projectes molt grans, vas a agrair que es nomenin els controladors d&#8217;aquesta manera, t&#8217;embolicaràs menys :). <strong></strong>
+[/nota]
+Obrim el fitxer de capçalera del nostre controlador: MVCViewController.h, i veurem el següent codi:
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &amp;lt;UIKit/UIKit.h&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">MVCViewController</span> : <span class="nc">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>	<span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">textos</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="kt">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">texto1</span><span class="p">;</span>
+</span><span class='line'>	<span class="kt">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">texto2</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nl">mostrarTextos:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">sender</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+El Model sol utilitzar objectes de col·lecció com els <code>NSArray</code> o <code>NSDictionary</code> o els tipus com <code>NSString</code> o <code>NSNumber</code>, en la nostra aplicació podem identificar com a part del model a l&#8217;objecto textos de la classe <code>NSMutableArray</code>. També tenim 2 objectes <code>UILabel</code> que corresponen a la interfície d&#8217;usuari i formen part de la capa Vista. Els noms de les classes personalitzades per a la Vista solen acabar amb la paraula &#8221;<strong>View</strong>&#8221; com per exemple: GhaphicView, i això per la mateixa raó que per als controladors. Aquests també pertanyen a la capa Vista.
+
+La comunicació entre la capa controlador i la capa vista és cega. Com pots veure en el codi, als <code>UILabel</code> els precedeix una macro cridada <code>IBOutlet</code>, aquesta els permet connectar-se amb el controlador per així poder enviar-li accions. Els objectes de la vista no tenen control sobre que fer sobre si, així que envien accions al controlador quan alguna cosa succeeix, per exemple quan es pressiona un botó com en el nostre cas amb el mètode: <code>mostrarTextos:sender</code>.
+
+De vegades, la capa Vista necessita respondre a certs esdeveniments com per exemple quan un camp de text s&#8217;ha començat a editar. Com la Vista no té control sobre si mateixa, necessita del controlador perquè respongui per ella, llavors el controlador s&#8217;assigna a si mateix com a delegat (Veurem aquests conceptes més endavant) de la vista (Tot això a través de protocols) i si està preparat per respondre (Té els mètodes adequats correctament implementats), llavors respon.
+
+Si obrim el fitxer d&#8217;implementació: MVCViewController.m, podrem veure el mètode <code>mostrarTextos:sender:</code>:
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// mètode que va a mostrar els textos </span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">mostrarTextos:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// inicialitzem en un array els 2 textos a mostrar</span>
+</span><span class='line'>    <span class="n">textos</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithObjects:</span><span class="s">@&quot;Texto de ejemplo para MVC&quot;</span><span class="p">,</span> <span class="s">@&quot;MVC mola cuando lo entiendes&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">txt1</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">txt2</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">texto1</span> <span class="nl">setText:</span><span class="n">txt1</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">texto2</span> <span class="nl">setText:</span><span class="n">txt2</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+En pressionar-se el botó s&#8217;executa l&#8217;acció <code>mostrarTextos:sender:</code> (En realitat s&#8217;envia un missatge, que és un concepte nou en Objective-C). En aquesta acció el controlador pren les dades que té disponibles la capa Model, en aquest cas la informació carregada en l&#8217;objecte <code>NSMutableArray</code> anomenat textos i llavors assigna els valors recollits en variables temporals i les retorna a la vista perquè els textos siguin mostrats. L&#8217;objecte <code>UILabel</code> sap mostrar text, però NO SAP que text mostrar, d&#8217;igual manera el <code>NSMutableArray</code> sap emmagatzemar dades, però NO SAP que dades ha d&#8217;emmagatzemar, és per això que usem el controlador per a això.
+
+Recorda respectar les regles del MVC i així les teves aplicacions estaran ben estructurades, de manera que quan comparteixis el teu codi, aquest es pugui entendre millor.
+
+Espero haver-los ajudat. Si m&#8217;ha faltat alguna cosa, solament comenteu-ho. Pots descarregar els arxius del tutorial pressionant el botó d&#8217;a baix.
+<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/26lmhu53g5hnzubajfuh"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-05T15:14:14+02:00" pubdate data-updated="true">Oct 5<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios-at-ca/'>iOS @ca</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2012/10/05/programant-per-ios-patro-de-disseny-mvc-al-detall/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2012/10/05/programant-per-ios-patro-de-disseny-mvc-al-detall/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/" title="Previous Post: Treballant amb el Social Framework de iOS 6: SLRequest, publicar en Twitter i obtenir el Timeline">&laquo; Treballant amb el Social Framework de iOS 6: SLRequest, publicar en Twitter i obtenir el Timeline</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/10/18/ios-programant-notificacions-locals-amb-uilocalnotification/" title="Next Post: iOS: Programant notificacions locals amb UILocalNotification">iOS: Programant notificacions locals amb UILocalNotification &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2012/10/05/programant-per-ios-patro-de-disseny-mvc-al-detall/';
+        var disqus_url = 'http://ThXou.github.io/2012/10/05/programant-per-ios-patro-de-disseny-mvc-al-detall/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Juegos | Luis Cardenas ThXou]]></title>
+  <link href="http://ThXou.github.io/blog/categories/juegos/atom.xml" rel="self"/>
+  <link href="http://ThXou.github.io/"/>
+  <updated>2014-01-28T00:48:09+01:00</updated>
+  <id>http://ThXou.github.io/</id>
+  <author>
+    <name><![CDATA[Luis Cardenas]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Juegos] SocCars: Juega Al Fútbol Mientras Conduces]]></title>
+    <link href="http://ThXou.github.io/2010/07/27/soccars/"/>
+    <updated>2010-07-27T20:34:28+02:00</updated>
+    <id>http://ThXou.github.io/2010/07/27/soccars</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">Empresa: Bulkypix | Descargar: <a href="http://itunes.apple.com/it/app/soccars/id351108559?mt=8">App Store</a> | Precio: Gratis</p>
+
+
+<p><strong>Juega el fútbol mientras conduces unos cochecitos que actúan como jugadores</strong>. La disputa se realiza uno a uno y puedes elegir entre 10 coches. En principio, solo puedes elegir uno, pero podrás ir desbloqueando el resto a medida que vayas venciendo a tus oponentes.</p>
+
+<p style="text-align: center;"><img class="size-full wp-image-993 aligncenter" title="soccars-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/07/IMG_0300-e1280247737381.png" alt="" width="300" height="200" /></p>
+
+
+<p>Cada coche tiene una dificultad diferente. A medida que vayas venciendo, los coches que vayas adquiriendo tienen más dificultad, habilidad, rapidez, destreza que los anteriores, por lo que no podrás vencer al último con el primer coche.</p>
+
+<p>Para ganar cada partida debes meter la pelota en la &ldquo;portería&rdquo; contraria. Bueno, los escenarios más que un campo de fútbol parecen unas fábricas o algo así, pero eso le da un toque diferente. <strong>Puedes agarrar unos objetos dispersos por el escenario con los que podrás sacar ventaja de tu oponente</strong> al aplicarlos: como congelarlo y poder robarle el balón, coger energías, un imán que te permite atraer el balón hacia ti.</p>
+
+<p style="text-align: center;"><img class="alignnone size-full wp-image-994" title="soccars-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/07/mzl.facicioy.320x480-75-e1280248380761.jpg" alt="" width="280" height="186" /> <img class="alignnone size-full wp-image-995" title="soccars-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/07/mzl.huoahyih.320x480-75-e1280248411546.jpg" alt="" width="280" height="186" /></p>
+
+
+<p><strong>La pega es</strong> que el juego es muy corto, ya que solo dura hasta desbloquear y vencer al coche número 10. Al final del juego el desarrollador promete más niveles y dificultad con las siguientes actualizaciones.</p>
+
+<p><strong>Su parte buena es</strong> que, a pesar de ser corto, es divertido, creo más que todo por ser fuera de lo común, para mi.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac] Simulador De N64 Para Mac]]></title>
+    <link href="http://ThXou.github.io/2010/07/19/mac-simulador-de-n64-para-mac/"/>
+    <updated>2010-07-19T19:44:35+02:00</updated>
+    <id>http://ThXou.github.io/2010/07/19/mac-simulador-de-n64-para-mac</id>
+    <content type="html"><![CDATA[<p>Yo soy uno de los que le gustaba el Nintendo 64 alla por el año 2000, pero lo dejé de jugar desde entonces y ahora me encuentro con esto: <strong>Un emulador de N64,</strong> nada menos. Para lo que son fans de esta consola y nunca encontraron una <strong>nativa para Mac OS X</strong>, aquí les dejo esta, se llama <strong>SixtyForce</strong> y va muy bien, incluso puedes jugar en modo de pantalla completa, modo ventana, utilizar un teclado y hasta un gamePad para jugar.</p>
+
+<p style="text-align: center;"><img class="size-full wp-image-789 aligncenter" title="n64-emulador-mac" src="http://www.thxou.com/wp-content/uploads/2010/07/n64-emulator-for-mac.jpg" alt="" width="427" height="334" /></p>
+
+
+<p>Las ROM&rsquo;s (Los juegos) no vienen con el simulador, así que tienes que descargarlos manualmente para poder jugar. Puedes encontrar algunas aquí:</p>
+
+<blockquote>http://www.coolrom.com/roms/n64/
+http://www.doperoms.com/roms/Nintendo_64.html</blockquote>
+
+
+<p>Cuando descargues las ROMs te vendrán comprimidas en archivos <strong>.zip</strong>, así que tendrás que descomprimirlas haciendo doble clic sobre ellos. Al hacer esto verás un <strong>fichero con extensión .z64</strong>, este es el formato soportado por el simulador.</p>
+
+<p style="text-align: center;"><img title="emulador_nintendo64" src="http://www.thxou.com/wp-content/uploads/2010/07/emulador_nintendo64_08.jpg" alt="" width="170" height="82" /></p>
+
+
+<p>Para jugar este juego solo tienes que hacer otra vez doble clic sobre el juego con extensión .z64 y aceptar las ventanas de alerta que aparezcan y listo. Utiliza la barra de menús para utilizar la pantalla completa: <strong>Options &gt; Run Full Screen</strong>.</p>
+
+<p>Descargar el <a href="http://www.sixtyforce.com/download/">simulador para N64</a>.</p>
+
+<p style="text-align: right;"><a href="http://feedproxy.google.com/~r/osxdaily/~3/iEcAF2wHAbQ/">Fuente</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Video] Tira Dardos Con Tu iPhone Hacia Una Diana en Tu iPad]]></title>
+    <link href="http://ThXou.github.io/2010/07/08/video-tira-dardos-con-tu-iphone-hacia-una-diana-en-tu-ipad/"/>
+    <updated>2010-07-08T01:29:43+02:00</updated>
+    <id>http://ThXou.github.io/2010/07/08/video-tira-dardos-con-tu-iphone-hacia-una-diana-en-tu-ipad</id>
+    <content type="html"><![CDATA[<p>Wow wow!!, otra impresionante demostración de la combinación iPhone-iPad. <strong>KL Dartboard</strong> es una aplicación que te permite emular una diana en tu iPad a la que se le disparen dardos desde <strong>KL Darts</strong>, una aplicación para iPhone que emula unos dardos. <strong>La conexión se realiza mediante bluetooth</strong>. Estas imágenes lo dicen todo:</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/07/kldart-640x293.png"><img class="alignnone size-full wp-image-624" title="kldart" src="http://www.thxou.com/wp-content/uploads/2010/07/kldart-640x293.png" alt="" width="512" height="234" /></a></p>
+
+
+<p>La precisión depende mucho del angulo desde donde se pretenda disparar, para que funcione correctamente el iPhone debe estar en posición con el iPad. Aquí les dejo un video de demostración donde se ve mucho mejor lo que estoy diciendo:</p>
+
+<p><center><object width="480" height="295"><param name="movie" value="http://www.youtube.com/v/m5PkvMnuhMI&amp;hl=es_ES&amp;fs=1?rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/m5PkvMnuhMI&amp;hl=es_ES&amp;fs=1?rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="295"></embed></object></center></p>
+
+
+<ul>
+    <li><strong>Precio <a href="http://itunes.apple.com/es/app/kl-dartboard/id376234917?mt=8">KL Dartboard (iPad)</a>: </strong>2.99 €.</li>
+    <li><strong>Precio <a href="http://itunes.apple.com/es/app/kl-darts/id376217284?mt=8">KL Darts (iPhone)</a>:</strong> Gratis.</li>
+</ul>
+
+
+<p style="text-align: right;">Fuente | <a href="http://appleweblog.com/2010/07/dispara-dardos-desde-tu-iphone-a-la-diana-de-tu-ipad" target="_blank">AppleWeblog</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Juegos] Little Metal Ball]]></title>
+    <link href="http://ThXou.github.io/2010/04/28/juegos-little-metal-ball/"/>
+    <updated>2010-04-28T19:52:44+02:00</updated>
+    <id>http://ThXou.github.io/2010/04/28/juegos-little-metal-ball</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/04/IMG_00531-300x200.png"><img class="size-full wp-image-328 aligncenter" title="Little Metal Ball" src="http://www.thxou.com/wp-content/uploads/2010/04/IMG_00531-300x200.png" alt="" width="240" height="160" /></a></p>
+
+
+<p>Si Labyrinth te gustó, este juego te va a encantar. <strong>Little Metal Ball</strong> consiste en conducir una pequeña bola de metal, que cambia de tamaño según los requerimientos del juego, a travez de un camino con obstaculos, huecos, paredes sin borde, etc <strong>utilizando el acelerómetro del iPhone</strong>. Antes de llegar a la meta, debes recoger estrellas y hacelo antes de que se acabe el tiempo.</p>
+
+<p style="text-align: center;"><img class="alignnone size-full wp-image-330" title="mzl.baokamry.320x480-75" src="http://www.thxou.com/wp-content/uploads/2010/04/mzl.baokamry.320x480-75.jpg" alt="" width="192" height="288" /> <img class="alignnone size-full wp-image-330" title="mzl.baokamry.320x480-75" src="http://www.thxou.com/wp-content/uploads/2010/04/mzl.baokamry.320x480-75.jpg" alt="" width="192" height="288" /></p>
+
+
+<p><strong>Está disponible gratis</strong> en la App Store, aunque como suelen ser estos juegos, probablemente el precio cambie.</p>
+
+<p style="text-align: center;"><a href="http://itunes.apple.com/us/app/little-metal-ball/id345251929?mt=8"><img class="alignnone size-full wp-image-170" title="AppStore" src="http://www.thxou.com/wp-content/uploads/2010/03/ad03.gif" alt="" width="127" height="56" /></a></p>
+
+]]></content>
+  </entry>
+  
+</feed>

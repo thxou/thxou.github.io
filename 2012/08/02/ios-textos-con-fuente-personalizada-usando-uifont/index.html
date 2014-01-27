@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iOS: Textos Con Fuente Personalizada Usando UIFont - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Es muy probable que ya te hayas encontrado con algunas aplicaciones que no utilizan el tipo de fuente por defecto del sistema, y que esto, junto con &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iOS: Textos Con Fuente Personalizada Usando UIFont</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-02T03:48:07+02:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Es muy probable que ya te hayas encontrado con algunas aplicaciones que no utilizan el tipo de fuente por defecto del sistema, y que esto, junto con una buena interfaz gráfica, lucen mucho mejor. No tengo ni idea como estos desarrolladores lo han hecho, pero aquí te muestro una forma sencilla de hacerlo usando un método llamado <code>fontWithName:size:</code> de la clase <code>UIFont</code>. Este método de clase nos devuelve un objeto de fuente para un nombre y tamaño personalizado y lo aplicamos a la propiedad font de algunos objetos como: <code>UILabel</code>, <code>UITextField</code>, <code>UITextView</code>, <code>UIButton</code>, etc. Las fuentes personalizadas están disponibles desde iOS 3.2 en adelante, incluido iOS 5, así que asumo que cumples los requisitos para seguir el tutorial sin problemas.</p><p>Vamos a crear un proyecto desde cero para mostrar paso a paso el sencillo procedimiento que hay que seguir para configurar las fuentes y luego utilizarlas. Lo primero es crear un nuevo proyecto, yo he usado un <em>Single View Application</em> y le he puesto de nombre<em> ChangeFont.</em></p><h2>Paso 1. Añadiendo las fuentes</h2><p>Una vez tengamos nuestro proyecto ya creado, vamos a buscar las fuentes que queremos utilizar dentro de nuestra aplicación. Para esto pueden ir a páginas web como <em>fontreactor</em>, que es el lugar de donde yo saqué las mías para hacer este tutorial. Las fuentes deben tener extensión <em><strong>.ttf</strong> u</em> <strong><em>.otf</em></strong>.</p><p>Una vez ya las tengamos descargadas, arrastramos los archivos con extensión <em>.ttf</em> u <em>.otf</em> al árbol de directorios de nuestra aplicación en XCode (El Bundle). Nos saldrá una ventana como esta:</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/copy-to-bundle.png"><img class="aligncenter  wp-image-2225" title="copy-to-bundle-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/08/copy-to-bundle.png" alt="" width="518" height="350" /></a></p><p>Si no está seleccionado desde antes, pues selecciona la opción: &#8221;<strong>Copy items into destination group&#8217;s folder (id needed)</strong>&#8221;, esto hará que las fuentes (en general cualquier fichero) se copien también en el Bundle de la aplicación y no solo se guarde una referencia a la ubicación original. Aquí también hay algo que notar, y es que en el apartado &#8221;<em>add to targets</em>&#8221;, los targets aparecen sin seleccionar. No seleccionar uno causará que no se muestren las fuentes cambiadas y esto es un problema que más tarde puede ser difícil de descubrir, por lo tanto nosotros lo seleccionaremos y luego daremos click en &#8221;<em>Finish</em>&#8221;.</p><p>En caso de que se te pasara por alto marcar el target en alguna otra aplicación, la solución es seleccionar en la lista de directorios de la izquierda, la raíz del proyecto. Luego seleccionar el target (ChangeFont en nuestro caso) y después ir al apartado &#8221;<strong>Build Phases</strong>&#8221; (Fases de construcción). Aquí encontraremos la fase &#8221;<strong>Copy Bundle Resourses</strong>&#8221;. Cuando la aplicación es compilada para mostrarse en el simulador (o el dispositivo), esta fase se encarga de copiar todo lo que tenemos en la lista al Bundle del ejecutable de la aplicación. Así, al no seleccionar el target anteriormente, no añadimos las fuentes a esta lista y por lo tanto le dijimos a XCode que no incluya las fuentes cuando se compile el proyecto.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-02-at-00.52.03.png"><img class="aligncenter  wp-image-2226" title="Screen Shot 2012-08-02 at 00.52.03" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-02-at-00.52.03.png" alt="" width="563" height="236" /></a></p><p>Así que si no lo hicimos ya, hacemos clic en el botón &#8221;<strong>+</strong>&#8221; y añadimos las fuentes al <em>Copy Bundle Resourses</em>.</p><h2>Paso 2. Configurar el archivo info.plist</h2><p>Lo siguiente será añadir una nueva <em>key</em> al archivo <em>info.plist</em> de la aplicación. Lo abrimos y añadimos una nueva entrada llamada <code>UIAppFonts</code> (Al presionar enter, cambiará automáticamente de nombre a &#8221;<em>Fonts provided by application</em>&#8221;). Esta <em>key</em> es en realidad un array, y en cada campo de este array escribiremos el nombre exacto de cada una de las fuentes que hayamos añadido a nuestro Bundle, con la extensión del fichero incluida como se puede ser en la siguiente imagen.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-01-at-21.06.33.png"><img title="Screen Shot 2012-08-01 at 21.06.33" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-01-at-21.06.33.png" alt="" width="499" height="118" /></a><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-01-at-21.06.33.png"><br /> </a></p><p>Esto sería todo lo que a configurar las fuentes se refiere. Ahora pasemos a tocar un poco de código.</p><h2>Paso 3. Coding!</h2><p>Para mostrar los resultados de esto, he creado 5 Outlets <code>UILabel</code> y los he conectado con sus respectivos <code>UILabel</code> en el <em>Interface Builder</em>, así que lo único que nos queda es asignar a la propiedad <code>font</code> de estos labels, la fuente que queremos utilizar, y como expliqué en el primer párrafo de este artículo, esto lo hacemos a través del método <code>fontWithName:size:</code> de la clase <code>UIFont</code>:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// asignando las fuentes</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">fuente1</span> <span class="nl">setFont:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;appleberry&quot;</span> <span class="nl">size:</span><span class="n">FONT_SIZE</span><span class="p">]];</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">fuente2</span> <span class="nl">setFont:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;BilloDream&quot;</span> <span class="nl">size:</span><span class="n">FONT_SIZE</span><span class="p">]];</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">fuente3</span> <span class="nl">setFont:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;SweetHomeOklahoma&quot;</span> <span class="nl">size:</span><span class="n">FONT_SIZE</span><span class="p">]];</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">fuente4</span> <span class="nl">setFont:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;asongforjennifer&quot;</span> <span class="nl">size:</span><span class="n">FONT_SIZE</span><span class="p">]];</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">fuente5</span> <span class="nl">setFont:</span><span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;thebeautifulones&quot;</span> <span class="nl">size:</span><span class="n">FONT_SIZE</span><span class="p">]];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Aquí viene lo interesante. Como podéis ver, en la etiqueta <code>fontWithName:</code> se muestra un nombre relacionado, pero no idéntico, al nombre de las fuentes que están en el Bundle. Bien, esto es porque el string con nombre de la fuente que se le tiene que pasar como argumento a este método no es el del nombre del fichero sino el &#8221;<strong>PostScript name</strong>&#8221;. Para saber cual es el <em>PostScript name</em> de una fuente solo tenemos que abrir la aplicación &#8221;<em>Font Book</em>&#8221; que viene con el sistema operativo (Usar spotlight para encontrarlo):</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-01-at-20.29.36.png"><img class="aligncenter  wp-image-2228" title="Font-Book-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-01-at-20.29.36.png" alt="" width="605" height="337" /></a></p><p>Al abrirla tenemos que seleccionar la fuente de la que queremos saber el <em>PostScript name</em> y listo, en la sección de más a la derecha veremos una descripción detallada de la fuente y en la primera línea el <em>PostScript name</em>. Si no vez el tipo de fuente que buscas es porque no la tienes instalada, así que haz doble click en el fichero de la fuente e instala, aparecerá inmediatamente.</p><p>Ahhh, me olvidaba, <code>FONT_SIZE</code> es una constante que he definido más arriba en el código para facilitarme las cosas por si posteriormente deseo cambiar ese valor, así me ahorro no tener que cambiarlos todos uno por uno. Pruébalo, te ahorrarás tiempo.</p><p>Esto es todo. Me iba a dormir pero al final he decidido terminar el tutorial :). La aplicación terminada luce así:</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/photo.png"><img title="custom-fonts-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/08/photo-200x300.png" alt="" width="200" height="300" /></a><a href="http://www.thxou.com/wp-content/uploads/2012/08/photo.png"><br /> </a></p><p>Espero que os haya servido. En el siguiente botón pueden descargar los archivos del tutorial. No olviden compartir estos tutoriales con la mayor cantidad de gente posible a través de las redes sociales.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/532775fc78efad105994"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-02T03:48:07+02:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/07/31/ios-usando-nsuserdefaults-para-asignar-configuraciones-por-defecto/" title="Previous Post: iOS: Usando NSUserDefaults para asignar configuraciones por defecto">&laquo; iOS: Usando NSUserDefaults para asignar configuraciones por defecto</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/" title="Next Post: iOS: Enviar correo electrónico desde la aplicación">iOS: Enviar correo electrónico desde la aplicación &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont/';
+        var disqus_url = 'http://ThXou.github.io/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

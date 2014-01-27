@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>NSNotificationCenter Y Las Notificaciones - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Vuelvo a la carga con los tutes sobre iOS después de un tiempo ausente por proyectos personales.Esta vez os voy a hablar sobre otro tipo de &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">NSNotificationCenter Y Las Notificaciones</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T14:12:51+01:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Vuelvo a la carga con los tutes sobre iOS después de un tiempo ausente por proyectos personales.</p><p>Esta vez os voy a hablar sobre otro tipo de notificaciones, diferentes a las notificaciones locales que <a href="http://www.thxou.com/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/">vimos hace un tiempo</a>. Estas nuevas notificaciones básicamente encapsulan información acerca de algún tipo de evento. Hay objetos que registran estas notificaciones en lo que podemos llamar una &#8220;tabla de notificaciones&#8221;, esta tabla está administrada por un centro de notificaciones, que es un objeto <code>NSNotificationCenter</code>. Luego tenemos objetos que se registran como &#8220;Observadores&#8221; de estas notificaciones, de manera de que cuando una de estas notificaciones es lanzada, todos los observadores &#8220;se enteran&#8221; de esto y normalmente llevan a cabo alguna acción.</p><p>Podría parecer un poco chungo, pero no lo es para nada. Te pongo un ejemplo práctico. Imagina un portal de noticias. Los usuarios entran a este portal y pueden suscribirse a las categorías de noticias que ellos prefieran. Una vez sale una noticia relacionada con categoría a la que el usuario se ha suscrito, entonces le llega un correo electrónico avisándole que hay una nueva noticia, así el usuario puede decidir que hacer en ese momento. Pues bien, si hacemos una comparación sacamos que el usuario que se suscribe a las noticias es el &#8220;Observador&#8221;, el portal de noticias sería el &#8220;centro de notificaciones&#8221; (<code>NSNotificationCenter</code>) y el correo electrónico sería la notificación lanzada por el centro de notificaciones.</p><h2>A tocar código, que es lo que mola</h2><p>Últimamente escribir tanto texto sin una sola línea de código me da alergia, así que vamos a escribir unas cuantas líneas.</p><p>De toda la clase <code>NSNotificationCenter</code>, normalmente solo vamos a usar 4 métodos. El primero es para inicializar nuestro centro de notificaciones. Cada aplicación viene con uno por defecto y para acceder a el usamos un método de clase que lo que hace simplemente es crear un singleton:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNotificationCenter</span> <span class="o">*</span><span class="n">center</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ya tenemos nuestra instancia en el objeto <code>center</code>. El segundo método nos va a permitir registrar una notificación en el centro de notificaciones. A este método le pasamos el nombre de nuestra notificación y un objeto que es el que envía la notificación, normalmente <code>self</code>:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">center</span><span class="err"> </span><span class="nl">postNotificationName:</span><span class="s">@&quot;kTestNotification&quot;</span> <span class="nl">object:</span><span class="n">self</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Se podrían separar estas notificaciones en 2 tipos: las personalizadas (como esta) y las que emite el sistema. En las que emite el sistema (por ejemplo cuando el dispositivo es girado o el teclado de un textField es mostrado), no necesitamos usar el método anterior ya que el sistema lo hace solo, nosotros solo tenemos que añadirnos como observadores de esas notificaciones y esperar, así que esto es lo que haremos ahora.</p><h2>Registrándonos como observadores</h2><p>Antes vimos el método para registrar una notificación llamada <code>kTestNotification</code> en el centro de notificaciones. Bien, ahora nos haremos &#8220;Observadores&#8221; de esta notificación para que cuando sea registrada (Osea, cuando sea ejecutado el método anterior), nosotros podamos llevar a cabo alguna acción en ese mismo instante:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">center</span> <span class="nl">addObserver:</span><span class="n">self</span>
+</span><span class='line'>		   <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">handleNotification:</span><span class="p">)</span>
+</span><span class='line'>			   <span class="nl">name:</span><span class="s">@&quot;kTestNotification&quot;</span>
+</span><span class='line'>			 <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>El gustillo de este tipo de notificaciones para mi está en que, suponiendo el caso de que tu aplicación tenga 100 controladores, no importa en cual de estos 100 controladores registres la notificación, añadiendo tu clase como observador serás capaz de enterarte cuando sea registrada, en cualquier momento y en cualquier controlador.</p><p>Cuando el centro de notificaciones avisa a los observadores sobre una notificación lo hace de manera síncrona. Esto quiere decir que vas a tener que esperar primero a que todos los observadores reciban sus notificaciones antes de poder hacer algo. Esto se puede solucionar registrando las notificaciones de forma asíncrona usando <code>NSNotificationQueue</code> en vez de <code>NSNotificationCenter</code>, pero esto ya es otro tema del que hablaremos en otra oportunidad.</p><p>Al añadirnos como observadores también definimos un método a ejecutarse cuando la notificación sea registrada:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">handleNotification:</span><span class="p">(</span><span class="n">NSNotification</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="nv">notification</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>	<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Hey tu!, se ha disparado la notificación!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Aquí simplemente mostramos por consola un texto, pero tu puedes usarlo para lo que quieras, cosas como mostrar un controlador, cerrar una conexión a Internet, etc.</p><h2>Liberando la memoria</h2><p>Lo único que nos queda ahora es liberar la memoria removiendo el observador que hemos asignado antes:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span><span class="err"> </span><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// liberamos la memoria que ocupa el observador</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span><span class="err"> </span><span class="n">dealloc</span><span class="p">];</span> <span class="c1">// quita esta línea si usas ARC</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Como vez, no estamos utilizando el objeto <code>center</code>, y a decir verdad para ahorrarte una innecesaria línea de código te recomiendo no crear un objeto <code>NSNotificationCenter</code>, sino usar la forma: <code>[[NSNotificationCenter defaultCenter] ...</code> , como en el código de arriba.</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T14:12:51+01:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/10/25/ios-usant-nsuserdefaults-per-assignar-configuracions-per-defecte/" title="Previous Post: iOS: Usant NSUserDefaults per assignar configuracions per defecte">&laquo; iOS: Usant NSUserDefaults per assignar configuracions per defecte</a>
+      
+      
+        <a class="basic-alignment right" href="/2013/03/18/literales-en-objective-c/" title="Next Post: Literales en Objective-C">Literales en Objective-C &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones/';
+        var disqus_url = 'http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

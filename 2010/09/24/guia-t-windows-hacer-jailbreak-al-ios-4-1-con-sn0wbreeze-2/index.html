@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GUIA-T | [Windows] Hacer Jailbreak Al iOS 4.1 Con Sn0wbreeze 2 - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="Esta madrugada (En España), iH8sn0w liberó Sn0wbreeze 2, su herramienta para hacer Jailbreak a ciertos dispositivos a través de la creación y &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">GUIA-T | [Windows] Hacer Jailbreak Al iOS 4.1 Con Sn0wbreeze 2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-24T12:16:55+02:00" pubdate data-updated="true">Sep 24<span>th</span>, 2010</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">Esta madrugada (En España), i<strong>H8sn0w liberó Sn0wbreeze 2</strong>, su herramienta para hacer Jailbreak a ciertos dispositivos a través de la creación y posterior restauración de un Firmware personalizado. Esta vez hace Jailbreak al <strong>iOS 4.1, iOS 4.0.x y al iOS 3.1.x,</strong> algo que muchos estábamos esperando.
+
+[aviso]Utiliza este tutorial bajo tu propia responsabilidad y siguiendo AL DETALLE los pasos que muestra esta guía para que no te cargues el iPhone. No somos responsables del mal uso de las herramientas y/o del tutorial.[/aviso]
+
+En primer lugar decir que <strong>este Jailbreak NO SUBE LA BASEBAND</strong>, por tanto, después de hacer el Jailbreak y estár en el iOS 4.1, podrás liberarlo y dejarlo libre de compañías móviles.
+
+<strong>Dispositivos compatibles:</strong>
+<ul>
+	<li>iPhone 3GS (Nuevo bootrom) – Requiere <a href="http://www.thxou.com/jailbreaks-and-unlocks/">jailbreak en 3.1.2</a>.</li>
+	<li>iPhone 3GS (Viejo bootrom) – Requiere jailbreak (hecho con <a href="http://www.thxou.com/jailbreaks-and-unlocks/">Spirit o JailbreakMe</a>, hay que usar la aplicación de Cydia: &#8221;<strong>Spirit2Pwn&#8221;</strong> de la repo: &#8221;<strong>http://repo.woowiz.net&#8221;</strong>).</li>
+	<li>iPhone 3G.</li>
+	<li>iPhone 2G y iPod Touch 3G – Requiere <a href="http://www.thxou.com/jailbreaks-and-unlocks/">jailbreak en 3.1.2</a>.</li>
+	<li>iPod Touch 2G (Modelo MC) – Requiere <a href="http://www.thxou.com/jailbreaks-and-unlocks/">jailbreak en 3.1.2</a>.</li>
+	<li>iPod Touch 2G (Modelo No MC).</li>
+	<li>iPod Touch 1G.</li>
+</ul>
+Vamos a ello. Primero necesitas tener, a parte de alguno de los dispositivos que se mencionan arriba, lo siguiente:
+<ul>
+	<li>La herramienta <a href="http://ih8sn0w.com/index.php/welcome.snow" target="_blank">Sn0wbreeze 2.0</a>.</li>
+	<li><a href="http://www.thxou.com/firmwares/">El iOS 4.1 de tu dispositivo</a>.</li>
+	<li>Tener instalado iTunes 10 en tu ordenador.</li>
+</ul>
+<strong><span style="color: #99cc00;">PASO 1.</span></strong> Abrimos Sn0wbreeze 2 y conectamos nuestro dispositivo al PC mediante el cable USB. Recuerda que si estas en Windows Vista o 7, tienes que hacer click derecho en el icono de Sn0wbreeze y <strong>ejecutar como administrador</strong>, esto es muy importante. Haz clic en la fecha para ir a la siguiente pantalla.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura13-530x414.jpg"><img class="size-full wp-image-1499 aligncenter" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura13-530x414.jpg" alt="" width="371" height="290" /></a></p>
+<strong><span style="color: #99cc00;">PASO 2.</span></strong> En esta pantalla seleccionamos &#8221;<strong>Expert Mode</strong>&#8221; y seguimos adelante.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura21-530x415.jpg"><img class="alignnone size-full wp-image-1500" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura21-530x415.jpg" alt="" width="371" height="291" /></a></p>
+<strong><span style="color: #99cc00;">PASO 3.</span></strong> En esta pantalla tienes que hacer clic en el botón &#8221;<strong>Browse</strong>&#8221; y seleccionar el firmware que haz descargado previamente desde los enlaces de arriba y seguidamente presionar en &#8221;<strong>Open</strong>&#8221;. Una vez hecho esto, Sn0wbreeze verificará que el firmware sea correcto y luego continuas a la siguiente.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura31-530x414.jpg"><img class="alignnone size-full wp-image-1501" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura31-530x414.jpg" alt="" width="371" height="290" /></a></p>
+<span style="color: #99cc00;"><strong>PASO 4.</strong></span> En esta pantalla nos preguntará si nuestro dispositivo cumple con los requisitos para cada dispositivo específicamente que hemos expuesto al principio de esta entrada (Acerca de dispositivos con Jailbreak y sin Jailbreak y que herramientas instalar en cada uno). Haz clic en &#8221;<strong>I UNDERSTAND!</strong>&#8221;.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura61-530x412.jpg"><img class="alignnone size-full wp-image-1503" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura61-530x412.jpg" alt="" width="371" height="288" /></a></p>
+<strong><span style="color: #99cc00;">PASO 5.</span></strong> En la siguiente pantalla, Sn0wbreeze comprobará la integridad del firmware (Archivo .ipsw). Si sale todo bien y ha sido verificado correctamente, entonces continua.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura71-530x415.jpg"><img class="size-full wp-image-1504 aligncenter" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura71-530x415.jpg" alt="" width="371" height="291" /></a></p>
+<strong><span style="color: #99cc00;">PASO 6.</span></strong> En este apartado podremos personalizar algunas cosas de nuestro firmware. Empezamos haciendo clic en el botón &#8221;<strong>General</strong>&#8221;.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura42-530x413.jpg"><img class="alignnone size-full wp-image-1502" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura42-530x413.jpg" alt="" width="371" height="289" /></a></p>
+<span style="color: #99cc00;"><strong>PASO 7. </strong></span>En esta pantalla hay algunas cosas que tenemos que considerar:
+<ul>
+	<li>Podemos activar el iPhone o hacerle Hacktivation. Esto es por si no tienes la tarjeta original que vino con tu móvil y se te bloqueaba.</li>
+	<li>Las otras opciones ya son más conocidas. Activar la multitarea, los fondos de pantalla personalizados y el porcentaje de la batería (Considerar las limitaciones de tu dispositivo antes de activar alguno de estos).</li>
+	<li>Si tu dispositivo es de los que tiene que estar en 3.1.2 marca la última opción.</li>
+</ul>
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura91-530x415.jpg"><img class="alignnone size-full wp-image-1505" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura91-530x415.jpg" alt="" width="371" height="291" /></a></p>
+<strong><span style="color: #99cc00;">PASO 8.</span></strong> En este paso debes seleccionar lo que deseas que ya tenga tu dispositivo después del Jailbreak:
+<ul>
+	<li>Agregar sources o repositorios de Cydia y/o seleccionar de los que tienes disponibles.</li>
+	<li>Agregar archivos .deb desde tu ordenador.</li>
+</ul>
+Selecciona lo que más te guste y continua con el siguiente paso.
+
+<span style="color: #99cc00;"><strong>PASO 9.</strong></span> Desde esta pantalla puedes seleccionar si deseas <strong>personalizar el logo</strong> que sale al inicio cuando enciendes el dispositivo y también <strong>personalizar la imagen del modo de recuperación</strong>. También puedes activar el &#8221;<strong>Verbose Mode</strong>&#8221;, esto te permitirá ver todo lo que carga el sistema operativo al inicio del sistema. Luego continua al siguiente paso.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/10-500x392.png"><img class="alignnone size-full wp-image-1508" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/10-500x392.png" alt="" width="350" height="274" /></a></p>
+<strong><span style="color: #99cc00;">PASO 10.</span></strong> Luego de haber personalizado a nuestro antojo el firmware, ya podemos terminar el proceso haciendo clic en &#8221;<strong>Build IPSW</strong>&#8221;.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura111-530x414.jpg"><img class="alignnone size-full wp-image-1506" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura111-530x414.jpg" alt="" width="371" height="290" /></a></p>
+<strong><span style="color: #99cc00;">PASO 11.</span></strong> Listo. Después de unos cuantos minutos, el proceso termina y ya tienes el iOS 4.1 personalizado y listo para instalar.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Cattura131-530x413.jpg"><img class="alignnone size-full wp-image-1507" title="sn0wbreeze2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Cattura131-530x413.jpg" alt="" width="371" height="289" /></a></p>
+<strong><span style="color: #99cc00;">PASO 12.</span></strong> Todo listo para instalar nuestro Firmware personalizado en el dispositivo y tener el Jailbreak. Ahora solo necesitas poner tu iPhone/iPod Touch en <a href="http://www.thxou.com/2010/07/20/poner-el-iphone-en-modo-dfu/">modo DFU</a> para restaurar.
+
+<strong><span style="color: #ff0000;">NOTA:</span></strong> Si aparece un mensaje preguntando si ya tienes el Jailbreak en el dispositivo o no, selecciona la opción NO de todos modos.
+
+<strong><span style="color: #99cc00;">PASO 13.</span></strong> Al abrir iTunes saldrá un mensaje diciendo que hay un iPhone en modo restauración. Aceptamos el mensaje y seguidamente: Manteniendo pulsada la tecla Mayús del teclado, haga clic con el ratón sobre el botón &#8221;<strong>Restaurar</strong>&#8221; de iTunes y selecciona el firmware que haz creado llamado: <strong>sn0wbreeze_iPhone_XXX</strong>.
+
+<strong><span style="color: #99cc00;">PASO 14.</span></strong> El proceso tardará unos minutos y después tendrás tu iPhone con iOS 4.1, Cydia, Jailbreak instalado y lo mejor es que, <strong>como este Jailbreak no sube la baseband, puedes liberarlo siguiendo </strong><strong><a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">este tutorial</a> de liberación con Ultrasn0w</strong>.
+
+[importante]Todos los errores encontrados en durante la restauración del firmware, vienen resueltos con la otra herramienta, <strong>iREB</strong>, que podéis descargar desde <a href="http://ih8sn0w.com/index.php/welcome.snow">este enlace</a>.[/importante]
+
+<strong><span style="color: #ff0000;">Actualización: </span><span style="color: #ff0000;"><span style="color: #333333;"><span style="font-weight: normal;">Si eres de los que haz recibido el error 1600 al restaurar el firmware te comento que esto sucede porque el iPhone es incapaz de restaurar el firmware en modo DFU. La solución es que, en el </span>paso 12<span style="font-weight: normal;">, en vez de poner el iPhone en modo DFU, lo pongas en Modo de recuperación. Lo haces así:</span></span></span></strong>
+<ol>
+	<li>Apaga el dispositivo completamente y desconéctalo del ordenador.</li>
+	<li>Presiona el botón de inicio.</li>
+	<li>Mientras estás presionando el botón de inicio, conecta el dispositivo al ordenador a través del cable USB o dock.</li>
+	<li>Sigue manteniendo presionado el botón de inicio hasta que veas la imagen de &#8220;Conecta a iTunes&#8221; (A lo mejor en vez de eso vez un dibujo de Steve Jobs).</li>
+</ol>
+Y listo, ya estás en Modo de Recuperación. Ahora intenta volver a restaurar el firmware.</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-24T12:16:55+02:00" pubdate data-updated="true">Sep 24<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cydia/'>Cydia</a>, <a class='category' href='/blog/categories/jailbreak/'>Jailbreak</a>, <a class='category' href='/blog/categories/liberar-slash-desbloquear/'>Liberar/desbloquear</a>, <a class='category' href='/blog/categories/personaliza-tu-iphone/'>Personaliza tu iPhone</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/09/22/lsrotator-gira-el-iphone-y-pon-el-lockscreen-en-horizontal/" title="Previous Post: LSRotator: Gira el iPhone y pon el LockScreen en horizontal">&laquo; LSRotator: Gira el iPhone y pon el LockScreen en horizontal</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/09/27/app-switcher-rotator-gira-los-iconos-en-multitarea/" title="Next Post: App Switcher Rotator: Gira los iconos en multitarea">App Switcher Rotator: Gira los iconos en multitarea &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2/';
+        var disqus_url = 'http://ThXou.github.io/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

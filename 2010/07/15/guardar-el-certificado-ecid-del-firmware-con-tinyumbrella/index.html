@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Guardar El Certificado ECID Del Firmware Con TinyUmbrella - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="A la llegada del firwmare 4.1 Beta, planetbeing, el que ha hecho posible el Jailbreak y la liberación del iPhone 4, nos recomienda que antes de &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2010/07/15/guardar-el-certificado-ecid-del-firmware-con-tinyumbrella">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Guardar El Certificado ECID Del Firmware Con TinyUmbrella</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-15T14:39:19+02:00" pubdate data-updated="true">Jul 15<span>th</span>, 2010</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">A la llegada del firwmare 4.1 Beta, <strong>planetbeing</strong>, el que ha hecho posible el <a href="http://www.thxou.com/2010/07/14/video-se-logra-liberar-el-iphone-4/">Jailbreak y la liberación del iPhone 4</a>, nos recomienda que antes de actualizar a cualquier versión debemos guardar nuestro certificado ECID (SHSH Blobs).
+<h3>Porque guardar el certificado?</h3>
+La razón es porque al actualizar  a cualquier versión, ya sea por error o porque queríamos, apple cierra la posibilidad, con el nuevo firmware, de hacer Jailbreak y de volver al anterior por el método común. <strong>Si posees el certificado ECID es posible volver a un firmware anterior </strong>si deseas, gracias a otras herramientas.
+
+Vamos a ello. Para hacer esto utilizaremos TinyUmbrella, que guarda el certificado localmente y después lo sube al servidor de Saurik. También se puede hacer con Cydia, pero si por ejemplo no tienes Jailbreak hecho, puedes guardarlo localmente.<strong> </strong>No obstante este proceso <strong>solo puede hacerse con los siguiente dispositivos</strong>:
+<ul>
+	<li>iPhone 4 (A partir de 4.0)</li>
+	<li>iPhone 3GS (A partir de  3.0)</li>
+	<li>iPhone 3G (A partir de 4.0) <span style="color: #ff0000;">(Actualizado)</span></li>
+	<li>iPod Touch 2G (A partir de 3.1.1)</li>
+	<li>iPod Touch 3G (A partir de 3.1.1)</li>
+	<li>iPad (A partir de 3.2)</li>
+</ul>
+Si posees otro dispositivo te va a tocar, por el momento, utilizar Cydia. Descarga el programa desde aquí <span style="color: #ff0000;">(Enlaces actualizados)</span>:
+<ul>
+	<li><a href="http://securelink.thxou.com/?http://www.mediafire.com/file/ju4a29txeceltgi/umbrella-4.01.03.exe" target="_blank">Windows</a></li>
+	<li><a href="http://securelink.thxou.com/?http://www.mediafire.com/file/9hmamaibcmu84v9/Umbrella-4.01.03.dmg" target="_blank">Mac</a></li>
+	<li><a href="http://securelink.thxou.com/?http://www.mediafire.com/file/2gjczrcll2g8wr7/umbrella-4.01.03.jar" target="_blank">Linux</a></li>
+</ul>
+<strong>PASO 1.</strong> Abre el programa que haz descargado y conecta el dispositivo.
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/07/Captura-de-pantalla-2010-07-15-a-las-11.55.00.png"><img class="alignnone size-full wp-image-697" title="tinyUmbrella" src="http://www.thxou.com/wp-content/uploads/2010/07/Captura-de-pantalla-2010-07-15-a-las-11.55.00.png" alt="" width="531" height="347" /></a></p>
+<strong>PASO 2.</strong> Una vez conectado y que el dispositivo ha sido reconocido por el programa (imagen de arriba), haz click en: <strong>Save My SHSH</strong> y espera a que el programa haga su trabajo.
+
+Esto es todo, así de simple. Si haz tenido problemas al hacer esto, coméntalo.</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-15T14:39:19+02:00" pubdate data-updated="true">Jul 15<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cydia/'>Cydia</a>, <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/tutoriales/'>Tutoriales</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2010/07/15/guardar-el-certificado-ecid-del-firmware-con-tinyumbrella/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2010/07/15/guardar-el-certificado-ecid-del-firmware-con-tinyumbrella/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/07/14/traduccion-al-espanol-de-windows-live-messenger-para-iphone/" title="Previous Post: Traducción al español de Windows Live Messenger para iPhone">&laquo; Traducción al español de Windows Live Messenger para iPhone</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/07/15/cuelga-ponle-limite-de-tiempo-a-tus-llamadas/" title="Next Post: Cuelga!: Ponle límite de tiempo a tus llamadas">Cuelga!: Ponle límite de tiempo a tus llamadas &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2010/07/15/guardar-el-certificado-ecid-del-firmware-con-tinyumbrella/';
+        var disqus_url = 'http://ThXou.github.io/2010/07/15/guardar-el-certificado-ecid-del-firmware-con-tinyumbrella/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

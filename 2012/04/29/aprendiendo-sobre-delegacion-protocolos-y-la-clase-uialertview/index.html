@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iOS: Aprendiendo Sobre Delegación, Protocolos Y La Clase UIAlertView - Luis Cardenas ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="En esta ocasión he querido hablar sobre la delegacion, un patrón muy común en Cocoa Touch que a muchos principiantes se nos puede atragantar, como ha &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ThXou.github.io/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Luis Cardenas ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Luis Cardenas ThXou</a></h1>
+  
+    <h2>Ama la sabiduría. Desea el conocimiento</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ThXou.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iOS: Aprendiendo Sobre Delegación, Protocolos Y La Clase UIAlertView</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-29T21:25:25+02:00" pubdate data-updated="true">Apr 29<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://ThXou.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>En esta ocasión he querido hablar sobre la <code>delegacion</code>, un patrón muy común en Cocoa Touch que a muchos principiantes se nos puede atragantar, como ha sido mi caso. Es en si un concepto muy sencillo de entender, pero claro está, dependiendo de quien te lo explique. Espero explicarlo bien para que todos lo puedan entender, si no es así, decídmelo en los comentarios.</p><p>El concepto <code>delegación</code> en Cocoa Touch se refiere especificamente a que tu &#8220;delegas&#8221; a un objeto y lo dotas con la capacidad de responder a ciertos eventos ocurridos en otro objeto en particular. Este concepto es facilmente comprensible si lo miras desde el punto de vista de la necesidad que hay de que &#8220;alguien&#8221; deba recibir y manipular la información de ciertos eventos en ciertos objetos. Un ejemplo claro lo vemos en el GPS. Como podemos saber si el GPS ya encontró nuestra localización?, la información devuelta por el GPS está allí, pero alguien tiene que recibirla y trabajar con ella para poder mostrar esa localización. Pues, ese alguien es el delegado. El proceso de delagación se hace a través de la <strong><em>propiedad</em> <code>delegate</code></strong>. Esta propiedad no es común en todas las clases, solo algunas como <code>UIAccelerometer</code>, <code>UIActionSheet</code>, <code>CLLocationManager</code>, etc. la tienen ya que emiten mensajes para sus eventos. Entonces, asignamos a la <em>propiedad</em> <code>delegate</code> de un objeto la clase que queremos que sea la encargada de manipular los eventos de ese objeto y listo, el delegado ya está preparado para recibirlos y manipularlos.</p><p>Los eventos están representados en código a través de funciones (Métodos) las cuales son llamadas cada vez que el evento ocurre. El objeto delegado se encarga de implementar estas funciones para la cantidad de eventos que se envían dependiendo de cada objeto. Cada objeto delegado solo puede recibir mensajes para eventos de un solo objeto en particular, y estos pueden ser más de uno.</p><h2>Aplicación práctica</h2><p>Well. Siguiendo con mi idea de que todo se aprende mejor si lo llevamos a la práctica, he desarrollado una pequeña aplicación que utiliza la clase <code>UIAlertView</code> para mostrar una ventana como la que vimos en la <a title="Programando notificaciones locales con UILocalNotification" href="http://www.thxou.com/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/">entrada anterior sobre notificaciones locales</a>. Esta ventana tiene unos botones, al presionarlos se altera el texto que hay en una etiqueta (<code>UILabel</code>) que está en la vista principal. Así de sencillo.</p><p>La clase <code>UIAlertView</code> nos permite representar una ventana de alerta en una vista en concreto y lo hacemos así:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="n">UIAlertView</span> <span class="o">*</span><span class="n">ventana</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;Mi Ventana&quot;</span>
+</span><span class='line'>                                                      <span class="nl">message:</span><span class="s">@&quot;Aprendiendo sobre delegación en thxou.com&quot;</span>
+</span><span class='line'>                                                     <span class="nl">delegate:</span><span class="n">self</span>
+</span><span class='line'>                                            <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;Cancelar&quot;</span>
+</span><span class='line'>                                            <span class="nl">otherButtonTitles:</span><span class="s">@&quot;Limpiar Etiqueta!&quot;</span><span class="p">,</span> <span class="s">@&quot;Opción 1&quot;</span><span class="p">,</span> <span class="s">@&quot;Opción 2&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>El método <code>initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles</code> se encarga de crear el objeto llamado <code>ventana</code>, que es una instancia de <code>UIAlertView</code>, con una información por defecto. Pues bien, <code>ventana</code> tiene botones y al presionarlos se envía el mensaje <code><a href="http://developer.apple.com/library/ios/DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html#//apple_ref/occ/intfm/UIAlertViewDelegate/alertView:clickedButtonAtIndex:">alertView:clickedButtonAtIndex:</a>.</code>Cuando este mensaje es enviado se ejecuta el comportamiento por defecto que es simplemente cerrar la ventana de alerta.</p><p>Vamos a fijarnos en la etiqueta <code>delegate</code> del método en el código de arriba. Sabemos que pulsar un botón en la ventana es un evento que dispara el mensaje <code><a href="http://developer.apple.com/library/ios/DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html#//apple_ref/occ/intfm/UIAlertViewDelegate/alertView:clickedButtonAtIndex:">alertView:clickedButtonAtIndex:</a></code>. Bien, al asignar <em>self</em> a la etiqueta <code>delegate</code> le estamos diciendo a <code>ventana</code> cual va a ser el encargado de gestionar sus eventos, en nuestro caso (Y como veréis en la mayoría de los casos) es <em>self</em>, nuestra misma clase <code>ViewController</code>.</p><p>[note]Veremos que en la mayoría de los casos el delegado es asignado de esta manera:</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">objeto</span> <span class="nl">setDelegate:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'><span class="c1">//O también</span>
+</span><span class='line'><span class="n">objeto</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Este código cumple la misma función que en nuestro ejemplo.<br /> [/note]</p><p>Ya que no queremos que al presionar los botones se ejecute el comportamiento por defecto, nuestra clase <code>ViewController</code> necesita implementar este método disparado por el evento y así le decimos a <code>ventana</code> que hacer cuando se presione un botón.</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">alertView:</span><span class="p">(</span><span class="n">UIAlertView</span> <span class="o">*</span><span class="p">)</span><span class="nv">alertView</span> <span class="nf">clickedButtonAtIndex:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="n">buttonIndex</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">mensaje</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">mensaje</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;Haz seleccionado la opción 1&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">mensaje</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@&quot;Haz seleccionado la opción 2&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>La variable buttonIndex contiene los indices para cada uno de los botones que contiene la ventana de alerta. Así que podemos hacer cosas diferentes dependiendo de el &#8220;caso&#8221;.</p><p>Este método, como ya hemos explicado, no es de nuestro delegado, simplemente estamos habilitados para personalizar la respuesta a un evento usando este método, pero no lo creamos nosotros ni definimos la cabecera del método. Por lo tanto el compilador nos va a lanzar una excepción al momento de compilar el código y la aplicación va a petar. Para evitar esto, tenemos que hacer que nuestro delegado &#8220;sea conforme&#8221; al protocolo donde está definido este método (relacionado a un evento) y todos los disparados por la ventana de alerta.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/04/grafic-delegation.png"><img class=" wp-image-2185 aligncenter" title="grafic-delegation" src="http://www.thxou.com/wp-content/uploads/2012/04/grafic-delegation.png" alt="" width="463" height="248" /></a></p><p style="text-align: center;"><small>Representación del patrón delegate</small></p><p><strong>Los protocolos son simples listas de métodos sin implementar</strong>. No son clases, pero si heredan de clases, tampoco podemos hacer instancias de ellos ni crear variables de instancia dentro de ellos. Sus métodos son implementados en las clases que &#8220;son conformes&#8221; a ese protocolo. Un <strong>protocolo delegado</strong> es aquel usado para la delegación, y en nuestro caso vamos a necesitar el protocolo delegado de <code>UIAlertView</code> que implementa el método <code><a href="http://developer.apple.com/library/ios/DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html#//apple_ref/occ/intfm/UIAlertViewDelegate/alertView:clickedButtonAtIndex:">alertView:clickedButtonAtIndex:</a></code>, y este es: <code>UIAlertViewDelegate</code>. Cuando ocurre un evento en el objeto, se envía el mensaje correspondiente del protocolo delegado.</p><p>En un <strong>protocolo delegado</strong> podemos encontrarnos 2 tipos de métodos. Unos manipulan actualizaciones de información, como por ejemplo en el caso del GPS al principio, la localización será diferente siempre que te muevas, por lo tanto el método devolverá información diferente cada vez; Y otros, se envían como respuestas a entradas del usuario, como en nuestro caso, cuando el usuario pulsa un botón de la ventana de alerta. Hay algunos métodos que podrían entrar en una tercera categoría, y es el caso de <code><a href="http://developer.apple.com/library/ios/DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html#//apple_ref/occ/intfm/UIAlertViewDelegate/alertViewShouldEnableFirstOtherButton:">alertViewShouldEnableFirstOtherButton:</a></code>. En este método, la ventana de alerta pregunta al delegado si tiene que mostrar habilitado o deshabilitado el primero de los botones. La respuesta del delegado puede ser simplemente <code>YES</code> o <code>NO</code>. En nuestro caso he puesto <code>NO</code>, para que veas el comportamiento que tiene este método.</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">alertViewShouldEnableFirstOtherButton:</span><span class="p">(</span><span class="n">UIAlertView</span> <span class="o">*</span><span class="p">)</span><span class="nv">alertView</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>Ya solo nos queda hacer que nuestro delegado &#8220;sea conforme&#8221; a <code>UIAlertViewDelegate</code>. Esto lo hacemos en la cabecera de nuestra clase ViewController.h en la declaración <code>@interface</code>, entre signos de mayor y menor.</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">ViewController</span> : <span class="nc">UIViewController</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">UIAlertViewDelegate</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="k">@private</span>
+</span><span class='line'>    <span class="n">UILabel</span> <span class="o">*</span><span class="n">mensaje</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<p>He creado una etiqueta <code>UILabel</code> para mostrar mensajes dependiendo de que botón ha sido pulsado llamada: <code>mensaje</code>.</p><p>Listo, ya hemos terminado. Yo te recomiendo que analices el código y hagas cambios, muchos cambios, para que veas como funciona la clase y su protocolo delegado. Encontrarás enlaces a la documentación de Apple sobre este tema más abajo. En esta misma aplicación de ejemplo intenta añadir más métodos de <code>UIAlertViewDelegate</code> y así saber como funcionan.</p><p>Espero haberte ayudado a comprender este tema. Cualquier duda o sugerencia utiliza los comentarios.</p><p><a href="http://developer.apple.com/library/ios/#DOCUMENTATION/UIKit/Reference/UIAlertView_Class/UIAlertView/UIAlertView.html">UIAlertView</a> | <a href="http://developer.apple.com/library/ios/#DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html">UIAlertViewDelegate</a></p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/7f6fa46bc386d08c6100"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-29T21:25:25+02:00" pubdate data-updated="true">Apr 29<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/aspectos-basicos/'>Aspectos Básicos</a>, <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>, <a class='category' href='/blog/categories/programacion-para-ios/'>Programación para iOS</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ThXou.github.io/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/" data-via="thxouweb" data-counturl="http://ThXou.github.io/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/" title="Previous Post: iOS: Programando notificaciones locales con UILocalNotification">&laquo; iOS: Programando notificaciones locales con UILocalNotification</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/07/31/ios-usando-nsuserdefaults-para-asignar-configuraciones-por-defecto/" title="Next Post: iOS: Usando NSUserDefaults para asignar configuraciones por defecto">iOS: Usando NSUserDefaults para asignar configuraciones por defecto &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración Sencilla De Modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible La Segunda Beta De iOS 7 Para Desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un Vistazo Al Nuevo iOS 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter Y Las Notificaciones</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Luis Cardenas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ThXou.github.io/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/';
+        var disqus_url = 'http://ThXou.github.io/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

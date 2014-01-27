@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iPad | Luis Cardenas ThXou]]></title>
+  <link href="http://ThXou.github.io/blog/categories/ipad/atom.xml" rel="self"/>
+  <link href="http://ThXou.github.io/"/>
+  <updated>2014-01-28T00:48:09+01:00</updated>
+  <id>http://ThXou.github.io/</id>
+  <author>
+    <name><![CDATA[Luis Cardenas]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 Con El iOS Personalizado Creado Con PwnageTool 4.1]]></title>
+    <link href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
+    <updated>2010-10-20T22:09:54+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
+    <content type="html"><![CDATA[<p>Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un firmware personalizado y restaurándolo posteriormente con iTunes.</p>
+
+<p>[aviso]Utiliza este tutorial bajo los requisitos requeridos. No somos responsables del mal uso del tutorial y/o las herramientas.[/aviso]</p>
+
+<p>[importante]<strong>Importante:</strong></p>
+
+<ul>
+    <li>Por defecto la opción de hactivation está habilitada. Si eres de los que tienen un iPhone con la SIM original,<strong> asegúrate de desactivar esta opción</strong>.</li>
+    <li>Funciona también en el Apple TV 2G, pero de momento solo se puede acceder por SSH y ejecutar comandos de consola dentro del dispositivo.</li>
+    <li>Luego de restaurar tu firmware personalizado, podrás <a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">utilizar Ultrasn0w</a> para liberar/desbloquear tu iPhone.[/importante]</li>
+</ul>
+
+
+<p>Dispositivos compatibles:</p>
+
+<ul>
+    <li>AppleTV 2G.</li>
+    <li>iPad (firmware 3.2.2).</li>
+    <li>iPod touch 4G.</li>
+    <li>iPod touch 3G.</li>
+    <li>iPhone4.</li>
+    <li>iPhone 3GS.</li>
+    <li>iPhone 3G.</li>
+</ul>
+
+
+<p>Vamos a ello. Primero tenemos que descargar:</p>
+
+<ul>
+    <li><a href="http://blog.iphone-dev.org/post/1359246784/20102010-event">PwnageTool 4.1 para Mac</a>.</li>
+    <li><a href="http://www.thxou.com/firmwares/">Firmware del iOS 4.1</a> correspondiente a tu dispositivo.</li>
+</ul>
+
+
+<p><strong><span style="color: #99cc00;">PASO 1.</span></strong> Creamos una carpeta en el escritorio y metemos en ella el firmware que nos hemos descargado y PwnageTool (Monta el .dmg y arrastra el icono hacia la carpeta).</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/1.png"><img class="alignnone size-full wp-image-1814" title="1" src="http://www.thxou.com/wp-content/uploads/2010/10/1.png" alt="" width="500" height="347" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 2.</span></strong> Abrimos PwnageTool y damos en aceptar en la advertencia que nos aparece. En la segunda nos advierte sobre si nuestra tarjeta SIM es original o no. En el menú de la parte superior seleccionamos &ldquo;<strong>Expert Mode</strong>&rdquo;. Luego tiense que seleccionar la imagen correspondiente a tu dispositivo y seguidamente presionar en la flecha para seguir.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/3.png"><img class="alignnone size-full wp-image-1815" title="3" src="http://www.thxou.com/wp-content/uploads/2010/10/3.png" alt="" width="450" height="401" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 3.</span></strong> En la siguiente pantalla haz clic en el botón &ldquo;<strong>Browse for IPSW&hellip;</strong>&rdquo; y en la ventana que aparece, selecciona el firmware que haz descargado a la carpeta de tu escritorio. Haz clic en &ldquo;Open&rdquo; y luego continúa.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/4.png"><img class="alignnone size-full wp-image-1816" title="4" src="http://www.thxou.com/wp-content/uploads/2010/10/4.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 4.</span></strong> En esta pantalla selecciona la opción &ldquo;<strong>General</strong>&rdquo; y luego continúa para seguir configurando.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/51.png"><img class="alignnone size-full wp-image-1822" title="51" src="http://www.thxou.com/wp-content/uploads/2010/10/51.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 5.</span></strong> En la siguientes pantallas podrás configurar si deseas Activar el iPhone. Este proceso engaña a iTunes para que te permita utilizar una SIM que no es oficial. Si tienes una oficial, <strong>NO MANTENGAS SELECCIONADA LA OPCION</strong>.</p>
+
+<p>También, en los iPhone 3G puedes habilitar la multitarea, la batería con porcentaje y el fondo de pantalla personalizado si deseas.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/6.png"><img class="alignnone size-full wp-image-1817" title="6" src="http://www.thxou.com/wp-content/uploads/2010/10/6.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 6.</span></strong> Desde esta pantalla puedes personalizar como quieres que esté Cydia. Puedes agregarle sources para que estén instaladas por defecto cuando ya tengas el Jailbreak hecho. También puedes agregar paquetes personalizados .deb que deseas tener instalados por defecto.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/7.png"><img class="alignnone size-full wp-image-1819" title="7" src="http://www.thxou.com/wp-content/uploads/2010/10/7.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 7.</span></strong> Ahora ya que haz terminado de configurarlo todo, haz clic en &ldquo;<strong>Build</strong>&rdquo; para empezar a crear el firmware personalizado. Cuando te aparezca la pantalla de guardar, guardalo en la carpeta que creamos al principio.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/8.png"><img class="alignnone size-full wp-image-1820" title="8" src="http://www.thxou.com/wp-content/uploads/2010/10/8.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><span style="color: #99cc00;"><strong>PASO 8.</strong></span> Una vez construido el firmware personalizado, se te <strong>pedirá conectar el dispositivo al Mac</strong> para ponerlo en modo DFU. Sigue las instrucciones que pone en pantalla:</p>
+
+<ol>
+    <li>Mantén pulsado el botón de encendido y el de Inicio durante 10 segundos.</li>
+    <li>Pasado ese tiempo, suelta el botón de encendido y sigue presionando el botón Inicio durante 10 segundos.</li>
+    <li>Una vez que tengas el iPhone en modo DFU, PwnageTool lo detectará y le pedirá que abra iTunes.</li>
+</ol>
+
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/951.png"><img class="alignnone size-full wp-image-1825" title="951" src="http://www.thxou.com/wp-content/uploads/2010/10/951.png" alt="" width="490" height="212" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 9.</span></strong> Este es el último paso, al abrir iTunes, este debería detectar tu iPhone en modo DFU. Das aceptar en la venta que aparece y seguidamente procedes a restaurar el firmware personalizado que tienes en la carpeta que creamos al principio.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/961.png"><img class="alignnone size-full wp-image-1826" title="961" src="http://www.thxou.com/wp-content/uploads/2010/10/961.png" alt="" width="500" height="243" /></a></p>
+
+
+<p>Luego de que el proceso de restauración termine se reiniciará y al volver ya tendremos nuestro dispositivo con iOS 4.1 y Jailbreak instalado.</p>
+
+<p>[nota]Luego de haber hecho Jailbreak, puedes seguir <strong><a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">este tutorial</a></strong> para liberar/desbloquear tu iPhone y dejarlo libre de compañías móviles.[/nota]</p>
+
+<p>Cualquier duda escríbela en los comentarios.</p>
+
+<p style="text-align: right;"><a href="http://www.actualidadiphone.com/2010/10/20/tutorial-para-instalar-ios-4-1-con-pwnagetool/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+ActualidadIphone+(Actualidad+iPhone)">Vía</a></p>
+
+
+<p style="text-align: center;"></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GUIA-T | [Windows] Como Hacer Jailbreak en iOS 4.0-iOS 4.1 Utilizando Greenpois0n Paso a Paso]]></title>
+    <link href="http://ThXou.github.io/2010/10/14/guia-t-windows-como-hacer-jailbreak-en-ios-4-0-ios-4-1-utilizando-greenpois0n-paso-a-paso/"/>
+    <updated>2010-10-14T01:24:21+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/14/guia-t-windows-como-hacer-jailbreak-en-ios-4-0-ios-4-1-utilizando-greenpois0n-paso-a-paso</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><img src="http://www.thxou.com/wp-content/uploads/2010/10/gp_web.png" alt="" /></p>
+
+
+<p>Os traigo una nueva <a href="http://www.thxou.com/category/guia-t/">GUIA-T</a> para los que no hicisteis aún el Jailbreak en iOS 4.1, pero esta vez con la herramienta del Chronic Dev Team, <strong>Greenpois0n</strong>. Recordad que esta herramienta no utiliza el exploit SHAtter para el que inicialmente había sido preparada, sino que, tras una modificación, utiliza el exploit descubierto por GeoHot y que utiliza actualmente en Limera1n.</p>
+
+<p>[aviso]Utiliza este tutorial siguiendo los pasos al detalle y bajo tu propia responsabilidad. No somos responsables del mal uso de las herramientas y/o del tutorial. Antes de proceder asegúrate de cumplir con TODOS los requisitos.[/aviso]</p>
+
+<p>[importante]<strong>Importante: </strong></p>
+
+<ul>
+    <li>Si no deseas perder la liberación en tu iPhone 4. Utiliza <a href="http://www.thxou.com/2010/09/09/actualiza-tu-iphone-4-al-ios-4-1-sin-actualizar-la-baseband-con-tinyumbrella-4-1-3/">este tutorial</a> para actualizar al iOS 4.1 sin subir la baseband.</li>
+    <li>Haz una copia de seguridad de tus datos antes de hacer el Jailbreak para evitarnos cualquier problema durante el Jailbreak.</li>
+    <li>Recomiendo mucho quitar la tarjeta SIM del dispositivo antes de empezar.</li>
+    <li>Es necesario tener abierto iTunes durante el proceso para que funcione correctamente.[/importante]</li>
+</ul>
+
+
+<p>Vamos a ello. Primero necesitamos:</p>
+
+<ul>
+    <li><strong>GreenPois0n</strong>. Lo podemos descargar desde la <a href="http://www.greenpois0n.com/" target="_blank">la página oficial</a>.</li>
+    <li><a href="http://www.thxou.com/firmwares/">iOS 4.0 – iOS 4.0.1 – iOS 4.0.2 o iOS 4.1</a>.</li>
+    <li>Tener un iPhone 3GS, iPhone 4, iPad, iPod touch 2G, iPod Touch 3G o un iPod Touch 4G.</li>
+    <li>Tener instalado iTunes 10.</li>
+</ul>
+
+
+<p>Al igual que con limera1n, es muy fácil hacer Jailbreak con Greenpois0n. Recuerda que esta herramienta solamente es para Windows.</p>
+
+<p><strong><span style="color: #99cc00;">PASO 1.</span></strong><strong> </strong>Apagamos nuestro dispositivo y luego abrimos Greenpois0n. Lo primero que veremos será esta pantalla. Aquí haremos clic en el botón &ldquo;<strong>Prepare to Jailbreak (DFU)</strong>&rdquo;. Ten en cuenta que lo siguiente será que tendrás que poner el iPhone en modo DFU, así que preparado.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/screen1-530x294.jpg"><img class="alignnone size-full wp-image-1689" title="greenpois0n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/screen1-530x294.jpg" alt="" width="477" height="265" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 2.</span></strong> En la siguiente pantalla se muestran los pasos para poner el iPhone en modo DFU y la cantidad de segundos que debes mantener pulsados los botones (Ten muy en cuenta el tiempo que hay que presionar).</p>
+
+<ol>
+    <li>Preparate para empezar (3 segundos).</li>
+    <li>Presiona el botón de bloqueo del iPhone (2 segundos).</li>
+    <li>Continua presionando el botón de bloqueo y ahora presiona también el de inicio (10 segundos).</li>
+    <li>Suelta el botón de bloqueo y mantén presionado el botón de inicio hasta que Greenpois0n detecte tu iPhone en modo DFU.</li>
+</ol>
+
+
+<p>Si te equivocaste en algún paso, solamente haz clic en el botón &ldquo;<strong>Reset</strong>&rdquo; para empezar otra vez.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/screen2-530x295.jpg"><img class="alignnone size-full wp-image-1690" title="greenpois0n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/screen2-530x295.jpg" alt="" width="477" height="266" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 3.</span> </strong>Una vez puesto el iPhone en modo DFU empezará el proceso automático de Jailbreak. El botón &ldquo;<strong>Waiting for DFU&hellip;</strong>&rdquo; cambiará a &ldquo;<strong>Jailbreaking&hellip;</strong>&rdquo; y el proceso se verá el la barra de progreso y en la pantalla del iPhone (un montón de letras y números que no se entienden es completamente normal).</p>
+
+<p><strong><span style="color: #99cc00;">PASO 4.</span> </strong>Luego de hecho el Jailbreak y de que hayan salido todas esas cosas en la pantalla del iPhone, al reiniciar veremos un nuevo icono llamado &ldquo;<strong>Loader</strong>&rdquo;.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/Loader-SpringBoard.png"><img class="alignnone size-full wp-image-1691" title="Loader-SpringBoard-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/Loader-SpringBoard-e1287003977305.png" alt="" width="200" height="300" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 5.</span> </strong>Al abrir Loader tendrás la posibilidad de instalar Cydia. Asegúrate de tener conexión a internet antes de continuar. Si ya la tienes, selecciona Cydia y luego confirma la ventana presionando sobre &ldquo;<strong>Install Cydia</strong>&rdquo;. Al terminar, una ventana te preguntará si deseas remover &ldquo;Loader&rdquo; del dispositivo.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/Installing-Cydia-240x360.png"><img class="alignnone size-medium wp-image-1692" title="Installing-Cydia-240x360" src="http://www.thxou.com/wp-content/uploads/2010/10/Installing-Cydia-240x360-200x300.png" alt="" width="200" height="300" /></a> <a href="http://www.thxou.com/wp-content/uploads/2010/10/Remove-Loader-240x360.png"><img class="alignnone size-medium wp-image-1693" title="Remove-Loader-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/Remove-Loader-240x360-200x300.png" alt="" width="200" height="300" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 6.</span> </strong>Seguidamente el dispositivo se reiniciará y al volver tendrás Cydia instalado y tu dispositivo con Jailbreak.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/IMG_0011-240x360.png"><img class="alignnone size-full wp-image-1694" title="cydia-greenpois0n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/IMG_0011-240x360.png" alt="" width="240" height="360" /></a></p>
+
+
+<p>Espero que os haya salido bien. Ya sabéis, cualquier duda o problema que hayan tenido, comentadlo y a ver si lo solucionamos entre todos. Enjoy it!!</p>
+
+<p style="text-align: right;"><a href="http://www.ispazio.net/130562/guida-ispazio-ecco-come-eseguire-il-jailbreak-di-ios-4-1-utilizzando-greenposi0n-su-iphone-3gs-iphone-4-ipad-ed-ipod-touch-4g-windows">Vía iSpazio</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GUIA-T | [Windows] Hacer Jailbreak Utilizando Limera1n Al iPhone 3GS, iPod Touch 3G, iPad, iPhone 4, iPod Touch 4G Con iOS 4.0-4.1]]></title>
+    <link href="http://ThXou.github.io/2010/10/12/guia-t-windows-hacer-jailbreak-utilizando-limera1n-al-iphone-3gs-ipod-touch-3g-ipad-iphone-4-ipod-touch-4g-con-ios-4-0-4-1/"/>
+    <updated>2010-10-12T18:36:15+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/12/guia-t-windows-hacer-jailbreak-utilizando-limera1n-al-iphone-3gs-ipod-touch-3g-ipad-iphone-4-ipod-touch-4g-con-ios-4-0-4-1</id>
+    <content type="html"><![CDATA[<p>Ayer GeoHot lanzó su propia herramienta para hacer Jailbreak al iOS 4.0 hasta el iOS 4.1 para la mayoría de los dispositivos actuales y <strong>de por vida</strong>. Bien, aquí os traigo una GUIA-T detallada de como hacer Jailbreak con esta herramienta. Es muy sencillo, casi tanto como hacerlo con JailbreakMe así que no os costará. En principio, al igual que Greenpois0n, este Jailbreak era Tethered, pero gracias al exploit de comex también ha llegado a ser Untethered.</p>
+
+<p>[importante]<strong>Importante:</strong></p>
+
+<ul>
+    <li>Si no deseas perder la liberación en tu iPhone 4. Utiliza <a href="http://www.thxou.com/2010/09/09/actualiza-tu-iphone-4-al-ios-4-1-sin-actualizar-la-baseband-con-tinyumbrella-4-1-3/">este tutorial</a> para actualizar al iOS 4.1 sin subir la baseband.</li>
+    <li>Es de por vida. Apple no podrá dejarte sin jailbreak con una nueva actualización.</li>
+    <li>Haz una copia de seguridad de tus datos antes de hacer el Jailbreak para evitarnos cualquier problema durante el Jailbreak.</li>
+    <li>Este tutorial es solo para Windows, aunque esperamos la herramienta para Mac.</li>
+    <li>Es necesario tener abierto iTunes durante el proceso para que funcione correctamente.[/importante]</li>
+</ul>
+
+
+<p>[aviso]Utiliza este tutorial siguiendo los pasos al detalle y bajo tu propia responsabilidad. No somos responsables del mal uso de las herramientas y/o del tutorial. Antes de proceder asegúrate de cumplir con TODOS los requisitos.[/aviso]</p>
+
+<p>Aclarando todas estas cosas, empezamos con el tutorial.</p>
+
+<p>Necesitamos:</p>
+
+<ul>
+    <li><strong>Limera1n RC2</strong>, que puedes descargar directamente desde la <a href="http://limera1n.com/" target="_blank">página Oficial</a>.</li>
+    <li>iOS 4.0 - iOS 4.0.1 - iOS 4.0.2 o iOS 4.1.</li>
+    <li>Tener un iPhone 3GS, iPhone 4, iPad, iPod Touch 3G o un iPod Touch 4G.</li>
+</ul>
+
+
+<p><strong><span style="color: #99cc00;">PASO 1.</span></strong> Abrimos Limera1n y seguidamente conectamos nuestro dispositivo al ordenador. Seguidamente vamos a Limera1n y presionamos el único botón que tiene la aplicación: “<strong>make it ra1n</strong>“.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/41268.png"><img class="alignnone size-full wp-image-1660" title="limera1n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/41268.png" alt="" width="437" height="137" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 2.</span></strong> Luego de haber presionado el botón nuestro dispositivo entrará en modo de recuperación.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/41269.png"><img class="alignnone size-full wp-image-1661" title="limera1n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/41269.png" alt="" width="437" height="137" /></a></p>
+
+
+<p>Luego de esto necesitarás entrar en modo DFU.</p>
+
+<p><strong><span style="color: #ff0000;">Nota:</span></strong> Los pasos para entrar en DFU mode serán mostrados en el texto del mismo botón de la pantalla. Solo hay que seguir esos pasos correctamente y paso a paso para lograrlo.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/41272.png"><img class="alignnone size-full wp-image-1662" title="limera1n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/41272.png" alt="" width="437" height="137" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 3.</span></strong> Listo. Nuestro dispositivo ya tiene hecho el jailbreak.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/41276.png"><img class="alignnone size-full wp-image-1663" title="limera1n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/41276.png" alt="" width="437" height="137" /></a></p>
+
+
+<p>Aunque las imágenes muestren un Limera1n en fase beta, os comunico que es porque son imágenes de las primeras versiones y que aún tenían fallos. <strong>Desde la página Web podrán descargar la versión final</strong> del programa libre de posibles fallos. Aquí os dejo una captura del limera1n en un dispositivo.</p>
+
+<p style="text-align: center;"><strong><a href="http://www.thxou.com/wp-content/uploads/2010/10/iefv.jpg"><img class="alignnone size-full wp-image-1664" title="limera1n-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/iefv.jpg" alt="" width="320" height="480" /></a></strong></p>
+
+
+<p>Pronto os pondré el tutorial sobre como hacer jailbreak con Greenpois0n que técnicamente hace lo mismo que Limera1n. Si hn decidido hacer jailbreak con esta herramienta, comentadme los problemas y demás que os puedan surgir.</p>
+
+<p style="text-align: right;"><a href="http://ispazio.net">Vía</a></p>
+
+
+<p><strong><span style="color: #ff0000;">Actualizaciónes:</span></strong></p>
+
+<ul>
+    <li><span style="color: #333333;">Antes de empezar a utilizar la herramienta, <strong>retira la tarjeta SIM</strong>. A lo mejor no sucede nada si no la quitas, pero ahorrate los problemas. Si cometes el mismo error que yo, puede que tengas que hacer un duplicado y eso no mola!.</span></li>
+    <li><span style="color: #333333;">El error del mensaje "<strong>Waiting for device</strong>" se soluciona dejando abierto iTunes durante todo el proceso de jailbreak.</span></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Video] iPad Disparado Con Una Escopeta]]></title>
+    <link href="http://ThXou.github.io/2010/10/06/video-ipad-disparado-con-una-escopeta/"/>
+    <updated>2010-10-06T20:05:29+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/06/video-ipad-disparado-con-una-escopeta</id>
+    <content type="html"><![CDATA[<p>Otro video de gente que se deleita en destruir los productos de Apple. Hemos visto como trituran un iPad, como lo utilizan como skateboard y <strong>ahora veremos como es atravesado por una bala de escopeta</strong> gracias a los hicos de FreeTaxUsa.com que han hecho la prueba.</p>
+
+<p>No se cual será el beneficio que les reporta destruir los dispositivos de Apple de esa manera pero bueno, es bueno tener cosas diferentes para ver (jeje). Aquí les dejo el video:</p>
+
+<center><object width="480" height="295"><param name="movie" value="http://www.youtube.com/v/b_M58-K4Qmc?fs=1&amp;hl=es_ES&amp;rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/b_M58-K4Qmc?fs=1&amp;hl=es_ES&amp;rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="295"></embed></object></center>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GUIA-T | Downgrade De iOS 4.2 Al iOS 4.1 en iPhone, iPad Y iPod]]></title>
+    <link href="http://ThXou.github.io/2010/09/16/guia-t-downgrade-de-ios-4-2-al-ios-4-1-en-iphone-ipad-y-ipod/"/>
+    <updated>2010-09-16T13:32:21+02:00</updated>
+    <id>http://ThXou.github.io/2010/09/16/guia-t-downgrade-de-ios-4-2-al-ios-4-1-en-iphone-ipad-y-ipod</id>
+    <content type="html"><![CDATA[<p>[nota]Hoy inauguramos sección, se llama &ldquo;<b><a href="http://www.thxou.com/category/guia-t/">GUIA-T</a></b>&rdquo;. Encontrarás tutoriales y guías <b>PASO A PASO</b> de como realizar ciertas cosas un poco más complejas en tu dispositivo.[/nota]</p>
+
+<p>Ayer Apple <a href="http://www.thxou.com/2010/09/15/disponible-la-beta-del-ios-4-2-para-el-iphone-y-ipad/">lanzó la Beta del iOS 4.2</a> con muchas novedades. Si eres de los que lo instalaste, pero ahora deseas volver al iOS 4.1 que es más estable, entonces sigue esta guía paso a paso para volver al iOS 4.1.</p>
+
+<p>[aviso]Sigue esta guía al pie de la letra cada apartado para que todo salga bien. No nos responsabilizamos del mal uso de las herramientas y/o el tutorial.[/aviso]</p>
+
+<p><strong><span style="color: #99cc00;">PASO 1.</span></strong><span><span> Descarga el iOS 4.1 Beta y ponlo en el escritorio. Luego por tu iPhone/iPod/iPad en </span><a href="http://www.thxou.com/2010/07/20/poner-el-iphone-en-modo-dfu/">modo DFU</a><span> con las siguientes instrucciones:</span></span></p>
+
+<blockquote>
+<ul>
+    <li><span><span>Conecta el dispositivo a tu ordenador y luego apágalo.</span></span></li>
+    <li><span><span>Mantén presionado el botón de Inicio y de encendido durante 10 segundos (exactamente).</span></span></li>
+    <li><span><span>Pasados los 10 segundos suelta el botón de encendido pero mantén presionado el de Inicio.</span></span></li>
+    <li><span><span>Unos segundos más tarde iTunes debería detectar el dispositivo.</span></span></li>
+    <li><span><span>Si el logotipo de restauración está sale en la pantalla, entonces ya estás en D</span></span><span><span>FU.</span></span></li>
+</ul>
+</blockquote>
+
+
+<p><strong><span style="color: #99cc00;">PASO 2.</span></strong><span><span> Una vez que el iPhone está en modo DFU, aparecerá el siguiente mensaje en iTunes.</span></span></p>
+
+<p style="text-align: center;"><img src="http://www.thxou.com/wp-content/uploads/2010/07/l_500_204_D6E19FB4-3F3D-4C1C-A199-95D728B74713.jpeg" alt="" /></p>
+
+
+<p><span><span>Haga clic en &ldquo;Aceptar&rdquo;, ahora </span></span><strong><span><span>mantén pulsada la tecla Opción (Mac)</span></span></strong><span><span> o la </span></span><strong><span><span>tecla Mayús (Windows) </span></span></strong><span><span>mientras haces clic en </span></span><strong><span><span>Restaurar</span></span></strong><span><span> en iTunes y busca en el escritorio el iOS 4.1 que haz descargado. Haz clic en &ldquo;Open&rdquo; y espera a que la restauración se complete (10 a 15 minutos)</span><span>.</span></span></p>
+
+<p><strong><span style="color: #99cc00;">PASO 3.</span></strong><span><span> Después de el proceso de restauración podría salirte un mensaje de error de número 1011, 1013 o 1015, no te preocupes, solo ignóralos (Porque en realidad el firmware ya está instalado).</span></p>
+
+<p><span>Para salir del modo de recuperación (imagen iTunes + USB) tienes que descargar <b>Recboot</b>. Una vez descargado, abre Recboot y haz clic en el botón &ldquo;<b>Exit Recobery Mode</b>&rdquo; para salir del modo de restauración.</span></span></p>
+
+<p style="text-align: center;"><img src="http://www.thxou.com/wp-content/uploads/2010/07/Captura-de-pantalla-2010-07-22-a-las-19.05.35.png" alt="" /></p>
+
+
+<p>Enlaces de descarga de Recboot:</p>
+
+<ul>
+    <li><strong><span><span>Recboot para Windows:</span></span></strong> <a href="http://bit.ly/9he64R" target="_blank"><span><span>http://bit.ly/9he64R</span></span></a> <strong><span><span>(Requiere Net 4.0)</span></span></strong></li>
+    <li><strong><span><span>Recboot para Mac:</span></span></strong> <a href="http://bit.ly/bBelW2" target="_blank"><span><span>http://bit.ly/bBelW2</span></span></a></li>
+</ul>
+
+
+<p><span><span>Si al restaurar te has encontrado con el mensaje de error 1601, 1602, 1600 o cualquier otro, entonces pon el iPhone en modo DFU y vuelve a intentarlo.</span></span></p>
+]]></content>
+  </entry>
+  
+</feed>

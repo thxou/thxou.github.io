@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Cydia | Luis Cardenas ThXou]]></title>
+  <link href="http://ThXou.github.io/blog/categories/cydia/atom.xml" rel="self"/>
+  <link href="http://ThXou.github.io/"/>
+  <updated>2014-01-28T00:48:09+01:00</updated>
+  <id>http://ThXou.github.io/</id>
+  <author>
+    <name><![CDATA[Luis Cardenas]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[FBUploader: Sube Fotos a Facebook Desde La Aplicación Fotos]]></title>
+    <link href="http://ThXou.github.io/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos/"/>
+    <updated>2011-05-10T18:15:41+02:00</updated>
+    <id>http://ThXou.github.io/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia Store (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: $1.99</p>
+
+
+<p><strong>FBUploader</strong> es un Tweak que nos va a permitir <strong>subir a Facebook nuestras fotos, directamente desde la aplicación nativa de fotos</strong>, añadiendo la opción &ldquo;<strong>Facebook</strong>&rdquo;, al menú emergente disponible desde la barra de herramientas de cada foto.</p>
+
+<p style="text-align: center;"><img class="alignnone size-full wp-image-1926" title="fbuploader-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/fbuploader21-e1305036579640.png" alt="" width="200" height="300" /> <img class="alignnone size-full wp-image-1925" title="fbuploader2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/fbuploader2-e1305036620859.png" alt="" width="200" height="300" /></p>
+
+
+<p>Además de subir la foto a Facebook, también te permite personalizar un texto para que sea enviado junto con la foto, similar a como lo hacemos mediante Web. De esta manera ya no tienes que abrir la aplicación de Facebook para compartir.</p>
+
+<p>Puedes encontrarlo en el respositorio de <strong>BigBoss</strong> de Cydia Store a <strong>$1.99</strong>.</p>
+
+<table style="background-color: #a33f03;" border="0" align="center">
+<tbody>
+<tr>
+<td>Podéis hacer vuestras preguntas acerca del Jailbreak y las herramientas desde <a href="http://www.todojailbreak.ya.st" target="_blank">TodoJailbreak</a>, nuestra nueva Web.</td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Locktopus: Bloquea Tus Aplicaciones Con Contraseña]]></title>
+    <link href="http://ThXou.github.io/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena/"/>
+    <updated>2010-10-26T23:25:16+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia Store (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: $2</p>
+
+
+<p><strong>Locktopus</strong> es un tweak de cydia que te permite <strong>proteger con una contraseña cualquiera de las aplicaciones del Springboard</strong>. Basta con mantener presionado cualquier icono, como para eliminarlo o moverlo, y saldrá el icono de un candado en la parte inferior izquierda. Al presionarlo ya tendrás bloqueada la aplicación.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/IMG_2739-160x240.png"><img class="alignnone size-full wp-image-1851" title="locktopus-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/IMG_2739-160x240.png" alt="" width="160" height="240" /></a> <a href="http://www.thxou.com/wp-content/uploads/2010/10/IMG_2740-160x240.png"><img class="alignnone size-full wp-image-1852" title="locktopus-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/IMG_2740-160x240.png" alt="" width="160" height="240" /></a></p>
+
+
+<p>Este tweak no instala ningún icono en la pantalla de inicio, pero si un apartado en los ajustes del dispositivo desde el que puedes cambiar la contraseña para desbloquear las aplicaciones, que por defecto es: &ldquo;<strong><em>password</em></strong>&rdquo;. Es compatible con los firmwares <strong>3.x y 4.x</strong> y una gran alternativa a su similar &ldquo;Lockdown&rdquo;.</p>
+
+<p>Si haz perdido la contraseña, entra en cydia y reinstala la aplicación, así restablecerás la contraseña por defecto.</p>
+
+<p>Puedes encontrarla en el <strong>repositorio de BigBoss</strong>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 Con El iOS Personalizado Creado Con PwnageTool 4.1]]></title>
+    <link href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
+    <updated>2010-10-20T22:09:54+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
+    <content type="html"><![CDATA[<p>Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un firmware personalizado y restaurándolo posteriormente con iTunes.</p>
+
+<p>[aviso]Utiliza este tutorial bajo los requisitos requeridos. No somos responsables del mal uso del tutorial y/o las herramientas.[/aviso]</p>
+
+<p>[importante]<strong>Importante:</strong></p>
+
+<ul>
+    <li>Por defecto la opción de hactivation está habilitada. Si eres de los que tienen un iPhone con la SIM original,<strong> asegúrate de desactivar esta opción</strong>.</li>
+    <li>Funciona también en el Apple TV 2G, pero de momento solo se puede acceder por SSH y ejecutar comandos de consola dentro del dispositivo.</li>
+    <li>Luego de restaurar tu firmware personalizado, podrás <a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">utilizar Ultrasn0w</a> para liberar/desbloquear tu iPhone.[/importante]</li>
+</ul>
+
+
+<p>Dispositivos compatibles:</p>
+
+<ul>
+    <li>AppleTV 2G.</li>
+    <li>iPad (firmware 3.2.2).</li>
+    <li>iPod touch 4G.</li>
+    <li>iPod touch 3G.</li>
+    <li>iPhone4.</li>
+    <li>iPhone 3GS.</li>
+    <li>iPhone 3G.</li>
+</ul>
+
+
+<p>Vamos a ello. Primero tenemos que descargar:</p>
+
+<ul>
+    <li><a href="http://blog.iphone-dev.org/post/1359246784/20102010-event">PwnageTool 4.1 para Mac</a>.</li>
+    <li><a href="http://www.thxou.com/firmwares/">Firmware del iOS 4.1</a> correspondiente a tu dispositivo.</li>
+</ul>
+
+
+<p><strong><span style="color: #99cc00;">PASO 1.</span></strong> Creamos una carpeta en el escritorio y metemos en ella el firmware que nos hemos descargado y PwnageTool (Monta el .dmg y arrastra el icono hacia la carpeta).</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/1.png"><img class="alignnone size-full wp-image-1814" title="1" src="http://www.thxou.com/wp-content/uploads/2010/10/1.png" alt="" width="500" height="347" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 2.</span></strong> Abrimos PwnageTool y damos en aceptar en la advertencia que nos aparece. En la segunda nos advierte sobre si nuestra tarjeta SIM es original o no. En el menú de la parte superior seleccionamos &ldquo;<strong>Expert Mode</strong>&rdquo;. Luego tiense que seleccionar la imagen correspondiente a tu dispositivo y seguidamente presionar en la flecha para seguir.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/3.png"><img class="alignnone size-full wp-image-1815" title="3" src="http://www.thxou.com/wp-content/uploads/2010/10/3.png" alt="" width="450" height="401" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 3.</span></strong> En la siguiente pantalla haz clic en el botón &ldquo;<strong>Browse for IPSW&hellip;</strong>&rdquo; y en la ventana que aparece, selecciona el firmware que haz descargado a la carpeta de tu escritorio. Haz clic en &ldquo;Open&rdquo; y luego continúa.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/4.png"><img class="alignnone size-full wp-image-1816" title="4" src="http://www.thxou.com/wp-content/uploads/2010/10/4.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 4.</span></strong> En esta pantalla selecciona la opción &ldquo;<strong>General</strong>&rdquo; y luego continúa para seguir configurando.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/51.png"><img class="alignnone size-full wp-image-1822" title="51" src="http://www.thxou.com/wp-content/uploads/2010/10/51.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 5.</span></strong> En la siguientes pantallas podrás configurar si deseas Activar el iPhone. Este proceso engaña a iTunes para que te permita utilizar una SIM que no es oficial. Si tienes una oficial, <strong>NO MANTENGAS SELECCIONADA LA OPCION</strong>.</p>
+
+<p>También, en los iPhone 3G puedes habilitar la multitarea, la batería con porcentaje y el fondo de pantalla personalizado si deseas.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/6.png"><img class="alignnone size-full wp-image-1817" title="6" src="http://www.thxou.com/wp-content/uploads/2010/10/6.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 6.</span></strong> Desde esta pantalla puedes personalizar como quieres que esté Cydia. Puedes agregarle sources para que estén instaladas por defecto cuando ya tengas el Jailbreak hecho. También puedes agregar paquetes personalizados .deb que deseas tener instalados por defecto.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/7.png"><img class="alignnone size-full wp-image-1819" title="7" src="http://www.thxou.com/wp-content/uploads/2010/10/7.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 7.</span></strong> Ahora ya que haz terminado de configurarlo todo, haz clic en &ldquo;<strong>Build</strong>&rdquo; para empezar a crear el firmware personalizado. Cuando te aparezca la pantalla de guardar, guardalo en la carpeta que creamos al principio.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/8.png"><img class="alignnone size-full wp-image-1820" title="8" src="http://www.thxou.com/wp-content/uploads/2010/10/8.png" alt="" width="500" height="446" /></a></p>
+
+
+<p><span style="color: #99cc00;"><strong>PASO 8.</strong></span> Una vez construido el firmware personalizado, se te <strong>pedirá conectar el dispositivo al Mac</strong> para ponerlo en modo DFU. Sigue las instrucciones que pone en pantalla:</p>
+
+<ol>
+    <li>Mantén pulsado el botón de encendido y el de Inicio durante 10 segundos.</li>
+    <li>Pasado ese tiempo, suelta el botón de encendido y sigue presionando el botón Inicio durante 10 segundos.</li>
+    <li>Una vez que tengas el iPhone en modo DFU, PwnageTool lo detectará y le pedirá que abra iTunes.</li>
+</ol>
+
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/951.png"><img class="alignnone size-full wp-image-1825" title="951" src="http://www.thxou.com/wp-content/uploads/2010/10/951.png" alt="" width="490" height="212" /></a></p>
+
+
+<p><strong><span style="color: #99cc00;">PASO 9.</span></strong> Este es el último paso, al abrir iTunes, este debería detectar tu iPhone en modo DFU. Das aceptar en la venta que aparece y seguidamente procedes a restaurar el firmware personalizado que tienes en la carpeta que creamos al principio.</p>
+
+<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/961.png"><img class="alignnone size-full wp-image-1826" title="961" src="http://www.thxou.com/wp-content/uploads/2010/10/961.png" alt="" width="500" height="243" /></a></p>
+
+
+<p>Luego de que el proceso de restauración termine se reiniciará y al volver ya tendremos nuestro dispositivo con iOS 4.1 y Jailbreak instalado.</p>
+
+<p>[nota]Luego de haber hecho Jailbreak, puedes seguir <strong><a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">este tutorial</a></strong> para liberar/desbloquear tu iPhone y dejarlo libre de compañías móviles.[/nota]</p>
+
+<p>Cualquier duda escríbela en los comentarios.</p>
+
+<p style="text-align: right;"><a href="http://www.actualidadiphone.com/2010/10/20/tutorial-para-instalar-ios-4-1-con-pwnagetool/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+ActualidadIphone+(Actualidad+iPhone)">Vía</a></p>
+
+
+<p style="text-align: center;"></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Video] FullScreen for Safari: Navega Con Safari Mobile a Pantalla Completa]]></title>
+    <link href="http://ThXou.github.io/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa/"/>
+    <updated>2010-10-18T23:47:21+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia Store (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: $1.49</p>
+
+
+<p><strong>FullScreen for Safari</strong> es un tweak de Cydia que nos permite <strong>navegar por Safari Mobile a pantalla completa</strong>. Además de esto, también incorpora características que aprovechan la capacidad multitátil del iPhone para controlar algunas funciones como ir hacia atrás, abrir una nueva pestaña, recargar la página y algunas más.</p>
+
+<p style="text-align: center;"><img class="alignnone size-full wp-image-1776" title="FullScreen-for-Safari-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/FullScreen-for-Safari-1-copia-1-e1287430255831.jpg" alt="" width="160" height="236" /> <img class="alignnone size-full wp-image-1777" title="FullScreen-for-Safari-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/FullScreen-for-Safari-1-copia-e1287430341797.jpg" alt="" width="160" height="234" /></p>
+
+
+<p>Puedes encontrarlo en el <strong>repositorio de BigBoss</strong>. Para ver su funcionamiento completo aquí os dejo un video de demostración:</p>
+
+<center><object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/Sqa570xHtWI?fs=1&amp;hl=es_ES&amp;rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/Sqa570xHtWI?fs=1&amp;hl=es_ES&amp;rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object></center>
+
+
+
+
+<p style="text-align: right;"><a href="http://www.ispazio.net/131376/fullscreen-for-safari-un-tweak-per-controllare-safari-con-nuove-gesture-multitouch-anteprima-ispazio">Video</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HRDEnabler: Habilita La Función HDR en El iPod Touch 4G]]></title>
+    <link href="http://ThXou.github.io/2010/10/17/hrdenabler-habilita-la-funcion-hdr-en-el-ipod-touch-4g/"/>
+    <updated>2010-10-17T16:47:11+02:00</updated>
+    <id>http://ThXou.github.io/2010/10/17/hrdenabler-habilita-la-funcion-hdr-en-el-ipod-touch-4g</id>
+    <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: Gratis</p>
+
+
+<p><strong>HDREnabler</strong> es un tweak de Cydia que <strong>habilita la función HRD en los iPod Touch 4G</strong>. Como sabéis, esta tecnología no está habilitada por defecto, pero gracias a esta modificación es posible disfrutar de las fotografía mejoradas de alto rango en nuestros iPod Touch 4G.</p>
+
+<p style="text-align: center;"><img class="alignnone size-full wp-image-1761" title="HDREnabler-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/IMG_0519-e1287319228142.png" alt="" width="160" height="240" /> <img class="alignnone size-full wp-image-1762" title="HDREnabler-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/0027-e1287319265429.png" alt="" width="160" height="240" /></p>
+
+
+<p>Este tweak solo funciona en iPod Touch 4G con iOS 4.1 o superior. No instala ningún icono ni ninguna opción en los ajustes del iPod Touch, simplemente realiza la modificación del sistema.</p>
+
+<p>Puedes encontrarlo en el <strong>repositorio de BigBoss</strong>.</p>
+]]></content>
+  </entry>
+  
+</feed>
