@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Personaliza Tu iPhone | Luis Cardenas ThXou]]></title>
+  <title><![CDATA[Category: Personaliza tu iPhone | Luis Cardenas ThXou]]></title>
   <link href="http://ThXou.github.io/blog/categories/personaliza-tu-iphone/atom.xml" rel="self"/>
   <link href="http://ThXou.github.io/"/>
-  <updated>2014-01-28T00:48:09+01:00</updated>
+  <updated>2014-01-28T00:55:34+01:00</updated>
   <id>http://ThXou.github.io/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[FBUploader: Sube Fotos a Facebook Desde La Aplicación Fotos]]></title>
+    <title type="html"><![CDATA[FBUploader: Sube fotos a Facebook desde la aplicación Fotos]]></title>
     <link href="http://ThXou.github.io/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos/"/>
     <updated>2011-05-10T18:15:41+02:00</updated>
     <id>http://ThXou.github.io/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos</id>
@@ -42,7 +42,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Locktopus: Bloquea Tus Aplicaciones Con Contraseña]]></title>
+    <title type="html"><![CDATA[Locktopus: Bloquea tus aplicaciones con contraseña]]></title>
     <link href="http://ThXou.github.io/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena/"/>
     <updated>2010-10-26T23:25:16+02:00</updated>
     <id>http://ThXou.github.io/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena</id>
@@ -63,7 +63,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 Con El iOS Personalizado Creado Con PwnageTool 4.1]]></title>
+    <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 con el iOS personalizado creado con PwnageTool 4.1]]></title>
     <link href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
     <updated>2010-10-20T22:09:54+02:00</updated>
     <id>http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
@@ -170,7 +170,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[Video] FullScreen for Safari: Navega Con Safari Mobile a Pantalla Completa]]></title>
+    <title type="html"><![CDATA[[Video] FullScreen for Safari: Navega con Safari Mobile a pantalla completa]]></title>
     <link href="http://ThXou.github.io/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa/"/>
     <updated>2010-10-18T23:47:21+02:00</updated>
     <id>http://ThXou.github.io/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa</id>
@@ -195,7 +195,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[GPower: Más Opciones Al Apagar El iPhone]]></title>
+    <title type="html"><![CDATA[GPower: Más opciones al apagar el iPhone]]></title>
     <link href="http://ThXou.github.io/2010/10/17/gpower-mas-opciones-al-apagar-el-iphone/"/>
     <updated>2010-10-17T05:03:40+02:00</updated>
     <id>http://ThXou.github.io/2010/10/17/gpower-mas-opciones-al-apagar-el-iphone</id>

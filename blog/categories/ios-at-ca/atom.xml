@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS @ca | Luis Cardenas ThXou]]></title>
   <link href="http://ThXou.github.io/blog/categories/ios-at-ca/atom.xml" rel="self"/>
   <link href="http://ThXou.github.io/"/>
-  <updated>2014-01-28T00:48:09+01:00</updated>
+  <updated>2014-01-28T00:55:34+01:00</updated>
   <id>http://ThXou.github.io/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[iOS: Usant NSUserDefaults Per Assignar Configuracions Per Defecte]]></title>
+    <title type="html"><![CDATA[iOS: Usant NSUserDefaults per assignar configuracions per defecte]]></title>
     <link href="http://ThXou.github.io/2012/10/25/ios-usant-nsuserdefaults-per-assignar-configuracions-per-defecte/"/>
     <updated>2012-10-25T14:06:57+02:00</updated>
     <id>http://ThXou.github.io/2012/10/25/ios-usant-nsuserdefaults-per-assignar-configuracions-per-defecte</id>
@@ -304,7 +304,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[iOS: Aprenent Sobre Delegació, Protocols I La Classe UIAlertView]]></title>
+    <title type="html"><![CDATA[iOS: Aprenent sobre delegació, protocols i la classe UIAlertView]]></title>
     <link href="http://ThXou.github.io/2012/10/19/ios-aprenent-sobre-delegacio-protocols-i-la-classe-uialertview/"/>
     <updated>2012-10-19T09:39:25+02:00</updated>
     <id>http://ThXou.github.io/2012/10/19/ios-aprenent-sobre-delegacio-protocols-i-la-classe-uialertview</id>
@@ -470,7 +470,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[iOS: Programant Notificacions Locals Amb UILocalNotification]]></title>
+    <title type="html"><![CDATA[iOS: Programant notificacions locals amb UILocalNotification]]></title>
     <link href="http://ThXou.github.io/2012/10/18/ios-programant-notificacions-locals-amb-uilocalnotification/"/>
     <updated>2012-10-18T13:21:05+02:00</updated>
     <id>http://ThXou.github.io/2012/10/18/ios-programant-notificacions-locals-amb-uilocalnotification</id>
@@ -649,7 +649,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Programant Per iOS: Patró De Disseny MVC Al Detall]]></title>
+    <title type="html"><![CDATA[Programant per iOS: Patró de disseny MVC al detall]]></title>
     <link href="http://ThXou.github.io/2012/10/05/programant-per-ios-patro-de-disseny-mvc-al-detall/"/>
     <updated>2012-10-05T15:14:14+02:00</updated>
     <id>http://ThXou.github.io/2012/10/05/programant-per-ios-patro-de-disseny-mvc-al-detall</id>
@@ -832,7 +832,7 @@ Obrim el fitxer de capçalera del nostre controlador: MVCViewController.h, i veu
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Treballant Amb El Social Framework De iOS 6: SLRequest, Publicar en Twitter I Obtenir El Timeline]]></title>
+    <title type="html"><![CDATA[Treballant amb el Social Framework de iOS 6: SLRequest, publicar en Twitter i obtenir el Timeline]]></title>
     <link href="http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/"/>
     <updated>2012-09-20T16:57:56+02:00</updated>
     <id>http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline</id>

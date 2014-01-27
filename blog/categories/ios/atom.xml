@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | Luis Cardenas ThXou]]></title>
   <link href="http://ThXou.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://ThXou.github.io/"/>
-  <updated>2014-01-28T00:48:09+01:00</updated>
+  <updated>2014-01-28T00:55:34+01:00</updated>
   <id>http://ThXou.github.io/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Migración Sencilla De Modelos en Core Data]]></title>
+    <title type="html"><![CDATA[Migración sencilla de modelos en Core Data]]></title>
     <link href="http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data/"/>
     <updated>2013-11-12T02:21:29+01:00</updated>
     <id>http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data</id>
@@ -476,7 +476,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[NSNotificationCenter Y Las Notificaciones]]></title>
+    <title type="html"><![CDATA[NSNotificationCenter y las notificaciones]]></title>
     <link href="http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones/"/>
     <updated>2013-02-21T14:12:51+01:00</updated>
     <id>http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones</id>
@@ -596,7 +596,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Trabajando Con El Social Framework De iOS 6: Publicar en Twitter Y Facebook]]></title>
+    <title type="html"><![CDATA[Trabajando con el Social Framework de iOS 6: Publicar en Twitter y Facebook]]></title>
     <link href="http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/"/>
     <updated>2012-09-20T02:00:25+02:00</updated>
     <id>http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook</id>
@@ -765,7 +765,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Parsear Y Crear Ficheros en Formato JSON en iOS]]></title>
+    <title type="html"><![CDATA[Parsear y crear ficheros en formato JSON en iOS]]></title>
     <link href="http://ThXou.github.io/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/"/>
     <updated>2012-09-11T13:36:19+02:00</updated>
     <id>http://ThXou.github.io/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios</id>
