@@ -111,96 +111,12 @@
   </header>
 
 
-  <div class="entry-content"><p>Probablemente los que ya habéis usado Core Data en vuestras aplicaciones, os habréis encontrado con que cada vez que modificas el modelo de datos, al volver a instalar la app en el simulador o dispositivo, la aplicación genera una excepción y se cierra. En el entorno de desarrollo, la solución inmediata es borrar la aplicación del simulador o dispositivo y volverla a instalar, no obstante esto no nos sirve de cara a actualizar nuestra app que ya está subida a la App Store, por razones obvias.</p><h2>El problema!</h2><p>Sucede que el sistema de almacenamiento en Core Data solo puede ser abierto por el mismo modelo que se ha usado para crearlo, es por eso que cuando cambias el modelo (añades algún atributo, entidad, etc), el modelo modificado deja de ser igual al modelo que se ha usado para crear el almacenamiento, por lo tanto, son incompatibles y el modelo nuevo resulta no apto para llevar a cabo la tarea.</p><p>La solución es llevar a cabo una migración entre versiones del modelo (la anterior y la modificada). Para hacer esta migración, Core Data usa un<strong> modelo de Mapeo</strong> que le permite saber que cambios tiene que realizar para que el nuevo modelo sea capaz de abrir el almacenamiento como lo hacía el modelo anterior.</p><p>Poniéndonos ya en materia, existen 2 tipos de migración:<strong> la migración automática</strong>, de la que hablaremos ahora, y <strong>la migración manual</strong>. Estas 2 tan solo difieren en una cosa: El modelo de mapeo usado para hacer la migración. Os paso a explicar más detalladamente el tema.</p><h2>Migración automática</h2><p>También se le conoce como migración ligera. Es el camino fácil para realizar la tarea, y consiste en que Core Data es quien provee el modelo de mapeo a usarse en la migración, hace esto intentando deducir los cambios que se han hecho a través de un análisis en los esquemas de los 2 modelos.</p><p>Este tipo de migración requiere que el modelo modificado tan solo haya sufrido sencillos cambios en su estructura. Ahora, que entiende Core Data como &#8220;sencillos cambios&#8221;?. Pues los siguientes:</p><ul><li>Añadir o quitar un atributo.</li><li>Cambiar la propiedad <code>optional</code> de los atributos.</li><li>Asignar un valor por defecto a un atributo.</li><li>Renombrar entidades o atributos usando el campo <em>Renaming ID</em>.</li></ul><p>Para casos más complejos es necesario usar la migración manual, en ese caso te toca a ti proveer el mapeo para la migración, proceso que se complica un poco, así que lo dejaremos para otra entrada.</p><h2>Añadiendo un nuevo modelo</h2><p>Vamos con una aplicación práctica para ver mejor como va el tema. Para esto, he creado un proyecto que usa Core Data con un modelo muy sencillo ya definido y que puedes <a href="http://sl.thxou.com/?https://app.box.com/s/2nuh2hgzxq09qtt49t5b">descargar aquí</a>.</p><p>Ya que para hacer una migración son imprescindibles 2 versiones de un modelo, vamos a crear otro diferente a la que ya tenemos en el proyecto yendo al menú <strong>Editor &gt; Add Model Version</strong>. Dejemos el nombre por defecto por esta vez y luego clic en <em>Finish</em>. Esto nos creará <em>Notes 2.xcdatamodel</em> y una especie de carpeta contenedora llamada <em>Notes.xcdatamodeld</em>, en la cual también verás incluido nuestro modelo por defecto.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-20.12.37.png"><img class="aligncenter size-full wp-image-2650" alt="Core Data Migration en ThXou" src="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-20.12.37.png" width="256" height="90" /></a></p><p>Si nos fijamos, uno de los modelos aparece con un check de color verde. Esto quiere decir que es ese el modelo que estamos usando actualmente. Como queremos usar el nuevo modelo a partir de ahora, seleccionamos la carpeta contenedora <em>Notes.xcdatamodeld</em> y en panel<em> File Inspector</em> de la derecha, en el apartado<em> Model Version</em>, cambiamos la opción<em> Current</em> a<em> Notes 2</em>, que es nuestro nuevo modelo.</p><p>Vamos a hacer un par de modificaciones a <em>Notes 2</em>. Selecciona la entidad <strong>Note</strong> y añade un nuevo atributo llamado <strong>descriptionText</strong> de tipo <strong>String</strong>. Ahora vamos a renombrar el atributo <strong>backgroundColor</strong> a solo <strong>background</strong>.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-23.58.32.png"><img class="aligncenter  wp-image-2651" alt="Core Data Migration in ThXou" src="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-11-at-23.58.32.png" width="526" height="134" /></a></p><p>Vamos a sanear cualquier error que pueda ocurrir después del cambio en el modelo de nuestra aplicación haciendo la migración, pero antes comentarte que al renombrar entidades o atributos es necesario definir el campo <em>Renaming ID</em>. Selecciona el atributo que hemos renombrado: <strong>background</strong>, y en el panel <em>Data Model Inspector</em> de la derecha, escribe en el campo <em>Renaming ID</em>, el nombre anterior del atributo, osea <strong>backgroundColor</strong> (Si no te acuerdas puedes mirar en la primera versión del modelo). Esto es obligatorio para cuando vayas a renombrar entidades o atributos.</p><p><a href="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-12-at-00.06.30.png"><img class="aligncenter size-full wp-image-2652" alt="Core Data Migration" src="http://www.thxou.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-12-at-00.06.30.png" width="254" height="83" /></a></p><h2>Haciendo la mudanza</h2><p>Lo que nos queda ahora es decirle a Core Data que haga la migración automática al iniciar la aplicación. Para esto nos tenemos que dirigir al <em>Core Data Stack</em> localizado en el fichero <em>AppDelegate.m</em>. En el vas a encontrar el método getter del Persistent Store Coordinator. Modifícalo con el siguiente código:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSPersistentStoreCoordinator</span> <span class="o">*</span><span class="p">)</span><span class="nf">persistentStoreCoordinator</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">_persistentStoreCoordinator</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">_persistentStoreCoordinator</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">storeURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">self</span> <span class="n">applicationDocumentsDirectory</span><span class="p">]</span> <span class="nl">URLByAppendingPathComponent:</span><span class="s">@&quot;Notes.sqlite&quot;</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">_persistentStoreCoordinator</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSPersistentStoreCoordinator</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithManagedObjectModel:</span><span class="p">[</span><span class="n">self</span> <span class="n">managedObjectModel</span><span class="p">]];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// (2)</span>
-</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">options</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSMigratePersistentStoresAutomaticallyOption:</span><span class="err">@</span><span class="n">YES</span><span class="p">,</span> <span class="nl">NSInferMappingModelAutomaticallyOption:</span><span class="err">@</span><span class="n">YES</span><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">_persistentStoreCoordinator</span> <span class="nl">addPersistentStoreWithType:</span><span class="n">NSSQLiteStoreType</span> <span class="nl">configuration:</span><span class="nb">nil</span> <span class="nl">URL:</span><span class="n">storeURL</span> <span class="nl">options:</span><span class="n">options</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// (1)</span>
-</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Unresolved error %@, %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">userInfo</span><span class="p">]);</span>
-</span><span class='line'>        <span class="n">abort</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="n">_persistentStoreCoordinator</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Dentro hay que modificar el método <code>addPersistentStoreWithType:configuration:URL:options:error:</code>(1), que es quien crea el almacenamiento para la app, en concreto el parámetro <code>options:</code>, a quien por defecto se le pasa <code>nil</code>, pero nosotros le asignamos el diccionario <code>options</code> con las keys que van a decirle a Core Data que lleve a cabo la migración automática (2).</p><p>Hasta este punto, ya puedes poner a correr la aplicación que estés migrando, verás que todo marcha sobre ruedas. Si no te salta ningún error ni ocurre ningún problema es porque la migración se ha realizado satisfactoriamente.</p><h2>Como se si mi app puede migrar automáticamente?</h2><p>Esto es un extra, por si se te plantea la pregunta para tus proyectos. Hemos visto que hay 2 formas de hacer la migración: automática (Fácil) y manual (difícil), como saber si mi app puede migrar automáticamente?. La respuesta está en preguntarle a la clase <code>NSMappingModel</code> si es capaz o no de crear el <strong>modelo de mapeo</strong> por si mismo. Esto lo hacemos con el método<code> inferredMappingModelForSourceModel:destinationModel:error:</code>:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">miModeloPuedeMigrar</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">modeloAntiguoURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span> <span class="nl">URLForResource:</span><span class="s">@&quot;Notes&quot;</span> <span class="nl">withExtension:</span><span class="s">@&quot;momd&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">NSManagedObjectModel</span> <span class="o">*</span><span class="n">modeloAntiguo</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSManagedObjectModel</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithContentsOfURL:</span><span class="n">modeloAntiguoURL</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">modeloNuevoURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span> <span class="nl">URLForResource:</span><span class="s">@&quot;Notes 2&quot;</span> <span class="nl">withExtension:</span><span class="s">@&quot;momd&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">NSManagedObjectModel</span> <span class="o">*</span><span class="n">modeloNuevo</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSManagedObjectModel</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithContentsOfURL:</span><span class="n">modeloNuevoURL</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">NSMappingModel</span> <span class="o">*</span><span class="n">modeloDeMapeo</span> <span class="o">=</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">NSMappingModel</span> <span class="nl">inferredMappingModelForSourceModel:</span><span class="n">modeloAntiguo</span>
-</span><span class='line'>                        <span class="nl">destinationModel:</span><span class="n">modeloNuevo</span> <span class="nl">error:</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// si Core Data es capaz de crear el modelo entonces </span>
-</span><span class='line'>    <span class="c1">// retornamos YES de lo contrario NO</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">modeloDeMapeo</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Este método lo puedes usar en el método<code> application:didFinishLaunchingWithOptions:launchOptions</code> del <em>AppDelegate.m</em>, con un <code>NSLog</code> que te devuelva SI o NO dependiendo del valor de retorno del método <code>miModeloPuedeMigrar</code>.</p><h2>Conclución</h2><p>Este tutorial, como dije antes, es para cuando tienes que hacer ciertos cambios de los listados arriba. Si lo tuyo requiere algo diferente te va a tocar optar por aprender a realizar un mapeo personalizado.</p><p>Ten en cuenta cuando renombres entidades, que las clases modelo asociadas no se cambian, por lo que es algo de lo que te tienes que ocupar tu manualmente o usando la herramienta de refactorización de Xcode.</p></div>
+  <div class="entry-content"><p>Probablemente los que ya habéis usado Core Data en vuestras aplicaciones, os habréis encontrado con que cada vez que modificas el modelo de datos, al volver a instalar la app en el simulador o dispositivo, la aplicación genera una excepción y se cierra. En el entorno de desarrollo, la solución inmediata es borrar la aplicación del simulador o dispositivo y volverla a instalar, no obstante esto no nos sirve de cara a actualizar nuestra app que ya está subida a la App Store, por razones obvias.</p><h2>El problema!</h2><p>Sucede que el sistema de almacenamiento en Core Data solo puede ser abierto por el mismo modelo que se ha usado para crearlo, es por eso que cuando cambias el modelo (añades algún atributo, entidad, etc), el modelo modificado deja de ser igual al modelo que se ha usado para crear el almacenamiento, por lo tanto, son incompatibles y el modelo nuevo resulta no apto para llevar a cabo la tarea.</p><p>La solución es llevar a cabo una migración entre versiones del modelo (la anterior y la modificada). Para hacer esta migración, Core Data usa un<strong> modelo de Mapeo</strong> que le permite saber que cambios tiene que realizar para que el nuevo modelo sea capaz de abrir el almacenamiento como lo hacía el modelo anterior.</p><p>Poniéndonos ya en materia, existen 2 tipos de migración:<strong> la migración automática</strong>, de la que hablaremos ahora, y <strong>la migración manual</strong>. Estas 2 tan solo difieren en una cosa: El modelo de mapeo usado para hacer la migración. Os paso a explicar más detalladamente el tema.</p></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Seguir leyendo &rarr;</a>
+    </footer>
   
 
 
@@ -277,8 +193,12 @@
   </header>
 
 
-  <div class="entry-content"><p>El pasado lunes 10, como ya sabéis, &#8220;tito Tim&#8221; lanzó el nuevo sistema operativo <strong>iOS 7,</strong> junto con un buen puñado de novedades entre la que destaca la completamente renovada interfaz gráfica (ver imagen superior) y un conjunto de nuevas funciones que pretenden hacernos la vida más fácil a los usuarios.</p><p>Hubiera escrito antes este resumen, pero he preferido pasar unos días trasteando con la primera beta para ver que tal y poder dar una opinión más consistente sobre el nuevo OS. Así que sin mayor dilación paso a describir algunos aspectos.</p><h2>La &#8220;fluidez&#8221; del SO y la suerte de ser la beta 1</h2><p>Si hay algo que tienen las betas es que puedes mostrar al público un trasto inútil y quedarte tan ancho mientras recibes feedback. Yo soy de los que me comí las 2 horas de Keynote y también vi cuan fluido iba todo en el iPhone de pruebas, mientras mostraban el Safari, el scrolling, acceso a multitarea, etc etc., pues definitivamente ellos no tenían instalada la misma beta que el mortal desarrollador de apps se puede descargar. Hay cocas no tan fluidas como me esperaba, como el hecho de abrir y cerrar la multitarea o las carpetas, que son cosas básicas y deberían de ir bien sobre todo ejecutadas en un iPhone 5, pero bueno, por suerte es una primera beta y yo supongo que los de Apple ya habrán tomado nota de fallos como estos.</p><p>Lo que si hay que rescatar es la notable mejora en el encendido del dispositivo, el SO carga muy rápido en comparación con sus predecesores.</p><h2>La pantalla de bloqueo</h2><p>Empecemos por el principio, con una de las cosas que me gusta del nuevo iOS. Botón de cámara mostrado sutilmente, fecha y hora con un trazo fino y el &#8221;<em>slide to unlock</em>&#8221; que para mi no necesitaba una caja contenedora sino solo lo que muestra el nuevo iOS, dejan ver claramente el fondo de pantalla que para mi es importante.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/screen-lock.png"><img class="aligncenter size-medium wp-image-2581" alt="iOS 7 Screen lock en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/screen-lock-171x300.png" width="171" height="300" /></a></p><p>Lo que son las notificaciones también me molan, a pesar de que abarcan más espacio que antes, me gustan más que las anteriores. De igual forma la pantalla de bloqueo con código, también me parece acertada, sobre todo ese efecto de dejar ver trozos del fondo de pantalla al pulsar los números, me agrada.</p><h2>Control Center</h2><p>A mi, que he tenido Jailbreak, me parece una imitación mediocre de SBSettings. Como podéis ver en la imagen de arriba, posee accesos directos NO personalizables a ciertas funciones del sistema, como: activar/desactivar el modo avión, el Wifi, Bluetooth, Do Not Disturb, etc., yo me pregunto, donde está el de activar/desactivar el 3G y la localización?, costaba tanto poner un ScrollView con más de las funciones importantes?.</p><p>Yendo al final hay otra línea NO personalizable de accesos directos a aplicaciones. A ver, lo de la linterna está genial, pero y la calculadora que la uso una vez por semana para calcular en cuanto hay que dividir la paga del campo de futbol sala?, porque no poner un área para elegir los iconos que quiero poner?. Esperemos que elegir sea una opción en la beta 2, la 3 o la versión final, seguro que más de uno estará de acuerdo conmigo.</p><p>Alguna cosa más que me causa rechazo es que se me abra el Control Center al momento de presionar el botón &#8220;123&#8221; del teclado y luego arrastrar para elegir algo de la segunda pantalla. Me irrita un poco eso, por lo demás, el diseño también me gusta.</p><h2>Notification Center</h2><p>Como dije antes, el nuevo estilo de las notificaciones aunque sea más grande, me gusta. Hay cosas que aún faltan por pulir como que el calendario del Notification Center no me muestra las cosas del día por lo menos hasta que no quedan un par de horas para que se cumplan o el fallo de distribución de las pestañas en modo landscape, por lo demás satisface mis gustos.</p><h2>Nuevos iconos de gominola</h2><p>Aunque es muy cierto que apostar por lo simple es siempre un acierto para mi, se puede uno exceder en simpleza hasta limites &#8220;Tim Cookeanos&#8221;. A veces al desbloquear mi iPhone con iOS 7 me siento como entrando en una tienda de chuches, sobre todo al ver el icono de Game Center (desterrado por fuerza mayor a una pantalla poco concurrida).</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/Screen-Shot-2013-06-18-at-01.08.26.png"><img class="aligncenter size-medium wp-image-2587" alt="Iconos de iOS 7 en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/Screen-Shot-2013-06-18-at-01.08.26-300x166.png" width="300" height="166" /></a></p><p>Bromas a parte, me gusta la apuesta de Apple por la simpleza, no obstante no me termina de enganchar del todo ya que los nuevos iconos hacen que tenga nostalgia por los anteriores :&#8217;c. Pienso que podían habérselo currado más con algunos como el de Game Center, Cámara, Recordatorios, el de bolsa -que parece que hubieran activado la opción &#8220;Invertir Colores&#8221; de la accesibilidad y hubieran hecho una captura de pantalla-, hacen que sienta un poco como que me han querido &#8220;vender la moto&#8221;, aunque de hecho, ya me la han vendido!.</p><p>Pese a todo esto, no está del todo mal, es mejorable pero no está mal, por suerte aún queda trozo para la release final y a ver si nos sorprenden, que por lo que leo por ahí, están retocando los iconos. Ya veremos.</p><h2>iTunes Radio</h2><p>Es un nuevo servicio de música vía streaming que se integra en la aplicación de iTunes, el cual pretende ser directo competidor de servicios geniales como Spotify o pandora. Su punto fuerte es que tiene un sistema inteligente que te ofrece música para escuchar basada en tu historial, tus gustos, artistas preferidos; en sí todo lo que sueles escuchar, útil si eres de los que como yo van buscando nueva música para oír. Podrás elegir entre 200 estaciones, compartir las canciones con amigos, etc.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/iTunes-radio.png"><img class="aligncenter size-medium wp-image-2578" alt="iTunes Radio en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/iTunes-radio-171x300.png" width="171" height="300" /></a></p><p>Dicen que es gratis, yo de momento no dejo de ver precios en las imágenes de la <a href="http://www.apple.com/itunes/itunes-radio/">Web oficial</a>, ya veremos que nos trae. Solo estará disponible en Estados Unidos por el momento, pero como paso con iTunes Match, se espera que vaya aumentando su presencia en varios países con el tiempo.</p><h2>Multitarea androide</h2><p>Saltaba rebosante de felicidad por la nueva multitarea hasta que un compañero con un Android 4 me mostró lo que parece ser &#8220;el original&#8221;. Yo que quieres que te diga, se parecen mucho, obviamente se ve mejor en el iPhone, pero me parece que alguien se ha querido copiar, no diré quien ¬¬.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/multitarea.png"><img alt="Multitarea de iOS 7 en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/multitarea-170x300.png" width="170" height="300" /></a></p><p>A pesar de la decepción, me gusta también. Creo que tienen que permitir que se cierre la multitarea al presionar fuera de las aplicaciones (en el fondo de pantalla quiero decir) y que la animación sea más fluida, y lo que sería un puntazo es ver un botón para cerrarlas todas de golpe, aunque igual se lo están reservando para iOS 20, quien sabe.</p><p>Lo otro es que chupa muchísima batería. Supongo que será por que ahora TODAS las aplicaciones se mantienen en segundo plano y no se cierran, y por consiguiente el procesador tiene trabajito extra y pues, de algo se tiene que alimentar. La solución rápida a este problema es ir cerrando las aplicaciones que no vayamos a utilizar. De nada.</p><h2>Cámara</h2><p>Para mi es una de las aplicaciones que más ha cambiado para bien (excepto el icono). Por lo menos en mi iPhone, el enfoque y las fotos se hacen más rápido, y la nueva utilidad de aplicar filtros a las fotos, antes y/o después de tomarlas, con la opción de descartar los cambios, es un puntazo. Se carga algunas aplicaciones que tengo de filtros y tal, pero bueno, espacio que me ahorro.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/camara.png"><img class="aligncenter size-medium wp-image-2591" alt="Cámara en iOS 7 en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/camara-171x300.png" width="171" height="300" /></a></p><p>Esa característica de arrastrar para cambiar el modo me parece muy acertada, no le veía el porque a tener que buscar el botón de panorama en vez de simplemente ver la opción y hacer la foto. También se ha añadido un nuevo tipo de toma cuadrada.</p><h2>Fotos</h2><p>Las novedades de la aplicación de fotos se centran en agrupar las fotografías. En principio se agrupan por años. De una sola vez puedes ver todas (literalmente) las fotos que has hecho cada año. Cada año está compuesto por colecciones que están organizadas por rangos de fechas o nombres de eventos, todo esto es organizado automáticamente. La pestaña de álbumes organiza un poco el carrete y crea un nuevo álbum para los vídeos y las fotografías en panorama.</p><p style="text-align: center;"><img class="aligncenter size-medium wp-image-2589" alt="Fotos en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/Screen-Shot-2013-06-18-at-01.42.36-170x300.png" width="170" height="300" /></p><p>La pestaña &#8220;Shared&#8221; te permite crear un Stream, el cual no es más que una forma de compartir tus fotografías y vídeos de forma privada a través de iCloud con las personas que desees. No he podido probar del todo esta característica debido a que al añadir lo que sea, sale un mensaje de alerta que dice que estará disponible muy pronto. Es una beta, no hay que perder los nervios aún.</p><h2>AirDrop</h2><p>Compartir por Bluetooth. Una característica que se pedía desde que salió el iPhone allá en 2007, ya es una realidad en el 2013, SOLO 6 años después, que maravilla!. Puedes compartir fotos, vídeo, pases, contactos y mús&#8230;Oh wait!, música no.</p><p>No solo usa el Bluetooth sino también puede usar la red Wi-Fi para enviar los datos, y lo hace todo encriptado para mayor seguridad. También puedes ponerte en estado visible o invisible según creas conveniente. Puedes acceder a AirDrop desde cualquier parte del dispositivo, inclusive desde cualquier aplicación, esto es debido a que está permanentemente integrado en el Control Center.</p><p>Como programador de iOS le veo utilidad para compartir datos entre dispositivos desde mi aplicación, como usuario creo que la usaré la misma cantidad de veces que la voy usando desde hace 4 años, cero.</p><h2>Safari</h2><p>Safari es otra de las aplicaciones que ha cambiado para bien. Ahora es más a pantalla completa, los botones y las barras se ocultan hasta que hagas scroll. Las páginas abiertas se muestran diferente, como en 3D y con una animación muy chula, para mi gusto está genial.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/safari.png"><img class="aligncenter size-medium wp-image-2592" alt="Safari en iOS7 en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/safari-170x300.png" width="170" height="300" /></a></p><p>Incorpora una utilidad nueva llamada <strong>iCloud Keychain</strong>, la cual nos permite almacenar nuestras contraseñas, cuentas de usuario y hasta tarjetas de crédito, en iCloud. Luego Safari recoge estos datos y los muestra automáticamente (según tus preferencias, claro) cuando entras a algún sitio que las requiere. Puede parecer poco seguro pero no lo es, toda esta transmisión de datos confidenciales se hace con una encriptación AES de 256-bits.</p><p>En cuanto a la fluidez al hacer scroll que nos mostraban en la Keynote, aún no veo mucho el cambio la verdad, no he notado nada.</p><h2>Otras novedades</h2><p>[one_half]La <strong>App Store</strong> ha incorporado actualizaciones automáticas de las aplicaciones cuando estás conectado a una red Wi-Fi. Bien visto para mi. Luego también hay un nuevo apartado que nos muestra aplicaciones cercanas a nuestra posición actual. A mi no me ha funcionado por el momento.[/one_half]</p><p>[one_half_last]<strong>Siri</strong> ha aprendido nuevas cosas y ahora se integra con servicios como Twitter, iTunes Radio, Wikipedia o Bing. Posee una interfaz completamente re diseñada y su voz es un poco más humana que antes, vamos! que se entiende mejor.[/one_half_last]</p><h2>Conclusión</h2><p>Es la primera beta, y como tal se puede permitir algunos fallos como los de rendimiento, cuelgues, fluidez y algunos bugs que hacen que las aplicaciones nativas se cierren inesperadamente. Con respecto a la interfaz de usuario, poco puede cambiar de cara a la versión final, lo mejor va a ser empezar a acostumbrarse cuanto antes a lo nuevo.</p></div>
+  <div class="entry-content"><p>El pasado lunes 10, como ya sabéis, &#8220;tito Tim&#8221; lanzó el nuevo sistema operativo <strong>iOS 7,</strong> junto con un buen puñado de novedades entre la que destaca la completamente renovada interfaz gráfica (ver imagen superior) y un conjunto de nuevas funciones que pretenden hacernos la vida más fácil a los usuarios.</p><p>Hubiera escrito antes este resumen, pero he preferido pasar unos días trasteando con la primera beta para ver que tal y poder dar una opinión más consistente sobre el nuevo OS. Así que sin mayor dilación paso a describir algunos aspectos.</p><h2>La &#8220;fluidez&#8221; del SO y la suerte de ser la beta 1</h2><p>Si hay algo que tienen las betas es que puedes mostrar al público un trasto inútil y quedarte tan ancho mientras recibes feedback. Yo soy de los que me comí las 2 horas de Keynote y también vi cuan fluido iba todo en el iPhone de pruebas, mientras mostraban el Safari, el scrolling, acceso a multitarea, etc etc., pues definitivamente ellos no tenían instalada la misma beta que el mortal desarrollador de apps se puede descargar. Hay cocas no tan fluidas como me esperaba, como el hecho de abrir y cerrar la multitarea o las carpetas, que son cosas básicas y deberían de ir bien sobre todo ejecutadas en un iPhone 5, pero bueno, por suerte es una primera beta y yo supongo que los de Apple ya habrán tomado nota de fallos como estos.</p><p>Lo que si hay que rescatar es la notable mejora en el encendido del dispositivo, el SO carga muy rápido en comparación con sus predecesores.</p></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Seguir leyendo &rarr;</a>
+    </footer>
   
 
 
@@ -319,131 +239,19 @@
   <div class="entry-content"><p>Los literales son simplemente unos valores que los programadores podemos escribir &#8220;tal cual&#8221; en el código. En Objective-C (y por lo tanto en C) ya conocemos algunos ejemplos de esto con los valores primitivos:</p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">float</span> <span class="n">altura</span> <span class="o">=</span> <span class="mf">23.5</span><span class="p">;</span>
 </span><span class='line'><span class="kt">int</span> <span class="n">piezas</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 <p>Estos son: un literal float y un literal int respectivamente. Estos literales son comunes en la mayoría de los lenguajes, no obstante Objective-C tiene sus propios literales a parte de los mencionados, concretamente los que están basados en objetos:</p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">tarea</span> <span class="o">=</span> <span class="err">@”</span><span class="n">Buscar</span> <span class="n">piso</span><span class="err">”</span><span class="p">;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
-<p>Claro, a simple vista podemos decir: Vaya chorrada, lo he usado mil veces!, pero detente un momento a pensar en el ahorro que implica en líneas de código el hecho de tenerlos: como escribirías un número &#8220;sin números&#8221;?, algo aún más terrorífico, plantearse escribir un string de miles de caracteres &#8220;sin strings&#8221;.</p><p>Dicho esto, es fácil darse cuenta de que los literales son una pieza fundamental de cualquier lenguaje por lo que nos ahorran, a parte de por los casos vistos, por la legibilidad en el código, así que vamos a conocer unos cuantos más pero específicos de Objective-C.</p><h2>La nueva moda en literales</h2><p>Hasta la salida de la versión 4.0 del compilador LLVM de Apple, Objective-C aún estaba un poco en pañales con respecto a lo que se refiere a literales. Mientras lenguajes basados en C como Perl o Python ya habían incluido literales para colecciones y más, Objective-C se resistía. Ahora eso ya es parte del pasado y vamos a ver cuales son las novedades en literales.</p><h3>Literales para colecciones</h3><h4>NSArray</h4><p>Clang, el front end de LLVM, introdujo la sintaxis <code>@[ ]</code> para definir arrays, en el cual solo se deben incluir objetos separados por comas. Ojo!, solo objetos, nada de tipos escalares. Así, lo que antes escribíamos así:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;Barcelona&quot;</span><span class="p">,</span> <span class="s">@&quot;Lima&quot;</span><span class="p">,</span> <span class="s">@&quot;Lyon&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Ahora nos queda así:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lima</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lyon</span><span class="err">”</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Al ser una característica del lenguaje ya no es necesario definir el centinela nil, de hecho si lo pones como valor, tu ordenador explotará, ya que se realiza una validación como para el método <code>[NSArrayarrayWithObjects:count:]</code>, en el que se requiere que ningún objeto sea nil. Por lo tanto si quieres pasar nil como valor tendrás que hacerlo con el objeto <code>[NSNull null]</code>, que es su equivalente.</p><h4>NSDictionary</h4><p>Aquí se introduce la sintaxis <code>@{ }</code>, similar a la de JSON o Javascript, pero con el @ característico de Objective-C. Esta sintaxis crea un diccionario de pares key-value, donde key tiene que ser un objeto que implemente el protocolo NSCopying (los string de toda la vida, vamos!) y value, como en el caso anterior, sólo pueden ser punteros a objetos Objective-C. Algo como:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span><span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">nombre</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Ahora se escribiría:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="err">@”</span><span class="n">nombre</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">};</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Como en el caso de los arrays, aquí tampoco es necesaria la centinela nil.</p><h4>NSSet</h4><p>Pobre, se olvidaron de él. No se ha introducido nada para esta colección, no obstante con los literales de NSArray se puede aprovechar mucho para NSSet cuando necesitamos pasarlos como argumentos de los métodos inicializadores y métodos de conveniencia.</p><h2>Literales de NSNumber</h2><p>Para los que no sabéis cómo definir NSNumber, pues es una clase que nos permite envolver valores escalares (otros literales de tipo <code>int</code>, <code>bool</code>, <code>float</code>, etc) en objetos Objective-C.</p><p>Ahora, cualquier valor escalar que empiece por el símbolo ‘@’ devolverá un objeto NSNumber inicializado con ese valor. Esto ya lo veíamos con los strings de C. Cuando escribíamos algo como:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">queja</span> <span class="o">=</span> <span class="s">@&quot;El billete de metro está caro&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>En realidad estamos convirtiendo un string en C a un objeto NSString con codificación UTF-8. Este literal está desde los inicios, pero para los otros valores escalares usábamos el método <code>numberWith<em>Tipo</em>:</code> para inicializar los objetos NSNumber. Ahora haremos:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">bool</span> <span class="o">=</span> <span class="err">@</span><span class="n">NO</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithBool:NO]</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">char</span> <span class="o">=</span> <span class="sc">@&#39;d&#39;</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithChar:’d’]</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">unsignedInt</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23</span><span class="n">U</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithUnsignedInt:23U]</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">int</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithInt:23]</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">long</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23L</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithLong:23L]</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">longlong</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23L</span><span class="n">L</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithLongLong:23LL]</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">float</span> <span class="o">=</span> <span class="err">@</span><span class="mf">5.2303F</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithFloat:5.2303F]</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="kt">double</span> <span class="o">=</span> <span class="err">@</span><span class="mf">2.2808</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithDouble:2.2808]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Me encanta este literal, por lo menos a mi me ayuda haciendo más legible el código, sobre todo cuando tengo que hacer una lectura rápida.</p><h2>Expresiones “en caja” (Boxed Expressions)</h2><p>Si la intuición os ha llevado a pensar: ¿Y qué pasa si hago <code>@2+2</code>, el compilador me lo pillará sin enfadarse?. Pues no, ya que hay una nueva sintaxis para esto y es envolver nuestras expresiones entre paréntesis: <code>@()</code>. Esto nos devolvería un objeto NSNumber inicializado con el resultado de la expresión que está entre estos. Y lo que antes hacíamos así:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithDouble:</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Ahora lo hacemos así:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Mucho más claro y sencillo. Lo genial es que también funciona pasándole propiedades de algunos objetos Objective-C que devuelven valores escalares. Por ejemplo si tenías que guardar en Core Data el valor de un objeto UISwitch, lo hacíamos así:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Ahora también lo puedes hacer simplemente así:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>También funciona para enumeraciones:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">Barcelona</span><span class="p">,</span> <span class="n">Lima</span><span class="p">,</span> <span class="n">Lyon</span> <span class="p">}</span> <span class="n">Ciudad</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">ciudad</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">Lyon</span><span class="p">);</span> <span class="c1">// nos devolverá 1 y es equivalente a [NSNumber numberWithInt:((int)Lyon)]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>En este caso, para poder usar algún valor de la enumeración tenemos que envolverlo también como si se tratara de una expresión para poder usarlo como literal.</p><h2>Subíndices de objeto (Object Subscripting)</h2><p>Esta última tanda de literales de la que vamos a hablar suple una necesidad en mi que vengo deseando ver desde que dejé C++ para embarcarme en Objective-C, y tiene que ver con la forma de acceder y obtener datos de colecciones, concretamente de arrays y diccionarios.</p><h3>Subíndices para Arrays</h3><p>Para los arrays podemos usar un index para referirnos a la posición de un objeto dentro de ese array, tal como se hacía en C con valores escalares:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;Barcelona&quot;</span><span class="p">,</span> <span class="s">@&quot;Lima&quot;</span><span class="p">,</span> <span class="s">@&quot;Lyon&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">ciudad</span> <span class="o">=</span> <span class="n">ciudades</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// ciudad = @&quot;Lyon&quot;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Aquí se nos devuelve el elemento en la posición 2 que es <code>@"Lyon"</code>. Esto el compilador lo traduce por su equivalente en Objective-C: <code>[ciudades objectAtIndexedSubscript:2]</code>, lo cual es exactamente lo mismo que hacer: <code>[ciudades objectAtIndex:2]</code>.</p><p>De la misma forma, si tenemos un array mutable, entonces podemos hacer asignación directa de valores con esta misma sintaxis:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">ciudades</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">@&quot;Roma&quot;</span><span class="p">;</span> <span class="c1">// el array quedaría: @[@&quot;Barcelona&quot;, @&quot;Roma&quot;, @&quot;Lyon&quot;]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>El valor en la posición 1 es cambiado por el nuevo. Aquí el compilador hace una traducción al método <code>[ciudades setObject:@"Roma" atIndexedSubscript:1]</code></p><h3>Subíndices para diccionarios</h3><p>Para los diccionarios en vez de usar un index usamos keys para obtener los valores:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="s">@&quot;nombre&quot;</span> <span class="o">:</span> <span class="s">@&quot;ThXou&quot;</span><span class="p">,</span> <span class="s">@&quot;ubicacion&quot;</span> <span class="o">:</span> <span class="s">@&quot;Barcelona&quot;</span><span class="p">};</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">ubicacion</span> <span class="o">=</span> <span class="n">usuario</span><span class="p">[</span><span class="s">@&quot;ubicacion&quot;</span><span class="p">];</span> <span class="c1">// ubicacion = @&quot;Barcelona&quot;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>El compilador hace la traducción a <code>[usuario objectForKeyedSubscript:@"ubicacion"]</code>, el cual es a su vez equivalente a <code>[usuario objectForKey:@"ubicacion"]</code>.</p><p>Como en los arrays, pasa lo mismo para los diccionarios mutables y podemos reemplazar el valor correspondiente a la key que referenciemos:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">usuario</span><span class="p">[</span><span class="s">@&quot;nombre&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">@&quot;ThXou soy yo&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="c1">// el diccionario quedaría: @{@&quot;nombre&quot; : @&quot;ThXou soy yo&quot;, @&quot;ubicacion&quot; : @&quot;Barcelona&quot;}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>La traducción correspondiente es <code>[usuario setObject:@"ThXou soy yo" forKeyedSubscript:@"nombre"]</code>.</p><h2>Conclusión</h2><p>Esta nueva sintaxis como se puede observar, ayuda a que nuestro código sea más legible, a la par que nos ahorra tiempo escribiendo sus métodos equivalentes. Va a ser hora de pasarnos a la nueva moda, nunca es tarde aunque ya lleve unos cuantos meses rulando por internet. Es muy importante recordar pasar únicamente objetos al momento de crear objetos usando literales, como también no pasar nunca un <code>nil</code> como un valor.</p><h2>Fuentes:</h2><ul><li><a href="http://clang.llvm.org/docs/ObjectiveCLiterals.html">http://clang.llvm.org/docs/ObjectiveCLiterals.html</a></li><li><a href="http://www.mikeash.com/pyblog/friday-qa-2012-06-22-objective-c-literals.html">http://www.mikeash.com/pyblog/friday-qa-2012-06-22-objective-c-literals.html</a></li></ul></div>
+<p>Claro, a simple vista podemos decir: Vaya chorrada, lo he usado mil veces!, pero detente un momento a pensar en el ahorro que implica en líneas de código el hecho de tenerlos: como escribirías un número &#8220;sin números&#8221;?, algo aún más terrorífico, plantearse escribir un string de miles de caracteres &#8220;sin strings&#8221;.</p><p>Dicho esto, es fácil darse cuenta de que los literales son una pieza fundamental de cualquier lenguaje por lo que nos ahorran, a parte de por los casos vistos, por la legibilidad en el código, así que vamos a conocer unos cuantos más pero específicos de Objective-C.</p></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2013/03/18/literales-en-objective-c/">Seguir leyendo &rarr;</a>
+    </footer>
   
 
 
@@ -481,50 +289,12 @@
   </header>
 
 
-  <div class="entry-content"><p>Vuelvo a la carga con los tutes sobre iOS después de un tiempo ausente por proyectos personales.</p><p>Esta vez os voy a hablar sobre otro tipo de notificaciones, diferentes a las notificaciones locales que <a href="http://www.thxou.com/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/">vimos hace un tiempo</a>. Estas nuevas notificaciones básicamente encapsulan información acerca de algún tipo de evento. Hay objetos que registran estas notificaciones en lo que podemos llamar una &#8220;tabla de notificaciones&#8221;, esta tabla está administrada por un centro de notificaciones, que es un objeto <code>NSNotificationCenter</code>. Luego tenemos objetos que se registran como &#8220;Observadores&#8221; de estas notificaciones, de manera de que cuando una de estas notificaciones es lanzada, todos los observadores &#8220;se enteran&#8221; de esto y normalmente llevan a cabo alguna acción.</p><p>Podría parecer un poco chungo, pero no lo es para nada. Te pongo un ejemplo práctico. Imagina un portal de noticias. Los usuarios entran a este portal y pueden suscribirse a las categorías de noticias que ellos prefieran. Una vez sale una noticia relacionada con categoría a la que el usuario se ha suscrito, entonces le llega un correo electrónico avisándole que hay una nueva noticia, así el usuario puede decidir que hacer en ese momento. Pues bien, si hacemos una comparación sacamos que el usuario que se suscribe a las noticias es el &#8220;Observador&#8221;, el portal de noticias sería el &#8220;centro de notificaciones&#8221; (<code>NSNotificationCenter</code>) y el correo electrónico sería la notificación lanzada por el centro de notificaciones.</p><h2>A tocar código, que es lo que mola</h2><p>Últimamente escribir tanto texto sin una sola línea de código me da alergia, así que vamos a escribir unas cuantas líneas.</p><p>De toda la clase <code>NSNotificationCenter</code>, normalmente solo vamos a usar 4 métodos. El primero es para inicializar nuestro centro de notificaciones. Cada aplicación viene con uno por defecto y para acceder a el usamos un método de clase que lo que hace simplemente es crear un singleton:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNotificationCenter</span> <span class="o">*</span><span class="n">center</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Ya tenemos nuestra instancia en el objeto <code>center</code>. El segundo método nos va a permitir registrar una notificación en el centro de notificaciones. A este método le pasamos el nombre de nuestra notificación y un objeto que es el que envía la notificación, normalmente <code>self</code>:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">center</span><span class="err"> </span><span class="nl">postNotificationName:</span><span class="s">@&quot;kTestNotification&quot;</span> <span class="nl">object:</span><span class="n">self</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Se podrían separar estas notificaciones en 2 tipos: las personalizadas (como esta) y las que emite el sistema. En las que emite el sistema (por ejemplo cuando el dispositivo es girado o el teclado de un textField es mostrado), no necesitamos usar el método anterior ya que el sistema lo hace solo, nosotros solo tenemos que añadirnos como observadores de esas notificaciones y esperar, así que esto es lo que haremos ahora.</p><h2>Registrándonos como observadores</h2><p>Antes vimos el método para registrar una notificación llamada <code>kTestNotification</code> en el centro de notificaciones. Bien, ahora nos haremos &#8220;Observadores&#8221; de esta notificación para que cuando sea registrada (Osea, cuando sea ejecutado el método anterior), nosotros podamos llevar a cabo alguna acción en ese mismo instante:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">center</span> <span class="nl">addObserver:</span><span class="n">self</span>
-</span><span class='line'>		   <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">handleNotification:</span><span class="p">)</span>
-</span><span class='line'>			   <span class="nl">name:</span><span class="s">@&quot;kTestNotification&quot;</span>
-</span><span class='line'>			 <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>El gustillo de este tipo de notificaciones para mi está en que, suponiendo el caso de que tu aplicación tenga 100 controladores, no importa en cual de estos 100 controladores registres la notificación, añadiendo tu clase como observador serás capaz de enterarte cuando sea registrada, en cualquier momento y en cualquier controlador.</p><p>Cuando el centro de notificaciones avisa a los observadores sobre una notificación lo hace de manera síncrona. Esto quiere decir que vas a tener que esperar primero a que todos los observadores reciban sus notificaciones antes de poder hacer algo. Esto se puede solucionar registrando las notificaciones de forma asíncrona usando <code>NSNotificationQueue</code> en vez de <code>NSNotificationCenter</code>, pero esto ya es otro tema del que hablaremos en otra oportunidad.</p><p>Al añadirnos como observadores también definimos un método a ejecutarse cuando la notificación sea registrada:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">handleNotification:</span><span class="p">(</span><span class="n">NSNotification</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="nv">notification</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>	<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Hey tu!, se ha disparado la notificación!&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Aquí simplemente mostramos por consola un texto, pero tu puedes usarlo para lo que quieras, cosas como mostrar un controlador, cerrar una conexión a Internet, etc.</p><h2>Liberando la memoria</h2><p>Lo único que nos queda ahora es liberar la memoria removiendo el observador que hemos asignado antes:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span><span class="err"> </span><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// liberamos la memoria que ocupa el observador</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">[</span><span class="n">super</span><span class="err"> </span><span class="n">dealloc</span><span class="p">];</span> <span class="c1">// quita esta línea si usas ARC</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Como vez, no estamos utilizando el objeto <code>center</code>, y a decir verdad para ahorrarte una innecesaria línea de código te recomiendo no crear un objeto <code>NSNotificationCenter</code>, sino usar la forma: <code>[[NSNotificationCenter defaultCenter] ...</code> , como en el código de arriba.</p></div>
+  <div class="entry-content"><p>Vuelvo a la carga con los tutes sobre iOS después de un tiempo ausente por proyectos personales.</p><p>Esta vez os voy a hablar sobre otro tipo de notificaciones, diferentes a las notificaciones locales que <a href="http://www.thxou.com/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/">vimos hace un tiempo</a>. Estas nuevas notificaciones básicamente encapsulan información acerca de algún tipo de evento. Hay objetos que registran estas notificaciones en lo que podemos llamar una &#8220;tabla de notificaciones&#8221;, esta tabla está administrada por un centro de notificaciones, que es un objeto <code>NSNotificationCenter</code>. Luego tenemos objetos que se registran como &#8220;Observadores&#8221; de estas notificaciones, de manera de que cuando una de estas notificaciones es lanzada, todos los observadores &#8220;se enteran&#8221; de esto y normalmente llevan a cabo alguna acción.</p><p>Podría parecer un poco chungo, pero no lo es para nada. Te pongo un ejemplo práctico. Imagina un portal de noticias. Los usuarios entran a este portal y pueden suscribirse a las categorías de noticias que ellos prefieran. Una vez sale una noticia relacionada con categoría a la que el usuario se ha suscrito, entonces le llega un correo electrónico avisándole que hay una nueva noticia, así el usuario puede decidir que hacer en ese momento. Pues bien, si hacemos una comparación sacamos que el usuario que se suscribe a las noticias es el &#8220;Observador&#8221;, el portal de noticias sería el &#8220;centro de notificaciones&#8221; (<code>NSNotificationCenter</code>) y el correo electrónico sería la notificación lanzada por el centro de notificaciones.</p></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">Seguir leyendo &rarr;</a>
+    </footer>
   
 
 
@@ -536,7 +306,7 @@
   <header>
   
     
-      <h1 class="entry-title"><a href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/">Treballant Amb El Social Framework De iOS 6: SLRequest, Publicar en Twitter I Obtenir El Timeline</a></h1>
+      <h1 class="entry-title"><a href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/">Trabajando Con El Social Framework: SLRequest, Publicar en Twitter Y Obtener El Timeline</a></h1>
       
       
     
@@ -563,317 +333,18 @@
 
 
   <div class="entry-content"><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png"><img class="size-full wp-image-2359" title="totweet-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png" alt="" width="319" height="479" /></a></p>
-Seguint amb els tutorials sobre iOS 6, avui ens toca Twittear (o com s&#8217;escrigui) i mostrar el nostre timeline de Twitter en una aplicació.
+<p>Seguint amb els tutorials sobre iOS 6, avui ens toca Twittear (o com s&#8217;escrigui) i mostrar el nostre timeline de Twitter en una aplicació.</p>
 
-Abans quan volíem comunicar-nos amb Twitter i obtenir dades i actualitzar-los calia fer una connexió a través de OAuth amb uns tokens i secret-keys, això normalment es podia digerir millor usant algun framework o classe externa que servia d&#8217;interfície de connexió entre el client i el servei. Des de l&#8217;arribada del framework de Twitter i la integració amb iOS 5 les coses es van posar extraordinàriament més fàcils, això ens va permetre l&#8217;intercanvi de dades amb Twitter en tan sol pocs passos.
+<p>Abans quan volíem comunicar-nos amb Twitter i obtenir dades i actualitzar-los calia fer una connexió a través de OAuth amb uns tokens i secret-keys, això normalment es podia digerir millor usant algun framework o classe externa que servia d&#8217;interfície de connexió entre el client i el servei. Des de l&#8217;arribada del framework de Twitter i la integració amb iOS 5 les coses es van posar extraordinàriament més fàcils, això ens va permetre l&#8217;intercanvi de dades amb Twitter en tan sol pocs passos.</p>
 
-En el Social *Framework tenim una classe anomenada <code>SLRequest</code>, molt similar a <code>TWRequest</code> del framework de twitter. Aquesta classe encapsula les propietats d&#8217;una petició HTTP en mètodes fàcils d&#8217;utilitzar, amb els quals enviem peticions a Twitter per poder obtenir i actualitzar dades dels nostres comptes configurats en el dispositiu.
+<p>En el Social *Framework tenim una classe anomenada <code>SLRequest</code>, molt similar a <code>TWRequest</code> del framework de twitter. Aquesta classe encapsula les propietats d&#8217;una petició HTTP en mètodes fàcils d&#8217;utilitzar, amb els quals enviem peticions a Twitter per poder obtenir i actualitzar dades dels nostres comptes configurats en el dispositiu.</p>
 
-Bàsicament enviem una petició HTTP amb uns paràmetres que configuren el que volem dur a terme en el servei, si Twitter diu que no hi ha problema, rebem una resposta amb unes dades que hem de manipular i mostrar a l&#8217;usuari, en cas contrari rebem una informació d&#8217;error.
-<h2>Autenticant la petició</h2>
-Com els deia paràgrafs enrere, abans calia usar tokens i secret-keys per autenticar-nos en Twitter i així poder validar les nostres peticions. Amb el Social Framework fem el mateix però de forma automàtica, més transparent a l&#8217;usuari, i en certa forma al desenvolupador, ja que en cap moment hem de manipular tokens.
-
-Des de iOS 5 tenim el Accounts Framework, el qual proveeix un sistema centralitzat de comptes d&#8217;usuari. A través de l&#8217;es emmagatzemen tots els comptes de Twitter (I d&#8217;altres serveis) configurades en el dispositiu: informació d&#8217;usuari i contrasenya i altra, això ens permet saltar-nos aquesta típica finestra d&#8217;inici de sessió sense haver de preocupar-nos per proveir un sistema per emmagatzemar nosaltres mateixos les credencials.
-
-Hi ha poques coses que podem fer sense autenticació d&#8217;usuari, i obtenir el timeline és una d&#8217;elles. No obstant això, per fer que això funcioni amb qualsevol compte, centralitzarem totes les peticions en els comptes obtinguts de la base de dades de comptes del dispositiu. Comencem:
-
-El primer serà importar els frameworks:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &amp;lt;Accounts/Accounts.h&amp;gt;</span>
-</span><span class='line'><span class="cp">#import &amp;lt;Social/Social.h&amp;gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Després fem la màgia d&#8217;obtenir els comptes del dispositiu amb el Accounts Framework:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">ACAccountStore</span><span class="err"> </span><span class="o">*</span><span class="n">accountStore</span><span class="err"> </span><span class="o">=</span> <span class="p">[[</span><span class="n">ACAccountStore</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// creguem un objecte accountType especificant que solament volem obtenir els comptes de Twitter</span>
-</span><span class='line'><span class="n">ACAccountType</span><span class="err"> </span><span class="o">*</span><span class="n">accountType</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">accountTypeWithAccountTypeIdentifier:</span><span class="n">ACAccountTypeIdentifierTwitter</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">requestAccessToAccountsWithType:</span><span class="n">accountType</span>
-</span><span class='line'>                                      <span class="nl">options:</span><span class="nb">nil</span>
-</span><span class='line'>                                   <span class="nl">completion:</span><span class="o">^</span><span class="p">(</span><span class="kt">BOOL</span><span class="err"> </span><span class="n">granted</span><span class="p">,</span> <span class="n">NSError</span><span class="err"> </span><span class="o">*</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">granted</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// guardem els comptes de twitter en un array </span>
-</span><span class='line'>        <span class="n">NSArray</span><span class="err"> </span><span class="o">*</span><span class="n">accountsArray</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">accountsWithAccountType:</span><span class="n">accountType</span><span class="p">];</span>
-</span><span class='line'>        <span class="c1">// armem la petició aquí</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">else</span><span class="err"> </span><span class="p">{</span>
-</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Error no se pudo acceder a las cuentas: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-El que fem aquí és crear una instància de la base de dades de comptes. Després a través de la classe <code>ACAccountType</code> diem que solament volem els comptes de Twitter, passant-li la constant  <code>ACAccountTypeIdentifierTwitter</code> com a argument en la inicialització. Tot seguit demanem accés a les comptes amb el mètode <code>requestAccessToAccountsWithType:options:completion:</code>. Aquest mètode té com a argument el bloc <code>completion:</code>, el qual és un handler (Un objecte &#8220;manipulador&#8221; per així dir-ho) en els paràmetres del qual és retornada la resposta del mètode. Si tot va bé emmagatzemem tots els comptes obtinguts en el array <code>accountsArray</code> o vam mostrar un error en cas contrari. Simple.
-
-Recorda aquesta dinàmica d&#8217;executar un mètode i rebre una resposta per ser manipulada en un bloc, perquè ho veuràs molt sovint des d&#8217;ara.
-<h2>Construint la petició per obtenir el timeline</h2>
-Amb el Social Framework és definitivament molt més fàcil construir una petició HTTP. Sabem que està composta per:
-<ol>
-	<li>Una URL que identifica l&#8217;operació que volem realitzar en el servei.</li>
-	<li>Un mètode de petició, que pot ser GET, POST o DELETE.</li>
-	<li>I uns paràmetres de configuració.</li>
-</ol>
-El mètode <code>requestForServiceType:requestMethod:URL:parameters:</code> passa totes aquestes dades com els seus arguments i això ens permet crear la petició en tan sol una línia de codi si així ho desitgem.
-
-El que nosaltres volem és obtenir el timeline, per tant necessitem anar a la <a title="Versión 1.1 de la API de Twitter" href="http://securelink.thxou.com/?https://dev.twitter.com/docs/api/1.1" target="_blank">documentació oficial</a> per veure el que hem d&#8217;usar. En entrar en l&#8217;enllaç i seleccionar l&#8217;operació de la qual volem veure els detalls (en aquest cas és: <code>GET</code> <code>statuses/home_timeline</code>), veurem en l&#8217;apartat <strong>Resourse Information</strong> certa informació molt important:
-<p style="text-align: center;"><img class="size-full wp-image-2326 aligncenter" title="twitter-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-11-at-17.08.28.png" alt="" width="249" height="392" /></p>
-Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;objecte de resposta (Tweets). Després està l&#8217;apartat <strong>Resource URL</strong> que és la URL que li passarem i l&#8217;apartat <strong>Parameters</strong>, que conté els paràmetres per configurar-la. Usant aquesta informació construïm la petició:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// guardem el compte</span>
-</span><span class='line'><span class="n">ACAccount</span><span class="err"> </span><span class="o">*</span><span class="n">twitterAccount</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountsArray</span><span class="err"> </span><span class="nl">objectAtIndex:</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">cuenta</span> <span class="o">=</span> <span class="n">twitterAccount</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// creguem la petició</span>
-</span><span class='line'><span class="n">NSURL</span><span class="err"> </span><span class="o">*</span><span class="n">url</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span><span class="err"> </span><span class="nl">URLWithString:</span><span class="s">@&quot;https://api.twitter.com/1.1/statuses/home_timeline.json&quot;</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">NSDictionary</span><span class="err"> </span><span class="o">*</span><span class="n">parametros</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span><span class="err"> </span><span class="nl">dictionaryWithObjectsAndKeys:</span>
-</span><span class='line'>                                <span class="s">@&quot;25&quot;</span><span class="p">,</span> <span class="s">@&quot;count&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">SLRequest</span> <span class="o">*</span><span class="n">request</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">SLRequest</span> <span class="nl">requestForServiceType:</span><span class="n">SLServiceTypeTwitter</span>
-</span><span class='line'>                                        <span class="nl">requestMethod:</span><span class="n">SLRequestMethodGET</span>
-</span><span class='line'>                                                  <span class="nl">URL:</span><span class="n">url</span>
-</span><span class='line'>                                           <span class="nl">parameters:</span><span class="n">parametros</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// associem el compte a la petició</span>
-</span><span class='line'><span class="p">[</span><span class="n">request</span><span class="err"> </span><span class="nl">setAccount:</span><span class="n">twitterAccount</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Per motius de brevetat tan solament utilitzarem el primer compte de les quals hi ha en el array.
-
-He creat la propietat <code>cuenta</code> de tipus <code>ACAccount</code>, en ella emmagatzemem aquest compte per posteriorment poder enviar-la al controlador des del qual publicarem un missatge d&#8217;estat (el que és un Tweet) al nostre timeline, això més endavant.
-
-Com poden veure tenim un diccionari per als paràmetres. El meu solament té una key: <code>count</code>, aquesta ens permet limitar la quantitat de tweets que ens va a retornar el timeline que per defecte és 20, però jo l&#8217;he posat a 25. En la documentació de la API estan tots els paràmetres que podem usar per configurar la petició.
-
-El següent és assignar-li a la propietat <code>account</code> de la nostra petició, el compte que hem triat del array i amb la qual volem treballar per mostrar el timeline i altres coses.
-<h2>Enviant la petició i manipulant els resultats</h2>
-Una vegada construïda la petició procedim a enviar-la. Per a això usem el mètode <code>performRequestWithHandler:</code> que envia la petició i recull els resultats en el seu únic argument. Est és al seu torn un bloc, el qual és executat una vegada estan disponibles les dades de la resposta.
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// realitzem la petició especificant un mètode per manipular la resposta</span>
-</span><span class='line'><span class="p">[</span><span class="n">request</span><span class="err"> </span><span class="nl">performRequestWithHandler:</span><span class="o">^</span><span class="p">(</span><span class="n">NSData</span><span class="err"> </span><span class="o">*</span><span class="n">responseData</span><span class="p">,</span> <span class="n">NSHTTPURLResponse</span><span class="err"> </span><span class="o">*</span><span class="n">urlResponse</span><span class="p">,</span> <span class="n">NSError</span><span class="err"> </span><span class="o">*</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">responseData</span><span class="err"> </span><span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">tweets</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span><span class="err"> </span><span class="nl">JSONObjectWithData:</span><span class="n">responseData</span>
-</span><span class='line'>                                                      <span class="nl">options:</span><span class="n">kNilOptions</span>
-</span><span class='line'>                                                        <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Aquest bloc té 3 paràmetres, el més important és <code>responseData</code>, perquè és el que va a contenir els tweets. Aquests tweets estan en format JSON com vam veure abans, per tant necessitem parsearlos i així passar-los a un format manipulable en Objective-C. Per fer això existeix la classe <code>NSJSONSerialization</code>, que agafa les dades en <code>NSData</code> (en aquest cas <code>responseData</code>), els parsea i retorna. Aquestes dades retornades els emmagatzemem en el array <code>tweets</code>, que a continuació usarem per mostrar-los a l&#8217;usuari.
-
-[tip]Pots aprendre més sobre com parsear dades en format JSON i la classe <code>NSJSONSerialization</code> en el nostre pràctic tutorial sobre el tema fent <a href="http://www.thxou.com/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/"><strong>clic aquí</strong></a>.[/tip]
-<h2>Mostrant els resultats</h2>
-Bé, ja tenim fet gairebé tot el treball, ara solament ens queda mostrar els resultats, i para això tenim l&#8217;objecte <code>tweetsTableView</code>. A causa que ja tenim tots els Tweets en un array, és relativament senzill mostrar-los en el tableView, per això anem directament a implementar els mètodes convenients:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">numberOfSectionsInTableView:</span><span class="p">(</span><span class="n">UITableView</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="nv">tableView</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span><span class="err"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="nv">tableView</span><span class="err"> </span><span class="nl">numberOfRowsInSection:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">section</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span><span class="err"> </span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tweets</span> <span class="n">count</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="n">UITableViewCell</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="nl">tableView:</span><span class="p">(</span><span class="n">UITableView</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="n">tableView</span><span class="err"> </span><span class="nl">cellForRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="n">indexPath</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">static</span><span class="err"> </span><span class="n">NSString</span><span class="err"> </span><span class="o">*</span><span class="n">CellIdentifier</span><span class="err"> </span><span class="o">=</span> <span class="s">@&quot;Cell&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">UITableViewCell</span><span class="err"> </span><span class="o">*</span><span class="n">cell</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">tableView</span><span class="err"> </span><span class="nl">dequeueReusableCellWithIdentifier:</span><span class="n">CellIdentifier</span><span class="p">];</span>
-</span><span class='line'>    <span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">cell</span><span class="err"> </span><span class="o">==</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">cell</span><span class="err"> </span><span class="o">=</span> <span class="p">[[[</span><span class="n">UITableViewCell</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithStyle:</span><span class="n">UITableViewCellStyleSubtitle</span><span class="err"> </span><span class="nl">reuseIdentifier:</span><span class="n">CellIdentifier</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">NSDictionary</span><span class="err"> </span><span class="o">*</span><span class="n">tweet</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tweets</span> <span class="nl">objectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey:</span><span class="s">@&quot;text&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">cell</span><span class="p">.</span><span class="n">detailTextLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey:</span><span class="s">@&quot;user&quot;</span><span class="p">]</span> <span class="nl">objectForKey:</span><span class="s">@&quot;screen_name&quot;</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// carreguem les imatges dels quals envien el tweet, de forma asíncrona</span>
-</span><span class='line'>    <span class="n">dispatch_queue_t</span> <span class="n">queue</span><span class="err"> </span><span class="o">=</span> <span class="n">dispatch_queue_create</span><span class="p">(</span><span class="s">&quot;com.thxou.totweet&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">dispatch_queue_t</span> <span class="n">main</span> <span class="o">=</span> <span class="n">dispatch_get_main_queue</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">dispatch_async</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
-</span><span class='line'>        <span class="n">NSURL</span><span class="err"> </span><span class="o">*</span><span class="n">imageURL</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span><span class="err"> </span><span class="nl">URLWithString:</span><span class="p">[[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey:</span><span class="s">@&quot;user&quot;</span><span class="p">]</span> <span class="nl">objectForKey:</span><span class="s">@&quot;profile_image_url&quot;</span><span class="p">]];</span>
-</span><span class='line'>        <span class="n">NSData</span> <span class="o">*</span><span class="n">imageData</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nl">dataWithContentsOfURL:</span><span class="n">imageURL</span><span class="p">];</span>
-</span><span class='line'>        <span class="n">dispatch_async</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
-</span><span class='line'>            <span class="n">cell</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span><span class="err"> </span><span class="nl">imageWithData:</span><span class="n">imageData</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>    <span class="n">dispatch_release</span><span class="p">(</span><span class="n">queue</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="n">cell</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Aquí hi ha algunes línies que els sonaran a xinès, no obstant això explicaré una mica per damunt que està succeint.
-
-Al parsearse les dades aquests són emmagatzemats en el array <code>tweets</code>, però els tweets dins del, són emmagatzemats en forma de diccionaris, fàcilment recuperables usant la classe <code>NSDictionary</code>. Llavors recuperem cada camp d&#8217;aquest array en un diccionari que jo he anomenat <code>tweet</code> per fer-ho més identificable (en realitat això és el que representa). Com ja saben, accedim als valors d&#8217;un diccionari a través de keys, però quines són aquestes keys?, ens anem a la <a href="https://dev.twitter.com/docs/platform-objects/tweets">documentació oficial</a> i ho mirem allí. El que fem és simplement mostrar el text del tweet com a títol i el nom &#8220;del que tweetea&#8221; com subtitulo en cada cel·la.
-
-Per mostrar la imatge el que fem és usar el <strong>GCD</strong> (Grand Central Dispatch) d&#8217;Apple. A grans trets explicar-los que la descàrrega de dades de la xarxa sempre deuria ser de forma asíncrona, això és perquè és un procés que triga una mica a dur-se a terme i per tant no pot fer-se en el mateix thread (fil) ja que podem bloquejar-ho, i això deixaria inutilitzable la interfície d&#8217;usuari fins que es completi el procés, cosa que pel bé dels nostres usuaris, no volem. Doncs aquest problema ho soluciona el <strong>GCD</strong>, fent que certs mètodes s&#8217;executin de forma asíncrona (en un altre fil o thread), d&#8217;aquesta forma evitem bloquejar la interfície d&#8217;usuari.
-<h2>Enviant un tweet</h2>
-Doncs fer això és una mica més del mateix. Jo he creat un nou controlador per fer això anomenat <code>EnviarTweetViewController</code>, el qual es mostra en una finestra modal i té un TextView i dos botons: un per enviar el tweet i un altre per cancel·lar l&#8217;operació.
-
-El d&#8217;enviar el tweet executa el mètode <code>enviarTweet:</code>:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">enviarTweet:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// comprovem si el camp per escriure el tweet no està buit</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tweet</span><span class="p">.</span><span class="n">text</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;&quot;</span><span class="p">])</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="s">@&quot;https://api.twitter.com/1.1/statuses/update.json&quot;</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">parametros</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span>
-</span><span class='line'>                                    <span class="n">self</span><span class="p">.</span><span class="n">tweet</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">@&quot;status&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">SLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">SLRequest</span> <span class="nl">requestForServiceType:</span><span class="n">SLServiceTypeTwitter</span>
-</span><span class='line'>                                                <span class="nl">requestMethod:</span><span class="n">SLRequestMethodPOST</span>
-</span><span class='line'>                                                          <span class="nl">URL:</span><span class="n">url</span>
-</span><span class='line'>                                                   <span class="nl">parameters:</span><span class="n">parametros</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// assignem el compte que usarem per publicar el tweet</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">request</span> <span class="nl">setAccount:</span><span class="n">self</span><span class="p">.</span><span class="n">cuenta</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>         <span class="p">[</span><span class="n">request</span> <span class="nl">performRequestWithHandler:</span><span class="o">^</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="n">responseData</span><span class="p">,</span> <span class="n">NSHTTPURLResponse</span> <span class="o">*</span><span class="n">urlResponse</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>         <span class="p">{</span>
-</span><span class='line'>             <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">resultado</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">JSONObjectWithData:</span><span class="n">responseData</span>
-</span><span class='line'>                                                                       <span class="nl">options:</span><span class="n">kNilOptions</span>
-</span><span class='line'>                                                                         <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>         <span class="p">}];</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">cancelar:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Com podeu observar es fa exactament el mateix. Tan solament canvien els paràmetres, la URL i el mètode de la petició, i tot això el podem trobar en la documentació oficial.
-
-A diferència de l&#8217;anterior, aquí no accedim a tots els comptes del dispositiu, sinó que simplement passem a aquest controlador el compte que hem obtingut abans, així ens assegurem que el compte que està seleccionada és des de la qual s&#8217;envia el tweet i sobre la qual es fan les operacions sol·licitades. No hi ha misteri.
-<h2>Conclusió</h2>
-El procediment per dur a terme totes aquestes accions en Twitter porten la mateixa estructura. Tan solament varien els paràmetres, la URL i el mètode de la petició. Pel que, si volem fer qualsevol cosa,  hem d&#8217;anar a la documentació i mirar el que necessitem. Després reemplaçar les dades que hem vist abans amb els nous, enviar la petició i mostrar a l&#8217;usuari les dades obtingudes. Així de fàcil és treballar amb el Social Framework.
-
-Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234">documentació d&#8217;Apple</a> sobre aquest tema i també visitar el nostre tutorial sobre com parsear i manipular fitxers JSON de forma nativa i així estendre una mica més els teus coneixements.
-<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/c0bb4xgyatv10t5nhvll"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+<p>Bàsicament enviem una petició HTTP amb uns paràmetres que configuren el que volem dur a terme en el servei, si Twitter diu que no hi ha problema, rebem una resposta amb unes dades que hem de manipular i mostrar a l&#8217;usuari, en cas contrari rebem una informació d&#8217;error.</p></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/">Seguir leyendo &rarr;</a>
+    </footer>
   
 
 
@@ -911,84 +382,12 @@ Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://develope
   </header>
 
 
-  <div class="entry-content"><p>Aquí les traigo un tutorial bastante fresco sobre el recién nacido<strong> iOS 6</strong>. Como sabéis cada nuevo iOS trae consigo muchas novedades y este no va a ser la excepción, tenemos cientos de nuevas APIs y cambios con respecto a iOS 5, y por si fuera poco también tenemos 3 nuevos frameworks para estudiar e implementar en nuestras apps. Queda aún trabajo por hacer.</p><p>Hoy voy a comenzar con el primero de una serie de tutoriales para ir introduciéndonos en el mundillo de iOS 6 poco a poco. Empezaré con uno de los 3 nuevos frameworks que incluye este nuevo iOS: el <strong>Social Framework</strong>.</p><p>Este framework reemplaza al de Twitter y se hace más generico para ser compatible con las redes sociales de Facebook y Sina Weibo (la de los chinos). Lo genial es que implementarlo en nuestras apps es sencillo, nosotros de momento vamos a publicar nuestro estado en Twitter y Facebook a través de la interfaz nativa del framework. Tiene otras aplicaciones como mostrar el timeline y hacer follows en Twitter y cosas así, pero estas las veremos más adelante ya que son un poco (y solo un poco) más complejas.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57.png"><img class="aligncenter size-full wp-image-2285" style="border: 2px solid black; margin-top: 15px; margin-bottom: 15px;" title="social-framework-ios6-thxou" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57-e1346428236807.png" alt="" width="319" height="194" /></a></p><p>Una de las 2 clases que componen el Social Framework es <code>SLComposeViewController</code>, esta clase te permite mostrar una vista al usuario desde la cual el puede componer y publicar un mensaje en cualquiera de las redes sociales mencionadas arriba, incluyendo una imagen o URL con el mensaje.</p><h2 dir="ltr">Empezando con iOS 6 y el framework</h2><p>Lo primero es tener Xcode 4.5 y el SDK de iOS 6 instalado, luego tener una cuenta de facebook y/o twitter configurada en el dispositivo.</p><p>Abrimos Xcode 4.5 y añadimos el <em>Social Framework</em> a nuestro proyecto. Para esto como ya sabemos nos vamos a la raiz del proyecto, seleccionamos nuestro target y en la pestaña <strong>Summary</strong> encontraremos el apartado <strong>Linked Frameworks and Libraries </strong>desde donde podemos agregarlo.</p><p>Acto seguido importamos en nuestro controlador la correspondiente cabecera y ya estamos listo para empezar a usarlo:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &amp;lt;Social/Social.h&amp;gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-<h2>Diferencias con el framework de Twitter</h2><p>Este nuevo framework es casi idéntico al anterior de Twitter, a grandes razgos la única diferencia que vamos a encontrar es en la forma de inicializar la clase, ya que en esta nueva tenemos que especificar el tipo de servicio al que nos estamos refiriendo, este servicio está definido en la propiedad <code>serviceType</code> y puede tener los siguientes valores:</p><ul><li><code id="jumpTo_14">SLServiceTypeFacebook</code></li><li><code id="jumpTo_15">SLServiceTypeTwitter</code></li><li><code id="jumpTo_16">SLServiceTypeSinaWeibo</code></li></ul><p>Uno para cada red social, vamos. Por lo tanto, mientras en el de Twitter hacíamos una inicialización normal con alloc e init, en este nuevo le pasamos el servicio, de manera que nos queda así:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">SLComposeViewController</span> <span class="o">*</span><span class="n">twitter</span> <span class="o">=</span> <span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">composeViewControllerForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Luego hay que hacer la comprobación de que el servicio es accesible y de si hay por lo menos una cuenta configurada para ese servicio en concreto en el dispositivo:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">isAvailableForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Esto devuelve <code>YES</code> o <code>NO</code> dependiendo de la configuración que haya. Si nos devuelve <code>YES</code> vamos a mostrar la interfaz, de lo contrario mostraremos un error.</p><h2>Mostrando la interfaz</h2><p>Supongamos que todo ha ido bien hasta ahora en el código, pues ya estamos listos para mostrar al usuario la intefaz, así que primero vamos a dar algunos valores iniciales a los campos. Este paso si que es idéntico al del framework de Twitter ya que tiene las mismas propiedades con los mismos nombres:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// ponemos un texto inicial para la publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setInitialText:</span><span class="n">self</span><span class="p">.</span><span class="n">tvPost</span><span class="p">.</span><span class="n">text</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// añadimos una imagen a nuestra publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;logo_thxou.png&quot;</span><span class="p">]];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// añadimos también una URL</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addURL:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="s">@&quot;http://www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/&quot;</span><span class="p">]];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// asignamos el completionHandler para manipular los resultados del envío</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setCompletionHandler:</span><span class="n">completionHandler</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// por último mostramos la interfaz de publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">presentViewController:</span><span class="n">twitter</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-<p>Tener muy en cuenta de asignar las propiedades antes de presentar la vista al usuario, de lo contrario os va a retornar un <code>NO</code> y la imagen o URL no se va a cargar junto con el mensaje. También os puede retornar <code>NO</code> si la imagen es demasiado grande o si hay demasiados caracteres en la URL, no obstante esto depende de las restricciones de que Twitter y Facebook ponen en las respectivas páginas oficiales de sus APIs.</p><p>Hecho todo esto presentamos al usuario la interfaz como lo haríamos con cualquier controlador.</p><h2>Manipular los resultados</h2><p>Lo único que nos queda por hacer es comunicarle al usuario si se ha enviado correctamente la publicación o no, para esto tenemos los resultados del envío devueltos en el argumento <code>result</code> de la propiedad <code>completionHandler</code> de la clase. Esta propiedad es un objeto de tipo bloque y es llamada justo antes de cerrase la interfaz de envío. Ya que el bloque es lo último que se va a ejecutar, tenemos que cerrar la interfaz dentro de este bloque:</p>
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// manipulamos los mensajes de error si hay usando la propiedad completionHandler</span>
-</span><span class='line'><span class="n">SLComposeViewControllerCompletionHandler</span> <span class="n">completionHandler</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="n">SLComposeViewControllerResult</span> <span class="n">result</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">case</span> <span class="nl">SLComposeViewControllerResultCancelled:</span>
-</span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;La publicación ha sido cancelada.&quot;</span><span class="p">);</span>
-</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">case</span> <span class="nl">SLComposeViewControllerResultDone:</span>
-</span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Se ha publicado satisfactoriamente.&quot;</span><span class="p">);</span>
-</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
-</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-<h2>Conclusión</h2><p>Como hemos podido observar es realmente sencillo mostrar la interfaz de envío por defecto al usuario. No obstante esto tiene sus limitaciones evidentes, como la de querer saltarse la interfaz y enviar directamente el mensaje a Twitter. En el <a href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/">siguiente tutorial</a> veremos como hacer todo esto y alguna cosa más, es un poco más complejo, pero como veréis el framework lo hace todo mucho más sencillo y hace mucho trabajo por nosotros.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/qv5nu4k6jh00fhttgz89"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+  <div class="entry-content"><p>Aquí les traigo un tutorial bastante fresco sobre el recién nacido<strong> iOS 6</strong>. Como sabéis cada nuevo iOS trae consigo muchas novedades y este no va a ser la excepción, tenemos cientos de nuevas APIs y cambios con respecto a iOS 5, y por si fuera poco también tenemos 3 nuevos frameworks para estudiar e implementar en nuestras apps. Queda aún trabajo por hacer.</p><p>Hoy voy a comenzar con el primero de una serie de tutoriales para ir introduciéndonos en el mundillo de iOS 6 poco a poco. Empezaré con uno de los 3 nuevos frameworks que incluye este nuevo iOS: el <strong>Social Framework</strong>.</p><p>Este framework reemplaza al de Twitter y se hace más generico para ser compatible con las redes sociales de Facebook y Sina Weibo (la de los chinos). Lo genial es que implementarlo en nuestras apps es sencillo, nosotros de momento vamos a publicar nuestro estado en Twitter y Facebook a través de la interfaz nativa del framework. Tiene otras aplicaciones como mostrar el timeline y hacer follows en Twitter y cosas así, pero estas las veremos más adelante ya que son un poco (y solo un poco) más complejas.</p><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57.png"><img class="aligncenter size-full wp-image-2285" style="border: 2px solid black; margin-top: 15px; margin-bottom: 15px;" title="social-framework-ios6-thxou" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57-e1346428236807.png" alt="" width="319" height="194" /></a></p><p>Una de las 2 clases que componen el Social Framework es <code>SLComposeViewController</code>, esta clase te permite mostrar una vista al usuario desde la cual el puede componer y publicar un mensaje en cualquiera de las redes sociales mencionadas arriba, incluyendo una imagen o URL con el mensaje.</p></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/">Seguir leyendo &rarr;</a>
+    </footer>
   
 
 
@@ -1065,9 +464,9 @@ Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://develope
   </header>
 
 
-  <div class="entry-content">Desde la salida de iOS 5 Apple incluyó en su API la clase <code>NSJSONSerialization</code>, la cual nos permite convertir objetos JSON en objetos de Objective-C (que ya tocaba también) y viceversa de manera sencilla.
+  <div class="entry-content"><p>Desde la salida de iOS 5 Apple incluyó en su API la clase <code>NSJSONSerialization</code>, la cual nos permite convertir objetos JSON en objetos de Objective-C (que ya tocaba también) y viceversa de manera sencilla.</p>
 
-Para los que no saben que es JSON (JavaScript Object Notation), es un tipo de sintaxis que nos permite representar porciones grandes o pequeñas de datos para poder almacenarlos y/o intercambiarlos con otros entornos. Mucho más sencillo y pequeño que XML y además más rápido de parsear. Usa exactamente la misma sintaxis que usa JavaScript para crear objetos pero es totalmente independiente del lenguaje. Esta y otras cosas son las cosas que lo hacen atractivo para empresas como Twitter, Yahoo, Google, etc., que ya tienen sus APIs adaptadas a JSON desde hace un tiempo, además que facilita las cosas al programador y ahora veremos hasta que punto.
+<p>Para los que no saben que es JSON (JavaScript Object Notation), es un tipo de sintaxis que nos permite representar porciones grandes o pequeñas de datos para poder almacenarlos y/o intercambiarlos con otros entornos. Mucho más sencillo y pequeño que XML y además más rápido de parsear. Usa exactamente la misma sintaxis que usa JavaScript para crear objetos pero es totalmente independiente del lenguaje. Esta y otras cosas son las cosas que lo hacen atractivo para empresas como Twitter, Yahoo, Google, etc., que ya tienen sus APIs adaptadas a JSON desde hace un tiempo, además que facilita las cosas al programador y ahora veremos hasta que punto.</p>
 <h2>La sintaxis de JSON</h2>
 Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para considerar:
 <ol>
@@ -1075,213 +474,12 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
 	<li>Los objetos están encerrados entre llaves ({ }).</li>
 	<li>Los arrays están encerrados entre corchetes ([ ]).</li>
 </ol>
-Esto se cumple para todo en el fichero, también para los objetos que van anidados dentro de los arrays. No obtante solo se permiten cierto tipo de objetos, y son: <code>NSString</code>,  <code>NSNumber</code>,  <code>NSArray</code>,  <code>NSDictionary</code> o <code>NSNull</code>, de manera que si quieres meter objetos como por ejemplo <code>NSDate</code>, vas a tener que convertirlos a <code>NSString</code>antes o algún objeto compatible. Un fichero de JSON luce así por dentro:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="s">&quot;nombre&quot;</span> <span class="o">:</span> <span class="s">&quot;ThXou&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s">&quot;web&quot;</span> <span class="o">:</span> <span class="s">&quot;thxou.com&quot;</span>
-</span><span class='line'>    <span class="s">&quot;aficiones&quot;</span> <span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="p">{</span> <span class="s">&quot;titulo&quot;</span> <span class="o">:</span> <span class="s">&quot;Fútbol&quot;</span> <span class="p">},</span>
-</span><span class='line'>        <span class="p">{</span> <span class="s">&quot;titulo&quot;</span> <span class="o">:</span> <span class="s">&quot;Snowboard&quot;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="p">]</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Aquí podemos identificar que todo eso es un objeto (va encerrado entre { }) y luego tiene varios datos, entre ellos un array (aficiones) que contiene a su vez 2 objetos con un dato por objeto (título). Se cumplen los 3 puntos de arriba en todos los casos, esto es algo a considerar siempre. También hay que considerar que el nivel más alto del fichero JSON debe ser o un <code>NSDictionary</code> o un <code>NSArray</code>para que este sea válido.
-<h2>Parseando JSON desde una URL</h2>
-Nuestra información en JSON está alojada en un sitio web, así que tenemos primero que descargar esta información y convertirla en un objeto manipulable, por eso usamos el método <code>dataWithContentsOfURL:options:error:</code> y hacemos la conversión a <code>NSData</code>:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// creamos un botón para generar el JSON</span>
-</span><span class='line'>    <span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">json</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;Generar JSON&quot;</span>
-</span><span class='line'>                                                             <span class="nl">style:</span><span class="n">UIBarButtonItemStylePlain</span>
-</span><span class='line'>                                                            <span class="nl">target:</span><span class="n">self</span>
-</span><span class='line'>                                                            <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">generarJSON:</span><span class="p">)];</span>
-</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">json</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">json</span> <span class="n">release</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// indicamos la url desde donde tomaremos los datos</span>
-</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="s">@&quot;http://dl.dropbox.com/u/270074/iOSTutorials/JSON/test.json&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">NSData</span> <span class="o">*</span><span class="n">urlData</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nl">dataWithContentsOfURL:</span><span class="n">url</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">empezarAParsear:</span><span class="n">urlData</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Simplemente usamos el método <code>viewDidLoad:</code> para descargar esta información al inicio de la carga del controlador. Hay que saber que la descarga de información en el hilo principal (Main thread) podría bloquear la interfaz gráfica, a nosotros no nos sucede debido a que descargamos muy poca información. Si vas a descargar grandes cantidades de datos es necesario hacerlo en segundo plano.
-
-Antes de iniciar la descarga creamos un botón que más adelante nos va a permitir generar datos en formato JSON a partir de lo que ya tenemos parseado. Luego de la descarga, toda la información va a estar contenida en un objeto <code>NSData</code>. La clase <code>NSJSONSerialization</code> tiene el método <code>JSONObjectWithData:options:error:</code>, el cual nos permite parsear el contenido de este objeto.
-
-Como hemos dicho antes el nivel más alto del ficher0 en JSON debe ser un diccionario o un array, en nuestro caso es un diccionario con una única key llamada <em>comunidades</em>; esta a su vez es un array con otros objetos dentro. Por lo tanto vamos a parsear la información directamente a un objeto <code>NSDictionary</code>:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">empezarAParsear:</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">urlData</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>    <span class="c1">// parseamos los datos de la URL</span>
-</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">jsonDic</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">JSONObjectWithData:</span><span class="n">urlData</span>
-</span><span class='line'>                                                            <span class="nl">options:</span><span class="n">kNilOptions</span>
-</span><span class='line'>                                                              <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>    <span class="c1">// si hubo algún error en el parseo lo mostramos</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;ERROR: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="o">=</span> <span class="p">[</span><span class="n">jsonDic</span> <span class="nl">objectForKey:</span><span class="s">@&quot;comunidades&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-La propiedad <code>comunidades</code> almacena el array contenido en el fichero bajo la key <em>comunidades</em>. El paso que queda ahora es mostralo. Como puede observar, uno de los argumentos del método <code>JSONObjectWithData:</code> es <code>options:</code>. Este argumento puede tener 3 valores diferentes según la configuración que se quiera tener en cuenta al momento de parsear el fichero. Yo he puesto <code>kNilOptions</code>que equivale a 0, o a no elegir ninguna opción más concretamente, pero tu podría elegir entre estos 3:
-<ol>
-	<li><code><strong>NSJSONReadingMutableContainers:</strong></code> Los arrays y diccionarios son creados como objetos mutables, es decir que pueden ser cambiados en cualquier momento, incluso antes de comenzar el parseo.</li>
-	<li><code><strong>NSJSONReadingMutableLeaves:</strong></code> Todos los strings contenidos serán creados como mutables.</li>
-	<li><code><strong>NSJSONReadingAllowFragments:</strong></code> Permite el parseo de objetos en el nivel más alto del fichero pero no sean arrays o diccionarios.</li>
-</ol>
-<h2>Mostrando el contenido</h2>
-Para que se vea más claro he usado un <code>TableView</code> para mostrar los datos parseados. Primero obtenemos la información de cada comunidad en el diccionario <code>comunidad</code> y segundo la vamos mostrando formateada a medida que se van recorriendo las filas de la <code>TableView</code>:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">comunidad</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="nl">objectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
-</span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey:</span><span class="s">@&quot;nombre&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">subtitle</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;Superficie: %@ - %@%%&quot;</span><span class="p">,</span>
-</span><span class='line'>                      <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey:</span><span class="s">@&quot;superficie&quot;</span><span class="p">],</span>
-</span><span class='line'>                      <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey:</span><span class="s">@&quot;porcentaje&quot;</span><span class="p">]];</span>
-</span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">detailTextLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">subtitle</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Todo esto lo hacemos en el método <code>tableView:cellForRowAtIndexPath:</code> el cual va ser el encargado de llenar los campos del <code>TableView</code> con la información correspondiente.
-<p style="text-align: center;"><img class="aligncenter size-full wp-image-2318" style="margin-top: 20px; margin-bottom: 20px;" title="json-data-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-11-at-01.58.03.png" alt="" width="418" height="244" /></p>
-
-<h2>Generando datos en formato JSON</h2>
-Ahora haremos el proceso inverso. Ahora convertiremos datos de un array a datos en formato JSON. Para hacer esto hay un botón en la barra de navegación del TableView que creamos en el <code>ViewDidLoad:</code>, y que al ser presionado ejecuta el método <code>generarJSON:</code>:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">generarJSON:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>    <span class="c1">// generamos los datos en JSON</span>
-</span><span class='line'>    <span class="n">NSData</span> <span class="o">*</span><span class="n">json</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">dataWithJSONObject:</span><span class="n">self</span><span class="p">.</span><span class="n">comunidades</span>
-</span><span class='line'>                                                   <span class="nl">options:</span><span class="n">NSJSONWritingPrettyPrinted</span>
-</span><span class='line'>                                                     <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// convertimos los datos a un string para poder mostrarlos</span>
-</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">jsonString</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData:</span><span class="n">json</span> <span class="nl">encoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// los mostramos en un alertView</span>
-</span><span class='line'>    <span class="n">UIAlertView</span> <span class="o">*</span><span class="n">alerta</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="nb">nil</span>
-</span><span class='line'>                                                     <span class="nl">message:</span><span class="n">jsonString</span>
-</span><span class='line'>                                                    <span class="nl">delegate:</span><span class="n">self</span>
-</span><span class='line'>                                           <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;Ok&quot;</span>
-</span><span class='line'>                                           <span class="nl">otherButtonTitles:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">alerta</span> <span class="n">show</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">alerta</span> <span class="n">release</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">jsonString</span> <span class="n">release</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-Para no hacer mucho más largo este tutorial simplemente hemos convertido toda la información que ya estaba parseada nuevamente a formato JSON, esto lo hemos hecho con el método <code>dataWithJSONObject:options:error</code>. Este método también tiene un argumento <code>options:</code>, pero en este caso solo tiene una opción:
-<ol>
-	<li><strong><code>NSJSONWritingPrettyPrinted:</code></strong> Con esta opción se hace la conversión pero la devuelve en un formato más legible y ordenado (tal y como verás al presionar el botón). Si por el contrario deseas compactar más el string devuelto (sin espacios ni tabuladores), puedes pasarle la opción <code>kNilOptions</code>.</li>
-</ol>
-Luego de hacer la conversión mostramos los datos en una ventana de alerta.
-
-Hay otro método que se puede usar para comprobar si es que la información que deseamos convertir a JSON se puede convertir o no. Este método es <code>isValidJSONObject:</code> y devuelve <code>YES</code> si es posible hacer la conversión y <code>NO</code> de lo contrario. Su uso es muy sencillo:
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">if</span> <span class="p">([</span><span class="n">NSJSONSerialization</span> <span class="nl">isValidJSONObject:</span><span class="n">self</span><span class="p">.</span><span class="n">comunidades</span><span class="p">])</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// realizamos la conversión</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// mostramos un error</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>Conclusión</h2>
-Es muy sencillo implementar esta funcionalidad como han podido ver. Tan solo hay un par de métodos que realmente usamos de esta clase, el resto son arreglos que nos permiten mostrar el contenido de acuerdo a nuestros gustos.
-
-Recordar que no todos los formatos se pueden convertir a JSON, para los que no, hay que hacer otro tipo de conversiones. Un ejemplo es si vamos a pasar un objeto <code>NSDate</code>, podemos usar el método <code>stringFromDate:</code> de la clase <code>NSDateFormatter</code> para convertirlo a un string, y luego volver a recuperarlo con el método <code>dateFromString:</code>.
-
-Esto es todo. Cualquier duda no dudéis en usar los comentarios.
-<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/h0aqzhe33t86icmkqxkm"><img title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
+<p>Esto se cumple para todo en el fichero, también para los objetos que van anidados dentro de los arrays. No obtante solo se permiten cierto tipo de objetos, y son: <code>NSString</code>,  <code>NSNumber</code>,  <code>NSArray</code>,  <code>NSDictionary</code> o <code>NSNull</code>, de manera que si quieres meter objetos como por ejemplo <code>NSDate</code>, vas a tener que convertirlos a <code>NSString</code>antes o algún objeto compatible. Un fichero de JSON luce así por dentro:</p></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/">Seguir leyendo &rarr;</a>
+    </footer>
   
 
 

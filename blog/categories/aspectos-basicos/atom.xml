@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Aspectos Básicos | Luis Cardenas ThXou]]></title>
   <link href="http://ThXou.github.io/blog/categories/aspectos-basicos/atom.xml" rel="self"/>
   <link href="http://ThXou.github.io/"/>
-  <updated>2014-01-28T16:39:06+01:00</updated>
+  <updated>2014-01-28T23:50:48+01:00</updated>
   <id>http://ThXou.github.io/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -23,25 +23,24 @@
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">float</span> <span class="n">altura</span> <span class="o">=</span> <span class="mf">23.5</span><span class="p">;</span>
 </span><span class='line'><span class="kt">int</span> <span class="n">piezas</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Estos son: un literal float y un literal int respectivamente. Estos literales son comunes en la mayoría de los lenguajes, no obstante Objective-C tiene sus propios literales a parte de los mencionados, concretamente los que están basados en objetos:</p>
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">tarea</span> <span class="o">=</span> <span class="err">@”</span><span class="n">Buscar</span> <span class="n">piso</span><span class="err">”</span><span class="p">;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Claro, a simple vista podemos decir: Vaya chorrada, lo he usado mil veces!, pero detente un momento a pensar en el ahorro que implica en líneas de código el hecho de tenerlos: como escribirías un número "sin números"?, algo aún más terrorífico, plantearse escribir un string de miles de caracteres "sin strings".</p>
 
 
 <p>Dicho esto, es fácil darse cuenta de que los literales son una pieza fundamental de cualquier lenguaje por lo que nos ahorran, a parte de por los casos vistos, por la legibilidad en el código, así que vamos a conocer unos cuantos más pero específicos de Objective-C.</p>
+
+
+<!-- more -->
 
 
 <h2>La nueva moda en literales</h2>
@@ -69,9 +68,7 @@
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lima</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lyon</span><span class="err">”</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Al ser una característica del lenguaje ya no es necesario definir el centinela nil, de hecho si lo pones como valor, tu ordenador explotará, ya que se realiza una validación como para el método <code>[NSArrayarrayWithObjects:count:]</code>, en el que se requiere que ningún objeto sea nil. Por lo tanto si quieres pasar nil como valor tendrás que hacerlo con el objeto <code>[NSNull null]</code>, que es su equivalente.</p>
@@ -84,18 +81,14 @@
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span><span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">nombre</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Ahora se escribiría:</p>
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="err">@”</span><span class="n">nombre</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">};</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Como en el caso de los arrays, aquí tampoco es necesaria la centinela nil.</p>
@@ -117,9 +110,7 @@
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">queja</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">El</span> <span class="n">billete</span> <span class="n">de</span> <span class="n">metro</span> <span class="n">est</span><span class="err">á</span> <span class="n">caro</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>En realidad estamos convirtiendo un string en C a un objeto NSString con codificación UTF-8. Este literal está desde los inicios, pero para los otros valores escalares usábamos el método <code>numberWith<em>Tipo</em>:</code> para inicializar los objetos NSNumber. Ahora haremos:</p>
@@ -133,7 +124,6 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">bool</span> <span class="o">=</span> <span class="err">@</span><span class="n">NO</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithBool:NO]</span>
 </span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">char</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="n">d</span><span class="err">&#39;</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithChar:’d’]</span>
 </span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">unsignedInt</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23</span><span class="n">U</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithUnsignedInt:23U]</span>
@@ -142,7 +132,6 @@
 </span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">longlong</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23L</span><span class="n">L</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithLongLong:23LL]</span>
 </span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">float</span> <span class="o">=</span> <span class="err">@</span><span class="mf">5.2303F</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithFloat:5.2303F]</span>
 </span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">double</span> <span class="o">=</span> <span class="err">@</span><span class="mf">2.2808</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithDouble:2.2808]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Me encanta este literal, por lo menos a mi me ayuda haciendo más legible el código, sobre todo cuando tengo que hacer una lectura rápida.</p>
@@ -155,36 +144,28 @@
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithDouble:</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Ahora lo hacemos así:</p>
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Mucho más claro y sencillo. Lo genial es que también funciona pasándole propiedades de algunos objetos Objective-C que devuelven valores escalares. Por ejemplo si tenías que guardar en Core Data el valor de un objeto UISwitch, lo hacíamos así:</p>
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Ahora también lo puedes hacer simplemente así:</p>
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>También funciona para enumeraciones:</p>
@@ -192,10 +173,8 @@
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">Barcelona</span><span class="p">,</span> <span class="n">Lima</span><span class="p">,</span> <span class="n">Lyon</span> <span class="p">}</span> <span class="n">Ciudad</span><span class="p">;</span>
 </span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">ciudad</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">Lyon</span><span class="p">);</span> <span class="c1">// nos devolverá 1 y es equivalente a [NSNumber numberWithInt:((int)Lyon)]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>En este caso, para poder usar algún valor de la enumeración tenemos que envolverlo también como si se tratara de una expresión para poder usarlo como literal.</p>
@@ -215,10 +194,8 @@
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Barcelona</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Lima</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Lyon</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">ciudad</span> <span class="o">=</span> <span class="n">ciudades</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// ciudad = @&amp;ldquo;Lyon&amp;rdquo;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Aquí se nos devuelve el elemento en la posición 2 que es <code>@"Lyon"</code>. Esto el compilador lo traduce por su equivalente en Objective-C: <code>[ciudades objectAtIndexedSubscript:2]</code>, lo cual es exactamente lo mismo que hacer: <code>[ciudades objectAtIndex:2]</code>.</p>
@@ -228,9 +205,7 @@
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">ciudades</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Roma</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span> <span class="c1">// el array quedaría: @[@&amp;ldquo;Barcelona&amp;rdquo;, @&amp;ldquo;Roma&amp;rdquo;, @&amp;ldquo;Lyon&amp;rdquo;]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>El valor en la posición 1 es cambiado por el nuevo. Aquí el compilador hace una traducción al método <code>[ciudades setObject:@"Roma" atIndexedSubscript:1]</code></p>
@@ -244,10 +219,8 @@
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">nombre</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="o">:</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ThXou</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ubicacion</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="o">:</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Barcelona</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;};</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">ubicacion</span> <span class="o">=</span> <span class="n">usuario</span><span class="p">[</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ubicacion</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span> <span class="c1">// ubicacion = @&amp;ldquo;Barcelona&amp;rdquo;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>El compilador hace la traducción a <code>[usuario objectForKeyedSubscript:@"ubicacion"]</code>, el cual es a su vez equivalente a <code>[usuario objectForKey:@"ubicacion"]</code>.</p>
@@ -258,16 +231,18 @@
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">usuario</span><span class="p">[</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">nombre</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ThXou</span> <span class="n">soy</span> <span class="n">yo</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
 </span><span class='line'><span class="c1">// el diccionario quedaría: @{@&amp;ldquo;nombre&amp;rdquo; : @&amp;ldquo;ThXou soy yo&amp;rdquo;, @&amp;ldquo;ubicacion&amp;rdquo; : @&amp;ldquo;Barcelona&amp;rdquo;}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>La traducción correspondiente es <code>[usuario setObject:@"ThXou soy yo" forKeyedSubscript:@"nombre"]</code>.</p>
 
 
+
+
 <h2>Conclusión</h2>
+
+
 
 
 <p>Esta nueva sintaxis como se puede observar, ayuda a que nuestro código sea más legible, a la par que nos ahorra tiempo escribiendo sus métodos equivalentes. Va a ser hora de pasarnos a la nueva moda, nunca es tarde aunque ya lleve unos cuantos meses rulando por internet. Es muy importante recordar pasar únicamente objetos al momento de crear objetos usando literales, como también no pasar nunca un <code>nil</code> como un valor.</p>

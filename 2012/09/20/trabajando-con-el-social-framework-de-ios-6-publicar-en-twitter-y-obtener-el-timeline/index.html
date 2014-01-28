@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Treballant amb el Social Framework de iOS 6: SLRequest, publicar en Twitter i obtenir el Timeline - Luis Cardenas ThXou</title>
+  <title>Trabajando con el Social Framework: SLRequest, publicar en Twitter y obtener el Timeline - Luis Cardenas ThXou</title>
   <meta name="author" content="Luis Cardenas">
 
   
@@ -82,7 +82,7 @@
   <header>
   
     
-      <h1 class="entry-title">Treballant Amb El Social Framework De iOS 6: SLRequest, Publicar en Twitter I Obtenir El Timeline</h1>
+      <h1 class="entry-title">Trabajando Con El Social Framework: SLRequest, Publicar en Twitter Y Obtener El Timeline</h1>
     
   
     
@@ -109,29 +109,29 @@
 
 
 <div class="entry-content"><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png"><img class="size-full wp-image-2359" title="totweet-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png" alt="" width="319" height="479" /></a></p>
-Seguint amb els tutorials sobre iOS 6, avui ens toca Twittear (o com s&#8217;escrigui) i mostrar el nostre timeline de Twitter en una aplicació.
+<p>Seguint amb els tutorials sobre iOS 6, avui ens toca Twittear (o com s&#8217;escrigui) i mostrar el nostre timeline de Twitter en una aplicació.</p>
 
-Abans quan volíem comunicar-nos amb Twitter i obtenir dades i actualitzar-los calia fer una connexió a través de OAuth amb uns tokens i secret-keys, això normalment es podia digerir millor usant algun framework o classe externa que servia d&#8217;interfície de connexió entre el client i el servei. Des de l&#8217;arribada del framework de Twitter i la integració amb iOS 5 les coses es van posar extraordinàriament més fàcils, això ens va permetre l&#8217;intercanvi de dades amb Twitter en tan sol pocs passos.
+<p>Abans quan volíem comunicar-nos amb Twitter i obtenir dades i actualitzar-los calia fer una connexió a través de OAuth amb uns tokens i secret-keys, això normalment es podia digerir millor usant algun framework o classe externa que servia d&#8217;interfície de connexió entre el client i el servei. Des de l&#8217;arribada del framework de Twitter i la integració amb iOS 5 les coses es van posar extraordinàriament més fàcils, això ens va permetre l&#8217;intercanvi de dades amb Twitter en tan sol pocs passos.</p>
 
-En el Social *Framework tenim una classe anomenada <code>SLRequest</code>, molt similar a <code>TWRequest</code> del framework de twitter. Aquesta classe encapsula les propietats d&#8217;una petició HTTP en mètodes fàcils d&#8217;utilitzar, amb els quals enviem peticions a Twitter per poder obtenir i actualitzar dades dels nostres comptes configurats en el dispositiu.
+<p>En el Social *Framework tenim una classe anomenada <code>SLRequest</code>, molt similar a <code>TWRequest</code> del framework de twitter. Aquesta classe encapsula les propietats d&#8217;una petició HTTP en mètodes fàcils d&#8217;utilitzar, amb els quals enviem peticions a Twitter per poder obtenir i actualitzar dades dels nostres comptes configurats en el dispositiu.</p>
 
-Bàsicament enviem una petició HTTP amb uns paràmetres que configuren el que volem dur a terme en el servei, si Twitter diu que no hi ha problema, rebem una resposta amb unes dades que hem de manipular i mostrar a l&#8217;usuari, en cas contrari rebem una informació d&#8217;error.
+<p>Bàsicament enviem una petició HTTP amb uns paràmetres que configuren el que volem dur a terme en el servei, si Twitter diu que no hi ha problema, rebem una resposta amb unes dades que hem de manipular i mostrar a l&#8217;usuari, en cas contrari rebem una informació d&#8217;error.</p><!-- more -->
 <h2>Autenticant la petició</h2>
-Com els deia paràgrafs enrere, abans calia usar tokens i secret-keys per autenticar-nos en Twitter i així poder validar les nostres peticions. Amb el Social Framework fem el mateix però de forma automàtica, més transparent a l&#8217;usuari, i en certa forma al desenvolupador, ja que en cap moment hem de manipular tokens.
+<p>Com els deia paràgrafs enrere, abans calia usar tokens i secret-keys per autenticar-nos en Twitter i així poder validar les nostres peticions. Amb el Social Framework fem el mateix però de forma automàtica, més transparent a l&#8217;usuari, i en certa forma al desenvolupador, ja que en cap moment hem de manipular tokens.</p>
 
-Des de iOS 5 tenim el Accounts Framework, el qual proveeix un sistema centralitzat de comptes d&#8217;usuari. A través de l&#8217;es emmagatzemen tots els comptes de Twitter (I d&#8217;altres serveis) configurades en el dispositiu: informació d&#8217;usuari i contrasenya i altra, això ens permet saltar-nos aquesta típica finestra d&#8217;inici de sessió sense haver de preocupar-nos per proveir un sistema per emmagatzemar nosaltres mateixos les credencials.
+<p>Des de iOS 5 tenim el Accounts Framework, el qual proveeix un sistema centralitzat de comptes d&#8217;usuari. A través de l&#8217;es emmagatzemen tots els comptes de Twitter (I d&#8217;altres serveis) configurades en el dispositiu: informació d&#8217;usuari i contrasenya i altra, això ens permet saltar-nos aquesta típica finestra d&#8217;inici de sessió sense haver de preocupar-nos per proveir un sistema per emmagatzemar nosaltres mateixos les credencials.</p>
 
-Hi ha poques coses que podem fer sense autenticació d&#8217;usuari, i obtenir el timeline és una d&#8217;elles. No obstant això, per fer que això funcioni amb qualsevol compte, centralitzarem totes les peticions en els comptes obtinguts de la base de dades de comptes del dispositiu. Comencem:
+<p>Hi ha poques coses que podem fer sense autenticació d&#8217;usuari, i obtenir el timeline és una d&#8217;elles. No obstant això, per fer que això funcioni amb qualsevol compte, centralitzarem totes les peticions en els comptes obtinguts de la base de dades de comptes del dispositiu. Comencem:</p>
 
-El primer serà importar els frameworks:
+<p>El primer serà importar els frameworks:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &amp;lt;Accounts/Accounts.h&amp;gt;</span>
-</span><span class='line'><span class="cp">#import &amp;lt;Social/Social.h&amp;gt;</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &lt;Accounts/Accounts.h&gt;</span>
+</span><span class='line'><span class="cp">#import &lt;Social/Social.h&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
-Després fem la màgia d&#8217;obtenir els comptes del dispositiu amb el Accounts Framework:
+<p>Després fem la màgia d&#8217;obtenir els comptes del dispositiu amb el Accounts Framework:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -173,21 +173,21 @@ Després fem la màgia d&#8217;obtenir els comptes del dispositiu amb el Account
 </span><span class='line'><span class="p">}];</span>
 </span></code></pre></td></tr></table></div></figure>
 
-El que fem aquí és crear una instància de la base de dades de comptes. Després a través de la classe <code>ACAccountType</code> diem que solament volem els comptes de Twitter, passant-li la constant  <code>ACAccountTypeIdentifierTwitter</code> com a argument en la inicialització. Tot seguit demanem accés a les comptes amb el mètode <code>requestAccessToAccountsWithType:options:completion:</code>. Aquest mètode té com a argument el bloc <code>completion:</code>, el qual és un handler (Un objecte &#8220;manipulador&#8221; per així dir-ho) en els paràmetres del qual és retornada la resposta del mètode. Si tot va bé emmagatzemem tots els comptes obtinguts en el array <code>accountsArray</code> o vam mostrar un error en cas contrari. Simple.
+<p>El que fem aquí és crear una instància de la base de dades de comptes. Després a través de la classe <code>ACAccountType</code> diem que solament volem els comptes de Twitter, passant-li la constant  <code>ACAccountTypeIdentifierTwitter</code> com a argument en la inicialització. Tot seguit demanem accés a les comptes amb el mètode <code>requestAccessToAccountsWithType:options:completion:</code>. Aquest mètode té com a argument el bloc <code>completion:</code>, el qual és un handler (Un objecte &#8220;manipulador&#8221; per així dir-ho) en els paràmetres del qual és retornada la resposta del mètode. Si tot va bé emmagatzemem tots els comptes obtinguts en el array <code>accountsArray</code> o vam mostrar un error en cas contrari. Simple.</p>
 
-Recorda aquesta dinàmica d&#8217;executar un mètode i rebre una resposta per ser manipulada en un bloc, perquè ho veuràs molt sovint des d&#8217;ara.
+<p>Recorda aquesta dinàmica d&#8217;executar un mètode i rebre una resposta per ser manipulada en un bloc, perquè ho veuràs molt sovint des d&#8217;ara.</p>
 <h2>Construint la petició per obtenir el timeline</h2>
-Amb el Social Framework és definitivament molt més fàcil construir una petició HTTP. Sabem que està composta per:
+<p>Amb el Social Framework és definitivament molt més fàcil construir una petició HTTP. Sabem que està composta per:</p>
 <ol>
 	<li>Una URL que identifica l&#8217;operació que volem realitzar en el servei.</li>
 	<li>Un mètode de petició, que pot ser GET, POST o DELETE.</li>
 	<li>I uns paràmetres de configuració.</li>
 </ol>
-El mètode <code>requestForServiceType:requestMethod:URL:parameters:</code> passa totes aquestes dades com els seus arguments i això ens permet crear la petició en tan sol una línia de codi si així ho desitgem.
+<p>El mètode <code>requestForServiceType:requestMethod:URL:parameters:</code> passa totes aquestes dades com els seus arguments i això ens permet crear la petició en tan sol una línia de codi si així ho desitgem.</p>
 
-El que nosaltres volem és obtenir el timeline, per tant necessitem anar a la <a title="Versión 1.1 de la API de Twitter" href="http://securelink.thxou.com/?https://dev.twitter.com/docs/api/1.1" target="_blank">documentació oficial</a> per veure el que hem d&#8217;usar. En entrar en l&#8217;enllaç i seleccionar l&#8217;operació de la qual volem veure els detalls (en aquest cas és: <code>GET</code> <code>statuses/home_timeline</code>), veurem en l&#8217;apartat <strong>Resourse Information</strong> certa informació molt important:
+<p>El que nosaltres volem és obtenir el timeline, per tant necessitem anar a la <a title="Versión 1.1 de la API de Twitter" href="http://securelink.thxou.com/?https://dev.twitter.com/docs/api/1.1" target="_blank">documentació oficial</a> per veure el que hem d&#8217;usar. En entrar en l&#8217;enllaç i seleccionar l&#8217;operació de la qual volem veure els detalls (en aquest cas és: <code>GET</code> <code>statuses/home_timeline</code>), veurem en l&#8217;apartat <strong>Resourse Information</strong> certa informació molt important:
 <p style="text-align: center;"><img class="size-full wp-image-2326 aligncenter" title="twitter-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-11-at-17.08.28.png" alt="" width="249" height="392" /></p>
-Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;objecte de resposta (Tweets). Després està l&#8217;apartat <strong>Resource URL</strong> que és la URL que li passarem i l&#8217;apartat <strong>Parameters</strong>, que conté els paràmetres per configurar-la. Usant aquesta informació construïm la petició:
+Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;objecte de resposta (Tweets). Després està l&#8217;apartat <strong>Resource URL</strong> que és la URL que li passarem i l&#8217;apartat <strong>Parameters</strong>, que conté els paràmetres per configurar-la. Usant aquesta informació construïm la petició:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -225,15 +225,15 @@ Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;ob
 </span><span class='line'><span class="p">[</span><span class="n">request</span><span class="err"> </span><span class="nl">setAccount:</span><span class="n">twitterAccount</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
-Per motius de brevetat tan solament utilitzarem el primer compte de les quals hi ha en el array.
+<p>Per motius de brevetat tan solament utilitzarem el primer compte de les quals hi ha en el array.</p>
 
-He creat la propietat <code>cuenta</code> de tipus <code>ACAccount</code>, en ella emmagatzemem aquest compte per posteriorment poder enviar-la al controlador des del qual publicarem un missatge d&#8217;estat (el que és un Tweet) al nostre timeline, això més endavant.
+<p>He creat la propietat <code>cuenta</code> de tipus <code>ACAccount</code>, en ella emmagatzemem aquest compte per posteriorment poder enviar-la al controlador des del qual publicarem un missatge d&#8217;estat (el que és un Tweet) al nostre timeline, això més endavant.</p>
 
-Com poden veure tenim un diccionari per als paràmetres. El meu solament té una key: <code>count</code>, aquesta ens permet limitar la quantitat de tweets que ens va a retornar el timeline que per defecte és 20, però jo l&#8217;he posat a 25. En la documentació de la API estan tots els paràmetres que podem usar per configurar la petició.
+<p>Com poden veure tenim un diccionari per als paràmetres. El meu solament té una key: <code>count</code>, aquesta ens permet limitar la quantitat de tweets que ens va a retornar el timeline que per defecte és 20, però jo l&#8217;he posat a 25. En la documentació de la API estan tots els paràmetres que podem usar per configurar la petició.</p>
 
-El següent és assignar-li a la propietat <code>account</code> de la nostra petició, el compte que hem triat del array i amb la qual volem treballar per mostrar el timeline i altres coses.
+<p>El següent és assignar-li a la propietat <code>account</code> de la nostra petició, el compte que hem triat del array i amb la qual volem treballar per mostrar el timeline i altres coses.</p>
 <h2>Enviant la petició i manipulant els resultats</h2>
-Una vegada construïda la petició procedim a enviar-la. Per a això usem el mètode <code>performRequestWithHandler:</code> que envia la petició i recull els resultats en el seu únic argument. Est és al seu torn un bloc, el qual és executat una vegada estan disponibles les dades de la resposta.
+<p>Una vegada construïda la petició procedim a enviar-la. Per a això usem el mètode <code>performRequestWithHandler:</code> que envia la petició i recull els resultats en el seu únic argument. Est és al seu torn un bloc, el qual és executat una vegada estan disponibles les dades de la resposta.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -252,16 +252,17 @@ Una vegada construïda la petició procedim a enviar-la. Per a això usem el mè
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">tweets</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span><span class="err"> </span><span class="nl">JSONObjectWithData:</span><span class="n">responseData</span>
 </span><span class='line'>                                                      <span class="nl">options:</span><span class="n">kNilOptions</span>
-</span><span class='line'>                                                        <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>                                                        <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}];</span>
 </span></code></pre></td></tr></table></div></figure>
 
-Aquest bloc té 3 paràmetres, el més important és <code>responseData</code>, perquè és el que va a contenir els tweets. Aquests tweets estan en format JSON com vam veure abans, per tant necessitem parsearlos i així passar-los a un format manipulable en Objective-C. Per fer això existeix la classe <code>NSJSONSerialization</code>, que agafa les dades en <code>NSData</code> (en aquest cas <code>responseData</code>), els parsea i retorna. Aquestes dades retornades els emmagatzemem en el array <code>tweets</code>, que a continuació usarem per mostrar-los a l&#8217;usuari.
+<p>Aquest bloc té 3 paràmetres, el més important és <code>responseData</code>, perquè és el que va a contenir els tweets. Aquests tweets estan en format JSON com vam veure abans, per tant necessitem parsearlos i així passar-los a un format manipulable en Objective-C. Per fer això existeix la classe <code>NSJSONSerialization</code>, que agafa les dades en <code>NSData</code> (en aquest cas <code>responseData</code>), els parsea i retorna. Aquestes dades retornades els emmagatzemem en el array <code>tweets</code>, que a continuació usarem per mostrar-los a l&#8217;usuari.</p>
 
-[tip]Pots aprendre més sobre com parsear dades en format JSON i la classe <code>NSJSONSerialization</code> en el nostre pràctic tutorial sobre el tema fent <a href="http://www.thxou.com/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/"><strong>clic aquí</strong></a>.[/tip]
+<blockquote><p>Pots aprendre més sobre com parsear dades en format JSON i la classe <code>NSJSONSerialization</code> en el nostre pràctic tutorial sobre el tema fent <a href="http://www.thxou.com/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/"><strong>clic aquí</strong></a>.</p></blockquote>
+
 <h2>Mostrant els resultats</h2>
-Bé, ja tenim fet gairebé tot el treball, ara solament ens queda mostrar els resultats, i para això tenim l&#8217;objecte <code>tweetsTableView</code>. A causa que ja tenim tots els Tweets en un array, és relativament senzill mostrar-los en el tableView, per això anem directament a implementar els mètodes convenients:
+<p>Bé, ja tenim fet gairebé tot el treball, ara solament ens queda mostrar els resultats, i para això tenim l&#8217;objecte <code>tweetsTableView</code>. A causa que ja tenim tots els Tweets en un array, és relativament senzill mostrar-los en el tableView, per això anem directament a implementar els mètodes convenients:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -343,15 +344,15 @@ Bé, ja tenim fet gairebé tot el treball, ara solament ens queda mostrar els re
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-Aquí hi ha algunes línies que els sonaran a xinès, no obstant això explicaré una mica per damunt que està succeint.
+<p>Aquí hi ha algunes línies que els sonaran a xinès, no obstant això explicaré una mica per damunt que està succeint.</p>
 
-Al parsearse les dades aquests són emmagatzemats en el array <code>tweets</code>, però els tweets dins del, són emmagatzemats en forma de diccionaris, fàcilment recuperables usant la classe <code>NSDictionary</code>. Llavors recuperem cada camp d&#8217;aquest array en un diccionari que jo he anomenat <code>tweet</code> per fer-ho més identificable (en realitat això és el que representa). Com ja saben, accedim als valors d&#8217;un diccionari a través de keys, però quines són aquestes keys?, ens anem a la <a href="https://dev.twitter.com/docs/platform-objects/tweets">documentació oficial</a> i ho mirem allí. El que fem és simplement mostrar el text del tweet com a títol i el nom &#8220;del que tweetea&#8221; com subtitulo en cada cel·la.
+<p>Al parsearse les dades aquests són emmagatzemats en el array <code>tweets</code>, però els tweets dins del, són emmagatzemats en forma de diccionaris, fàcilment recuperables usant la classe <code>NSDictionary</code>. Llavors recuperem cada camp d&#8217;aquest array en un diccionari que jo he anomenat <code>tweet</code> per fer-ho més identificable (en realitat això és el que representa). Com ja saben, accedim als valors d&#8217;un diccionari a través de keys, però quines són aquestes keys?, ens anem a la <a href="https://dev.twitter.com/docs/platform-objects/tweets">documentació oficial</a> i ho mirem allí. El que fem és simplement mostrar el text del tweet com a títol i el nom &#8220;del que tweetea&#8221; com subtitulo en cada cel·la.</p>
 
-Per mostrar la imatge el que fem és usar el <strong>GCD</strong> (Grand Central Dispatch) d&#8217;Apple. A grans trets explicar-los que la descàrrega de dades de la xarxa sempre deuria ser de forma asíncrona, això és perquè és un procés que triga una mica a dur-se a terme i per tant no pot fer-se en el mateix thread (fil) ja que podem bloquejar-ho, i això deixaria inutilitzable la interfície d&#8217;usuari fins que es completi el procés, cosa que pel bé dels nostres usuaris, no volem. Doncs aquest problema ho soluciona el <strong>GCD</strong>, fent que certs mètodes s&#8217;executin de forma asíncrona (en un altre fil o thread), d&#8217;aquesta forma evitem bloquejar la interfície d&#8217;usuari.
+<p>Per mostrar la imatge el que fem és usar el <strong>GCD</strong> (Grand Central Dispatch) d&#8217;Apple. A grans trets explicar-los que la descàrrega de dades de la xarxa sempre deuria ser de forma asíncrona, això és perquè és un procés que triga una mica a dur-se a terme i per tant no pot fer-se en el mateix thread (fil) ja que podem bloquejar-ho, i això deixaria inutilitzable la interfície d&#8217;usuari fins que es completi el procés, cosa que pel bé dels nostres usuaris, no volem. Doncs aquest problema ho soluciona el <strong>GCD</strong>, fent que certs mètodes s&#8217;executin de forma asíncrona (en un altre fil o thread), d&#8217;aquesta forma evitem bloquejar la interfície d&#8217;usuari.</p>
 <h2>Enviant un tweet</h2>
-Doncs fer això és una mica més del mateix. Jo he creat un nou controlador per fer això anomenat <code>EnviarTweetViewController</code>, el qual es mostra en una finestra modal i té un TextView i dos botons: un per enviar el tweet i un altre per cancel·lar l&#8217;operació.
+<p>Doncs fer això és una mica més del mateix. Jo he creat un nou controlador per fer això anomenat <code>EnviarTweetViewController</code>, el qual es mostra en una finestra modal i té un TextView i dos botons: un per enviar el tweet i un altre per cancel·lar l&#8217;operació.</p>
 
-El d&#8217;enviar el tweet executa el mètode <code>enviarTweet:</code>:
+<p>El d&#8217;enviar el tweet executa el mètode <code>enviarTweet:</code>:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -403,7 +404,7 @@ El d&#8217;enviar el tweet executa el mètode <code>enviarTweet:</code>:
 </span><span class='line'>         <span class="p">{</span>
 </span><span class='line'>             <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">resultado</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">JSONObjectWithData:</span><span class="n">responseData</span>
 </span><span class='line'>                                                                       <span class="nl">options:</span><span class="n">kNilOptions</span>
-</span><span class='line'>                                                                         <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>                                                                         <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
 </span><span class='line'>         <span class="p">}];</span>
 </span><span class='line'>
 </span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">cancelar:</span><span class="nb">nil</span><span class="p">];</span>
@@ -411,13 +412,13 @@ El d&#8217;enviar el tweet executa el mètode <code>enviarTweet:</code>:
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-Com podeu observar es fa exactament el mateix. Tan solament canvien els paràmetres, la URL i el mètode de la petició, i tot això el podem trobar en la documentació oficial.
+<p>Com podeu observar es fa exactament el mateix. Tan solament canvien els paràmetres, la URL i el mètode de la petició, i tot això el podem trobar en la documentació oficial.</p>
 
-A diferència de l&#8217;anterior, aquí no accedim a tots els comptes del dispositiu, sinó que simplement passem a aquest controlador el compte que hem obtingut abans, així ens assegurem que el compte que està seleccionada és des de la qual s&#8217;envia el tweet i sobre la qual es fan les operacions sol·licitades. No hi ha misteri.
+<p>A diferència de l&#8217;anterior, aquí no accedim a tots els comptes del dispositiu, sinó que simplement passem a aquest controlador el compte que hem obtingut abans, així ens assegurem que el compte que està seleccionada és des de la qual s&#8217;envia el tweet i sobre la qual es fan les operacions sol·licitades. No hi ha misteri.</p>
 <h2>Conclusió</h2>
-El procediment per dur a terme totes aquestes accions en Twitter porten la mateixa estructura. Tan solament varien els paràmetres, la URL i el mètode de la petició. Pel que, si volem fer qualsevol cosa,  hem d&#8217;anar a la documentació i mirar el que necessitem. Després reemplaçar les dades que hem vist abans amb els nous, enviar la petició i mostrar a l&#8217;usuari les dades obtingudes. Així de fàcil és treballar amb el Social Framework.
+<p>El procediment per dur a terme totes aquestes accions en Twitter porten la mateixa estructura. Tan solament varien els paràmetres, la URL i el mètode de la petició. Pel que, si volem fer qualsevol cosa,  hem d&#8217;anar a la documentació i mirar el que necessitem. Després reemplaçar les dades que hem vist abans amb els nous, enviar la petició i mostrar a l&#8217;usuari les dades obtingudes. Així de fàcil és treballar amb el Social Framework.</p>
 
-Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234">documentació d&#8217;Apple</a> sobre aquest tema i també visitar el nostre tutorial sobre com parsear i manipular fitxers JSON de forma nativa i així estendre una mica més els teus coneixements.
+<p>Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234">documentació d&#8217;Apple</a> sobre aquest tema i també visitar el nostre tutorial sobre com parsear i manipular fitxers JSON de forma nativa i així estendre una mica més els teus coneixements.</p>
 <p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/c0bb4xgyatv10t5nhvll"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p></div>
 
 
@@ -445,7 +446,7 @@ Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://develope
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ios-at-ca/'>iOS @ca</a>, <a class='category' href='/blog/categories/iphone-at-ca/'>iPhone @ca</a>
+    <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/iphone/'>iPhone</a>
   
 </span>
 

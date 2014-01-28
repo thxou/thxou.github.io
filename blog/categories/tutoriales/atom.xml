@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tutoriales | Luis Cardenas ThXou]]></title>
   <link href="http://ThXou.github.io/blog/categories/tutoriales/atom.xml" rel="self"/>
   <link href="http://ThXou.github.io/"/>
-  <updated>2014-01-28T16:39:06+01:00</updated>
+  <updated>2014-01-28T23:50:48+01:00</updated>
   <id>http://ThXou.github.io/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -31,6 +31,9 @@
 
 
 <p>Poniéndonos ya en materia, existen 2 tipos de migración:<strong> la migración automática</strong>, de la que hablaremos ahora, y <strong>la migración manual</strong>. Estas 2 tan solo difieren en una cosa: El modelo de mapeo usado para hacer la migración. Os paso a explicar más detalladamente el tema.</p>
+
+
+<!-- more -->
 
 
 <h2>Migración automática</h2>
@@ -120,7 +123,7 @@
 </span><span class='line'><span class="c1">// (2)</span>
 </span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">options</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSMigratePersistentStoresAutomaticallyOption:</span><span class="err">@</span><span class="n">YES</span><span class="p">,</span> <span class="nl">NSInferMappingModelAutomaticallyOption:</span><span class="err">@</span><span class="n">YES</span><span class="p">};</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">_persistentStoreCoordinator</span> <span class="nl">addPersistentStoreWithType:</span><span class="n">NSSQLiteStoreType</span> <span class="nl">configuration:</span><span class="nb">nil</span> <span class="nl">URL:</span><span class="n">storeURL</span> <span class="nl">options:</span><span class="n">options</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// (1)</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">_persistentStoreCoordinator</span> <span class="nl">addPersistentStoreWithType:</span><span class="n">NSSQLiteStoreType</span> <span class="nl">configuration:</span><span class="nb">nil</span> <span class="nl">URL:</span><span class="n">storeURL</span> <span class="nl">options:</span><span class="n">options</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// (1)</span>
 </span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Unresolved error %@, %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">userInfo</span><span class="p">]);</span>
 </span><span class='line'>    <span class="n">abort</span><span class="p">();</span>
 </span><span class='line'><span class="p">}</span>
@@ -128,7 +131,7 @@
 </span><span class='line'><span class="k">return</span> <span class="n">_persistentStoreCoordinator</span><span class="p">;</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Dentro hay que modificar el método <code>addPersistentStoreWithType:configuration:URL:options:error:</code>(1), que es quien crea el almacenamiento para la app, en concreto el parámetro <code>options:</code>, a quien por defecto se le pasa <code>nil</code>, pero nosotros le asignamos el diccionario <code>options</code> con las keys que van a decirle a Core Data que lleve a cabo la migración automática (2).</p>
@@ -166,7 +169,6 @@
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
-<span class='line-number'>24</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="n">miModeloPuedeMigrar</span>
 </span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -190,16 +192,21 @@
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Este método lo puedes usar en el método<code> application:didFinishLaunchingWithOptions:launchOptions</code> del <em>AppDelegate.m</em>, con un <code>NSLog</code> que te devuelva SI o NO dependiendo del valor de retorno del método <code>miModeloPuedeMigrar</code>.</p>
 
 
+
+
 <h2>Conclución</h2>
 
 
+
+
 <p>Este tutorial, como dije antes, es para cuando tienes que hacer ciertos cambios de los listados arriba. Si lo tuyo requiere algo diferente te va a tocar optar por aprender a realizar un mapeo personalizado.</p>
+
+
 
 
 <p>Ten en cuenta cuando renombres entidades, que las clases modelo asociadas no se cambian, por lo que es algo de lo que te tienes que ocupar tu manualmente o usando la herramienta de refactorización de Xcode.</p>
@@ -219,6 +226,9 @@
 
 
 <p>Podría parecer un poco chungo, pero no lo es para nada. Te pongo un ejemplo práctico. Imagina un portal de noticias. Los usuarios entran a este portal y pueden suscribirse a las categorías de noticias que ellos prefieran. Una vez sale una noticia relacionada con categoría a la que el usuario se ha suscrito, entonces le llega un correo electrónico avisándole que hay una nueva noticia, así el usuario puede decidir que hacer en ese momento. Pues bien, si hacemos una comparación sacamos que el usuario que se suscribe a las noticias es el "Observador", el portal de noticias sería el "centro de notificaciones" (<code>NSNotificationCenter</code>) y el correo electrónico sería la notificación lanzada por el centro de notificaciones.</p>
+
+
+<!-- more -->
 
 
 <h2>A tocar código, que es lo que mola</h2>
@@ -347,6 +357,9 @@
 <p>Una de las 2 clases que componen el Social Framework es <code>SLComposeViewController</code>, esta clase te permite mostrar una vista al usuario desde la cual el puede componer y publicar un mensaje en cualquiera de las redes sociales mencionadas arriba, incluyendo una imagen o URL con el mensaje.</p>
 
 
+<!--more-->
+
+
 <h2 dir="ltr">Empezando con iOS 6 y el framework</h2>
 
 
@@ -366,7 +379,7 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Social</span><span class="o">/</span><span class="n">Social</span><span class="p">.</span><span class="n">h</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Social</span><span class="o">/</span><span class="n">Social</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
@@ -391,7 +404,7 @@
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">isAvailableForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">]</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">isAvailableForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Esto devuelve <code>YES</code> o <code>NO</code> dependiendo de la configuración que haya. Si nos devuelve <code>YES</code> vamos a mostrar la interfaz, de lo contrario mostraremos un error.</p>
@@ -503,7 +516,11 @@
     <id>http://ThXou.github.io/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios</id>
     <content type="html"><![CDATA[<p>Desde la salida de iOS 5 Apple incluyó en su API la clase <code>NSJSONSerialization</code>, la cual nos permite convertir objetos JSON en objetos de Objective-C (que ya tocaba también) y viceversa de manera sencilla.</p>
 
+
+
+
 <p>Para los que no saben que es JSON (JavaScript Object Notation), es un tipo de sintaxis que nos permite representar porciones grandes o pequeñas de datos para poder almacenarlos y/o intercambiarlos con otros entornos. Mucho más sencillo y pequeño que XML y además más rápido de parsear. Usa exactamente la misma sintaxis que usa JavaScript para crear objetos pero es totalmente independiente del lenguaje. Esta y otras cosas son las cosas que lo hacen atractivo para empresas como Twitter, Yahoo, Google, etc., que ya tienen sus APIs adaptadas a JSON desde hace un tiempo, además que facilita las cosas al programador y ahora veremos hasta que punto.</p>
+
 
 <h2>La sintaxis de JSON</h2>
 
@@ -518,6 +535,10 @@
 
 
 <p>Esto se cumple para todo en el fichero, también para los objetos que van anidados dentro de los arrays. No obtante solo se permiten cierto tipo de objetos, y son: <code>NSString</code>,  <code>NSNumber</code>,  <code>NSArray</code>,  <code>NSDictionary</code> o <code>NSNull</code>, de manera que si quieres meter objetos como por ejemplo <code>NSDate</code>, vas a tener que convertirlos a <code>NSString</code>antes o algún objeto compatible. Un fichero de JSON luce así por dentro:</p>
+
+
+<!--more-->
+
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -545,10 +566,12 @@
 
 <p>Aquí podemos identificar que todo eso es un objeto (va encerrado entre { }) y luego tiene varios datos, entre ellos un array (aficiones) que contiene a su vez 2 objetos con un dato por objeto (título). Se cumplen los 3 puntos de arriba en todos los casos, esto es algo a considerar siempre. También hay que considerar que el nivel más alto del fichero JSON debe ser o un <code>NSDictionary</code> o un <code>NSArray</code>para que este sea válido.</p>
 
+
 <h2>Parseando JSON desde una URL</h2>
 
 
 <p>Nuestra información en JSON está alojada en un sitio web, así que tenemos primero que descargar esta información y convertirla en un objeto manipulable, por eso usamos el método <code>dataWithContentsOfURL:options:error:</code> y hacemos la conversión a <code>NSData</code>:</p>
+
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -596,9 +619,16 @@
 
 <p>Simplemente usamos el método <code>viewDidLoad:</code> para descargar esta información al inicio de la carga del controlador. Hay que saber que la descarga de información en el hilo principal (Main thread) podría bloquear la interfaz gráfica, a nosotros no nos sucede debido a que descargamos muy poca información. Si vas a descargar grandes cantidades de datos es necesario hacerlo en segundo plano.</p>
 
+
+
+
 <p>Antes de iniciar la descarga creamos un botón que más adelante nos va a permitir generar datos en formato JSON a partir de lo que ya tenemos parseado. Luego de la descarga, toda la información va a estar contenida en un objeto <code>NSData</code>. La clase <code>NSJSONSerialization</code> tiene el método <code>JSONObjectWithData:options:error:</code>, el cual nos permite parsear el contenido de este objeto.</p>
 
+
+
+
 <p>Como hemos dicho antes el nivel más alto del ficher0 en JSON debe ser un diccionario o un array, en nuestro caso es un diccionario con una única key llamada <em>comunidades</em>; esta a su vez es un array con otros objetos dentro. Por lo tanto vamos a parsear la información directamente a un objeto <code>NSDictionary</code>:</p>
+
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -626,7 +656,7 @@
 </span><span class='line'><span class="c1">// parseamos los datos de la URL</span>
 </span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">jsonDic</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">JSONObjectWithData:</span><span class="n">urlData</span>
 </span><span class='line'>                                                        <span class="nl">options:</span><span class="n">kNilOptions</span>
-</span><span class='line'>                                                          <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>                                                          <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
 </span><span class='line'><span class="c1">// si hubo algún error en el parseo lo mostramos</span>
 </span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
@@ -642,6 +672,7 @@
 
 <p>La propiedad <code>comunidades</code> almacena el array contenido en el fichero bajo la key <em>comunidades</em>. El paso que queda ahora es mostralo. Como puede observar, uno de los argumentos del método <code>JSONObjectWithData:</code> es <code>options:</code>. Este argumento puede tener 3 valores diferentes según la configuración que se quiera tener en cuenta al momento de parsear el fichero. Yo he puesto <code>kNilOptions</code>que equivale a 0, o a no elegir ninguna opción más concretamente, pero tu podría elegir entre estos 3:</p>
 
+
 <ol>
     <li><code><strong>NSJSONReadingMutableContainers:</strong></code> Los arrays y diccionarios son creados como objetos mutables, es decir que pueden ser cambiados en cualquier momento, incluso antes de comenzar el parseo.</li>
     <li><code><strong>NSJSONReadingMutableLeaves:</strong></code> Todos los strings contenidos serán creados como mutables.</li>
@@ -653,6 +684,7 @@
 
 
 <p>Para que se vea más claro he usado un <code>TableView</code> para mostrar los datos parseados. Primero obtenemos la información de cada comunidad en el diccionario <code>comunidad</code> y segundo la vamos mostrando formateada a medida que se van recorriendo las filas de la <code>TableView</code>:</p>
+
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -676,6 +708,7 @@
 
 <p>Todo esto lo hacemos en el método <code>tableView:cellForRowAtIndexPath:</code> el cual va ser el encargado de llenar los campos del <code>TableView</code> con la información correspondiente.</p>
 
+
 <p style="text-align: center;"><img class="aligncenter size-full wp-image-2318" style="margin-top: 20px; margin-bottom: 20px;" title="json-data-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-11-at-01.58.03.png" alt="" width="418" height="244" /></p>
 
 
@@ -684,7 +717,8 @@
 <h2>Generando datos en formato JSON</h2>
 
 
-<p>Ahora haremos el proceso inverso. Ahora convertiremos datos de un array a datos en formato JSON. Para hacer esto hay un botón en la barra de navegación del TableView que creamos en el <code>ViewDidLoad:</code>, y que al ser presionado ejecuta el método <code>generarJSON:</code>:</p>
+<p>Ahora haremos el proceso inverso. Ahora convertiremos datos de un array a datos en formato JSON. Para hacer esto hay un botón en la barra de navegación del TableView que creamos en el <code>viewDidLoad:</code>, y que al ser presionado ejecuta el método <code>generarJSON:</code>:</p>
+
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -717,7 +751,7 @@
 </span><span class='line'><span class="c1">// generamos los datos en JSON</span>
 </span><span class='line'><span class="n">NSData</span> <span class="o">*</span><span class="n">json</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">dataWithJSONObject:</span><span class="n">self</span><span class="p">.</span><span class="n">comunidades</span>
 </span><span class='line'>                                               <span class="nl">options:</span><span class="n">NSJSONWritingPrettyPrinted</span>
-</span><span class='line'>                                                 <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>                                                 <span class="nl">error:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// convertimos los datos a un string para poder mostrarlos</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">jsonString</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData:</span><span class="n">json</span> <span class="nl">encoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
@@ -738,6 +772,7 @@
 
 <p>Para no hacer mucho más largo este tutorial simplemente hemos convertido toda la información que ya estaba parseada nuevamente a formato JSON, esto lo hemos hecho con el método <code>dataWithJSONObject:options:error</code>. Este método también tiene un argumento <code>options:</code>, pero en este caso solo tiene una opción:</p>
 
+
 <ol>
     <li><strong><code>NSJSONWritingPrettyPrinted:</code></strong> Con esta opción se hace la conversión pero la devuelve en un formato más legible y ordenado (tal y como verás al presionar el botón). Si por el contrario deseas compactar más el string devuelto (sin espacios ni tabuladores), puedes pasarle la opción <code>kNilOptions</code>.</li>
 </ol>
@@ -745,7 +780,11 @@
 
 <p>Luego de hacer la conversión mostramos los datos en una ventana de alerta.</p>
 
+
+
+
 <p>Hay otro método que se puede usar para comprobar si es que la información que deseamos convertir a JSON se puede convertir o no. Este método es <code>isValidJSONObject:</code> y devuelve <code>YES</code> si es posible hacer la conversión y <code>NO</code> de lo contrario. Su uso es muy sencillo:</p>
+
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -780,9 +819,16 @@
 
 <p>Es muy sencillo implementar esta funcionalidad como han podido ver. Tan solo hay un par de métodos que realmente usamos de esta clase, el resto son arreglos que nos permiten mostrar el contenido de acuerdo a nuestros gustos.</p>
 
+
+
+
 <p>Recordar que no todos los formatos se pueden convertir a JSON, para los que no, hay que hacer otro tipo de conversiones. Un ejemplo es si vamos a pasar un objeto <code>NSDate</code>, podemos usar el método <code>stringFromDate:</code> de la clase <code>NSDateFormatter</code> para convertirlo a un string, y luego volver a recuperarlo con el método <code>dateFromString:</code>.</p>
 
+
+
+
 <p>Esto es todo. Cualquier duda no dudéis en usar los comentarios.</p>
+
 
 <p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/h0aqzhe33t86icmkqxkm"><img title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
 
