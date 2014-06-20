@@ -9,7 +9,7 @@
   <meta name="author" content="Luis Cardenas">
 
   
-  <meta name="description" content="Probablemente los que ya habéis usado Core Data en vuestras aplicaciones, os habréis encontrado con que cada vez que modificas el modelo de datos, al &hellip;">
+  <meta name="description" content="Esta semana, mientras trabajaba en una aplicación, tuve la idea de &#8220;ocultar&#8221; algunos datos en forma de texto que no quería que fuesen &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/">Encriptar Strings Usando Encriptación AES-256 en Objective-C</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-19T20:44:40+02:00" pubdate data-updated="true">Jun 19<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Esta semana, mientras trabajaba en una aplicación, tuve la idea de &#8220;ocultar&#8221; algunos datos en forma de texto que no quería que fuesen vistos. Concretamente trabajaba con Core Data, y pues, para incrementar el nivel de seguridad, decidí encriptar ciertos datos que guardaba en Core Data, por el hecho de que cualquier usuario con Jailbreak puede ver los datos de Core Data que no han sido encriptados sin ningún problema. Esto me llevo a buscar algunas soluciones y pues, di con la encriptación AES256.</p>
+
+<p>AES (Advanced Encryption Standard), es un algoritmo de encriptación de tipo simétrico. Esto quiere decir que se necesita una clave tanto para cifrar como para descifrar los datos encriptados. Esta clave puede ser cualquier texto que no exceda los 256 bits, pero obviamente que mientras más compleja sea la clave, más difícil será de romper mediante ataques fuerza bruta. De cara a que tu aplicación implemente capas de seguridad con cifrado, la elección de la clave es muy importante. Por ejemplo, aplicaciones geniales como 1Password utilizan este tipo de encriptación para sus datos, ya que tratan con datos tan sencibles como las tarjetas de crédito, contraseñas, etc.</p></div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/">Seguir leyendo &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -468,43 +511,6 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
 
     </article>
   
-  
-    <article>
-      
-  <header>
-  
-    
-      <h1 class="entry-title"><a href="/2012/09/05/keynote-para-el-12-de-setiembre/">Keynote Para El 12 De Setiembre</a></h1>
-      
-      
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-05T23:00:49+02:00" pubdate data-updated="true">Sep 5<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/09/entrada-iphone5.jpeg"><img class="size-full wp-image-2308" title="entrada-iphone5-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/entrada-iphone5.jpeg" alt="" width="535" height="480" /></a></p><p>Parece que ya está confirmada a los medios una <strong>Keynote para el día 12 de setiembre</strong>, fecha tan esperada por algunos por la posible salida del iPhone 5 e iOS 6. Lo del iPhone 5 no está confirmado pero la sombra de la imagen de arriba sugiere mucho no?, esperemos que así sea y no nos llevemos una decepción como con la salida del iPhone 4S. El evento se va a realizar en el Yerba Buena Center en San Francisco según los medios a las 10 de la mañana de allí, 19:00 hora española.</p><p>Se espera el iOS 6 ya que 12 de setiembre es la fecha de caducidad de la beta 4 del SO, aquí en el blog tendremos preparados unos cuantos tutoriales para que vayáis aprendiendo sobre los nuevos frameworks de iOS 6 el día mismo de la salida.</p><p>Se estima que el dispositivo esté listo para la venta en Estados Unidos como en las otras ocasiones para el día<strong> 21 de setiembre</strong>, y si los cálculos son buenos, lo tendremos por España más o menos por el <strong>5 de Octubre</strong>.</p><p>A ver si los que tenemos dispositivos antiguos, el iPhone 3GS en mi caso, ya podemos jubilarlos por uno como este.</p><p style="text-align: right;">Fuente | <a href="http://securelink.thxou.com/?http://www.actualidadiphone.com/2012/09/05/posibles-fechas-de-lanzamiento-del-nuevo-iphone/">ActualidadIphone</a></p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -520,6 +526,10 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/">Encriptar strings usando encriptación AES-256 en Objective-C</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración sencilla de modelos en Core Data</a>
       </li>
     
@@ -533,10 +543,6 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
     
       <li class="post">
         <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/02/21/nsnotificationcenter-y-las-notificaciones/">NSNotificationCenter y las notificaciones</a>
       </li>
     
   </ul>
