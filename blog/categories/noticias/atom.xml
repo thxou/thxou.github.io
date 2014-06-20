@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Noticias | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/noticias/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/noticias/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Disponible la segunda beta de iOS 7 para desarrolladores]]></title>
-    <link href="http://ThXou.github.io/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/"/>
+    <link href="http://www.thxou.com/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/"/>
     <updated>2013-06-25T22:41:01+02:00</updated>
-    <id>http://ThXou.github.io/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores</id>
+    <id>http://www.thxou.com/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores</id>
     <content type="html"><![CDATA[<p>Ayer salió la segunda beta de iOS 7 para desarrolladores. Como se esperaba, viene con mejoras en el rendimiento y duración de la batería, así como también en el tema de la fluidez que comentaba en la entrada anterior en animaciones como la de la multitarea.</p>
 
 
@@ -34,9 +34,9 @@
   
   <entry>
     <title type="html"><![CDATA[Un vistazo al nuevo iOS 7]]></title>
-    <link href="http://ThXou.github.io/2013/06/18/un-vistazo-al-nuevo-ios-7/"/>
+    <link href="http://www.thxou.com/2013/06/18/un-vistazo-al-nuevo-ios-7/"/>
     <updated>2013-06-18T11:42:00+02:00</updated>
-    <id>http://ThXou.github.io/2013/06/18/un-vistazo-al-nuevo-ios-7</id>
+    <id>http://www.thxou.com/2013/06/18/un-vistazo-al-nuevo-ios-7</id>
     <content type="html"><![CDATA[<p>El pasado lunes 10, como ya sabéis, "tito Tim" lanzó el nuevo sistema operativo <strong>iOS 7,</strong> junto con un buen puñado de novedades entre la que destaca la completamente renovada interfaz gráfica (ver imagen superior) y un conjunto de nuevas funciones que pretenden hacernos la vida más fácil a los usuarios.</p>
 
 
@@ -197,9 +197,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS 6 Golden Master ya disponible para los desarrolladores]]></title>
-    <link href="http://ThXou.github.io/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores/"/>
+    <link href="http://www.thxou.com/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores/"/>
     <updated>2012-09-13T01:02:46+02:00</updated>
-    <id>http://ThXou.github.io/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores</id>
+    <id>http://www.thxou.com/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores</id>
     <content type="html"><![CDATA[<p><a href="http://www.thxou.com/2012/09/05/keynote-para-el-12-de-setiembre/">Tal y como se esperaba</a>, hoy ha habido keynote y con muchas novedades interesantes: iPhone 5, nuevo iPod Nano, iOS 6, etc. Para todos los desarrolladores también ha salido la versión Golden Master del iOS 6 y la pueden descargar desde ya.</p>
 
 
@@ -216,9 +216,9 @@
   
   <entry>
     <title type="html"><![CDATA[Keynote para el 12 de setiembre]]></title>
-    <link href="http://ThXou.github.io/2012/09/05/keynote-para-el-12-de-setiembre/"/>
+    <link href="http://www.thxou.com/2012/09/05/keynote-para-el-12-de-setiembre/"/>
     <updated>2012-09-05T23:00:49+02:00</updated>
-    <id>http://ThXou.github.io/2012/09/05/keynote-para-el-12-de-setiembre</id>
+    <id>http://www.thxou.com/2012/09/05/keynote-para-el-12-de-setiembre</id>
     <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/09/entrada-iphone5.jpeg"><img class="size-full wp-image-2308" title="entrada-iphone5-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/entrada-iphone5.jpeg" alt="" width="535" height="480" /></a></p>
 
 

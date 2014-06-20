@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Mac | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/mac/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Convertir M4a a MP3 usando iTunes]]></title>
-    <link href="http://ThXou.github.io/2011/05/10/convertir-m4a-a-mp3-usando-itunes/"/>
+    <link href="http://www.thxou.com/2011/05/10/convertir-m4a-a-mp3-usando-itunes/"/>
     <updated>2011-05-10T01:19:39+02:00</updated>
-    <id>http://ThXou.github.io/2011/05/10/convertir-m4a-a-mp3-usando-itunes</id>
+    <id>http://www.thxou.com/2011/05/10/convertir-m4a-a-mp3-usando-itunes</id>
     <content type="html"><![CDATA[<p>Buenas, me he pasado la tarde buscando una aplicación para Mac que me permita convertir un archivo en M4a a MP3, cuando la solución estaba justo en mis narices, y es que aunque no lo sabía, <strong>es posible crear con usando iTunes, una versión de MP3 de cualquier canción que tengas en la biblioteca</strong> de iTunes. Y no solo eso, sino también versiones en AAC, AIFF y WAV.</p>
 
 <p>Sincillísimo. Abrimos iTunes y vamos a las preferencias (Command+,):</p>
@@ -47,9 +47,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Mac] Shift it: Redimenciona tus ventanas con atajos del teclado]]></title>
-    <link href="http://ThXou.github.io/2011/05/08/mac-shift-it-redimenciona-tus-ventanas-con-atajos-del-teclado/"/>
+    <link href="http://www.thxou.com/2011/05/08/mac-shift-it-redimenciona-tus-ventanas-con-atajos-del-teclado/"/>
     <updated>2011-05-08T02:55:42+02:00</updated>
-    <id>http://ThXou.github.io/2011/05/08/mac-shift-it-redimenciona-tus-ventanas-con-atajos-del-teclado</id>
+    <id>http://www.thxou.com/2011/05/08/mac-shift-it-redimenciona-tus-ventanas-con-atajos-del-teclado</id>
     <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2011/05/Captura-de-pantalla-2011-05-07-a-las-21.26.28.png"><img class="alignnone size-full wp-image-1904" title="shiftit-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/Captura-de-pantalla-2011-05-07-a-las-21.26.28.png" alt="" width="464" height="358" /></a></p>
 
 
@@ -76,9 +76,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 con el iOS personalizado creado con PwnageTool 4.1]]></title>
-    <link href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
+    <link href="http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
     <updated>2010-10-20T22:09:54+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
+    <id>http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
     <content type="html"><![CDATA[<p>Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un firmware personalizado y restaurándolo posteriormente con iTunes.</p>
 
 <p>[aviso]Utiliza este tutorial bajo los requisitos requeridos. No somos responsables del mal uso del tutorial y/o las herramientas.[/aviso]</p>
@@ -183,9 +183,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Mac] Saber de donde fue descargado un fichero]]></title>
-    <link href="http://ThXou.github.io/2010/10/13/mac-saber-de-donde-fue-descargado-un-fichero/"/>
+    <link href="http://www.thxou.com/2010/10/13/mac-saber-de-donde-fue-descargado-un-fichero/"/>
     <updated>2010-10-13T20:44:38+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/13/mac-saber-de-donde-fue-descargado-un-fichero</id>
+    <id>http://www.thxou.com/2010/10/13/mac-saber-de-donde-fue-descargado-un-fichero</id>
     <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/Captura-de-pantalla-2010-10-13-a-las-18.24.00.png"><img class="alignnone size-full wp-image-1683" title="file-downloaded-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/Captura-de-pantalla-2010-10-13-a-las-18.24.00.png" alt="" width="444" height="338" /></a></p>
 
 
@@ -208,9 +208,9 @@
   
   <entry>
     <title type="html"><![CDATA[Permute: Convierte diversos formatos de audio y video]]></title>
-    <link href="http://ThXou.github.io/2010/10/08/permute-convierte-diversos-formatos-de-audio-y-video/"/>
+    <link href="http://www.thxou.com/2010/10/08/permute-convierte-diversos-formatos-de-audio-y-video/"/>
     <updated>2010-10-08T00:19:34+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/08/permute-convierte-diversos-formatos-de-audio-y-video</id>
+    <id>http://www.thxou.com/2010/10/08/permute-convierte-diversos-formatos-de-audio-y-video</id>
     <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/one.png"><img class="alignnone size-medium wp-image-1615" title="permute-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/one-300x294.png" alt="" width="300" height="294" /></a></p>
 
 

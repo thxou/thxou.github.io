@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Objective-C | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/objective-c/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Encriptar strings usando encriptación AES-256 en Objective-C]]></title>
-    <link href="http://ThXou.github.io/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/"/>
+    <link href="http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/"/>
     <updated>2014-06-19T20:44:40+02:00</updated>
-    <id>http://ThXou.github.io/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c</id>
+    <id>http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c</id>
     <content type="html"><![CDATA[<p>Esta semana, mientras trabajaba en una aplicación, tuve la idea de "ocultar" algunos datos en forma de texto que no quería que fuesen vistos. Concretamente trabajaba con Core Data, y pues, para incrementar el nivel de seguridad, decidí encriptar ciertos datos que guardaba en Core Data, por el hecho de que cualquier usuario con Jailbreak puede ver los datos de Core Data que no han sido encriptados sin ningún problema. Esto me llevo a buscar algunas soluciones y pues, di con la encriptación AES256.</p>
 
 
@@ -206,9 +206,9 @@
   
   <entry>
     <title type="html"><![CDATA[Migración sencilla de modelos en Core Data]]></title>
-    <link href="http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data/"/>
+    <link href="http://www.thxou.com/2013/11/12/migracion-sencilla-de-modelos-en-core-data/"/>
     <updated>2013-11-12T02:21:29+01:00</updated>
-    <id>http://ThXou.github.io/2013/11/12/migracion-sencilla-de-modelos-en-core-data</id>
+    <id>http://www.thxou.com/2013/11/12/migracion-sencilla-de-modelos-en-core-data</id>
     <content type="html"><![CDATA[<p>Probablemente los que ya habéis usado Core Data en vuestras aplicaciones, os habréis encontrado con que cada vez que modificas el modelo de datos, al volver a instalar la app en el simulador o dispositivo, la aplicación genera una excepción y se cierra. En el entorno de desarrollo, la solución inmediata es borrar la aplicación del simulador o dispositivo y volverla a instalar, no obstante esto no nos sirve de cara a actualizar nuestra app que ya está subida a la App Store, por razones obvias.</p>
 
 
@@ -407,9 +407,9 @@
   
   <entry>
     <title type="html"><![CDATA[Literales en Objective-C]]></title>
-    <link href="http://ThXou.github.io/2013/03/18/literales-en-objective-c/"/>
+    <link href="http://www.thxou.com/2013/03/18/literales-en-objective-c/"/>
     <updated>2013-03-18T19:04:13+01:00</updated>
-    <id>http://ThXou.github.io/2013/03/18/literales-en-objective-c</id>
+    <id>http://www.thxou.com/2013/03/18/literales-en-objective-c</id>
     <content type="html"><![CDATA[<p>Los literales son simplemente unos valores que los programadores podemos escribir "tal cual" en el código. En Objective-C (y por lo tanto en C) ya conocemos algunos ejemplos de esto con los valores primitivos:</p>
 
 
@@ -650,9 +650,9 @@
   
   <entry>
     <title type="html"><![CDATA[NSNotificationCenter y las notificaciones]]></title>
-    <link href="http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones/"/>
+    <link href="http://www.thxou.com/2013/02/21/nsnotificationcenter-y-las-notificaciones/"/>
     <updated>2013-02-21T14:12:51+01:00</updated>
-    <id>http://ThXou.github.io/2013/02/21/nsnotificationcenter-y-las-notificaciones</id>
+    <id>http://www.thxou.com/2013/02/21/nsnotificationcenter-y-las-notificaciones</id>
     <content type="html"><![CDATA[<p>Vuelvo a la carga con los tutes sobre iOS después de un tiempo ausente por proyectos personales.</p>
 
 
@@ -773,9 +773,9 @@
   
   <entry>
     <title type="html"><![CDATA[Trabajando con el Social Framework de iOS 6: Publicar en Twitter y Facebook]]></title>
-    <link href="http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/"/>
+    <link href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/"/>
     <updated>2012-09-20T02:00:25+02:00</updated>
-    <id>http://ThXou.github.io/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook</id>
+    <id>http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook</id>
     <content type="html"><![CDATA[<p>Aquí les traigo un tutorial bastante fresco sobre el recién nacido<strong> iOS 6</strong>. Como sabéis cada nuevo iOS trae consigo muchas novedades y este no va a ser la excepción, tenemos cientos de nuevas APIs y cambios con respecto a iOS 5, y por si fuera poco también tenemos 3 nuevos frameworks para estudiar e implementar en nuestras apps. Queda aún trabajo por hacer.</p>
 
 

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Liberar/desbloquear | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/liberar-slash-desbloquear/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/liberar-slash-desbloquear/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 con el iOS personalizado creado con PwnageTool 4.1]]></title>
-    <link href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
+    <link href="http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
     <updated>2010-10-20T22:09:54+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
+    <id>http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
     <content type="html"><![CDATA[<p>Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un firmware personalizado y restaurándolo posteriormente con iTunes.</p>
 
 <p>[aviso]Utiliza este tutorial bajo los requisitos requeridos. No somos responsables del mal uso del tutorial y/o las herramientas.[/aviso]</p>
@@ -122,9 +122,9 @@
   
   <entry>
     <title type="html"><![CDATA[GUIA-T | [Windows] Hacer Jailbreak al iOS 4.1 con Sn0wbreeze 2]]></title>
-    <link href="http://ThXou.github.io/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2/"/>
+    <link href="http://www.thxou.com/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2/"/>
     <updated>2010-09-24T12:16:55+02:00</updated>
-    <id>http://ThXou.github.io/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2</id>
+    <id>http://www.thxou.com/2010/09/24/guia-t-windows-hacer-jailbreak-al-ios-4-1-con-sn0wbreeze-2</id>
     <content type="html"><![CDATA[<p>Esta madrugada (En España), i<strong>H8sn0w liberó Sn0wbreeze 2</strong>, su herramienta para hacer Jailbreak a ciertos dispositivos a través de la creación y posterior restauración de un Firmware personalizado. Esta vez hace Jailbreak al <strong>iOS 4.1, iOS 4.0.x y al iOS 3.1.x,</strong> algo que muchos estábamos esperando.</p>
 
 <p>[aviso]Utiliza este tutorial bajo tu propia responsabilidad y siguiendo AL DETALLE los pasos que muestra esta guía para que no te cargues el iPhone. No somos responsables del mal uso de las herramientas y/o del tutorial.[/aviso]</p>
@@ -246,9 +246,9 @@
   
   <entry>
     <title type="html"><![CDATA[Liberar el iPhone 4, iPhone 3GS y iPhone 3G hasta el iOS 4.0.2 con Ultrasn0w 1.1-1]]></title>
-    <link href="http://ThXou.github.io/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/"/>
+    <link href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/"/>
     <updated>2010-08-30T22:21:00+02:00</updated>
-    <id>http://ThXou.github.io/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1</id>
+    <id>http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1</id>
     <content type="html"><![CDATA[<div>
 <h2 style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/08/IMG_0371.png"><img class="alignnone size-medium wp-image-1076" title="ultrasn0w-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/08/IMG_0371-200x300.png" alt="" width="200" height="300" /></a></h2>
 Debido a que la nueva actualización al iOS 4.0.2 no actualiza la Baseband como en 4.0.1, es posible utilizar la herramienta Ultrasn0w, utilizada para desbloquear el Firmware 4.0.x y anteriores hasta el 3.0, <strong>para desbloquear también el iOS 4.0.2 y con su nueva compatibilidad con el iPhone 4</strong>.
@@ -289,9 +289,9 @@ Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y esc
   
   <entry>
     <title type="html"><![CDATA[[Video] Hacer Jailbreak con Jailbreakme]]></title>
-    <link href="http://ThXou.github.io/2010/08/02/video-hacer-jailbreak-con-jailbreakme/"/>
+    <link href="http://www.thxou.com/2010/08/02/video-hacer-jailbreak-con-jailbreakme/"/>
     <updated>2010-08-02T11:05:37+02:00</updated>
-    <id>http://ThXou.github.io/2010/08/02/video-hacer-jailbreak-con-jailbreakme</id>
+    <id>http://www.thxou.com/2010/08/02/video-hacer-jailbreak-con-jailbreakme</id>
     <content type="html"><![CDATA[<p>Aquí os dejo un video por si no os va bien la instalación o no sabéis como hacerla o que pasos seguir. Es muy simple, si, pero hay gente que se puede liar con el proceso. Mirad como con el iPhone 4 el proceso vuela.</p>
 
 <center><object width="480" height="295"><param name="movie" value="http://www.youtube.com/v/injJTTb9EWw&amp;hl=es_ES&amp;fs=1?rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/injJTTb9EWw&amp;hl=es_ES&amp;fs=1?rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="295"></embed></object></center>
@@ -303,9 +303,9 @@ Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y esc
   
   <entry>
     <title type="html"><![CDATA[[Windows] Hacer Jailbreak en iOS 4 para iPhone 3GS (Bootrom nuevo), iPod Touch (MC) y iPod Touch 3G]]></title>
-    <link href="http://ThXou.github.io/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g/"/>
+    <link href="http://www.thxou.com/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g/"/>
     <updated>2010-07-22T01:02:35+02:00</updated>
-    <id>http://ThXou.github.io/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g</id>
+    <id>http://www.thxou.com/2010/07/22/windows-hacer-jailbreak-en-ios-4-para-iphone-3gs-bootrom-nuevo-ipod-touch-mc-y-ipod-touch-3g</id>
     <content type="html"><![CDATA[<p style="text-align: center;"><img class="alignnone size-full wp-image-863" title="jailbreak-ios4.0-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/07/l_500_500_043A5A21-27E7-416E-A04B-D02EBB826197.jpeg" alt="" width="180" height="180" /></p>
 
 

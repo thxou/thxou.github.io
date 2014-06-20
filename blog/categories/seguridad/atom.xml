@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Seguridad | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/seguridad/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/seguridad/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Encriptar strings usando encriptación AES-256 en Objective-C]]></title>
-    <link href="http://ThXou.github.io/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/"/>
+    <link href="http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/"/>
     <updated>2014-06-19T20:44:40+02:00</updated>
-    <id>http://ThXou.github.io/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c</id>
+    <id>http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c</id>
     <content type="html"><![CDATA[<p>Esta semana, mientras trabajaba en una aplicación, tuve la idea de "ocultar" algunos datos en forma de texto que no quería que fuesen vistos. Concretamente trabajaba con Core Data, y pues, para incrementar el nivel de seguridad, decidí encriptar ciertos datos que guardaba en Core Data, por el hecho de que cualquier usuario con Jailbreak puede ver los datos de Core Data que no han sido encriptados sin ningún problema. Esto me llevo a buscar algunas soluciones y pues, di con la encriptación AES256.</p>
 
 

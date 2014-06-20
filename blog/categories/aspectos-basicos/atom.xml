@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Aspectos Básicos | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/aspectos-basicos/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/aspectos-basicos/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Literales en Objective-C]]></title>
-    <link href="http://ThXou.github.io/2013/03/18/literales-en-objective-c/"/>
+    <link href="http://www.thxou.com/2013/03/18/literales-en-objective-c/"/>
     <updated>2013-03-18T19:04:13+01:00</updated>
-    <id>http://ThXou.github.io/2013/03/18/literales-en-objective-c</id>
+    <id>http://www.thxou.com/2013/03/18/literales-en-objective-c</id>
     <content type="html"><![CDATA[<p>Los literales son simplemente unos valores que los programadores podemos escribir "tal cual" en el código. En Objective-C (y por lo tanto en C) ya conocemos algunos ejemplos de esto con los valores primitivos:</p>
 
 
@@ -258,9 +258,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS: Aprendiendo sobre delegación, protocolos y la clase UIAlertView]]></title>
-    <link href="http://ThXou.github.io/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/"/>
+    <link href="http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/"/>
     <updated>2012-04-29T21:25:25+02:00</updated>
-    <id>http://ThXou.github.io/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview</id>
+    <id>http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview</id>
     <content type="html"><![CDATA[<p>En esta ocasión he querido hablar sobre la <code>delegacion</code>, un patrón muy común en Cocoa Touch que a muchos principiantes se nos puede atragantar, como ha sido mi caso. Es en si un concepto muy sencillo de entender, pero claro está, dependiendo de quien te lo explique. Espero explicarlo bien para que todos lo puedan entender, si no es así, decídmelo en los comentarios.</p>
 
 
@@ -438,9 +438,9 @@
   
   <entry>
     <title type="html"><![CDATA[Programando para iOS: Patrón de diseño MVC al detalle]]></title>
-    <link href="http://ThXou.github.io/2011/11/04/programando-para-ios-patron-de-diseno-mvc/"/>
+    <link href="http://www.thxou.com/2011/11/04/programando-para-ios-patron-de-diseno-mvc/"/>
     <updated>2011-11-04T02:27:39+01:00</updated>
-    <id>http://ThXou.github.io/2011/11/04/programando-para-ios-patron-de-diseno-mvc</id>
+    <id>http://www.thxou.com/2011/11/04/programando-para-ios-patron-de-diseno-mvc</id>
     <content type="html"><![CDATA[<p>Hola denuevo readers!. He querido cambiar un poco el chip y centrarme en lo que más me llena en este mundillo de la informática: La programación. Es por eso que empiezo esta serie de posts dedicados a la programación para diversas plataformas. En la que más me voy a centrar es en iOS para iPhone, iPod y iPad, ya que indagando un poco me ha llamado muchísimo la atención. También encontrarán tutoriales de PHP, SQL, JavaScript, Android, etc etc, así que manténganse al tanto del blog que va a estar muy interesante.</p>
 
 

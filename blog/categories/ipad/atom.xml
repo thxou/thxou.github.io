@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: iPad | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/ipad/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/ipad/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 con el iOS personalizado creado con PwnageTool 4.1]]></title>
-    <link href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
+    <link href="http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
     <updated>2010-10-20T22:09:54+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
+    <id>http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
     <content type="html"><![CDATA[<p>Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un firmware personalizado y restaurándolo posteriormente con iTunes.</p>
 
 <p>[aviso]Utiliza este tutorial bajo los requisitos requeridos. No somos responsables del mal uso del tutorial y/o las herramientas.[/aviso]</p>
@@ -122,9 +122,9 @@
   
   <entry>
     <title type="html"><![CDATA[GUIA-T | [Windows] Como hacer Jailbreak en iOS 4.0-iOS 4.1 utilizando Greenpois0n paso a paso]]></title>
-    <link href="http://ThXou.github.io/2010/10/14/guia-t-windows-como-hacer-jailbreak-en-ios-4-0-ios-4-1-utilizando-greenpois0n-paso-a-paso/"/>
+    <link href="http://www.thxou.com/2010/10/14/guia-t-windows-como-hacer-jailbreak-en-ios-4-0-ios-4-1-utilizando-greenpois0n-paso-a-paso/"/>
     <updated>2010-10-14T01:24:21+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/14/guia-t-windows-como-hacer-jailbreak-en-ios-4-0-ios-4-1-utilizando-greenpois0n-paso-a-paso</id>
+    <id>http://www.thxou.com/2010/10/14/guia-t-windows-como-hacer-jailbreak-en-ios-4-0-ios-4-1-utilizando-greenpois0n-paso-a-paso</id>
     <content type="html"><![CDATA[<p style="text-align: center;"><img src="http://www.thxou.com/wp-content/uploads/2010/10/gp_web.png" alt="" /></p>
 
 
@@ -200,9 +200,9 @@
   
   <entry>
     <title type="html"><![CDATA[GUIA-T | [Windows] Hacer Jailbreak utilizando Limera1n al iPhone 3GS, iPod Touch 3G, iPad, iPhone 4, iPod Touch 4G con iOS 4.0-4.1]]></title>
-    <link href="http://ThXou.github.io/2010/10/12/guia-t-windows-hacer-jailbreak-utilizando-limera1n-al-iphone-3gs-ipod-touch-3g-ipad-iphone-4-ipod-touch-4g-con-ios-4-0-4-1/"/>
+    <link href="http://www.thxou.com/2010/10/12/guia-t-windows-hacer-jailbreak-utilizando-limera1n-al-iphone-3gs-ipod-touch-3g-ipad-iphone-4-ipod-touch-4g-con-ios-4-0-4-1/"/>
     <updated>2010-10-12T18:36:15+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/12/guia-t-windows-hacer-jailbreak-utilizando-limera1n-al-iphone-3gs-ipod-touch-3g-ipad-iphone-4-ipod-touch-4g-con-ios-4-0-4-1</id>
+    <id>http://www.thxou.com/2010/10/12/guia-t-windows-hacer-jailbreak-utilizando-limera1n-al-iphone-3gs-ipod-touch-3g-ipad-iphone-4-ipod-touch-4g-con-ios-4-0-4-1</id>
     <content type="html"><![CDATA[<p>Ayer GeoHot lanzó su propia herramienta para hacer Jailbreak al iOS 4.0 hasta el iOS 4.1 para la mayoría de los dispositivos actuales y <strong>de por vida</strong>. Bien, aquí os traigo una GUIA-T detallada de como hacer Jailbreak con esta herramienta. Es muy sencillo, casi tanto como hacerlo con JailbreakMe así que no os costará. En principio, al igual que Greenpois0n, este Jailbreak era Tethered, pero gracias al exploit de comex también ha llegado a ser Untethered.</p>
 
 <p>[importante]<strong>Importante:</strong></p>
@@ -273,9 +273,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Video] iPad disparado con una escopeta]]></title>
-    <link href="http://ThXou.github.io/2010/10/06/video-ipad-disparado-con-una-escopeta/"/>
+    <link href="http://www.thxou.com/2010/10/06/video-ipad-disparado-con-una-escopeta/"/>
     <updated>2010-10-06T20:05:29+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/06/video-ipad-disparado-con-una-escopeta</id>
+    <id>http://www.thxou.com/2010/10/06/video-ipad-disparado-con-una-escopeta</id>
     <content type="html"><![CDATA[<p>Otro video de gente que se deleita en destruir los productos de Apple. Hemos visto como trituran un iPad, como lo utilizan como skateboard y <strong>ahora veremos como es atravesado por una bala de escopeta</strong> gracias a los hicos de FreeTaxUsa.com que han hecho la prueba.</p>
 
 <p>No se cual será el beneficio que les reporta destruir los dispositivos de Apple de esa manera pero bueno, es bueno tener cosas diferentes para ver (jeje). Aquí les dejo el video:</p>
@@ -287,9 +287,9 @@
   
   <entry>
     <title type="html"><![CDATA[GUIA-T | Downgrade de iOS 4.2 al iOS 4.1 en iPhone, iPad y iPod]]></title>
-    <link href="http://ThXou.github.io/2010/09/16/guia-t-downgrade-de-ios-4-2-al-ios-4-1-en-iphone-ipad-y-ipod/"/>
+    <link href="http://www.thxou.com/2010/09/16/guia-t-downgrade-de-ios-4-2-al-ios-4-1-en-iphone-ipad-y-ipod/"/>
     <updated>2010-09-16T13:32:21+02:00</updated>
-    <id>http://ThXou.github.io/2010/09/16/guia-t-downgrade-de-ios-4-2-al-ios-4-1-en-iphone-ipad-y-ipod</id>
+    <id>http://www.thxou.com/2010/09/16/guia-t-downgrade-de-ios-4-2-al-ios-4-1-en-iphone-ipad-y-ipod</id>
     <content type="html"><![CDATA[<p>[nota]Hoy inauguramos sección, se llama &ldquo;<b><a href="http://www.thxou.com/category/guia-t/">GUIA-T</a></b>&rdquo;. Encontrarás tutoriales y guías <b>PASO A PASO</b> de como realizar ciertas cosas un poco más complejas en tu dispositivo.[/nota]</p>
 
 <p>Ayer Apple <a href="http://www.thxou.com/2010/09/15/disponible-la-beta-del-ios-4-2-para-el-iphone-y-ipad/">lanzó la Beta del iOS 4.2</a> con muchas novedades. Si eres de los que lo instalaste, pero ahora deseas volver al iOS 4.1 que es más estable, entonces sigue esta guía paso a paso para volver al iOS 4.1.</p>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Cydia | ThXou]]></title>
-  <link href="http://ThXou.github.io/blog/categories/cydia/atom.xml" rel="self"/>
-  <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:45:01+02:00</updated>
-  <id>http://ThXou.github.io/</id>
+  <link href="http://www.thxou.com/blog/categories/cydia/atom.xml" rel="self"/>
+  <link href="http://www.thxou.com/"/>
+  <updated>2014-06-20T18:47:15+02:00</updated>
+  <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[FBUploader: Sube fotos a Facebook desde la aplicación Fotos]]></title>
-    <link href="http://ThXou.github.io/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos/"/>
+    <link href="http://www.thxou.com/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos/"/>
     <updated>2011-05-10T18:15:41+02:00</updated>
-    <id>http://ThXou.github.io/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos</id>
+    <id>http://www.thxou.com/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos</id>
     <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia Store (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: $1.99</p>
 
 
@@ -43,9 +43,9 @@
   
   <entry>
     <title type="html"><![CDATA[Locktopus: Bloquea tus aplicaciones con contraseña]]></title>
-    <link href="http://ThXou.github.io/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena/"/>
+    <link href="http://www.thxou.com/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena/"/>
     <updated>2010-10-26T23:25:16+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena</id>
+    <id>http://www.thxou.com/2010/10/26/locktopus-bloquea-tus-aplicaciones-con-contrasena</id>
     <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia Store (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: $2</p>
 
 
@@ -64,9 +64,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Mac] GUIA-T | Hacer Jailbreak en iOS 4.1 con el iOS personalizado creado con PwnageTool 4.1]]></title>
-    <link href="http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
+    <link href="http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1/"/>
     <updated>2010-10-20T22:09:54+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
+    <id>http://www.thxou.com/2010/10/20/mac-guia-t-hacer-jailbreak-en-ios-4-1-con-el-ios-personalizado-creado-con-pwnagetool-4-1</id>
     <content type="html"><![CDATA[<p>Aquí les dejamos esta completa GUIA-T acerca de como utilizar PwnageTool para hacer Jailbreak al iOS 4.1 en casi todos los dispositivos creando un firmware personalizado y restaurándolo posteriormente con iTunes.</p>
 
 <p>[aviso]Utiliza este tutorial bajo los requisitos requeridos. No somos responsables del mal uso del tutorial y/o las herramientas.[/aviso]</p>
@@ -171,9 +171,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Video] FullScreen for Safari: Navega con Safari Mobile a pantalla completa]]></title>
-    <link href="http://ThXou.github.io/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa/"/>
+    <link href="http://www.thxou.com/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa/"/>
     <updated>2010-10-18T23:47:21+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa</id>
+    <id>http://www.thxou.com/2010/10/18/video-fullscreen-for-safari-navega-con-safari-mobile-a-pantalla-completa</id>
     <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia Store (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: $1.49</p>
 
 
@@ -196,9 +196,9 @@
   
   <entry>
     <title type="html"><![CDATA[HRDEnabler: Habilita la función HDR en el iPod Touch 4G]]></title>
-    <link href="http://ThXou.github.io/2010/10/17/hrdenabler-habilita-la-funcion-hdr-en-el-ipod-touch-4g/"/>
+    <link href="http://www.thxou.com/2010/10/17/hrdenabler-habilita-la-funcion-hdr-en-el-ipod-touch-4g/"/>
     <updated>2010-10-17T16:47:11+02:00</updated>
-    <id>http://ThXou.github.io/2010/10/17/hrdenabler-habilita-la-funcion-hdr-en-el-ipod-touch-4g</id>
+    <id>http://www.thxou.com/2010/10/17/hrdenabler-habilita-la-funcion-hdr-en-el-ipod-touch-4g</id>
     <content type="html"><![CDATA[<p style="text-align: center;">Descargar: Cydia (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: Gratis</p>
 
 
