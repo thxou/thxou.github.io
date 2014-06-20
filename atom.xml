@@ -4,7 +4,7 @@
   <title><![CDATA[ThXou]]></title>
   <link href="http://ThXou.github.io/atom.xml" rel="self"/>
   <link href="http://ThXou.github.io/"/>
-  <updated>2014-06-20T18:39:23+02:00</updated>
+  <updated>2014-06-20T18:45:01+02:00</updated>
   <id>http://ThXou.github.io/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -27,7 +27,7 @@
 
 <h2>Creando Nuestra Categoría</h2>
 
-<p>Afortunadamente por internete campan unos cuantos algoritmos para implementar este tipo de encriptación en Objective-C, de manera que no tienes que implentar tu propio algoritmo, o si, a menos que seas experto en encriptación y busques hacer algo diferente. Yo encontré <a href="http://pastie.org/426530">una categoría de Objective-C</a> que hace el trabajo, lamentablemente he buscado y no he podido encontrar al autor, no obstante si lo llegas a encontrar tu, no dudes en comunicarlo.</p>
+<p>Afortunadamente por internete campan unos cuantos algoritmos para implementar este tipo de encriptación en Objective-C, de manera que no tienes que implentar tu propio algoritmo, o si, a menos que seas experto en encriptación y busques hacer algo diferente. Yo encontré <a href="http://sl.thxou.com/?http://pastie.org/426530">una categoría de Objective-C</a> que hace el trabajo, lamentablemente he buscado y no he podido encontrar al autor, no obstante si lo llegas a encontrar tu, no dudes en comunicarlo.</p>
 
 <p>Si sigues el enlace notarás que tenemos que crear la categoría para usarla en nuestro propio proyecto. Yo ya la he creado, por lo que podrás encontrarla ya implementada en el <a href="https://github.com/ThXou/AESEncryption-Tutorial">proyecto de ejemplo</a> de este tutorial. Tan solo tienes que copiar los ficheros <code>NSData+AES256.h</code> y <code>NSData+AES256.m</code> en tu propio proyecto y ya puedes empezar.</p>
 
