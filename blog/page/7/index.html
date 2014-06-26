@@ -9,8 +9,7 @@
   <meta name="author" content="Luis Cardenas">
 
   
-  <meta name="description" content="Autor: Kay Cee Press, LLC | Descargar: Cydia Store | Precio: 5.99$
-Auto3G es un Tweak que desactiva tu conexión 3G al bloquear el iPhone o la vuelve &hellip;">
+  <meta name="description" content="Para los que han tenido problemas con el iPhone 4 y la conexión mediante SSH, aquí os damos una solución para reparar la herramienta. [aviso]Este &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +79,59 @@ Auto3G es un Tweak que desactiva tu conexión 3G al bloquear el iPhone o la vuel
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/2010/09/08/solucion-al-problema-del-iphone-4-y-el-funcionamiento-de-ssh/">Solución Al Problema Del iPhone 4 Y El Funcionamiento De SSH</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-08T17:44:18+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">Para los que han tenido <strong>problemas con el iPhone 4 y la conexión mediante SSH</strong>, aquí os damos una solución para reparar la herramienta.
+
+[aviso]Este tutorial requiere la manipulación de los archivos fuente del iPhone. Hazlo siguiendo los pasos al detalle para que no te lo cargues.[/aviso]
+
+Necesitas tener <a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak</a> e instalada la aplicación de Cydia &#8221;<a href="cydia://package/eu.heinelt.ifile"><strong>iFile</strong></a><strong> (Abrir desde el iPhone)</strong>&#8221; necesariamente.
+
+<strong><span style="color: #99cc00;">PASO 1.</span></strong> Si ya hemos instalado iFile, entonces lo abrimos y buscamos el siguiente archivo:
+<blockquote>/System/Library/LaunchDaemons/<strong>com.ikey.bbot.plist</strong></blockquote>
+<p style="text-align: center;"><strong><img class="size-full wp-image-1256 aligncenter" title="ifile-ssh-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/20100908-myh5nanynduh97wrguha9nqukm.jpg" alt="" width="455" height="227" /></strong></p>
+Lo renombramos para que quede así:
+<blockquote>/System/Library/LaunchDaemons/<strong>oldcom.ikey.bbot.plist</strong>.</blockquote>
+<span style="color: #99cc00;"><strong>PASO 2.</strong></span> Usamos el mismo procedimiento para el archivo: <strong>/Bin/poc-bbot</strong>, que lo dejaremos así: /Bin/<strong>oldpoc-bbot</strong>.
+
+<span style="color: #99cc00;"><strong>PASO 3.</strong></span> Abrimos Cydia y volvemos a instalar <strong>OpenSSH</strong>.
+
+Listo. Al volver a intentar la conexión con SSH ya debería de funcionar todo perfectamente.
+<p style="text-align: right;"><a href="http://www.estudioiphone.com/2010/09/solucion-ssh-no-funciona-en-el-iphone-4/">Vía</a></p></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -477,50 +529,6 @@ Para instalarlo necesitas hacerlo desde Winterboard como si instalaras cualquier
 
     </article>
   
-  
-    <article>
-      
-  <header>
-  
-    
-      <h1 class="entry-title"><a href="/2010/09/07/nuevo-en-ios-4-1-mejora-las-fotografias-con-la-funcion-hdr/">Nuevo en iOS 4.1: Mejora Las Fotografías Con La Función HDR</a></h1>
-      
-      
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-07T00:05:44+02:00" pubdate data-updated="true">Sep 7<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">En la Keynote de la semana pasada Jobs nos mostraba las nuevas funciones del iOS 4.1 y a pocos días se su lanzamiento, hemos planeado hablar un poco de esas funciones. Hoy nos toca: <strong>fotografías con HDR. Esta función nos permite hacer fotos geniales con una gama mayor de intensidad luminosa gracias al nuevo ajuste de alto rango dinámico (HDR) del iPhone 4</strong>, que combina automáticamente varias exposiciones con distintas intensidades en una única imagen HDR.
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/09/Captura-de-pantalla-2010-09-06-a-las-21.41.23.png"><img class="size-full wp-image-1189 aligncenter" title="HDR-ios4.1-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/09/Captura-de-pantalla-2010-09-06-a-las-21.41.23.png" alt="" width="496" height="300" /></a></p>
-La imagen de arriba nos muestra una foto tomada sin HDR y otra con HDR. El resultado final es fantástico, que gran diferencia!. No obstante esto es lo que nos muestra Apple, pero los chicos de TechThrow nos dicen que esta funcionalidad no está bien implementada del todo como debería ya que las imágenes parecen aún peor en el resultado final.
-
-Mirad este video y os aclararéis algunas dudas:
-
-<center><object width="480" height="295"><param name="movie" value="http://www.youtube.com/v/iKZGS-k9O5w?fs=1&amp;hl=es_ES&amp;rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/iKZGS-k9O5w?fs=1&amp;hl=es_ES&amp;rel=0&amp;color1=0x2b405b&amp;color2=0x6b8ab6" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="295"></embed></object></center>
-<p style="text-align: right;"><a href="http://feedproxy.google.com/~r/Ispazio/~3/0XXpBw5ve3U/ios-4-1-introduce-hdr-unutilissima-funzione-per-la-fotocamera-ecco-un-video-dimostrativo">Vía</a></p></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -538,6 +546,10 @@ Mirad este video y os aclararéis algunas dudas:
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/">CocoaPods: Como integrarlo en nuestros proyectos</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/">Encriptar strings usando encriptación AES-256 en Objective-C</a>
       </li>
     
@@ -551,10 +563,6 @@ Mirad este video y os aclararéis algunas dudas:
     
       <li class="post">
         <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un vistazo al nuevo iOS 7</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
       </li>
     
   </ul>

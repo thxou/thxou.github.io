@@ -9,7 +9,7 @@
   <meta name="author" content="Luis Cardenas">
 
   
-  <meta name="description" content="Esta semana, mientras trabajaba en una aplicación, tuve la idea de &#8220;ocultar&#8221; algunos datos en forma de texto que no quería que fuesen &hellip;">
+  <meta name="description" content="CocoaPods es un herramienta de gestión de dependencias. Normalmente cuando usamos librerías de terceros, debemos copiar todos los ficheros &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/">CocoaPods: Como Integrarlo en Nuestros Proyectos</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-26T20:10:51+02:00" pubdate data-updated="true">Jun 26<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><div style="text-align:center;"><img src="http://www.thxou.com/wp-content/uploads/2014/06/cocoapods.png" /></div></p>
+
+<p>CocoaPods es un herramienta de gestión de dependencias. Normalmente cuando usamos librerías de terceros, debemos copiar todos los ficheros necesarios de la librería directamente dentro de nuestro proyecto para poder utilizarla. Este modo de usar librerías tiene algunos inconvenientes, como por ejemplo que se hace difícil mantener la librería actualizada de nuevos cambios, teniendo que hacer el proceso manualmente cada vez que queramos actualizarla.</p>
+
+<p>CocoaPods soluciona este problema proveyendo un sistema centralizado donde conviven todas las librerías, las trae a tu proyecto a petición y mantiene el entorno adecuado para el correcto control de las dependencias que puedan haber entre librerías y para que tu proyecto pueda compilar sin ningún problema.</p></div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/">Seguir leyendo &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -460,57 +505,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-  
-    
-      <h1 class="entry-title"><a href="/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/">Parsear Y Crear Ficheros en Formato JSON en iOS</a></h1>
-      
-      
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-11T13:36:19+02:00" pubdate data-updated="true">Sep 11<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Desde la salida de iOS 5 Apple incluyó en su API la clase <code>NSJSONSerialization</code>, la cual nos permite convertir objetos JSON en objetos de Objective-C (que ya tocaba también) y viceversa de manera sencilla.</p>
-
-<p>Para los que no saben que es JSON (JavaScript Object Notation), es un tipo de sintaxis que nos permite representar porciones grandes o pequeñas de datos para poder almacenarlos y/o intercambiarlos con otros entornos. Mucho más sencillo y pequeño que XML y además más rápido de parsear. Usa exactamente la misma sintaxis que usa JavaScript para crear objetos pero es totalmente independiente del lenguaje. Esta y otras cosas son las cosas que lo hacen atractivo para empresas como Twitter, Yahoo, Google, etc., que ya tienen sus APIs adaptadas a JSON desde hace un tiempo, además que facilita las cosas al programador y ahora veremos hasta que punto.</p>
-<h2>La sintaxis de JSON</h2>
-Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para considerar:
-<ol>
-	<li>Los datos son pares de nombres y valores separados por comas.</li>
-	<li>Los objetos están encerrados entre llaves ({ }).</li>
-	<li>Los arrays están encerrados entre corchetes ([ ]).</li>
-</ol>
-<p>Esto se cumple para todo en el fichero, también para los objetos que van anidados dentro de los arrays. No obtante solo se permiten cierto tipo de objetos, y son: <code>NSString</code>,  <code>NSNumber</code>,  <code>NSArray</code>,  <code>NSDictionary</code> o <code>NSNull</code>, de manera que si quieres meter objetos como por ejemplo <code>NSDate</code>, vas a tener que convertirlos a <code>NSString</code>antes o algún objeto compatible. Un fichero de JSON luce así por dentro:</p></div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/">Seguir leyendo &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -526,6 +520,10 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/">CocoaPods: Como integrarlo en nuestros proyectos</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/">Encriptar strings usando encriptación AES-256 en Objective-C</a>
       </li>
     
@@ -539,10 +537,6 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
     
       <li class="post">
         <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un vistazo al nuevo iOS 7</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
       </li>
     
   </ul>

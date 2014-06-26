@@ -9,7 +9,7 @@
   <meta name="author" content="Luis Cardenas">
 
   
-  <meta name="description" content="Parece que ya está confirmada a los medios una Keynote para el día 12 de setiembre, fecha tan esperada por algunos por la posible salida del iPhone 5 &hellip;">
+  <meta name="description" content="Desde la salida de iOS 5 Apple incluyó en su API la clase NSJSONSerialization, la cual nos permite convertir objetos JSON en objetos de Objective-C ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/">Parsear Y Crear Ficheros en Formato JSON en iOS</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-11T13:36:19+02:00" pubdate data-updated="true">Sep 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Desde la salida de iOS 5 Apple incluyó en su API la clase <code>NSJSONSerialization</code>, la cual nos permite convertir objetos JSON en objetos de Objective-C (que ya tocaba también) y viceversa de manera sencilla.</p>
+
+<p>Para los que no saben que es JSON (JavaScript Object Notation), es un tipo de sintaxis que nos permite representar porciones grandes o pequeñas de datos para poder almacenarlos y/o intercambiarlos con otros entornos. Mucho más sencillo y pequeño que XML y además más rápido de parsear. Usa exactamente la misma sintaxis que usa JavaScript para crear objetos pero es totalmente independiente del lenguaje. Esta y otras cosas son las cosas que lo hacen atractivo para empresas como Twitter, Yahoo, Google, etc., que ya tienen sus APIs adaptadas a JSON desde hace un tiempo, además que facilita las cosas al programador y ahora veremos hasta que punto.</p>
+<h2>La sintaxis de JSON</h2>
+Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para considerar:
+<ol>
+	<li>Los datos son pares de nombres y valores separados por comas.</li>
+	<li>Los objetos están encerrados entre llaves ({ }).</li>
+	<li>Los arrays están encerrados entre corchetes ([ ]).</li>
+</ol>
+<p>Esto se cumple para todo en el fichero, también para los objetos que van anidados dentro de los arrays. No obtante solo se permiten cierto tipo de objetos, y son: <code>NSString</code>,  <code>NSNumber</code>,  <code>NSArray</code>,  <code>NSDictionary</code> o <code>NSNull</code>, de manera que si quieres meter objetos como por ejemplo <code>NSDate</code>, vas a tener que convertirlos a <code>NSString</code>antes o algún objeto compatible. Un fichero de JSON luce así por dentro:</p></div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/">Seguir leyendo &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1069,56 +1120,6 @@ ThXou.
 
     </article>
   
-  
-    <article>
-      
-  <header>
-  
-    
-      <h1 class="entry-title"><a href="/2011/05/10/fbuploader-sube-fotos-a-facebook-desde-la-aplicacion-fotos/">FBUploader: Sube Fotos a Facebook Desde La Aplicación Fotos</a></h1>
-      
-      
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-10T18:15:41+02:00" pubdate data-updated="true">May 10<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p style="text-align: center;">Descargar: Cydia Store (<a href="http://www.thxou.com/jailbreaks-and-unlocks/">Jailbreak necesario</a>) | Precio: $1.99</p>
-<strong>FBUploader</strong> es un Tweak que nos va a permitir <strong>subir a Facebook nuestras fotos, directamente desde la aplicación nativa de fotos</strong>, añadiendo la opción &#8221;<strong>Facebook</strong>&#8221;, al menú emergente disponible desde la barra de herramientas de cada foto.
-<p style="text-align: center;"><img class="alignnone size-full wp-image-1926" title="fbuploader-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/fbuploader21-e1305036579640.png" alt="" width="200" height="300" /> <img class="alignnone size-full wp-image-1925" title="fbuploader2-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/fbuploader2-e1305036620859.png" alt="" width="200" height="300" /></p>
-Además de subir la foto a Facebook, también te permite personalizar un texto para que sea enviado junto con la foto, similar a como lo hacemos mediante Web. De esta manera ya no tienes que abrir la aplicación de Facebook para compartir.
-
-Puedes encontrarlo en el respositorio de <strong>BigBoss</strong> de Cydia Store a <strong>$1.99</strong>.
-
-<table style="background-color: #a33f03;" border="0" align="center">
-<tbody>
-<tr>
-<td>Podéis hacer vuestras preguntas acerca del Jailbreak y las herramientas desde <a href="http://www.todojailbreak.ya.st" target="_blank">TodoJailbreak</a>, nuestra nueva Web.</td>
-</tr>
-</tbody>
-</table></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1136,6 +1137,10 @@ Puedes encontrarlo en el respositorio de <strong>BigBoss</strong> de Cydia Store
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/">CocoaPods: Como integrarlo en nuestros proyectos</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/">Encriptar strings usando encriptación AES-256 en Objective-C</a>
       </li>
     
@@ -1149,10 +1154,6 @@ Puedes encontrarlo en el respositorio de <strong>BigBoss</strong> de Cydia Store
     
       <li class="post">
         <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un vistazo al nuevo iOS 7</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/03/18/literales-en-objective-c/">Literales en Objective-C</a>
       </li>
     
   </ul>

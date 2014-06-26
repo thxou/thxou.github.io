@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2014-06-20T18:47:15+02:00</updated>
+  <updated>2014-06-26T20:48:49+02:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -12,6 +12,266 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CocoaPods: Como integrarlo en nuestros proyectos]]></title>
+    <link href="http://www.thxou.com/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/"/>
+    <updated>2014-06-26T20:10:51+02:00</updated>
+    <id>http://www.thxou.com/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos</id>
+    <content type="html"><![CDATA[<p><div style="text-align:center;"><img src="http://www.thxou.com/wp-content/uploads/2014/06/cocoapods.png" /></div></p>
+
+
+
+
+<p>CocoaPods es un herramienta de gestión de dependencias. Normalmente cuando usamos librerías de terceros, debemos copiar todos los ficheros necesarios de la librería directamente dentro de nuestro proyecto para poder utilizarla. Este modo de usar librerías tiene algunos inconvenientes, como por ejemplo que se hace difícil mantener la librería actualizada de nuevos cambios, teniendo que hacer el proceso manualmente cada vez que queramos actualizarla.</p>
+
+
+
+
+<p>CocoaPods soluciona este problema proveyendo un sistema centralizado donde conviven todas las librerías, las trae a tu proyecto a petición y mantiene el entorno adecuado para el correcto control de las dependencias que puedan haber entre librerías y para que tu proyecto pueda compilar sin ningún problema.</p>
+
+
+<!--more-->
+
+
+
+
+<h2>Instalación</h2>
+
+
+
+
+<p>Instalar CocoaPods y ponerse a trabajar con él es sumamente sencillo. Corre bajo Ruby, así que primero tendrías que instalar Ruby antes de CocoaPods. No obstante, si la versión de tu sistema operativo es de OS X Lion en adelante no necesitas instalar Ruby ya que este viene instalada de forma predeterminada. Aún así, es recomendable actualizar el administrador de paquetes RubyGems a la última versión. Para ello abre una ventana del Terminal y escribe el siguiente comando:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo gem update &mdash;system</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Una vez completado el proceso ya podemos instalar CocoaPods con el siguiente comando:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo gem install cocoapods</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Ya casi estamos listos. Por último tenemos que ejecutar el siguiente comando. Lo que hará es copiar a tu ordenador el <a href="https://github.com/CocoaPods/Specs">repositorio de especificaciones</a> (Veremos esto de las especificaciones más adelante cuando creemos nuestra propia librería y veamos el proceso de subirlo al repositorio de CocoaPods), concretamente a la carpeta <code>~/.cocoapods/repos</code>. Si ya existe, simplemente actualizará el contenido de la carpeta:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pod setup</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Si todo ha ido bien, entonces felicitate por el trabajo conseguido. Ya tienes CocoaPods instalado y listo para usarse.</p>
+
+
+
+
+<h2>Integrando CocoaPods en nuestro proyecto</h2>
+
+
+
+
+<p>Para esto vamos a crear un proyecto sencillo. Abre Xcode y ve al menú <code>File/New/Project…</code>, y elige la plantilla <code>Single View Application</code>. Ponle por nombre <code>CocoaPodsTest</code> y guardalo donde quieras, especialmente en un lugar fácil de acceder.</p>
+
+
+
+
+<p>Una vez creado el proyecto, procede a cerrarlo. Si, aunque suene raro. Ya te explico el porque dentro de nada.</p>
+
+
+
+
+<p>Abre una ventana del terminal y navega hacia el directorio del proyecto. Si lo guardaste en el escritorio, el comando lucirá algo así:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/Desktop/CocoaPodsTest</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Luego ejecuta el siguiente comando (asegúrate de estar dentro del directorio del proyecto):</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pod init</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Este comando va a crear el fichero <code>Podfile</code> de tu proyecto. El fichero Podfile es el lugar donde vas a definir las librerías que usarás dentro de tu proyecto. También puedes definir varios targets y librerías diferentes para cada target. Vamos a editar este fichero para mostrar cómo añadir nuestras librerías. Para esto ábrelo usando tu editor favorito (no uses TextEdit en ningún caso).</p>
+
+
+
+
+<p>Al abrirlo verás algo similar a esto:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Uncomment</span> <span class="n">this</span> <span class="n">line</span> <span class="n">to</span> <span class="n">define</span> <span class="n">a</span> <span class="n">global</span> <span class="n">platform</span> <span class="k">for</span> <span class="n">your</span> <span class="n">project</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">platform</span> <span class="o">:</span><span class="n">ios</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="mf">6.0</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">target</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">CocoaPodsTest</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="k">do</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Al crearse el fichero, siempre se crea especificando un target por defecto, en este caso <code>CocoaPodsTest</code>. La línea de arriba que está comentada nos dice a partir de que versión de iOS corre tu proyecto. Si tienes Xcode completamente actualizado, lo normal es que el proyecto que hayas creado al principio, corra a partir de la 7.1, por lo que tendrías que reemplazar esta línea por:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">platform</span> <span class="o">:</span><span class="n">ios</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="mf">7.1</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Ahora vamos a incluir nuestra primera librería. Para esto añade lo siguiente inmediatamente después de la línea <code>target "CocoaPodsTest" do</code>:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">pod</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">LCAnimatedMenu</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="mf">1.0.0</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>De esta manera defines las librerías que deseas incluir en tu proyecto, una en cada línea. En este caso además de la librería, le estás diciendo a CocoaPods que versión en concreto quieres de esa librería. Puedes omitir la versión y CocoaPods incluirá la última versión disponible.</p>
+
+
+<p><blockquote><p>Si quieres saber más acerca de la sintaxis de este fichero y sobre que configuraciones más avanzadas puedes incluir, sigue <a href="http://guides.cocoapods.org/using/the-podfile.html">este enlace</a> hacia la documentación oficial.</p></blockquote></p>
+
+<p>Ahora guarda el fichero y cierra el editor.</p>
+
+
+
+
+<p>El siguiente paso es decirle a CocoaPods que instale las librerias. Para esto escribe el siguiente comando en el Terminal:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pod install</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Al finalizar el proceso de instalación saldrá un mensaje igual a este:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[!] From now on use &lt;code>CocoaPodsTest.xcworkspace&lt;/code>.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Si vas a usar CocoaPods de hoy en adelante, este es <strong>el mensaje más importante que tienes que recordar</strong>. Desde ahora, ya no abrirás más el fichero del proyecto para trabajar con él, sino el workspace que crea CocoaPods en el cual conviven todas las librería que vayas a instalar y tu proyecto también. Es por eso que más arriba te dije de cerrar el proyecto.</p>
+
+
+
+
+<p>Abre el fichero <code>CocoaPodsTest.xcworkspace</code> y veamos como usar la librería que acabamos de incluir.</p>
+
+
+
+
+<p>Dentro del workspace verás 2 proyectos, el tuyo y otro llamado Pods. En Pods están incluidas todas las librerías que hayas añadido y otros ficheros que no deberías de tocar jamás, a menos que sepas lo que estás haciendo, claro está. También vas a encontrar el fichero <code>Podfile</code> que editamos anteriormente. Desde ahora, cada vez que quieras añadir una librería nueva, puedes editar el fichero directamente desde Xcode.</p>
+
+
+<p></h2>Learn To Fly</h2></p>
+
+<p>Trabajar con las librerías que hemos añadido es idéntico a como lo hacíamos antes. Abre el fichero <code>ViewController.m</code> e importa la librería:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">LCAnimatedMenu</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">LCMenuItem</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Ahora que has importado las librerías a tu proyecto, hay que usar la API de la librería, exactamente como lo hacías antes. Ahora reemplaza el método <code>ViewDidLoad</code> con el siguiente trozo de código:</p>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">itemImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;item&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">ActionBlock</span> <span class="n">actionBlock</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Botón presionado!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item1</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage:</span><span class="n">itemImage</span> <span class="nl">withActionBlock:</span><span class="n">actionBlock</span><span class="p">];</span>
+</span><span class='line'><span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage:</span><span class="n">itemImage</span> <span class="nl">withActionBlock:</span><span class="n">actionBlock</span><span class="p">];</span>
+</span><span class='line'><span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item3</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage:</span><span class="n">itemImage</span> <span class="nl">withActionBlock:</span><span class="n">actionBlock</span><span class="p">];</span>
+</span><span class='line'><span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item4</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectZero</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="n">menu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCAnimatedMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithItems:</span><span class="err">@</span><span class="p">[</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">,</span> <span class="n">item3</span><span class="p">,</span> <span class="n">item4</span><span class="p">]];</span>
+</span><span class='line'><span class="n">menu</span><span class="p">.</span><span class="n">containerView</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>En este código he incluido una imagen que obviamente no estará en el proyecto. Si quieres ver como luce puedes descargarla desde <a href="https://raw.githubusercontent.com/ThXou/LCAnimatedMenu/master/LCAnimatedMenu/Images.xcassets/item.imageset/item@2x.png">este enlace</a> y añadirla a la carpeta de <code>Images.xcassets</code> del proyecto.</p>
+
+
+
+
+<p>Ya hemos terminado!. Ahora compila el proyecto para ver la librería en acción. Tan sencillo como esto.</p>
+
+
+
+
+<h2>Conclusiones</h2>
+
+
+
+
+<p>Tiene sus ventajas usar un administrador de dependencias como CocoaPods, la que más salta a la vista es el hecho de no tener que preocuparte del arrastre de ficheros de librerías con cada actualización, cosa que considero bastante tediosa la verdad, aunque todos sabemos que en realidad no es para tanto. No obstante hay otros beneficios como el hecho de ahorrarnos espacio dentro del proyecto y el hecho de evitarnos la tentación de modificar el código fuente de las librerías.</p>
+
+
+
+
+<p>Con respecto a este último aspecto, en ocasiones me encuentro con que las librerías no se adaptan exactamente a lo que quiero, por lo que en algunos casos sí que deseo poder modificar el código (Puedes enviar una petición al desarrollador de la librería, pero claro, nunca sabes cuanto puede tardar en hacerse realidad tu deseo). Todo va a depender de tus necesidades en momentos específicos. No obstante aunque uses CocoaPods, aún puedes añadir librerías manualmente sin problemas, de modo que yo personalmente recomiendo usarlo.</p>
+
+
+
+
+<p>Por último, en la segunda parte de este tutorial, aprenderemos sobre el proceso de envío de nuestra propia librería al repositorio de especificaciones de CocoaPods. Verás que es un proceso muy sencillo en un tutorial aún más corto que este.</p>
+
+
+
+
+<p>Happy Coding!</p>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Migración sencilla de modelos en Core Data]]></title>
@@ -1035,178 +1295,6 @@ Tenim el mètode de la petició (GET), el format de resposta (JSON) i l'objecte 
 
 
 <p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/c0bb4xgyatv10t5nhvll"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Trabajando con el Social Framework de iOS 6: Publicar en Twitter y Facebook]]></title>
-    <link href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/"/>
-    <updated>2012-09-20T02:00:25+02:00</updated>
-    <id>http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook</id>
-    <content type="html"><![CDATA[<p>Aquí les traigo un tutorial bastante fresco sobre el recién nacido<strong> iOS 6</strong>. Como sabéis cada nuevo iOS trae consigo muchas novedades y este no va a ser la excepción, tenemos cientos de nuevas APIs y cambios con respecto a iOS 5, y por si fuera poco también tenemos 3 nuevos frameworks para estudiar e implementar en nuestras apps. Queda aún trabajo por hacer.</p>
-
-
-<p>Hoy voy a comenzar con el primero de una serie de tutoriales para ir introduciéndonos en el mundillo de iOS 6 poco a poco. Empezaré con uno de los 3 nuevos frameworks que incluye este nuevo iOS: el <strong>Social Framework</strong>.</p>
-
-
-<p>Este framework reemplaza al de Twitter y se hace más generico para ser compatible con las redes sociales de Facebook y Sina Weibo (la de los chinos). Lo genial es que implementarlo en nuestras apps es sencillo, nosotros de momento vamos a publicar nuestro estado en Twitter y Facebook a través de la interfaz nativa del framework. Tiene otras aplicaciones como mostrar el timeline y hacer follows en Twitter y cosas así, pero estas las veremos más adelante ya que son un poco (y solo un poco) más complejas.</p>
-
-
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57.png"><img class="aligncenter size-full wp-image-2285" style="border: 2px solid black; margin-top: 15px; margin-bottom: 15px;" title="social-framework-ios6-thxou" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57-e1346428236807.png" alt="" width="319" height="194" /></a></p>
-
-
-<p>Una de las 2 clases que componen el Social Framework es <code>SLComposeViewController</code>, esta clase te permite mostrar una vista al usuario desde la cual el puede componer y publicar un mensaje en cualquiera de las redes sociales mencionadas arriba, incluyendo una imagen o URL con el mensaje.</p>
-
-
-<!--more-->
-
-
-<h2 dir="ltr">Empezando con iOS 6 y el framework</h2>
-
-
-<p>Lo primero es tener Xcode 4.5 y el SDK de iOS 6 instalado, luego tener una cuenta de facebook y/o twitter configurada en el dispositivo.</p>
-
-
-<p>Abrimos Xcode 4.5 y añadimos el <em>Social Framework</em> a nuestro proyecto. Para esto como ya sabemos nos vamos a la raiz del proyecto, seleccionamos nuestro target y en la pestaña <strong>Summary</strong> encontraremos el apartado <strong>Linked Frameworks and Libraries </strong>desde donde podemos agregarlo.</p>
-
-
-<p>Acto seguido importamos en nuestro controlador la correspondiente cabecera y ya estamos listo para empezar a usarlo:</p>
-
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Social</span><span class="o">/</span><span class="n">Social</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<h2>Diferencias con el framework de Twitter</h2>
-
-
-<p>Este nuevo framework es casi idéntico al anterior de Twitter, a grandes razgos la única diferencia que vamos a encontrar es en la forma de inicializar la clase, ya que en esta nueva tenemos que especificar el tipo de servicio al que nos estamos refiriendo, este servicio está definido en la propiedad <code>serviceType</code> y puede tener los siguientes valores:</p>
-
-
-<ul><li><code id="jumpTo_14">SLServiceTypeFacebook</code></li><li><code id="jumpTo_15">SLServiceTypeTwitter</code></li><li><code id="jumpTo_16">SLServiceTypeSinaWeibo</code></li></ul>
-
-
-<p>Uno para cada red social, vamos. Por lo tanto, mientras en el de Twitter hacíamos una inicialización normal con alloc e init, en este nuevo le pasamos el servicio, de manera que nos queda así:</p>
-
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">SLComposeViewController</span> <span class="o">*</span><span class="n">twitter</span> <span class="o">=</span> <span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">composeViewControllerForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>Luego hay que hacer la comprobación de que el servicio es accesible y de si hay por lo menos una cuenta configurada para ese servicio en concreto en el dispositivo:</p>
-
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">isAvailableForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>Esto devuelve <code>YES</code> o <code>NO</code> dependiendo de la configuración que haya. Si nos devuelve <code>YES</code> vamos a mostrar la interfaz, de lo contrario mostraremos un error.</p>
-
-
-<h2>Mostrando la interfaz</h2>
-
-
-<p>Supongamos que todo ha ido bien hasta ahora en el código, pues ya estamos listos para mostrar al usuario la intefaz, así que primero vamos a dar algunos valores iniciales a los campos. Este paso si que es idéntico al del framework de Twitter ya que tiene las mismas propiedades con los mismos nombres:</p>
-
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// ponemos un texto inicial para la publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setInitialText:</span><span class="n">self</span><span class="p">.</span><span class="n">tvPost</span><span class="p">.</span><span class="n">text</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// añadimos una imagen a nuestra publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">logo_thxou</span><span class="p">.</span><span class="n">png</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// añadimos también una URL</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addURL:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;http://www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/&quot;</span><span class="o">&gt;</span><span class="nl">http:</span><span class="c1">//www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/&lt;/a&gt;&amp;rdquo;]];&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// asignamos el completionHandler para manipular los resultados del envío</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setCompletionHandler:</span><span class="n">completionHandler</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// por último mostramos la interfaz de publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">presentViewController:</span><span class="n">twitter</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>Tener muy en cuenta de asignar las propiedades antes de presentar la vista al usuario, de lo contrario os va a retornar un <code>NO</code> y la imagen o URL no se va a cargar junto con el mensaje. También os puede retornar <code>NO</code> si la imagen es demasiado grande o si hay demasiados caracteres en la URL, no obstante esto depende de las restricciones de que Twitter y Facebook ponen en las respectivas páginas oficiales de sus APIs.</p>
-
-
-<p>Hecho todo esto presentamos al usuario la interfaz como lo haríamos con cualquier controlador.</p>
-
-
-<h2>Manipular los resultados</h2>
-
-
-<p>Lo único que nos queda por hacer es comunicarle al usuario si se ha enviado correctamente la publicación o no, para esto tenemos los resultados del envío devueltos en el argumento <code>result</code> de la propiedad <code>completionHandler</code> de la clase. Esta propiedad es un objeto de tipo bloque y es llamada justo antes de cerrase la interfaz de envío. Ya que el bloque es lo último que se va a ejecutar, tenemos que cerrar la interfaz dentro de este bloque:</p>
-
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// manipulamos los mensajes de error si hay usando la propiedad completionHandler</span>
-</span><span class='line'><span class="n">SLComposeViewControllerCompletionHandler</span> <span class="n">completionHandler</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="n">SLComposeViewControllerResult</span> <span class="n">result</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">switch</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="nl">SLComposeViewControllerResultCancelled:</span>
-</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;La publicación ha sido cancelada.&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">case</span> <span class="nl">SLComposeViewControllerResultDone:</span>
-</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Se ha publicado satisfactoriamente.&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">default</span><span class="o">:</span>
-</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<h2>Conclusión</h2>
-
-
-<p>Como hemos podido observar es realmente sencillo mostrar la interfaz de envío por defecto al usuario. No obstante esto tiene sus limitaciones evidentes, como la de querer saltarse la interfaz y enviar directamente el mensaje a Twitter. En el <a href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/">siguiente tutorial</a> veremos como hacer todo esto y alguna cosa más, es un poco más complejo, pero como veréis el framework lo hace todo mucho más sencillo y hace mucho trabajo por nosotros.</p>
-
-
-<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/qv5nu4k6jh00fhttgz89"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
 
 ]]></content>
   </entry>

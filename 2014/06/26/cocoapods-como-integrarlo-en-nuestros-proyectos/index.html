@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>CocoaPods: Como integrarlo en nuestros proyectos - ThXou</title>
+  <meta name="author" content="Luis Cardenas">
+
+  
+  <meta name="description" content="CocoaPods es un herramienta de gestión de dependencias. Normalmente cuando usamos librerías de terceros, debemos copiar todos los ficheros &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.thxou.com/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/thxouweb" rel="alternate" title="ThXou" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2267618-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+	<div class="header-title"><a href="/">ThXou</a></div>
+
+
+	<br><div class="header-subtitle">Ama la sabiduría. Desea el conocimiento</div>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/thxouweb" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.thxou.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archivo</a></li>
+  <li><a href="/about">Yo</a></li>
+  <li><a href="http://es.linkedin.com/in/thxou/">LinkedIn</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+  
+    
+      <h1 class="entry-title">CocoaPods: Como Integrarlo en Nuestros Proyectos</h1>
+    
+  
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-26T20:10:51+02:00" pubdate data-updated="true">Jun 26<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><div style="text-align:center;"><img src="http://www.thxou.com/wp-content/uploads/2014/06/cocoapods.png" /></div></p>
+
+<p>CocoaPods es un herramienta de gestión de dependencias. Normalmente cuando usamos librerías de terceros, debemos copiar todos los ficheros necesarios de la librería directamente dentro de nuestro proyecto para poder utilizarla. Este modo de usar librerías tiene algunos inconvenientes, como por ejemplo que se hace difícil mantener la librería actualizada de nuevos cambios, teniendo que hacer el proceso manualmente cada vez que queramos actualizarla.</p>
+
+<p>CocoaPods soluciona este problema proveyendo un sistema centralizado donde conviven todas las librerías, las trae a tu proyecto a petición y mantiene el entorno adecuado para el correcto control de las dependencias que puedan haber entre librerías y para que tu proyecto pueda compilar sin ningún problema.</p><!--more-->
+
+<h2>Instalación</h2>
+
+<p>Instalar CocoaPods y ponerse a trabajar con él es sumamente sencillo. Corre bajo Ruby, así que primero tendrías que instalar Ruby antes de CocoaPods. No obstante, si la versión de tu sistema operativo es de OS X Lion en adelante no necesitas instalar Ruby ya que este viene instalada de forma predeterminada. Aún así, es recomendable actualizar el administrador de paquetes RubyGems a la última versión. Para ello abre una ventana del Terminal y escribe el siguiente comando:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo gem update --system</span></code></pre></td></tr></table></div></figure>
+
+<p>Una vez completado el proceso ya podemos instalar CocoaPods con el siguiente comando:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo gem install cocoapods</span></code></pre></td></tr></table></div></figure>
+
+<p>Ya casi estamos listos. Por último tenemos que ejecutar el siguiente comando. Lo que hará es copiar a tu ordenador el <a href="https://github.com/CocoaPods/Specs">repositorio de especificaciones</a> (Veremos esto de las especificaciones más adelante cuando creemos nuestra propia librería y veamos el proceso de subirlo al repositorio de CocoaPods), concretamente a la carpeta <code>~/.cocoapods/repos</code>. Si ya existe, simplemente actualizará el contenido de la carpeta:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pod setup</span></code></pre></td></tr></table></div></figure>
+
+<p>Si todo ha ido bien, entonces felicitate por el trabajo conseguido. Ya tienes CocoaPods instalado y listo para usarse.</p>
+
+<h2>Integrando CocoaPods en nuestro proyecto</h2>
+
+<p>Para esto vamos a crear un proyecto sencillo. Abre Xcode y ve al menú <code>File/New/Project…</code>, y elige la plantilla <code>Single View Application</code>. Ponle por nombre <code>CocoaPodsTest</code> y guardalo donde quieras, especialmente en un lugar fácil de acceder.</p>
+
+<p>Una vez creado el proyecto, procede a cerrarlo. Si, aunque suene raro. Ya te explico el porque dentro de nada.</p>
+
+<p>Abre una ventana del terminal y navega hacia el directorio del proyecto. Si lo guardaste en el escritorio, el comando lucirá algo así:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/Desktop/CocoaPodsTest</span></code></pre></td></tr></table></div></figure>
+
+<p>Luego ejecuta el siguiente comando (asegúrate de estar dentro del directorio del proyecto):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pod init</span></code></pre></td></tr></table></div></figure>
+
+<p>Este comando va a crear el fichero <code>Podfile</code> de tu proyecto. El fichero Podfile es el lugar donde vas a definir las librerías que usarás dentro de tu proyecto. También puedes definir varios targets y librerías diferentes para cada target. Vamos a editar este fichero para mostrar cómo añadir nuestras librerías. Para esto ábrelo usando tu editor favorito (no uses TextEdit en ningún caso).</p>
+
+<p>Al abrirlo verás algo similar a esto:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp"># Uncomment this line to define a global platform for your project</span>
+</span><span class='line'><span class="cp"># platform :ios, &quot;6.0&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">target</span> <span class="s">&quot;CocoaPodsTest&quot;</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Al crearse el fichero, siempre se crea especificando un target por defecto, en este caso <code>CocoaPodsTest</code>. La línea de arriba que está comentada nos dice a partir de que versión de iOS corre tu proyecto. Si tienes Xcode completamente actualizado, lo normal es que el proyecto que hayas creado al principio, corra a partir de la 7.1, por lo que tendrías que reemplazar esta línea por:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">platform</span> <span class="o">:</span><span class="n">ios</span><span class="p">,</span> <span class="s">&quot;7.1&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Ahora vamos a incluir nuestra primera librería. Para esto añade lo siguiente inmediatamente después de la línea <code>target "CocoaPodsTest" do</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">pod</span> <span class="err">&#39;</span><span class="n">LCAnimatedMenu</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mf">1.0.0</span><span class="err">&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>De esta manera defines las librerías que deseas incluir en tu proyecto, una en cada línea. En este caso además de la librería, le estás diciendo a CocoaPods que versión en concreto quieres de esa librería. Puedes omitir la versión y CocoaPods incluirá la última versión disponible.</p>
+
+<blockquote><p>Si quieres saber más acerca de la sintaxis de este fichero y sobre que configuraciones más avanzadas puedes incluir, sigue <a href="http://guides.cocoapods.org/using/the-podfile.html">este enlace</a> hacia la documentación oficial.</p></blockquote>
+
+<p>Ahora guarda el fichero y cierra el editor.</p>
+
+<p>El siguiente paso es decirle a CocoaPods que instale las librerias. Para esto escribe el siguiente comando en el Terminal:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pod install</span></code></pre></td></tr></table></div></figure>
+
+<p>Al finalizar el proceso de instalación saldrá un mensaje igual a este:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[!] From now on use `CocoaPodsTest.xcworkspace`.</span></code></pre></td></tr></table></div></figure>
+
+<p>Si vas a usar CocoaPods de hoy en adelante, este es <strong>el mensaje más importante que tienes que recordar</strong>. Desde ahora, ya no abrirás más el fichero del proyecto para trabajar con él, sino el workspace que crea CocoaPods en el cual conviven todas las librería que vayas a instalar y tu proyecto también. Es por eso que más arriba te dije de cerrar el proyecto.</p>
+
+<p>Abre el fichero <code>CocoaPodsTest.xcworkspace</code> y veamos como usar la librería que acabamos de incluir.</p>
+
+<p>Dentro del workspace verás 2 proyectos, el tuyo y otro llamado Pods. En Pods están incluidas todas las librerías que hayas añadido y otros ficheros que no deberías de tocar jamás, a menos que sepas lo que estás haciendo, claro está. También vas a encontrar el fichero <code>Podfile</code> que editamos anteriormente. Desde ahora, cada vez que quieras añadir una librería nueva, puedes editar el fichero directamente desde Xcode.</p>
+
+</h2>Learn To Fly</h2>
+
+<p>Trabajar con las librerías que hemos añadido es idéntico a como lo hacíamos antes. Abre el fichero <code>ViewController.m</code> e importa la librería:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &lt;LCAnimatedMenu.h&gt;</span>
+</span><span class='line'><span class="cp">#import &lt;LCMenuItem.h&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Ahora que has importado las librerías a tu proyecto, hay que usar la API de la librería, exactamente como lo hacías antes. Ahora reemplaza el método <code>ViewDidLoad</code> con el siguiente trozo de código:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>	
+</span><span class='line'>
+</span><span class='line'>    <span class="n">UIImage</span> <span class="o">*</span><span class="n">itemImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;item&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">ActionBlock</span> <span class="n">actionBlock</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Botón presionado!&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item1</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage:</span><span class="n">itemImage</span> <span class="nl">withActionBlock:</span><span class="n">actionBlock</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage:</span><span class="n">itemImage</span> <span class="nl">withActionBlock:</span><span class="n">actionBlock</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item3</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage:</span><span class="n">itemImage</span> <span class="nl">withActionBlock:</span><span class="n">actionBlock</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">LCMenuItem</span> <span class="o">*</span><span class="n">item4</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectZero</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="n">menu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCAnimatedMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithItems:</span><span class="err">@</span><span class="p">[</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">,</span> <span class="n">item3</span><span class="p">,</span> <span class="n">item4</span><span class="p">]];</span>
+</span><span class='line'>    <span class="n">menu</span><span class="p">.</span><span class="n">containerView</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>En este código he incluido una imagen que obviamente no estará en el proyecto. Si quieres ver como luce puedes descargarla desde <a href="https://raw.githubusercontent.com/ThXou/LCAnimatedMenu/master/LCAnimatedMenu/Images.xcassets/item.imageset/item@2x.png">este enlace</a> y añadirla a la carpeta de <code>Images.xcassets</code> del proyecto.</p>
+
+<p>Ya hemos terminado!. Ahora compila el proyecto para ver la librería en acción. Tan sencillo como esto.</p>
+
+<h2>Conclusiones</h2>
+
+<p>Tiene sus ventajas usar un administrador de dependencias como CocoaPods, la que más salta a la vista es el hecho de no tener que preocuparte del arrastre de ficheros de librerías con cada actualización, cosa que considero bastante tediosa la verdad, aunque todos sabemos que en realidad no es para tanto. No obstante hay otros beneficios como el hecho de ahorrarnos espacio dentro del proyecto y el hecho de evitarnos la tentación de modificar el código fuente de las librerías.</p>
+
+<p>Con respecto a este último aspecto, en ocasiones me encuentro con que las librerías no se adaptan exactamente a lo que quiero, por lo que en algunos casos sí que deseo poder modificar el código (Puedes enviar una petición al desarrollador de la librería, pero claro, nunca sabes cuanto puede tardar en hacerse realidad tu deseo). Todo va a depender de tus necesidades en momentos específicos. No obstante aunque uses CocoaPods, aún puedes añadir librerías manualmente sin problemas, de modo que yo personalmente recomiendo usarlo.</p>
+
+<p>Por último, en la segunda parte de este tutorial, aprenderemos sobre el proceso de envío de nuestra propia librería al repositorio de especificaciones de CocoaPods. Verás que es un proceso muy sencillo en un tutorial aún más corto que este.</p>
+
+<p>Happy Coding!</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Luis Cardenas</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-26T20:10:51+02:00" pubdate data-updated="true">Jun 26<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.thxou.com/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/" data-via="thxouweb" data-counturl="http://www.thxou.com/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/" title="Previous Post: Encriptar strings usando encriptación AES-256 en Objective-C">&laquo; Encriptar strings usando encriptación AES-256 en Objective-C</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/">CocoaPods: Como integrarlo en nuestros proyectos</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/">Encriptar strings usando encriptación AES-256 en Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/11/12/migracion-sencilla-de-modelos-en-core-data/">Migración sencilla de modelos en Core Data</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/">Disponible la segunda beta de iOS 7 para desarrolladores</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/06/18/un-vistazo-al-nuevo-ios-7/">Un vistazo al nuevo iOS 7</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/thxou">@thxou</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'thxou',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <div id="delicious"></div>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/thxou?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
+  <p><a href="http://delicious.com/thxou">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -  Luis Cardenas <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> + <a href="https://github.com/ioveracker/mnml">mnml</a>.
+	  
+  </span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thxou';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.thxou.com/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/';
+        var disqus_url = 'http://www.thxou.com/2014/06/26/cocoapods-como-integrarlo-en-nuestros-proyectos/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
