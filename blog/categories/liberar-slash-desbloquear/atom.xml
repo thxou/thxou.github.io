@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Liberar/desbloquear | ThXou]]></title>
+  <title><![CDATA[Category: liberar/desbloquear | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/liberar-slash-desbloquear/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-04T19:44:40+01:00</updated>
+  <updated>2015-02-04T20:44:35+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -135,7 +135,7 @@
 
 <ul>
     <li>iPhone 3GS (Nuevo bootrom) – Requiere <a href="http://www.thxou.com/jailbreaks-and-unlocks/">jailbreak en 3.1.2</a>.</li>
-    <li>iPhone 3GS (Viejo bootrom) – Requiere jailbreak (hecho con <a href="http://www.thxou.com/jailbreaks-and-unlocks/">Spirit o JailbreakMe</a>, hay que usar la aplicación de Cydia: "<strong>Spirit2Pwn"</strong> de la repo: "<strong>http://repo.woowiz.net"</strong>).</li>
+    <li>iPhone 3GS (Viejo bootrom) – Requiere jailbreak (hecho con <a href="http://www.thxou.com/jailbreaks-and-unlocks/">Spirit o JailbreakMe</a>, hay que usar la aplicación de Cydia: &#8221;<strong>Spirit2Pwn&#8221;</strong> de la repo: &#8221;<strong>http://repo.woowiz.net&#8221;</strong>).</li>
     <li>iPhone 3G.</li>
     <li>iPhone 2G y iPod Touch 3G – Requiere <a href="http://www.thxou.com/jailbreaks-and-unlocks/">jailbreak en 3.1.2</a>.</li>
     <li>iPod Touch 2G (Modelo MC) – Requiere <a href="http://www.thxou.com/jailbreaks-and-unlocks/">jailbreak en 3.1.2</a>.</li>
@@ -236,7 +236,7 @@
     <li>Apaga el dispositivo completamente y desconéctalo del ordenador.</li>
     <li>Presiona el botón de inicio.</li>
     <li>Mientras estás presionando el botón de inicio, conecta el dispositivo al ordenador a través del cable USB o dock.</li>
-    <li>Sigue manteniendo presionado el botón de inicio hasta que veas la imagen de "Conecta a iTunes" (A lo mejor en vez de eso vez un dibujo de Steve Jobs).</li>
+    <li>Sigue manteniendo presionado el botón de inicio hasta que veas la imagen de &#8220;Conecta a iTunes&#8221; (A lo mejor en vez de eso vez un dibujo de Steve Jobs).</li>
 </ol>
 
 
@@ -260,7 +260,7 @@ Dispositivos compatibles:
     <li><strong>iPhone 3G y iPhone 3GS:</strong> iOS 3.0, 3.0.1, 3.1, 3.1.2, 3.1.3, 4.0, 4.0.1, 4.0.2.</li>
     <li><strong>iPhone 4:</strong> iOS 4.0, 4.0.1, 4.0.2.</li>
 </ul>
-Baseband's compatibles:
+Baseband&#8217;s compatibles:
 <ul>
     <li>04.26.08.</li>
     <li>05.11.07.</li>
@@ -275,8 +275,8 @@ Allá vamos:
 <strong>PASO 2.</strong> Ahora tenemos que instalar desde Cydia, la aplicación <strong>Ultrasn0w en su versión 1.1-1</strong>. Para esto hacemos:
 <ul>
     <li>Abrimos la aplicación <strong>Cydia</strong>.</li>
-    <li>Pulsamos en la pestaña "<strong>Manage</strong>" de la parte de abajo.</li>
-    <li>Pulsamos en <strong>Sources &gt; Edit &gt; Add</strong>. Al hacer esto te pedirá que introduzcas la URL del repositorio. Escribimos: <strong>http://repo666.ultrasn0w.com</strong>, y luego pulsamos en "Add source".</li>
+    <li>Pulsamos en la pestaña &#8221;<strong>Manage</strong>&#8220; de la parte de abajo.</li>
+    <li>Pulsamos en <strong>Sources &gt; Edit &gt; Add</strong>. Al hacer esto te pedirá que introduzcas la URL del repositorio. Escribimos: <strong>http://repo666.ultrasn0w.com</strong>, y luego pulsamos en &#8220;Add source&#8221;.</li>
 </ul>
 Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y escribimos <strong>Ultrasn0w 1.1-1</strong> e instalamos esta aplicación para hacer el desbloqueo automático de nuestra baseband y dejarnos libre de cualquier operador.
 
@@ -344,7 +344,7 @@ Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y esc
 
 <ol>
     <li>Descarga: <a href="http://www.mediafire.com/?ndznjyjkwjz">Payload Pwner-r6</a> (Esto te ayudará a crear el Payload).</li>
-    <li>Extrae el archivo a una carpeta y ejecuta "<strong>Pwner.exe</strong>"<strong>.</strong></li>
+    <li>Extrae el archivo a una carpeta y ejecuta &#8221;<strong>Pwner.exe</strong>&#8221;<strong>.</strong></li>
 </ol>
 
 
@@ -372,8 +372,8 @@ Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y esc
     <li>Descargar <a href="http://www.mediafire.com/?y1umjywjzmk">iBooty V1.6</a> y extraerlo.</li>
     <li>Extrae el IPSW personalizado que haz creado <strong>en el paso 2</strong> con sn0wbreeze con 7-Zip o cualquier descompresor de archivos.</li>
     <li>Mueve el kernelcache a la misma carpeta donde está el iBooty.</li>
-    <li>Mueve también el iBEC desde la carpeta "Firmware/dfu" a la carpeta del iBooty.</li>
-    <li>Y mueve también el DeviceTree de la carpeta "Firmware\all_flash\all_flash.n88ap.production\DeviceTree.n88ap" a la carpeta del iBooty.</li>
+    <li>Mueve también el iBEC desde la carpeta &#8220;Firmware/dfu&#8221; a la carpeta del iBooty.</li>
+    <li>Y mueve también el DeviceTree de la carpeta &#8220;Firmware\all_flash\all_flash.n88ap.production\DeviceTree.n88ap&#8221; a la carpeta del iBooty.</li>
     <li>Renombramos:</li>
 </ol>
 
@@ -381,9 +381,9 @@ Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y esc
 <ul>
     <li>
 <ul>
-    <li>"Kernel 4.0-Custom" a "<strong>kernel.40</strong>".</li>
-    <li>"iBEC 4.0-Custom" a "<strong>ibec</strong><strong>.40</strong>".</li>
-    <li>"DeviceTree 4.0-Custom" a "<strong>devtree</strong><strong>.40</strong>".</li>
+    <li>&#8220;Kernel 4.0-Custom&#8221; a &#8221;<strong>kernel.40</strong>&#8221;.</li>
+    <li>&#8220;iBEC 4.0-Custom&#8221; a &#8221;<strong>ibec</strong><strong>.40</strong>&#8221;.</li>
+    <li>&#8220;DeviceTree 4.0-Custom&#8221; a &#8221;<strong>devtree</strong><strong>.40</strong>&#8221;.</li>
 </ul>
 </li>
 </ul>
@@ -411,7 +411,7 @@ Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y esc
 <p><strong><span style="color: #ff0000;">IMPORTANTE: </span>Asegúrate de tener instalado el firmware 3.1.2.</strong></p>
 
 <ol>
-    <li>Ejecuta iBooty y selecciona "<strong>Prepare Device for Custom Firmware</strong>". <strong>Asegúrate de que el dispositivo está en modo recuperación (El logo de iTunes con el cable)</strong>. Ejecuta el proceso y espera a ver la imagen de un copo de nieve.</li>
+    <li>Ejecuta iBooty y selecciona &#8221;<strong>Prepare Device for Custom Firmware</strong>&#8221;. <strong>Asegúrate de que el dispositivo está en modo recuperación (El logo de iTunes con el cable)</strong>. Ejecuta el proceso y espera a ver la imagen de un copo de nieve.</li>
     <li>Abre iTunes y restaura al firmware personalizado 4.0 (<em>Mayúsculas o shift+restaurar</em>).</li>
 </ol>
 
@@ -422,7 +422,7 @@ Después de que Cydia ha instalado el repositorio, nos vamos al buscador  y esc
 
 
 <ol>
-    <li>Vuelve a ejecutar iBooty y selecciona "<strong>Boot It</strong>".</li>
+    <li>Vuelve a ejecutar iBooty y selecciona &#8221;<strong>Boot It</strong>&#8221;.</li>
 </ol>
 
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Mac | ThXou]]></title>
+  <title><![CDATA[Category: mac | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-04T19:44:40+01:00</updated>
+  <updated>2015-02-04T20:44:35+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -194,9 +194,9 @@
 <p>Entonces, para saber de donde fue descargado determinado archivo, en Mac:</p>
 
 <ul>
-    <li>Presionar "<strong>Ctrl + Clic</strong>" encima del archivo y en la lista desplegable seleccionar "Obtener Información", o bien</li>
-    <li>Seleccionar el archivo, ir al menú <strong>File &gt; Obtener Información</strong> o presionar "<strong>Command+i</strong>".</li>
-    <li>Si aún no puedes ver la información, haz clic en la sección "<strong>Más información</strong>" para desplegarla toda.</li>
+    <li>Presionar &#8221;<strong>Ctrl + Clic</strong>&#8221; encima del archivo y en la lista desplegable seleccionar &#8220;Obtener Información&#8221;, o bien</li>
+    <li>Seleccionar el archivo, ir al menú <strong>File &gt; Obtener Información</strong> o presionar &#8221;<strong>Command+i</strong>&#8221;.</li>
+    <li>Si aún no puedes ver la información, haz clic en la sección &#8221;<strong>Más información</strong>&#8221; para desplegarla toda.</li>
 </ul>
 
 

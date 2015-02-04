@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Seguridad | ThXou]]></title>
+  <title><![CDATA[Category: seguridad | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/seguridad/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-04T19:44:40+01:00</updated>
+  <updated>2015-02-04T20:44:35+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/"/>
     <updated>2014-06-19T20:44:40+02:00</updated>
     <id>http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c</id>
-    <content type="html"><![CDATA[<p>Esta semana, mientras trabajaba en una aplicación, tuve la idea de "ocultar" algunos datos en forma de texto que no quería que fuesen vistos. Concretamente trabajaba con Core Data, y pues, para incrementar el nivel de seguridad, decidí encriptar ciertos datos que guardaba en Core Data, por el hecho de que cualquier usuario con Jailbreak puede ver los datos de Core Data que no han sido encriptados sin ningún problema. Esto me llevo a buscar algunas soluciones y pues, di con la encriptación AES256.</p>
+    <content type="html"><![CDATA[<p>Esta semana, mientras trabajaba en una aplicación, tuve la idea de &#8220;ocultar&#8221; algunos datos en forma de texto que no quería que fuesen vistos. Concretamente trabajaba con Core Data, y pues, para incrementar el nivel de seguridad, decidí encriptar ciertos datos que guardaba en Core Data, por el hecho de que cualquier usuario con Jailbreak puede ver los datos de Core Data que no han sido encriptados sin ningún problema. Esto me llevo a buscar algunas soluciones y pues, di con la encriptación AES256.</p>
 
 
 
@@ -54,7 +54,7 @@
 <p>Primero que todo necesitamos importar el fichero de cabeceras para que nuestros nuevos métodos de NSData corran tranquilamente en nuestro proyecto:</p>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -64,21 +64,21 @@
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">NSData</span><span class="o">+</span><span class="n">AES256</span><span class="p">.</span><span class="n">h</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Esta categoría tiene un par de método que nos servirán para encriptar y desencriptar contenido. Usan una clase llamada <code>CommonCrypto</code> creada por Apple y provista como una interfaz genérica para tipos de encriptación simétrica, como es el caso de AES. Entonces estos métodos son:</p>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nl">AES256EncryptWithKey:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">key</span><span class="p">;</span>
-</span><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="n">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nl">AES256DecryptWithKey:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">key</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="bp">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">AES256EncryptWithKey:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">key</span><span class="p">;</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="bp">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">AES256DecryptWithKey:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">key</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Hablemos del primero. Este meétodo devuelve un objeto NSData con el texto ya encriptado. Al ser el método de una categoría de NSData, necesitamos pasar nuestro string a encriptar a un objeto NSData. Con esto ya tendríamos casi hecho todo. No obstante, cuando trabajamos con Core Data, NSData es uno de los tipos que requiere algo más de trabajo al momento de usarlo, por lo que nos va a convenir más trabajar con objetos NSString que son más fáciles de manipular. Así que vamos a tener que pasar ese NSData a NSString:</p>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -88,16 +88,16 @@
 </span><span class='line'><span class="n">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">encryptedData</span> <span class="o">=</span> <span class="p">[</span><span class="n">textData</span> <span class="nl">AES256EncryptWithKey:</span><span class="n">kEncryptionKey</span><span class="p">];</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">encryptedString</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData:</span><span class="n">textData</span> <span class="nl">encoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
 </span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Encrypted</span> <span class="nl">String:</span> <span class="o">%</span><span class="err">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">encryptedString</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p><code>kEncryptionKey</code> es la clave que vas a usar para encriptar el contenido. Hay muchos sitios web que te ayudan a crear claves seguras, también puedes hacer tu propio algoritmo, eso depende de ti. En el objeto <code>encryptedData</code> tienes el texto encriptado. Al probar este código te darás cuenta que el NSLog no imprime nada. Esto es porque porque los datos encriptados con AES no se traducen bien a strings planos, por lo que puede que simplemente recibas una cadena <code>null</code>. De cara a trabajar con Core Data, es buena idea pasar el string encriptado a base64 ya que los string en base64 si que son completamente representables como caracteres ASCII y así nos evitamos cualquier inconveniente. Entonces podríamos quitar las 2 últimas líneas del código anterior y poner lo siguiente:</p>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">base64String</span> <span class="o">=</span> <span class="p">[</span><span class="n">encryptedData</span> <span class="nl">base64EncodedStringWithOptions:</span><span class="mi">0</span><span class="p">];</span>
 </span><span class='line'><span class="c1">// luego puedes hacer un NSLog o guardarlo en Core Data directamente</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>A parte de hacer la cadena encriptada fácilmente representable como string, pasarlo a base64 añade una capa más de encriptación que en algunos casos podría servir para confundir al que intente adivinar el texto. Pasarle <code>0</code> como opción, quiere decir que no queremos definir ninguna opción explicitamente.</p>
 
@@ -107,7 +107,7 @@
 <p>Para desencriptar nuestro texto hay que proceder de manera inversa. Decodificamos el string codificado en base64 y lo pasamos a un objeto NSData, acto seguido procedemos a desencriptar los datos usando el segundo de los 2 métodos mencionados arriba y la misma clave que usamos para encriptar el texto, y luego pasamos el NSData resultante a NSString, ya sea para mostrarlo por pantalla o para lo que haga falta:</p>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -115,12 +115,12 @@
 </span><span class='line'><span class="n">NSData</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">decryptedData</span> <span class="o">=</span> <span class="p">[</span><span class="n">decodedData</span> <span class="nl">AES256DecryptWithKey:</span><span class="n">kEncryptionKey</span><span class="p">];</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">decryptedString</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData:</span><span class="n">decryptedData</span> <span class="nl">encoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
 </span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Decrypted</span> <span class="nl">String:</span> <span class="o">%</span><span class="err">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">decryptedString</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>El proyecto de ejemplo que hice para este tutorial sigue exactamente el mismo patrón que he explicado anteriormente. La diferencia es que en el proyecto, una vez encriptado el texto, lo que hago es guardarlo en una entidad de Core Data, luego recupero estos datos y procedo a desencriptarlo y a mostrarlo con un NSLog:</p>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -144,45 +144,39 @@
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// procedemos a encriptar el texto e imprimir el resultado</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">textToEncrypt</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">contrase</span><span class="err">ñ</span><span class="n">asupersecreta</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
-</span><span class='line'><span class="n">NSData</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">textData</span> <span class="o">=</span> <span class="p">[</span><span class="n">textToEncrypt</span> <span class="nl">dataUsingEncoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">encryptedData</span> <span class="o">=</span> <span class="p">[</span><span class="n">textData</span> <span class="nl">AES256EncryptWithKey:</span><span class="n">kEncryptionKey</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">base64EncryptedPassword</span> <span class="o">=</span> <span class="p">[</span><span class="n">encryptedData</span> <span class="nl">base64EncodedStringWithOptions:</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Contrase</span><span class="err">ñ</span><span class="n">a</span> <span class="nl">Encriptada:</span> <span class="o">%</span><span class="err">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">base64EncryptedPassword</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">textToEncrypt</span> <span class="o">=</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">contrase</span><span class="err">ñ</span><span class="n">asupersecreta</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'><span class="bp">NSData</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">textData</span> <span class="o">=</span> <span class="p">[</span><span class="n">textToEncrypt</span> <span class="nl">dataUsingEncoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">encryptedData</span> <span class="o">=</span> <span class="p">[</span><span class="n">textData</span> <span class="nl">AES256EncryptWithKey</span><span class="p">:</span><span class="n">kEncryptionKey</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">base64EncryptedPassword</span> <span class="o">=</span> <span class="p">[</span><span class="n">encryptedData</span> <span class="nl">base64EncodedStringWithOptions</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Contrase</span><span class="err">ñ</span><span class="n">a</span> <span class="nl">Encriptada</span><span class="p">:</span> <span class="o">%</span><span class="p">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">base64EncryptedPassword</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// creamos el objeto modelo y lo guardamos</span>
-</span><span class='line'><span class="n">User</span> <span class="o">*</span><span class="n">user</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSEntityDescription</span> <span class="nl">insertNewObjectForEntityForName:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">User</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>                                       <span class="nl">inManagedObjectContext:</span><span class="n">self</span><span class="p">.</span><span class="n">managedObjectContext</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">user</span><span class="p">.</span><span class="n">username</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ThXou</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'><span class="n">User</span> <span class="o">*</span><span class="n">user</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSEntityDescription</span> <span class="nl">insertNewObjectForEntityForName</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">User</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span>
+</span><span class='line'>                                           <span class="nl">inManagedObjectContext</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">managedObjectContext</span><span class="p">];</span>
+</span><span class='line'><span class="n">user</span><span class="p">.</span><span class="n">username</span> <span class="o">=</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ThXou</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
 </span><span class='line'><span class="n">user</span><span class="p">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">base64EncryptedPassword</span><span class="p">;</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="n">saveContext</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">[</span><span class="nb">self</span> <span class="n">saveContext</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// ahora recuperamos el objeto que guardamos antes</span>
-</span><span class='line'><span class="n">NSFetchRequest</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFetchRequest</span> <span class="nl">fetchRequestWithEntityName:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">User</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
-</span><span class='line'><span class="n">NSArray</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">users</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">managedObjectContext</span> <span class="nl">executeFetchRequest:</span><span class="n">request</span> <span class="nl">error:</span><span class="nb">nil</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="bp">NSFetchRequest</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSFetchRequest</span> <span class="nl">fetchRequestWithEntityName</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">User</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</span><span class='line'><span class="bp">NSArray</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">users</span> <span class="o">=</span> <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">managedObjectContext</span> <span class="nl">executeFetchRequest</span><span class="p">:</span><span class="n">request</span> <span class="nl">error</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// desencriptamos el texto guardado y lo mostramos en pantalla</span>
 </span><span class='line'><span class="n">User</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">encryptedUser</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSData</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">decodedData</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSData</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithBase64EncodedString:</span><span class="n">encryptedUser</span><span class="p">.</span><span class="n">password</span> <span class="nl">options:</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">decryptedData</span> <span class="o">=</span> <span class="p">[</span><span class="n">decodedData</span> <span class="nl">AES256DecryptWithKey:</span><span class="n">kEncryptionKey</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">decryptedString</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData:</span><span class="n">decryptedData</span> <span class="nl">encoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Contrase</span><span class="err">ñ</span><span class="n">a</span> <span class="nl">Desencriptada:</span> <span class="o">%</span><span class="err">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">decryptedString</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'><span class="bp">NSData</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">decodedData</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSData</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithBase64EncodedString</span><span class="p">:</span><span class="n">encryptedUser</span><span class="p">.</span><span class="n">password</span> <span class="nl">options</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSData</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">decryptedData</span> <span class="o">=</span> <span class="p">[</span><span class="n">decodedData</span> <span class="nl">AES256DecryptWithKey</span><span class="p">:</span><span class="n">kEncryptionKey</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">decryptedString</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData</span><span class="p">:</span><span class="n">decryptedData</span> <span class="nl">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Contrase</span><span class="err">ñ</span><span class="n">a</span> <span class="nl">Desencriptada</span><span class="p">:</span> <span class="o">%</span><span class="p">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">decryptedString</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Si aún no te has descargado el proyecto de ejemplo, hazlo desde <a href="https://github.com/ThXou/AESEncryption-Tutorial">este enlace</a>, luego ábrelo y ejecútalo. No hay configurado nada de la interfaz gráfica, por lo que solo verás los resultados en el debugger. Si todo va bien (debería), el resultado será el siguiente:</p>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Contraseña Encriptada: JkDSEvGtzfygH8VxS3F9scomwCrdWFAHVBIbh8TpaYA=
-</span><span class='line'>Contraseña Desencriptada: contraseñasupersecreta</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>Contraseña Desencriptada: contraseñasupersecreta</span></code></pre></td></tr></table></div></figure></p>
 
 <p>En la primera línea se puede ver la contraseña encriptada pero codificada en base64, y en la segunda la contraseña ya desencriptada. Si quieres ver el contenido codificado con base64, puedes usar alguna de las webs que hay por ahí, yo he usado <a href="http://sl.thxou.com/?http://www.base64decode.org/" target="_blank">esta</a>, pero tu puedes usar la que quieras.</p>
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: iPad | ThXou]]></title>
+  <title><![CDATA[Category: ipad | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/ipad/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-04T19:44:40+01:00</updated>
+  <updated>2015-02-04T20:44:35+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -265,7 +265,7 @@
 
 <ul>
     <li><span style="color: #333333;">Antes de empezar a utilizar la herramienta, <strong>retira la tarjeta SIM</strong>. A lo mejor no sucede nada si no la quitas, pero ahorrate los problemas. Si cometes el mismo error que yo, puede que tengas que hacer un duplicado y eso no mola!.</span></li>
-    <li><span style="color: #333333;">El error del mensaje "<strong>Waiting for device</strong>" se soluciona dejando abierto iTunes durante todo el proceso de jailbreak.</span></li>
+    <li><span style="color: #333333;">El error del mensaje &#8221;<strong>Waiting for device</strong>&#8221; se soluciona dejando abierto iTunes durante todo el proceso de jailbreak.</span></li>
 </ul>
 
 ]]></content>

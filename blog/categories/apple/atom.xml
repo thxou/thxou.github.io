@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Apple | ThXou]]></title>
+  <title><![CDATA[Category: apple | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/apple/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-04T19:44:40+01:00</updated>
+  <updated>2015-02-04T20:44:35+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -18,13 +18,13 @@
     <link href="http://www.thxou.com/2013/06/18/un-vistazo-al-nuevo-ios-7/"/>
     <updated>2013-06-18T11:42:00+02:00</updated>
     <id>http://www.thxou.com/2013/06/18/un-vistazo-al-nuevo-ios-7</id>
-    <content type="html"><![CDATA[<p>El pasado lunes 10, como ya sabéis, "tito Tim" lanzó el nuevo sistema operativo <strong>iOS 7,</strong> junto con un buen puñado de novedades entre la que destaca la completamente renovada interfaz gráfica (ver imagen superior) y un conjunto de nuevas funciones que pretenden hacernos la vida más fácil a los usuarios.</p>
+    <content type="html"><![CDATA[<p>El pasado lunes 10, como ya sabéis, &#8220;tito Tim&#8221; lanzó el nuevo sistema operativo <strong>iOS 7,</strong> junto con un buen puñado de novedades entre la que destaca la completamente renovada interfaz gráfica (ver imagen superior) y un conjunto de nuevas funciones que pretenden hacernos la vida más fácil a los usuarios.</p>
 
 
 <p>Hubiera escrito antes este resumen, pero he preferido pasar unos días trasteando con la primera beta para ver que tal y poder dar una opinión más consistente sobre el nuevo OS. Así que sin mayor dilación paso a describir algunos aspectos.</p>
 
 
-<h2>La "fluidez" del SO y la suerte de ser la beta 1</h2>
+<h2>La &#8220;fluidez&#8221; del SO y la suerte de ser la beta 1</h2>
 
 
 <p>Si hay algo que tienen las betas es que puedes mostrar al público un trasto inútil y quedarte tan ancho mientras recibes feedback. Yo soy de los que me comí las 2 horas de Keynote y también vi cuan fluido iba todo en el iPhone de pruebas, mientras mostraban el Safari, el scrolling, acceso a multitarea, etc etc., pues definitivamente ellos no tenían instalada la misma beta que el mortal desarrollador de apps se puede descargar. Hay cocas no tan fluidas como me esperaba, como el hecho de abrir y cerrar la multitarea o las carpetas, que son cosas básicas y deberían de ir bien sobre todo ejecutadas en un iPhone 5, pero bueno, por suerte es una primera beta y yo supongo que los de Apple ya habrán tomado nota de fallos como estos.</p>
@@ -39,7 +39,7 @@
 <h2>La pantalla de bloqueo</h2>
 
 
-<p>Empecemos por el principio, con una de las cosas que me gusta del nuevo iOS. Botón de cámara mostrado sutilmente, fecha y hora con un trazo fino y el "<em>slide to unlock</em>" que para mi no necesitaba una caja contenedora sino solo lo que muestra el nuevo iOS, dejan ver claramente el fondo de pantalla que para mi es importante.</p>
+<p>Empecemos por el principio, con una de las cosas que me gusta del nuevo iOS. Botón de cámara mostrado sutilmente, fecha y hora con un trazo fino y el &#8221;<em>slide to unlock</em>&#8221; que para mi no necesitaba una caja contenedora sino solo lo que muestra el nuevo iOS, dejan ver claramente el fondo de pantalla que para mi es importante.</p>
 
 
 <p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/screen-lock.png"><img class="aligncenter size-medium wp-image-2581" alt="iOS 7 Screen lock en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/screen-lock-171x300.png" width="171" height="300" /></a></p>
@@ -57,7 +57,7 @@
 <p>Yendo al final hay otra línea NO personalizable de accesos directos a aplicaciones. A ver, lo de la linterna está genial, pero y la calculadora que la uso una vez por semana para calcular en cuanto hay que dividir la paga del campo de futbol sala?, porque no poner un área para elegir los iconos que quiero poner?. Esperemos que elegir sea una opción en la beta 2, la 3 o la versión final, seguro que más de uno estará de acuerdo conmigo.</p>
 
 
-<p>Alguna cosa más que me causa rechazo es que se me abra el Control Center al momento de presionar el botón "123" del teclado y luego arrastrar para elegir algo de la segunda pantalla. Me irrita un poco eso, por lo demás, el diseño también me gusta.</p>
+<p>Alguna cosa más que me causa rechazo es que se me abra el Control Center al momento de presionar el botón &#8220;123&#8221; del teclado y luego arrastrar para elegir algo de la segunda pantalla. Me irrita un poco eso, por lo demás, el diseño también me gusta.</p>
 
 
 <h2>Notification Center</h2>
@@ -69,13 +69,13 @@
 <h2>Nuevos iconos de gominola</h2>
 
 
-<p>Aunque es muy cierto que apostar por lo simple es siempre un acierto para mi, se puede uno exceder en simpleza hasta limites "Tim Cookeanos". A veces al desbloquear mi iPhone con iOS 7 me siento como entrando en una tienda de chuches, sobre todo al ver el icono de Game Center (desterrado por fuerza mayor a una pantalla poco concurrida).</p>
+<p>Aunque es muy cierto que apostar por lo simple es siempre un acierto para mi, se puede uno exceder en simpleza hasta limites &#8220;Tim Cookeanos&#8221;. A veces al desbloquear mi iPhone con iOS 7 me siento como entrando en una tienda de chuches, sobre todo al ver el icono de Game Center (desterrado por fuerza mayor a una pantalla poco concurrida).</p>
 
 
 <p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/Screen-Shot-2013-06-18-at-01.08.26.png"><img class="aligncenter size-medium wp-image-2587" alt="Iconos de iOS 7 en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/Screen-Shot-2013-06-18-at-01.08.26-300x166.png" width="300" height="166" /></a></p>
 
 
-<p>Bromas a parte, me gusta la apuesta de Apple por la simpleza, no obstante no me termina de enganchar del todo ya que los nuevos iconos hacen que tenga nostalgia por los anteriores :'c. Pienso que podían habérselo currado más con algunos como el de Game Center, Cámara, Recordatorios, el de bolsa -que parece que hubieran activado la opción "Invertir Colores" de la accesibilidad y hubieran hecho una captura de pantalla-, hacen que sienta un poco como que me han querido "vender la moto", aunque de hecho, ya me la han vendido!.</p>
+<p>Bromas a parte, me gusta la apuesta de Apple por la simpleza, no obstante no me termina de enganchar del todo ya que los nuevos iconos hacen que tenga nostalgia por los anteriores :&#8217;c. Pienso que podían habérselo currado más con algunos como el de Game Center, Cámara, Recordatorios, el de bolsa -que parece que hubieran activado la opción &#8220;Invertir Colores&#8221; de la accesibilidad y hubieran hecho una captura de pantalla-, hacen que sienta un poco como que me han querido &#8220;vender la moto&#8221;, aunque de hecho, ya me la han vendido!.</p>
 
 
 <p>Pese a todo esto, no está del todo mal, es mejorable pero no está mal, por suerte aún queda trozo para la release final y a ver si nos sorprenden, que por lo que leo por ahí, están retocando los iconos. Ya veremos.</p>
@@ -96,7 +96,7 @@
 <h2>Multitarea androide</h2>
 
 
-<p>Saltaba rebosante de felicidad por la nueva multitarea hasta que un compañero con un Android 4 me mostró lo que parece ser "el original". Yo que quieres que te diga, se parecen mucho, obviamente se ve mejor en el iPhone, pero me parece que alguien se ha querido copiar, no diré quien ¬¬.</p>
+<p>Saltaba rebosante de felicidad por la nueva multitarea hasta que un compañero con un Android 4 me mostró lo que parece ser &#8220;el original&#8221;. Yo que quieres que te diga, se parecen mucho, obviamente se ve mejor en el iPhone, pero me parece que alguien se ha querido copiar, no diré quien ¬¬.</p>
 
 
 <p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2013/06/multitarea.png"><img alt="Multitarea de iOS 7 en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/multitarea-170x300.png" width="170" height="300" /></a></p>
@@ -129,13 +129,13 @@
 <p style="text-align: center;"><img class="aligncenter size-medium wp-image-2589" alt="Fotos en el Blog de ThXou" src="http://www.thxou.com/wp-content/uploads/2013/06/Screen-Shot-2013-06-18-at-01.42.36-170x300.png" width="170" height="300" /></p>
 
 
-<p>La pestaña "Shared" te permite crear un Stream, el cual no es más que una forma de compartir tus fotografías y vídeos de forma privada a través de iCloud con las personas que desees. No he podido probar del todo esta característica debido a que al añadir lo que sea, sale un mensaje de alerta que dice que estará disponible muy pronto. Es una beta, no hay que perder los nervios aún.</p>
+<p>La pestaña &#8220;Shared&#8221; te permite crear un Stream, el cual no es más que una forma de compartir tus fotografías y vídeos de forma privada a través de iCloud con las personas que desees. No he podido probar del todo esta característica debido a que al añadir lo que sea, sale un mensaje de alerta que dice que estará disponible muy pronto. Es una beta, no hay que perder los nervios aún.</p>
 
 
 <h2>AirDrop</h2>
 
 
-<p>Compartir por Bluetooth. Una característica que se pedía desde que salió el iPhone allá en 2007, ya es una realidad en el 2013, SOLO 6 años después, que maravilla!. Puedes compartir fotos, vídeo, pases, contactos y mús...Oh wait!, música no.</p>
+<p>Compartir por Bluetooth. Una característica que se pedía desde que salió el iPhone allá en 2007, ya es una realidad en el 2013, SOLO 6 años después, que maravilla!. Puedes compartir fotos, vídeo, pases, contactos y mús&#8230;Oh wait!, música no.</p>
 
 
 <p>No solo usa el Bluetooth sino también puede usar la red Wi-Fi para enviar los datos, y lo hace todo encriptado para mayor seguridad. También puedes ponerte en estado visible o invisible según creas conveniente. Puedes acceder a AirDrop desde cualquier parte del dispositivo, inclusive desde cualquier aplicación, esto es debido a que está permanentemente integrado en el Control Center.</p>
@@ -184,7 +184,7 @@
     <content type="html"><![CDATA[<p><a href="http://www.thxou.com/2012/09/05/keynote-para-el-12-de-setiembre/">Tal y como se esperaba</a>, hoy ha habido keynote y con muchas novedades interesantes: iPhone 5, nuevo iPod Nano, iOS 6, etc. Para todos los desarrolladores también ha salido la versión Golden Master del iOS 6 y la pueden descargar desde ya.</p>
 
 
-<p>Para los que no lo saben, una versión Golden Master es una versión "casi" final, osea que es muy probable que la versión final sea similar o igual a esta.</p>
+<p>Para los que no lo saben, una versión Golden Master es una versión &#8220;casi&#8221; final, osea que es muy probable que la versión final sea similar o igual a esta.</p>
 
 
 <p>Según Apple, la versión final de iOS 6 estará viendo la luz el <strong>19 de setiembre</strong> y estará disponible únicamente para el iPhone 3GS, iPhone 4, iPhone 4S, iPod Touch 4G, iPad 2 y el nuevo iPad.</p>
