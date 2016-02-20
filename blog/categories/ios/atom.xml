@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ios | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-02-21T00:07:07+01:00</updated>
+  <updated>2016-02-21T00:18:28+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -12,124 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Strong Reference Cycles en Objective-C Y Swift]]></title>
-    <link href="http://www.thxou.com/2015/02/05/strong-reference-cycles/"/>
-    <updated>2015-02-05T00:37:51+01:00</updated>
-    <id>http://www.thxou.com/2015/02/05/strong-reference-cycles</id>
-    <content type="html"><![CDATA[<p><div style="text-align:center;"><img src="http://www.thxou.com/wp-content/uploads/2015/02/src.png" /></div></p>
-
-
-
-
-<p>La salida de ARC allá por iOS 5, para muchos de los que por aquel tiempo estábamos empezando y se nos atragantaba la gestión de memoria, supuso algo como “ver la luz al fondo del túnel” del conteo manual de referencias. Algunos por un tiempo lo confundimos con un Garbage Collector (Como en Java jeje) y otros simplemente hicimos un <code>release</code> de la Gestión de Memoria en nuestros cerebros y pasamos olímpicamente del tema.</p>
-
-
-
-
-<p>Las primeras descripciones sobre ARC parecían decir: &#8220;Déja TODA* la getión de memoria a ARC&#8221;, ingenuos algunos respiramos aliviados sin saber que ese &#8220;TODA&#8221; tenía letra pequeña. Esta letra pequeña decía: &#8220;Toda, pero ojo con los Strong Reference Cycles&#8221;. Una lectura un poco más minuciosa de la documentación nos permitía descubrir estos pequeños fabricantes de <strong>memory leaks</strong>, los cuales pueden pasar (y pasan) desapercibidos mientras vamos escribiendo el código de nuestras aplicaciones.</p>
-
-
-<!--more-->
-
-
-
-
-<h2>En que consisten?</h2>
-
-
-
-
-<p>Cuando hablamos de la gestión de memoria en Objective-C y Swift, inmediatamente hablamos del tema de la &#8220;Apropiación&#8221; (Ownership). Un objeto es propietario de otro cuando mantiene una referencia fuerte (strong reference) hacia ese otro objeto (al momento de crearlo por ejemplo). Ese otro objeto va a permanecer en memoria hasta que su &#8220;propietario&#8221; sea liberado de la misma. De esta forma es como se relacionan los objectos entre si y son liberados. Como regla general, <strong>un objecto va a permanecer vivo en la memoria siempre que tenga propietario</strong>, es decir, siempre que tenga una referencia fuerte proveniente desde otro objeto.</p>
-
-
-
-
-<p>Los <strong>Strong Reference Cycles</strong> (o siclo de rerefencias fuertes) son el único problema de memoria que ARC no gestiona automáticamente. Ocurren cuando un objeto es propietario de otro, y ese otro objeto es a su vez propietario del primero, osea que mantienen referencias fuertes entre ellos. La imagen de la parte superior explica exactamente esto, en ella observamos que también existen <em>Otros objetos</em>, los cuales tienen referencias fuertes hacia <em>Objeto 1</em> y <em>Objeto 2</em>. Que sucede cuando estos <em>Otros objetos</em> son liberados de la memoria?, pues que nos queda un bonito Strong Reference Cycle entre <em>Objeto 1</em> y <em>Objeto 2</em>, lo que supone que estos 2 objetos nunca van a ser liberados de la memoria y van a deambular por ahí ocupando un espacio que podría ser necesario para otras tareas, o también, en caso de que se vayan acumulando, podrían ocacionar el agotamiento de la memoria del dispositivo.</p>
-
-
-
-
-<h2>El caso de Objective-C</h2>
-
-
-
-
-<p>Vamos a ver un par de casos muy comunes en Objective-C, muy propensos a que nos encontremos con ellos a medida que escribimos código. Estoy hablando de cuando trabajamos con delegados y con bloques.</p>
-
-
-
-
-<h3>Delegación</h3>
-
-
-
-
-<p>El <a href="http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/">patrón de delegación</a> es de uso muy común en Objective-C. Consiste específicamente en que un objeto &#8221;<strong>delega</strong>&#8221; a otro objeto, la ejecución de algunas tareas para que las haga por él. Este otro objeto recibe el nombre de <em>delegado</em>. Entonces, consideremos el siguiente ejemplo:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">@</span><span class="n">import</span> <span class="n">Foundation</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@protocol</span> <span class="nc">LCAnimatedMenuDelegate</span>;<span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@interface</span> <span class="nc">LCAnimatedMenu</span> : <span class="bp">NSObject</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">)</span> <span class="kt">id</span> <span class="o">&lt;</span><span class="n">LCAnimatedMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
-</span><span class='line'><span class="k">@end</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@protocol</span> <span class="nc">LCAnimatedMenuDelegate</span> <span class="o">&lt;</span><span class="bp">NSObject</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">willDisplayAnimatedMenu</span><span class="p">:(</span><span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="p">)</span><span class="n">animatedMenu</span><span class="p">;</span>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>En este trozo de código aparentemente inocente, ya nos escontramos con un caso que podría generar un Strong Reference Cycle. El problema está al momento de crear la propiedad <code>delegate</code>, la cual solo está declarada como <code>nonatomic</code>, por lo tanto le estamos diciendo implícitamente al objeto <code>LCAnimatedMenu</code>, que mantenga una referencia fuerte hacia su delegado a través de la propiedad <code>delegate</code>. Siguiendo con el uso común de este patrón, vamos a requerir que otro objeto actue de delegado, para esto, y comunmente lo haremos en un <em>view controller</em> (llamemosle <em>HomeViewController</em>), haremos lo siguiente en alguna parte del código del controlador:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// en HomeViewController.m</span>
-</span><span class='line'><span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="n">animatedMenu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCAnimatedMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
-</span><span class='line'><span class="n">animatedMenu</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span><span class="p">;</span> <span class="c1">// WARNING! WARNING!</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Cual es el problema aquí?. <em>HomeViewController</em> está creando el objeto <code>animatedMenu</code>, estableciendo una referencia fuerte hacia él. Entonces, cuando asignamos a <em>HomeViewController</em> (self) como delegado de <code>animatedMenu</code>, estamos estableciendo otra referencia fuerte en sentido contrario a través de la propiedad <code>delegate</code>, que como vimos más arriba, está implícitamente definida como <code>strong</code>. Ahora fijémonos en la imagen de arriba, si los <em>Otros objetos</em> fueran liberados de la memoria, de manera que dejaran de tener referencias fuertes hacia <em>Objeto 1</em> y <em>Objeto 2</em>, estos 2 aún conservarían sus referencias fuertes entre si, por lo tanto nunca serían liberados de la memoria. Esto es lo que se llama un señor Strong Reference Cycle.</p>
-
-
-
-
-<p>La solución a esto es muy sencilla, y es establecer una referencia débil en uno de los 2 sentidos, en este caso lo haremos en la propiedad <code>delegate</code>. Para ellos cambiamos la propiedad y la declaramos como <code>weak</code>:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">weak</span><span class="p">)</span> <span class="kt">id</span> <span class="o">&lt;</span><span class="n">LCAnimatedMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Una referencia débil (<code>weak</code>) no implica &#8220;Apropiación&#8221; y no mantiene vivo a un objeto como lo hace una referencia fuerte. En este caso, definir a <code>delegate</code> como débil, va a permitirle liberarse de la memoria cuando ninguno de los <em>Otros objetos</em> de la imagen, tenga referencias fuertes hacia él. Acto seguido también se liberará de la memoria el objeto <code>animatedMenu</code> y nos habremos quitado de encima el Strong Reference Cycle.</p>
-
-
-
-
-<h3>Bloques</h3>
-
-
-
-
-<p>Los bloques son trozos de código, </p>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[CocoaPods: Como Integrarlo en Nuestros Proyectos]]></title>
@@ -935,6 +817,431 @@
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>Como vez, no estamos utilizando el objeto <code>center</code>, y a decir verdad para ahorrarte una innecesaria línea de código te recomiendo no crear un objeto <code>NSNotificationCenter</code>, sino usar la forma: <code>[[NSNotificationCenter defaultCenter] ...</code> , como en el código de arriba.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Trabajando Con El Social Framework: SLRequest, Publicar en Twitter Y Obtener El Timeline]]></title>
+    <link href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/"/>
+    <updated>2012-09-20T16:57:56+02:00</updated>
+    <id>http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png"><img class="size-full wp-image-2359" title="totweet-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-20-at-14.23.29.png" alt="" width="319" height="479" /></a></p>
+
+
+<p>Seguint amb els tutorials sobre iOS 6, avui ens toca Twittear (o com s&#8217;escrigui) i mostrar el nostre timeline de Twitter en una aplicació.</p>
+
+
+
+
+<p>Abans quan volíem comunicar-nos amb Twitter i obtenir dades i actualitzar-los calia fer una connexió a través de OAuth amb uns tokens i secret-keys, això normalment es podia digerir millor usant algun framework o classe externa que servia d&#8217;interfície de connexió entre el client i el servei. Des de l&#8217;arribada del framework de Twitter i la integració amb iOS 5 les coses es van posar extraordinàriament més fàcils, això ens va permetre l&#8217;intercanvi de dades amb Twitter en tan sol pocs passos.</p>
+
+
+
+
+<p>En el Social *Framework tenim una classe anomenada <code>SLRequest</code>, molt similar a <code>TWRequest</code> del framework de twitter. Aquesta classe encapsula les propietats d&#8217;una petició HTTP en mètodes fàcils d&#8217;utilitzar, amb els quals enviem peticions a Twitter per poder obtenir i actualitzar dades dels nostres comptes configurats en el dispositiu.</p>
+
+
+
+
+<p>Bàsicament enviem una petició HTTP amb uns paràmetres que configuren el que volem dur a terme en el servei, si Twitter diu que no hi ha problema, rebem una resposta amb unes dades que hem de manipular i mostrar a l&#8217;usuari, en cas contrari rebem una informació d&#8217;error.</p>
+
+
+<!-- more -->
+
+
+<h2>Autenticant la petició</h2>
+
+
+<p>Com els deia paràgrafs enrere, abans calia usar tokens i secret-keys per autenticar-nos en Twitter i així poder validar les nostres peticions. Amb el Social Framework fem el mateix però de forma automàtica, més transparent a l&#8217;usuari, i en certa forma al desenvolupador, ja que en cap moment hem de manipular tokens.</p>
+
+
+
+
+<p>Des de iOS 5 tenim el Accounts Framework, el qual proveeix un sistema centralitzat de comptes d&#8217;usuari. A través de l&#8217;es emmagatzemen tots els comptes de Twitter (I d&#8217;altres serveis) configurades en el dispositiu: informació d&#8217;usuari i contrasenya i altra, això ens permet saltar-nos aquesta típica finestra d&#8217;inici de sessió sense haver de preocupar-nos per proveir un sistema per emmagatzemar nosaltres mateixos les credencials.</p>
+
+
+
+
+<p>Hi ha poques coses que podem fer sense autenticació d&#8217;usuari, i obtenir el timeline és una d&#8217;elles. No obstant això, per fer que això funcioni amb qualsevol compte, centralitzarem totes les peticions en els comptes obtinguts de la base de dades de comptes del dispositiu. Comencem:</p>
+
+
+
+
+<p>El primer serà importar els frameworks:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Accounts</span><span class="o">/</span><span class="n">Accounts</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Social</span><span class="o">/</span><span class="n">Social</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Després fem la màgia d&#8217;obtenir els comptes del dispositiu amb el Accounts Framework:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="bp">ACAccountStore</span><span class="err"> </span><span class="o">*</span><span class="n">accountStore</span><span class="err"> </span><span class="o">=</span> <span class="p">[[</span><span class="bp">ACAccountStore</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// creguem un objecte accountType especificant que solament volem obtenir els comptes de Twitter</span>
+</span><span class='line'><span class="bp">ACAccountType</span><span class="err"> </span><span class="o">*</span><span class="n">accountType</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">accountTypeWithAccountTypeIdentifier</span><span class="p">:</span><span class="n">ACAccountTypeIdentifierTwitter</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">requestAccessToAccountsWithType</span><span class="p">:</span><span class="n">accountType</span>
+</span><span class='line'>                                      <span class="nl">options</span><span class="p">:</span><span class="nb">nil</span>
+</span><span class='line'>                                   <span class="nl">completion</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="kt">BOOL</span><span class="err"> </span><span class="n">granted</span><span class="p">,</span> <span class="bp">NSError</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">granted</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// guardem els comptes de twitter en un array </span>
+</span><span class='line'>        <span class="bp">NSArray</span><span class="err"> </span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">accountsArray</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountStore</span><span class="err"> </span><span class="nl">accountsWithAccountType</span><span class="p">:</span><span class="n">accountType</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">// armem la petició aquí</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span><span class="err"> </span><span class="p">{</span>
+</span><span class='line'>        <span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Error</span> <span class="n">no</span> <span class="n">se</span> <span class="n">pudo</span> <span class="n">acceder</span> <span class="n">a</span> <span class="n">las</span> <span class="nl">cuentas</span><span class="p">:</span> <span class="o">%</span><span class="p">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>El que fem aquí és crear una instància de la base de dades de comptes. Després a través de la classe <code>ACAccountType</code> diem que solament volem els comptes de Twitter, passant-li la constant  <code>ACAccountTypeIdentifierTwitter</code> com a argument en la inicialització. Tot seguit demanem accés a les comptes amb el mètode <code>requestAccessToAccountsWithType:options:completion:</code>. Aquest mètode té com a argument el bloc <code>completion:</code>, el qual és un handler (Un objecte &#8220;manipulador&#8221; per així dir-ho) en els paràmetres del qual és retornada la resposta del mètode. Si tot va bé emmagatzemem tots els comptes obtinguts en el array <code>accountsArray</code> o vam mostrar un error en cas contrari. Simple.</p>
+
+
+
+
+<p>Recorda aquesta dinàmica d&#8217;executar un mètode i rebre una resposta per ser manipulada en un bloc, perquè ho veuràs molt sovint des d&#8217;ara.</p>
+
+
+<h2>Construint la petició per obtenir el timeline</h2>
+
+
+<p>Amb el Social Framework és definitivament molt més fàcil construir una petició HTTP. Sabem que està composta per:</p>
+
+
+<ol>
+    <li>Una URL que identifica l&#8217;operació que volem realitzar en el servei.</li>
+    <li>Un mètode de petició, que pot ser GET, POST o DELETE.</li>
+    <li>I uns paràmetres de configuració.</li>
+</ol>
+
+
+<p>El mètode <code>requestForServiceType:requestMethod:URL:parameters:</code> passa totes aquestes dades com els seus arguments i això ens permet crear la petició en tan sol una línia de codi si així ho desitgem.</p>
+
+
+
+
+<p>El que nosaltres volem és obtenir el timeline, per tant necessitem anar a la <a title="Versión 1.1 de la API de Twitter" href="http://securelink.thxou.com/?https://dev.twitter.com/docs/api/1.1" target="_blank">documentació oficial</a> per veure el que hem d&#8217;usar. En entrar en l&#8217;enllaç i seleccionar l&#8217;operació de la qual volem veure els detalls (en aquest cas és: <code>GET</code> <code>statuses/home_timeline</code>), veurem en l&#8217;apartat <strong>Resourse Information</strong> certa informació molt important:
+<p style="text-align: center;"><img class="size-full wp-image-2326 aligncenter" title="twitter-thxou.com" src="http://www.thxou.com/wp-content/uploads/2012/09/Screen-Shot-2012-09-11-at-17.08.28.png" alt="" width="249" height="392" /></p>
+Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;objecte de resposta (Tweets). Després està l&#8217;apartat <strong>Resource URL</strong> que és la URL que li passarem i l&#8217;apartat <strong>Parameters</strong>, que conté els paràmetres per configurar-la. Usant aquesta informació construïm la petició:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// guardem el compte</span>
+</span><span class='line'><span class="bp">ACAccount</span><span class="err"> </span><span class="o">*</span><span class="n">twitterAccount</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">accountsArray</span><span class="err"> </span><span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">cuenta</span> <span class="o">=</span> <span class="n">twitterAccount</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// creguem la petició</span>
+</span><span class='line'><span class="bp">NSURL</span><span class="err"> </span><span class="o">*</span><span class="n">url</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span><span class="err"> </span><span class="nl">URLWithString</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://api.twitter.com/1.1/statuses/home_timeline.json&quot;</span><span class="o">&gt;</span><span class="nl">https</span><span class="p">:</span><span class="c1">//api.twitter.com/1.1/statuses/home_timeline.json&lt;/a&gt;&amp;rdquo;];&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="bp">NSDictionary</span><span class="err"> </span><span class="o">*</span><span class="n">parametros</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="bp">NSDictionary</span><span class="err"> </span><span class="nl">dictionaryWithObjectsAndKeys</span><span class="p">:</span>
+</span><span class='line'>                                <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="mi">25</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">count</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="nb">nil</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="bp">SLRequest</span> <span class="o">*</span><span class="n">request</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="bp">SLRequest</span> <span class="nl">requestForServiceType</span><span class="p">:</span><span class="n">SLServiceTypeTwitter</span>
+</span><span class='line'>                                        <span class="nl">requestMethod</span><span class="p">:</span><span class="n">SLRequestMethodGET</span>
+</span><span class='line'>                                                  <span class="nl">URL</span><span class="p">:</span><span class="n">url</span>
+</span><span class='line'>                                           <span class="nl">parameters</span><span class="p">:</span><span class="n">parametros</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// associem el compte a la petició</span>
+</span><span class='line'><span class="p">[</span><span class="n">request</span><span class="err"> </span><span class="nl">setAccount</span><span class="p">:</span><span class="n">twitterAccount</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Per motius de brevetat tan solament utilitzarem el primer compte de les quals hi ha en el array.</p>
+
+
+
+
+<p>He creat la propietat <code>cuenta</code> de tipus <code>ACAccount</code>, en ella emmagatzemem aquest compte per posteriorment poder enviar-la al controlador des del qual publicarem un missatge d&#8217;estat (el que és un Tweet) al nostre timeline, això més endavant.</p>
+
+
+
+
+<p>Com poden veure tenim un diccionari per als paràmetres. El meu solament té una key: <code>count</code>, aquesta ens permet limitar la quantitat de tweets que ens va a retornar el timeline que per defecte és 20, però jo l&#8217;he posat a 25. En la documentació de la API estan tots els paràmetres que podem usar per configurar la petició.</p>
+
+
+
+
+<p>El següent és assignar-li a la propietat <code>account</code> de la nostra petició, el compte que hem triat del array i amb la qual volem treballar per mostrar el timeline i altres coses.</p>
+
+
+<h2>Enviant la petició i manipulant els resultats</h2>
+
+
+<p>Una vegada construïda la petició procedim a enviar-la. Per a això usem el mètode <code>performRequestWithHandler:</code> que envia la petició i recull els resultats en el seu únic argument. Est és al seu torn un bloc, el qual és executat una vegada estan disponibles les dades de la resposta.</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// realitzem la petició especificant un mètode per manipular la resposta</span>
+</span><span class='line'><span class="p">[</span><span class="n">request</span><span class="err"> </span><span class="nl">performRequestWithHandler</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="bp">NSData</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">responseData</span><span class="p">,</span> <span class="bp">NSHTTPURLResponse</span><span class="err"> </span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">urlResponse</span><span class="p">,</span> <span class="bp">NSError</span><span class="err"> </span><span class="o">*</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">responseData</span><span class="err"> </span><span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">tweets</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSJSONSerialization</span><span class="err"> </span><span class="nl">JSONObjectWithData</span><span class="p">:</span><span class="n">responseData</span>
+</span><span class='line'>                                                      <span class="nl">options</span><span class="p">:</span><span class="n">kNilOptions</span>
+</span><span class='line'>                                                        <span class="nl">error</span><span class="p">:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Aquest bloc té 3 paràmetres, el més important és <code>responseData</code>, perquè és el que va a contenir els tweets. Aquests tweets estan en format JSON com vam veure abans, per tant necessitem parsearlos i així passar-los a un format manipulable en Objective-C. Per fer això existeix la classe <code>NSJSONSerialization</code>, que agafa les dades en <code>NSData</code> (en aquest cas <code>responseData</code>), els parsea i retorna. Aquestes dades retornades els emmagatzemem en el array <code>tweets</code>, que a continuació usarem per mostrar-los a l&#8217;usuari.</p>
+
+
+<p><blockquote><p>Pots aprendre més sobre com parsear dades en format JSON i la classe <code>NSJSONSerialization</code> en el nostre pràctic tutorial sobre el tema fent <a href="http://www.thxou.com/2012/09/11/parsear-y-crear-ficheros-en-formato-json-en-ios/"><strong>clic aquí</strong></a>.</p></blockquote></p>
+
+<h2>Mostrant els resultats</h2>
+
+
+<p>Bé, ja tenim fet gairebé tot el treball, ara solament ens queda mostrar els resultats, i para això tenim l&#8217;objecte <code>tweetsTableView</code>. A causa que ja tenim tots els Tweets en un array, és relativament senzill mostrar-los en el tableView, per això anem directament a implementar els mètodes convenients:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="nf">numberOfSectionsInTableView:</span><span class="p">(</span><span class="bp">UITableView</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="nv">tableView</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span><span class="err"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="nl">tableView</span><span class="p">:(</span><span class="bp">UITableView</span><span class="err"> </span><span class="o">*</span><span class="p">)</span><span class="n">tableView</span><span class="err"> </span><span class="nl">numberOfRowsInSection</span><span class="p">:(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="n">section</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span><span class="err"> </span><span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">tweets</span> <span class="n">count</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">(</span><span class="bp">UITableViewCell</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nl">tableView</span><span class="p">:(</span><span class="bp">UITableView</span><span class="err"> </span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">tableView</span><span class="err"> </span><span class="nl">cellForRowAtIndexPath</span><span class="p">:(</span><span class="bp">NSIndexPath</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">static</span><span class="err"> </span><span class="bp">NSString</span><span class="err"> </span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">CellIdentifier</span><span class="err"> </span><span class="o">=</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Cell</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'>  <span class="bp">UITableViewCell</span><span class="err"> </span><span class="o">*</span><span class="n">cell</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="n">tableView</span><span class="err"> </span><span class="nl">dequeueReusableCellWithIdentifier</span><span class="p">:</span><span class="n">CellIdentifier</span><span class="p">];</span>
+</span><span class='line'>  <span class="k">if</span><span class="err"> </span><span class="p">(</span><span class="n">cell</span><span class="err"> </span><span class="o">==</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">cell</span><span class="err"> </span><span class="o">=</span> <span class="p">[[[</span><span class="bp">UITableViewCell</span><span class="err"> </span><span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithStyle</span><span class="p">:</span><span class="n">UITableViewCellStyleSubtitle</span><span class="err"> </span><span class="nl">reuseIdentifier</span><span class="p">:</span><span class="n">CellIdentifier</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="bp">NSDictionary</span><span class="err"> </span><span class="o">*</span><span class="n">tweet</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">tweets</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">text</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</span><span class='line'>  <span class="n">cell</span><span class="p">.</span><span class="n">detailTextLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">user</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]</span> <span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">screen_name</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c1">// carreguem les imatges dels quals envien el tweet, de forma asíncrona</span>
+</span><span class='line'>  <span class="kt">dispatch_queue_t</span> <span class="n">queue</span><span class="err"> </span><span class="o">=</span> <span class="n">dispatch_queue_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">com</span><span class="p">.</span><span class="n">thxou</span><span class="p">.</span><span class="n">totweet</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>  <span class="kt">dispatch_queue_t</span> <span class="n">main</span> <span class="o">=</span> <span class="n">dispatch_get_main_queue</span><span class="p">();</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">dispatch_async</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+</span><span class='line'>      <span class="bp">NSURL</span><span class="err"> </span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">imageURL</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span><span class="err"> </span><span class="nl">URLWithString</span><span class="p">:[[</span><span class="n">tweet</span><span class="err"> </span><span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">user</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]</span> <span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">profile_image_url</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]];</span>
+</span><span class='line'>      <span class="bp">NSData</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">imageData</span><span class="err"> </span><span class="o">=</span> <span class="p">[</span><span class="bp">NSData</span> <span class="nl">dataWithContentsOfURL</span><span class="p">:</span><span class="n">imageURL</span><span class="p">];</span>
+</span><span class='line'>      <span class="n">dispatch_async</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+</span><span class='line'>          <span class="n">cell</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span><span class="err"> </span><span class="nl">imageWithData</span><span class="p">:</span><span class="n">imageData</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>  <span class="n">dispatch_release</span><span class="p">(</span><span class="n">queue</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">return</span> <span class="n">cell</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p></li>
+</ul>
+
+
+<p>Aquí hi ha algunes línies que els sonaran a xinès, no obstant això explicaré una mica per damunt que està succeint.</p>
+
+
+
+
+<p>Al parsearse les dades aquests són emmagatzemats en el array <code>tweets</code>, però els tweets dins del, són emmagatzemats en forma de diccionaris, fàcilment recuperables usant la classe <code>NSDictionary</code>. Llavors recuperem cada camp d&#8217;aquest array en un diccionari que jo he anomenat <code>tweet</code> per fer-ho més identificable (en realitat això és el que representa). Com ja saben, accedim als valors d&#8217;un diccionari a través de keys, però quines són aquestes keys?, ens anem a la <a href="https://dev.twitter.com/docs/platform-objects/tweets">documentació oficial</a> i ho mirem allí. El que fem és simplement mostrar el text del tweet com a títol i el nom &#8220;del que tweetea&#8221; com subtitulo en cada cel·la.</p>
+
+
+
+
+<p>Per mostrar la imatge el que fem és usar el <strong>GCD</strong> (Grand Central Dispatch) d&#8217;Apple. A grans trets explicar-los que la descàrrega de dades de la xarxa sempre deuria ser de forma asíncrona, això és perquè és un procés que triga una mica a dur-se a terme i per tant no pot fer-se en el mateix thread (fil) ja que podem bloquejar-ho, i això deixaria inutilitzable la interfície d&#8217;usuari fins que es completi el procés, cosa que pel bé dels nostres usuaris, no volem. Doncs aquest problema ho soluciona el <strong>GCD</strong>, fent que certs mètodes s&#8217;executin de forma asíncrona (en un altre fil o thread), d&#8217;aquesta forma evitem bloquejar la interfície d&#8217;usuari.</p>
+
+
+<h2>Enviant un tweet</h2>
+
+
+<p>Doncs fer això és una mica més del mateix. Jo he creat un nou controlador per fer això anomenat <code>EnviarTweetViewController</code>, el qual es mostra en una finestra modal i té un TextView i dos botons: un per enviar el tweet i un altre per cancel·lar l&#8217;operació.</p>
+
+
+
+
+<p>El d&#8217;enviar el tweet executa el mètode <code>enviarTweet:</code>:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">enviarTweet:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// comprovem si el camp per escriure el tweet no està buit</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">tweet</span><span class="p">.</span><span class="n">text</span> <span class="nl">isEqualToString</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;])</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="bp">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span> <span class="nl">URLWithString</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://api.twitter.com/1.1/statuses/update.json&quot;</span><span class="o">&gt;</span><span class="nl">https</span><span class="p">:</span><span class="c1">//api.twitter.com/1.1/statuses/update.json&lt;/a&gt;&amp;rdquo;];&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">parametros</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys</span><span class="p">:</span>
+</span><span class='line'>                                <span class="nb">self</span><span class="p">.</span><span class="n">tweet</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">@&quot;status&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">SLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="bp">SLRequest</span> <span class="nl">requestForServiceType</span><span class="p">:</span><span class="n">SLServiceTypeTwitter</span>
+</span><span class='line'>                                            <span class="nl">requestMethod</span><span class="p">:</span><span class="n">SLRequestMethodPOST</span>
+</span><span class='line'>                                                      <span class="nl">URL</span><span class="p">:</span><span class="n">url</span>
+</span><span class='line'>                                               <span class="nl">parameters</span><span class="p">:</span><span class="n">parametros</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// assignem el compte que usarem per publicar el tweet</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">request</span> <span class="nl">setAccount</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">cuenta</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="p">[</span><span class="n">request</span> <span class="nl">performRequestWithHandler</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="bp">NSData</span> <span class="o">*</span><span class="n">responseData</span><span class="p">,</span> <span class="bp">NSHTTPURLResponse</span> <span class="o">*</span><span class="n">urlResponse</span><span class="p">,</span> <span class="bp">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'>     <span class="p">{</span>
+</span><span class='line'>         <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">resultado</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSJSONSerialization</span> <span class="nl">JSONObjectWithData</span><span class="p">:</span><span class="n">responseData</span>
+</span><span class='line'>                                                                   <span class="nl">options</span><span class="p">:</span><span class="n">kNilOptions</span>
+</span><span class='line'>                                                                     <span class="nl">error</span><span class="p">:</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>     <span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">cancelar</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Com podeu observar es fa exactament el mateix. Tan solament canvien els paràmetres, la URL i el mètode de la petició, i tot això el podem trobar en la documentació oficial.</p>
+
+
+
+
+<p>A diferència de l&#8217;anterior, aquí no accedim a tots els comptes del dispositiu, sinó que simplement passem a aquest controlador el compte que hem obtingut abans, així ens assegurem que el compte que està seleccionada és des de la qual s&#8217;envia el tweet i sobre la qual es fan les operacions sol·licitades. No hi ha misteri.</p>
+
+
+<h2>Conclusió</h2>
+
+
+<p>El procediment per dur a terme totes aquestes accions en Twitter porten la mateixa estructura. Tan solament varien els paràmetres, la URL i el mètode de la petició. Pel que, si volem fer qualsevol cosa,  hem d&#8217;anar a la documentació i mirar el que necessitem. Després reemplaçar les dades que hem vist abans amb els nous, enviar la petició i mostrar a l&#8217;usuari les dades obtingudes. Així de fàcil és treballar amb el Social Framework.</p>
+
+
+
+
+<p>Ara pots passar-te per la <a href="http://securelink.thxou.com/?https://developer.apple.com/library/ios/documentation/Social/Reference/SLRequest_Class/Reference/Reference.html#//apple_ref/doc/uid/TP40012234">documentació d&#8217;Apple</a> sobre aquest tema i també visitar el nostre tutorial sobre com parsear i manipular fitxers JSON de forma nativa i així estendre una mica més els teus coneixements.</p>
+
+
+<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/c0bb4xgyatv10t5nhvll"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
 
 ]]></content>
   </entry>

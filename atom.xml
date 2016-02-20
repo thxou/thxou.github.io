@@ -4,7 +4,7 @@
   <title><![CDATA[ThXou]]></title>
   <link href="http://www.thxou.com/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-02-21T00:07:07+01:00</updated>
+  <updated>2016-02-21T00:18:28+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -12,80 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Strong Reference Cycles en Objective-C Y Swift]]></title>
-    <link href="http://www.thxou.com/2015/02/05/strong-reference-cycles/"/>
-    <updated>2015-02-05T00:37:51+01:00</updated>
-    <id>http://www.thxou.com/2015/02/05/strong-reference-cycles</id>
-    <content type="html"><![CDATA[<p><div style="text-align:center;"><img src="http://www.thxou.com/wp-content/uploads/2015/02/src.png" /></div></p>
-
-<p>La salida de ARC allá por iOS 5, para muchos de los que por aquel tiempo estábamos empezando y se nos atragantaba la gestión de memoria, supuso algo como “ver la luz al fondo del túnel” del conteo manual de referencias. Algunos por un tiempo lo confundimos con un Garbage Collector (Como en Java jeje) y otros simplemente hicimos un <code>release</code> de la Gestión de Memoria en nuestros cerebros y pasamos olímpicamente del tema.</p>
-
-<p>Las primeras descripciones sobre ARC parecían decir: &#8220;Déja TODA* la getión de memoria a ARC&#8221;, ingenuos algunos respiramos aliviados sin saber que ese &#8220;TODA&#8221; tenía letra pequeña. Esta letra pequeña decía: &#8220;Toda, pero ojo con los Strong Reference Cycles&#8221;. Una lectura un poco más minuciosa de la documentación nos permitía descubrir estos pequeños fabricantes de <strong>memory leaks</strong>, los cuales pueden pasar (y pasan) desapercibidos mientras vamos escribiendo el código de nuestras aplicaciones.</p><!--more-->
-
-<h2>En que consisten?</h2>
-
-<p>Cuando hablamos de la gestión de memoria en Objective-C y Swift, inmediatamente hablamos del tema de la &#8220;Apropiación&#8221; (Ownership). Un objeto es propietario de otro cuando mantiene una referencia fuerte (strong reference) hacia ese otro objeto (al momento de crearlo por ejemplo). Ese otro objeto va a permanecer en memoria hasta que su &#8220;propietario&#8221; sea liberado de la misma. De esta forma es como se relacionan los objectos entre si y son liberados. Como regla general, <strong>un objecto va a permanecer vivo en la memoria siempre que tenga propietario</strong>, es decir, siempre que tenga una referencia fuerte proveniente desde otro objeto.</p>
-
-<p>Los <strong>Strong Reference Cycles</strong> (o siclo de rerefencias fuertes) son el único problema de memoria que ARC no gestiona automáticamente. Ocurren cuando un objeto es propietario de otro, y ese otro objeto es a su vez propietario del primero, osea que mantienen referencias fuertes entre ellos. La imagen de la parte superior explica exactamente esto, en ella observamos que también existen <em>Otros objetos</em>, los cuales tienen referencias fuertes hacia <em>Objeto 1</em> y <em>Objeto 2</em>. Que sucede cuando estos <em>Otros objetos</em> son liberados de la memoria?, pues que nos queda un bonito Strong Reference Cycle entre <em>Objeto 1</em> y <em>Objeto 2</em>, lo que supone que estos 2 objetos nunca van a ser liberados de la memoria y van a deambular por ahí ocupando un espacio que podría ser necesario para otras tareas, o también, en caso de que se vayan acumulando, podrían ocacionar el agotamiento de la memoria del dispositivo.</p>
-
-<h2>El caso de Objective-C</h2>
-
-<p>Vamos a ver un par de casos muy comunes en Objective-C, muy propensos a que nos encontremos con ellos a medida que escribimos código. Estoy hablando de cuando trabajamos con delegados y con bloques.</p>
-
-<h3>Delegación</h3>
-
-<p>El <a href="http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/">patrón de delegación</a> es de uso muy común en Objective-C. Consiste específicamente en que un objeto &#8221;<strong>delega</strong>&#8221; a otro objeto, la ejecución de algunas tareas para que las haga por él. Este otro objeto recibe el nombre de <em>delegado</em>. Entonces, consideremos el siguiente ejemplo:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">@</span><span class="n">import</span> <span class="n">Foundation</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@protocol</span> <span class="nc">LCAnimatedMenuDelegate</span>;
-</span><span class='line'>
-</span><span class='line'><span class="k">@interface</span> <span class="nc">LCAnimatedMenu</span> : <span class="bp">NSObject</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">)</span> <span class="kt">id</span> <span class="o">&lt;</span><span class="n">LCAnimatedMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
-</span><span class='line'><span class="k">@end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@protocol</span> <span class="nc">LCAnimatedMenuDelegate</span> <span class="o">&lt;</span><span class="bp">NSObject</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">willDisplayAnimatedMenu</span><span class="p">:(</span><span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="p">)</span><span class="n">animatedMenu</span><span class="p">;</span>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-<p>En este trozo de código aparentemente inocente, ya nos escontramos con un caso que podría generar un Strong Reference Cycle. El problema está al momento de crear la propiedad <code>delegate</code>, la cual solo está declarada como <code>nonatomic</code>, por lo tanto le estamos diciendo implícitamente al objeto <code>LCAnimatedMenu</code>, que mantenga una referencia fuerte hacia su delegado a través de la propiedad <code>delegate</code>. Siguiendo con el uso común de este patrón, vamos a requerir que otro objeto actue de delegado, para esto, y comunmente lo haremos en un <em>view controller</em> (llamemosle <em>HomeViewController</em>), haremos lo siguiente en alguna parte del código del controlador:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// en HomeViewController.m</span>
-</span><span class='line'><span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="n">animatedMenu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCAnimatedMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
-</span><span class='line'><span class="n">animatedMenu</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span><span class="p">;</span> <span class="c1">// WARNING! WARNING!</span>
-</span></code></pre></td></tr></table></div></figure>
-
-<p>Cual es el problema aquí?. <em>HomeViewController</em> está creando el objeto <code>animatedMenu</code>, estableciendo una referencia fuerte hacia él. Entonces, cuando asignamos a <em>HomeViewController</em> (self) como delegado de <code>animatedMenu</code>, estamos estableciendo otra referencia fuerte en sentido contrario a través de la propiedad <code>delegate</code>, que como vimos más arriba, está implícitamente definida como <code>strong</code>. Ahora fijémonos en la imagen de arriba, si los <em>Otros objetos</em> fueran liberados de la memoria, de manera que dejaran de tener referencias fuertes hacia <em>Objeto 1</em> y <em>Objeto 2</em>, estos 2 aún conservarían sus referencias fuertes entre si, por lo tanto nunca serían liberados de la memoria. Esto es lo que se llama un señor Strong Reference Cycle.</p>
-
-<p>La solución a esto es muy sencilla, y es establecer una referencia débil en uno de los 2 sentidos, en este caso lo haremos en la propiedad <code>delegate</code>. Para ellos cambiamos la propiedad y la declaramos como <code>weak</code>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">weak</span><span class="p">)</span> <span class="kt">id</span> <span class="o">&lt;</span><span class="n">LCAnimatedMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-<p>Una referencia débil (<code>weak</code>) no implica &#8220;Apropiación&#8221; y no mantiene vivo a un objeto como lo hace una referencia fuerte. En este caso, definir a <code>delegate</code> como débil, va a permitirle liberarse de la memoria cuando ninguno de los <em>Otros objetos</em> de la imagen, tenga referencias fuertes hacia él. Acto seguido también se liberará de la memoria el objeto <code>animatedMenu</code> y nos habremos quitado de encima el Strong Reference Cycle.</p>
-
-<h3>Bloques</h3>
-
-<p>Los bloques son trozos de código, </p>]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[CocoaPods: Como Integrarlo en Nuestros Proyectos]]></title>
@@ -2001,6 +1927,24 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 <p>Al presionarse el botón se ejecuta la acción (En realidad se envía un mensaje y ya veremos esto en otro capítulo) <code>mostrarTextos:sender</code>. En esta acción el controlador toma los datos que tiene disponibles la capa Modelo, en este caso la información cargada en el objeto <code>NSMutableArray</code> llamado <code>textos</code> y entonces asigna los valores recogidos en variables temporales y las devuelve a la vista para que los textos sean mostrados. El objeto <code>UILabel</code> sabe mostrar texto, pero NO SABE que texto mostrar, de igual manera el <code>NSMutableArray</code> sabe almacenar datos, pero NO SABE que datos tiene que almacenar, es por eso que usamos el controlador para esto.</p><p>Recuerda respetar las reglas del MVC y así tus aplicaciones estarán bien estructuradas, de manera que cuando compartas tu código, este sea entendible.</p><p>Espero haberlos ayudado. Si me ha faltado algo, solo comentadlo. Puedes descargar los archivos del tutorial presionando el botón de abajo.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/26lmhu53g5hnzubajfuh"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nos Volvemos Un Blog De Desarrollo Y Programación]]></title>
+    <link href="http://www.thxou.com/2011/09/08/nos-volvemos-un-blog-de-desarrollo-y-programacion/"/>
+    <updated>2011-09-08T01:02:05+02:00</updated>
+    <id>http://www.thxou.com/2011/09/08/nos-volvemos-un-blog-de-desarrollo-y-programacion</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><img class="alignnone size-full wp-image-2107" title="sdk-image" src="http://www.thxou.com/wp-content/uploads/2011/09/sdk_hero.png" alt="" width="196" height="187" /></p>
+<p style="text-align: center;"></p>
+Hola a todos los que me seguíais anteriormente. Debido a mi, en incremento, interés por la programación para iPhone, he decidido cambiar el tema del blog a programación. Compartiré con vosotros mis inquietudes, conocimientos, código de ejemplo y mucho más.
+
+Espero vuestros comentarios, peticiones, tutoriales hechos por vosotros y todo lo relacionado con la programación para iPhone, iPod Touch y iPad.
+
+Muy pronto el primer tutorial.
+
+ThXou.
+<p style="text-align: center;"></p>
+<p style="text-align: center;"></p>]]></content>
   </entry>
   
 </feed>
