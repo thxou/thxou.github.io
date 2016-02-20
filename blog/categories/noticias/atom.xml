@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: noticias | ThXou]]></title>
+  <title><![CDATA[Category: Noticias | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/noticias/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-12T19:33:47+01:00</updated>
+  <updated>2016-02-21T00:07:07+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Disponible la segunda beta de iOS 7 para desarrolladores]]></title>
+    <title type="html"><![CDATA[Disponible La Segunda Beta De iOS 7 Para Desarrolladores]]></title>
     <link href="http://www.thxou.com/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores/"/>
     <updated>2013-06-25T22:41:01+02:00</updated>
     <id>http://www.thxou.com/2013/06/25/disponible-la-segunda-beta-de-ios-7-para-desarrolladores</id>
@@ -33,7 +33,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Un vistazo al nuevo iOS 7]]></title>
+    <title type="html"><![CDATA[Un Vistazo Al Nuevo iOS 7]]></title>
     <link href="http://www.thxou.com/2013/06/18/un-vistazo-al-nuevo-ios-7/"/>
     <updated>2013-06-18T11:42:00+02:00</updated>
     <id>http://www.thxou.com/2013/06/18/un-vistazo-al-nuevo-ios-7</id>
@@ -196,7 +196,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[iOS 6 Golden Master ya disponible para los desarrolladores]]></title>
+    <title type="html"><![CDATA[iOS 6 Golden Master Ya Disponible Para Los Desarrolladores]]></title>
     <link href="http://www.thxou.com/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores/"/>
     <updated>2012-09-13T01:02:46+02:00</updated>
     <id>http://www.thxou.com/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores</id>
@@ -215,7 +215,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Keynote para el 12 de setiembre]]></title>
+    <title type="html"><![CDATA[Keynote Para El 12 De Setiembre]]></title>
     <link href="http://www.thxou.com/2012/09/05/keynote-para-el-12-de-setiembre/"/>
     <updated>2012-09-05T23:00:49+02:00</updated>
     <id>http://www.thxou.com/2012/09/05/keynote-para-el-12-de-setiembre</id>

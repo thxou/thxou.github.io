@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: seguridad | ThXou]]></title>
+  <title><![CDATA[Category: Seguridad | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/seguridad/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-12T19:33:47+01:00</updated>
+  <updated>2016-02-21T00:07:07+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Encriptar strings usando encriptación AES-256 en Objective-C]]></title>
+    <title type="html"><![CDATA[Encriptar Strings Usando Encriptación AES-256 en Objective-C]]></title>
     <link href="http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/"/>
     <updated>2014-06-19T20:44:40+02:00</updated>
     <id>http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c</id>

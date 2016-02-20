@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: 
+Disallow:
 
-Sitemap: http://www.thxou.com/sitemap.xml 
+Sitemap: http://www.thxou.com/sitemap.xml

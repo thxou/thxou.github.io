@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: objective-c | ThXou]]></title>
+  <title><![CDATA[Category: Objective-c | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-12T19:33:47+01:00</updated>
+  <updated>2016-02-21T00:07:07+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,125 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Encriptar strings usando encriptación AES-256 en Objective-C]]></title>
+    <title type="html"><![CDATA[Strong Reference Cycles en Objective-C Y Swift]]></title>
+    <link href="http://www.thxou.com/2015/02/05/strong-reference-cycles/"/>
+    <updated>2015-02-05T00:37:51+01:00</updated>
+    <id>http://www.thxou.com/2015/02/05/strong-reference-cycles</id>
+    <content type="html"><![CDATA[<p><div style="text-align:center;"><img src="http://www.thxou.com/wp-content/uploads/2015/02/src.png" /></div></p>
+
+
+
+
+<p>La salida de ARC allá por iOS 5, para muchos de los que por aquel tiempo estábamos empezando y se nos atragantaba la gestión de memoria, supuso algo como “ver la luz al fondo del túnel” del conteo manual de referencias. Algunos por un tiempo lo confundimos con un Garbage Collector (Como en Java jeje) y otros simplemente hicimos un <code>release</code> de la Gestión de Memoria en nuestros cerebros y pasamos olímpicamente del tema.</p>
+
+
+
+
+<p>Las primeras descripciones sobre ARC parecían decir: &#8220;Déja TODA* la getión de memoria a ARC&#8221;, ingenuos algunos respiramos aliviados sin saber que ese &#8220;TODA&#8221; tenía letra pequeña. Esta letra pequeña decía: &#8220;Toda, pero ojo con los Strong Reference Cycles&#8221;. Una lectura un poco más minuciosa de la documentación nos permitía descubrir estos pequeños fabricantes de <strong>memory leaks</strong>, los cuales pueden pasar (y pasan) desapercibidos mientras vamos escribiendo el código de nuestras aplicaciones.</p>
+
+
+<!--more-->
+
+
+
+
+<h2>En que consisten?</h2>
+
+
+
+
+<p>Cuando hablamos de la gestión de memoria en Objective-C y Swift, inmediatamente hablamos del tema de la &#8220;Apropiación&#8221; (Ownership). Un objeto es propietario de otro cuando mantiene una referencia fuerte (strong reference) hacia ese otro objeto (al momento de crearlo por ejemplo). Ese otro objeto va a permanecer en memoria hasta que su &#8220;propietario&#8221; sea liberado de la misma. De esta forma es como se relacionan los objectos entre si y son liberados. Como regla general, <strong>un objecto va a permanecer vivo en la memoria siempre que tenga propietario</strong>, es decir, siempre que tenga una referencia fuerte proveniente desde otro objeto.</p>
+
+
+
+
+<p>Los <strong>Strong Reference Cycles</strong> (o siclo de rerefencias fuertes) son el único problema de memoria que ARC no gestiona automáticamente. Ocurren cuando un objeto es propietario de otro, y ese otro objeto es a su vez propietario del primero, osea que mantienen referencias fuertes entre ellos. La imagen de la parte superior explica exactamente esto, en ella observamos que también existen <em>Otros objetos</em>, los cuales tienen referencias fuertes hacia <em>Objeto 1</em> y <em>Objeto 2</em>. Que sucede cuando estos <em>Otros objetos</em> son liberados de la memoria?, pues que nos queda un bonito Strong Reference Cycle entre <em>Objeto 1</em> y <em>Objeto 2</em>, lo que supone que estos 2 objetos nunca van a ser liberados de la memoria y van a deambular por ahí ocupando un espacio que podría ser necesario para otras tareas, o también, en caso de que se vayan acumulando, podrían ocacionar el agotamiento de la memoria del dispositivo.</p>
+
+
+
+
+<h2>El caso de Objective-C</h2>
+
+
+
+
+<p>Vamos a ver un par de casos muy comunes en Objective-C, muy propensos a que nos encontremos con ellos a medida que escribimos código. Estoy hablando de cuando trabajamos con delegados y con bloques.</p>
+
+
+
+
+<h3>Delegación</h3>
+
+
+
+
+<p>El <a href="http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/">patrón de delegación</a> es de uso muy común en Objective-C. Consiste específicamente en que un objeto &#8221;<strong>delega</strong>&#8221; a otro objeto, la ejecución de algunas tareas para que las haga por él. Este otro objeto recibe el nombre de <em>delegado</em>. Entonces, consideremos el siguiente ejemplo:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">@</span><span class="n">import</span> <span class="n">Foundation</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@protocol</span> <span class="nc">LCAnimatedMenuDelegate</span>;<span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@interface</span> <span class="nc">LCAnimatedMenu</span> : <span class="bp">NSObject</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">)</span> <span class="kt">id</span> <span class="o">&lt;</span><span class="n">LCAnimatedMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@protocol</span> <span class="nc">LCAnimatedMenuDelegate</span> <span class="o">&lt;</span><span class="bp">NSObject</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">willDisplayAnimatedMenu</span><span class="p">:(</span><span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="p">)</span><span class="n">animatedMenu</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>En este trozo de código aparentemente inocente, ya nos escontramos con un caso que podría generar un Strong Reference Cycle. El problema está al momento de crear la propiedad <code>delegate</code>, la cual solo está declarada como <code>nonatomic</code>, por lo tanto le estamos diciendo implícitamente al objeto <code>LCAnimatedMenu</code>, que mantenga una referencia fuerte hacia su delegado a través de la propiedad <code>delegate</code>. Siguiendo con el uso común de este patrón, vamos a requerir que otro objeto actue de delegado, para esto, y comunmente lo haremos en un <em>view controller</em> (llamemosle <em>HomeViewController</em>), haremos lo siguiente en alguna parte del código del controlador:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// en HomeViewController.m</span>
+</span><span class='line'><span class="n">LCAnimatedMenu</span> <span class="o">*</span><span class="n">animatedMenu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LCAnimatedMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="n">animatedMenu</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span><span class="p">;</span> <span class="c1">// WARNING! WARNING!</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Cual es el problema aquí?. <em>HomeViewController</em> está creando el objeto <code>animatedMenu</code>, estableciendo una referencia fuerte hacia él. Entonces, cuando asignamos a <em>HomeViewController</em> (self) como delegado de <code>animatedMenu</code>, estamos estableciendo otra referencia fuerte en sentido contrario a través de la propiedad <code>delegate</code>, que como vimos más arriba, está implícitamente definida como <code>strong</code>. Ahora fijémonos en la imagen de arriba, si los <em>Otros objetos</em> fueran liberados de la memoria, de manera que dejaran de tener referencias fuertes hacia <em>Objeto 1</em> y <em>Objeto 2</em>, estos 2 aún conservarían sus referencias fuertes entre si, por lo tanto nunca serían liberados de la memoria. Esto es lo que se llama un señor Strong Reference Cycle.</p>
+
+
+
+
+<p>La solución a esto es muy sencilla, y es establecer una referencia débil en uno de los 2 sentidos, en este caso lo haremos en la propiedad <code>delegate</code>. Para ellos cambiamos la propiedad y la declaramos como <code>weak</code>:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">weak</span><span class="p">)</span> <span class="kt">id</span> <span class="o">&lt;</span><span class="n">LCAnimatedMenuDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Una referencia débil (<code>weak</code>) no implica &#8220;Apropiación&#8221; y no mantiene vivo a un objeto como lo hace una referencia fuerte. En este caso, definir a <code>delegate</code> como débil, va a permitirle liberarse de la memoria cuando ninguno de los <em>Otros objetos</em> de la imagen, tenga referencias fuertes hacia él. Acto seguido también se liberará de la memoria el objeto <code>animatedMenu</code> y nos habremos quitado de encima el Strong Reference Cycle.</p>
+
+
+
+
+<h3>Bloques</h3>
+
+
+
+
+<p>Los bloques son trozos de código, </p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Encriptar Strings Usando Encriptación AES-256 en Objective-C]]></title>
     <link href="http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c/"/>
     <updated>2014-06-19T20:44:40+02:00</updated>
     <id>http://www.thxou.com/2014/06/19/encriptar-strings-usando-encriptacion-aes-en-objective-c</id>
@@ -199,7 +317,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Migración sencilla de modelos en Core Data]]></title>
+    <title type="html"><![CDATA[Migración Sencilla De Modelos en Core Data]]></title>
     <link href="http://www.thxou.com/2013/11/12/migracion-sencilla-de-modelos-en-core-data/"/>
     <updated>2013-11-12T02:21:29+01:00</updated>
     <id>http://www.thxou.com/2013/11/12/migracion-sencilla-de-modelos-en-core-data</id>
@@ -639,7 +757,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[NSNotificationCenter y las notificaciones]]></title>
+    <title type="html"><![CDATA[NSNotificationCenter Y Las Notificaciones]]></title>
     <link href="http://www.thxou.com/2013/02/21/nsnotificationcenter-y-las-notificaciones/"/>
     <updated>2013-02-21T14:12:51+01:00</updated>
     <id>http://www.thxou.com/2013/02/21/nsnotificationcenter-y-las-notificaciones</id>
@@ -741,176 +859,6 @@
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>Como vez, no estamos utilizando el objeto <code>center</code>, y a decir verdad para ahorrarte una innecesaria línea de código te recomiendo no crear un objeto <code>NSNotificationCenter</code>, sino usar la forma: <code>[[NSNotificationCenter defaultCenter] ...</code> , como en el código de arriba.</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Trabajando con el Social Framework de iOS 6: Publicar en Twitter y Facebook]]></title>
-    <link href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/"/>
-    <updated>2012-09-20T02:00:25+02:00</updated>
-    <id>http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook</id>
-    <content type="html"><![CDATA[<p>Aquí les traigo un tutorial bastante fresco sobre el recién nacido<strong> iOS 6</strong>. Como sabéis cada nuevo iOS trae consigo muchas novedades y este no va a ser la excepción, tenemos cientos de nuevas APIs y cambios con respecto a iOS 5, y por si fuera poco también tenemos 3 nuevos frameworks para estudiar e implementar en nuestras apps. Queda aún trabajo por hacer.</p>
-
-
-<p>Hoy voy a comenzar con el primero de una serie de tutoriales para ir introduciéndonos en el mundillo de iOS 6 poco a poco. Empezaré con uno de los 3 nuevos frameworks que incluye este nuevo iOS: el <strong>Social Framework</strong>.</p>
-
-
-<p>Este framework reemplaza al de Twitter y se hace más generico para ser compatible con las redes sociales de Facebook y Sina Weibo (la de los chinos). Lo genial es que implementarlo en nuestras apps es sencillo, nosotros de momento vamos a publicar nuestro estado en Twitter y Facebook a través de la interfaz nativa del framework. Tiene otras aplicaciones como mostrar el timeline y hacer follows en Twitter y cosas así, pero estas las veremos más adelante ya que son un poco (y solo un poco) más complejas.</p>
-
-
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57.png"><img class="aligncenter size-full wp-image-2285" style="border: 2px solid black; margin-top: 15px; margin-bottom: 15px;" title="social-framework-ios6-thxou" src="http://www.thxou.com/wp-content/uploads/2012/08/Screen-Shot-2012-08-31-at-17.31.57-e1346428236807.png" alt="" width="319" height="194" /></a></p>
-
-
-<p>Una de las 2 clases que componen el Social Framework es <code>SLComposeViewController</code>, esta clase te permite mostrar una vista al usuario desde la cual el puede componer y publicar un mensaje en cualquiera de las redes sociales mencionadas arriba, incluyendo una imagen o URL con el mensaje.</p>
-
-
-<!--more-->
-
-
-<h2 dir="ltr">Empezando con iOS 6 y el framework</h2>
-
-
-<p>Lo primero es tener Xcode 4.5 y el SDK de iOS 6 instalado, luego tener una cuenta de facebook y/o twitter configurada en el dispositivo.</p>
-
-
-<p>Abrimos Xcode 4.5 y añadimos el <em>Social Framework</em> a nuestro proyecto. Para esto como ya sabemos nos vamos a la raiz del proyecto, seleccionamos nuestro target y en la pestaña <strong>Summary</strong> encontraremos el apartado <strong>Linked Frameworks and Libraries </strong>desde donde podemos agregarlo.</p>
-
-
-<p>Acto seguido importamos en nuestro controlador la correspondiente cabecera y ya estamos listo para empezar a usarlo:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Social</span><span class="o">/</span><span class="n">Social</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<h2>Diferencias con el framework de Twitter</h2>
-
-
-<p>Este nuevo framework es casi idéntico al anterior de Twitter, a grandes razgos la única diferencia que vamos a encontrar es en la forma de inicializar la clase, ya que en esta nueva tenemos que especificar el tipo de servicio al que nos estamos refiriendo, este servicio está definido en la propiedad <code>serviceType</code> y puede tener los siguientes valores:</p>
-
-
-<ul><li><code id="jumpTo_14">SLServiceTypeFacebook</code></li><li><code id="jumpTo_15">SLServiceTypeTwitter</code></li><li><code id="jumpTo_16">SLServiceTypeSinaWeibo</code></li></ul>
-
-
-<p>Uno para cada red social, vamos. Por lo tanto, mientras en el de Twitter hacíamos una inicialización normal con alloc e init, en este nuevo le pasamos el servicio, de manera que nos queda así:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">SLComposeViewController</span> <span class="o">*</span><span class="n">twitter</span> <span class="o">=</span> <span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">composeViewControllerForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Luego hay que hacer la comprobación de que el servicio es accesible y de si hay por lo menos una cuenta configurada para ese servicio en concreto en el dispositivo:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">SLComposeViewController</span> <span class="nl">isAvailableForServiceType:</span><span class="n">SLServiceTypeTwitter</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Esto devuelve <code>YES</code> o <code>NO</code> dependiendo de la configuración que haya. Si nos devuelve <code>YES</code> vamos a mostrar la interfaz, de lo contrario mostraremos un error.</p>
-
-
-<h2>Mostrando la interfaz</h2>
-
-
-<p>Supongamos que todo ha ido bien hasta ahora en el código, pues ya estamos listos para mostrar al usuario la intefaz, así que primero vamos a dar algunos valores iniciales a los campos. Este paso si que es idéntico al del framework de Twitter ya que tiene las mismas propiedades con los mismos nombres:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// ponemos un texto inicial para la publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setInitialText:</span><span class="n">self</span><span class="p">.</span><span class="n">tvPost</span><span class="p">.</span><span class="n">text</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// añadimos una imagen a nuestra publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">logo_thxou</span><span class="p">.</span><span class="n">png</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// añadimos también una URL</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">addURL:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;http://www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/&quot;</span><span class="o">&gt;</span><span class="nl">http:</span><span class="c1">//www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/&lt;/a&gt;&amp;rdquo;]];&lt;/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// asignamos el completionHandler para manipular los resultados del envío</span>
-</span><span class='line'><span class="p">[</span><span class="n">twitter</span> <span class="nl">setCompletionHandler:</span><span class="n">completionHandler</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// por último mostramos la interfaz de publicación</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">presentViewController:</span><span class="n">twitter</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Tener muy en cuenta de asignar las propiedades antes de presentar la vista al usuario, de lo contrario os va a retornar un <code>NO</code> y la imagen o URL no se va a cargar junto con el mensaje. También os puede retornar <code>NO</code> si la imagen es demasiado grande o si hay demasiados caracteres en la URL, no obstante esto depende de las restricciones de que Twitter y Facebook ponen en las respectivas páginas oficiales de sus APIs.</p>
-
-
-<p>Hecho todo esto presentamos al usuario la interfaz como lo haríamos con cualquier controlador.</p>
-
-
-<h2>Manipular los resultados</h2>
-
-
-<p>Lo único que nos queda por hacer es comunicarle al usuario si se ha enviado correctamente la publicación o no, para esto tenemos los resultados del envío devueltos en el argumento <code>result</code> de la propiedad <code>completionHandler</code> de la clase. Esta propiedad es un objeto de tipo bloque y es llamada justo antes de cerrase la interfaz de envío. Ya que el bloque es lo último que se va a ejecutar, tenemos que cerrar la interfaz dentro de este bloque:</p>
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// manipulamos los mensajes de error si hay usando la propiedad completionHandler</span>
-</span><span class='line'><span class="n">SLComposeViewControllerCompletionHandler</span> <span class="n">completionHandler</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="n">SLComposeViewControllerResult</span> <span class="n">result</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">case</span> <span class="nl">SLComposeViewControllerResultCancelled</span><span class="p">:</span>
-</span><span class='line'>            <span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">La</span> <span class="n">publicaci</span><span class="err">ó</span><span class="n">n</span> <span class="n">ha</span> <span class="n">sido</span> <span class="n">cancelada</span><span class="p">.</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;);</span>
-</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">case</span> <span class="nl">SLComposeViewControllerResultDone</span><span class="p">:</span>
-</span><span class='line'>            <span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Se</span> <span class="n">ha</span> <span class="n">publicado</span> <span class="n">satisfactoriamente</span><span class="p">.</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;);</span>
-</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
-</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="nb">self</span> <span class="nl">dismissViewControllerAnimated</span><span class="p">:</span><span class="nb">YES</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<h2>Conclusión</h2>
-
-
-<p>Como hemos podido observar es realmente sencillo mostrar la interfaz de envío por defecto al usuario. No obstante esto tiene sus limitaciones evidentes, como la de querer saltarse la interfaz y enviar directamente el mensaje a Twitter. En el <a href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/">siguiente tutorial</a> veremos como hacer todo esto y alguna cosa más, es un poco más complejo, pero como veréis el framework lo hace todo mucho más sencillo y hace mucho trabajo por nosotros.</p>
-
-
-<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/qv5nu4k6jh00fhttgz89"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
 
 ]]></content>
   </entry>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: iphone | ThXou]]></title>
+  <title><![CDATA[Category: Iphone | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/iphone/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-12T19:33:47+01:00</updated>
+  <updated>2016-02-21T00:07:07+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[NSNotificationCenter y las notificaciones]]></title>
+    <title type="html"><![CDATA[NSNotificationCenter Y Las Notificaciones]]></title>
     <link href="http://www.thxou.com/2013/02/21/nsnotificationcenter-y-las-notificaciones/"/>
     <updated>2013-02-21T14:12:51+01:00</updated>
     <id>http://www.thxou.com/2013/02/21/nsnotificationcenter-y-las-notificaciones</id>
@@ -121,7 +121,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Trabajando con el Social Framework: SLRequest, publicar en Twitter y obtener el Timeline]]></title>
+    <title type="html"><![CDATA[Trabajando Con El Social Framework: SLRequest, Publicar en Twitter Y Obtener El Timeline]]></title>
     <link href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/"/>
     <updated>2012-09-20T16:57:56+02:00</updated>
     <id>http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline</id>
@@ -546,7 +546,7 @@ Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;ob
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Trabajando con el Social Framework de iOS 6: Publicar en Twitter y Facebook]]></title>
+    <title type="html"><![CDATA[Trabajando Con El Social Framework De iOS 6: Publicar en Twitter Y Facebook]]></title>
     <link href="http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook/"/>
     <updated>2012-09-20T02:00:25+02:00</updated>
     <id>http://www.thxou.com/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-facebook</id>
@@ -716,7 +716,7 @@ Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;ob
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[iOS: Enviar correo electrónico desde la aplicación]]></title>
+    <title type="html"><![CDATA[iOS: Enviar Correo Electrónico Desde La Aplicación]]></title>
     <link href="http://www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/"/>
     <updated>2012-08-07T19:06:11+02:00</updated>
     <id>http://www.thxou.com/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion</id>
@@ -982,7 +982,7 @@ Tenim el mètode de la petició (GET), el format de resposta (JSON) i l&#8217;ob
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[iOS: Textos con fuente personalizada usando UIFont]]></title>
+    <title type="html"><![CDATA[iOS: Textos Con Fuente Personalizada Usando UIFont]]></title>
     <link href="http://www.thxou.com/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont/"/>
     <updated>2012-08-02T03:48:07+02:00</updated>
     <id>http://www.thxou.com/2012/08/02/ios-textos-con-fuente-personalizada-usando-uifont</id>

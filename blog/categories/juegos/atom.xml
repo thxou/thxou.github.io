@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: juegos | ThXou]]></title>
+  <title><![CDATA[Category: Juegos | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/juegos/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-12T19:33:47+01:00</updated>
+  <updated>2016-02-21T00:07:07+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[[Juegos] SocCars: Juega al fútbol mientras conduces]]></title>
+    <title type="html"><![CDATA[[Juegos] SocCars: Juega Al Fútbol Mientras Conduces]]></title>
     <link href="http://www.thxou.com/2010/07/27/soccars/"/>
     <updated>2010-07-27T20:34:28+02:00</updated>
     <id>http://www.thxou.com/2010/07/27/soccars</id>
@@ -40,7 +40,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[Mac] Simulador de N64 para Mac]]></title>
+    <title type="html"><![CDATA[[Mac] Simulador De N64 Para Mac]]></title>
     <link href="http://www.thxou.com/2010/07/19/mac-simulador-de-n64-para-mac/"/>
     <updated>2010-07-19T19:44:35+02:00</updated>
     <id>http://www.thxou.com/2010/07/19/mac-simulador-de-n64-para-mac</id>
@@ -70,7 +70,7 @@ http://www.doperoms.com/roms/Nintendo_64.html</blockquote>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[Video] Tira dardos con tu iPhone hacia una diana en tu iPad]]></title>
+    <title type="html"><![CDATA[[Video] Tira Dardos Con Tu iPhone Hacia Una Diana en Tu iPad]]></title>
     <link href="http://www.thxou.com/2010/07/08/video-tira-dardos-con-tu-iphone-hacia-una-diana-en-tu-ipad/"/>
     <updated>2010-07-08T01:29:43+02:00</updated>
     <id>http://www.thxou.com/2010/07/08/video-tira-dardos-con-tu-iphone-hacia-una-diana-en-tu-ipad</id>

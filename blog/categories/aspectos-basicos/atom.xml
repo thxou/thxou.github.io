@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: aspectos básicos | ThXou]]></title>
+  <title><![CDATA[Category: Aspectos Básicos | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/aspectos-basicos/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2015-02-12T19:33:47+01:00</updated>
+  <updated>2016-02-21T00:07:07+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -257,7 +257,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[iOS: Aprendiendo sobre delegación, protocolos y la clase UIAlertView]]></title>
+    <title type="html"><![CDATA[iOS: Aprendiendo Sobre Delegación, Protocolos Y La Clase UIAlertView]]></title>
     <link href="http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview/"/>
     <updated>2012-04-29T21:25:25+02:00</updated>
     <id>http://www.thxou.com/2012/04/29/aprendiendo-sobre-delegacion-protocolos-y-la-clase-uialertview</id>
@@ -409,7 +409,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Programando para iOS: Patrón de diseño MVC al detalle]]></title>
+    <title type="html"><![CDATA[Programando Para iOS: Patrón De Diseño MVC Al Detalle]]></title>
     <link href="http://www.thxou.com/2011/11/04/programando-para-ios-patron-de-diseno-mvc/"/>
     <updated>2011-11-04T02:27:39+01:00</updated>
     <id>http://www.thxou.com/2011/11/04/programando-para-ios-patron-de-diseno-mvc</id>
