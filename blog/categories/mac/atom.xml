@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-10-12T22:11:16+02:00</updated>
+  <updated>2016-10-14T13:54:54+02:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -22,7 +22,7 @@
 
 <p>Sincillísimo. Abrimos iTunes y vamos a las preferencias (Command+,):</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2011/05/m4a-to-mp3-convert-itunes.jpg"><img class="alignnone size-full wp-image-1920" title="m4a-to-mp3-convert-itunes-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/m4a-to-mp3-convert-itunes.jpg" alt="" width="548" height="264" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2011/05/m4a-to-mp3-convert-itunes.jpg"><img class="alignnone size-full wp-image-1920" title="m4a-to-mp3-convert-itunes-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2011/05/m4a-to-mp3-convert-itunes.jpg" alt="" width="548" height="264" /></a></p>
 
 
 <p style="text-align: center;"></p>
@@ -30,7 +30,7 @@
 
 <p>Al abrirse esta ventana, vamos a la pesataña &ldquo;<strong>General</strong>&rdquo; y en la zona donde habla de que hacer al insertar un CD, le damos clic en el botón &ldquo;<strong>Ajustes de importación&hellip;</strong>&rdquo;. Inmediatamente se abrirá otra ventana, entonces vamos a la lista desplegable &ldquo;<strong>Importar Usando</strong>&rdquo; y seleccionamos el formato al que queremos convertir, en este caso, MP3. Luego clicamos en Aceptar y luego otra vez en Aceptar.</p>
 
-<p style="text-align: center;"><img class="size-full wp-image-1919 aligncenter" title="convert-m4a-to-mp3-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/convert-m4a-to-mp3-with-itunes.jpg" alt="" width="545" height="314" /></p>
+<p style="text-align: center;"><img class="size-full wp-image-1919 aligncenter" title="convert-m4a-to-mp3-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2011/05/convert-m4a-to-mp3-with-itunes.jpg" alt="" width="545" height="314" /></p>
 
 
 <p style="text-align: center;"></p>
@@ -50,7 +50,7 @@
     <link href="http://www.thxou.com/2011/05/08/mac-shift-it-redimenciona-tus-ventanas-con-atajos-del-teclado/"/>
     <updated>2011-05-08T02:55:42+02:00</updated>
     <id>http://www.thxou.com/2011/05/08/mac-shift-it-redimenciona-tus-ventanas-con-atajos-del-teclado</id>
-    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2011/05/Captura-de-pantalla-2011-05-07-a-las-21.26.28.png"><img class="alignnone size-full wp-image-1904" title="shiftit-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/05/Captura-de-pantalla-2011-05-07-a-las-21.26.28.png" alt="" width="464" height="358" /></a></p>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2011/05/Captura-de-pantalla-2011-05-07-a-las-21.26.28.png"><img class="alignnone size-full wp-image-1904" title="shiftit-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2011/05/Captura-de-pantalla-2011-05-07-a-las-21.26.28.png" alt="" width="464" height="358" /></a></p>
 
 
 <p style="text-align: center;"></p>
@@ -88,7 +88,7 @@
 <ul>
     <li>Por defecto la opción de hactivation está habilitada. Si eres de los que tienen un iPhone con la SIM original,<strong> asegúrate de desactivar esta opción</strong>.</li>
     <li>Funciona también en el Apple TV 2G, pero de momento solo se puede acceder por SSH y ejecutar comandos de consola dentro del dispositivo.</li>
-    <li>Luego de restaurar tu firmware personalizado, podrás <a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">utilizar Ultrasn0w</a> para liberar/desbloquear tu iPhone.[/importante]</li>
+    <li>Luego de restaurar tu firmware personalizado, podrás <a href="http://blog.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">utilizar Ultrasn0w</a> para liberar/desbloquear tu iPhone.[/importante]</li>
 </ul>
 
 
@@ -109,45 +109,45 @@
 
 <ul>
     <li><a href="http://blog.iphone-dev.org/post/1359246784/20102010-event">PwnageTool 4.1 para Mac</a>.</li>
-    <li><a href="http://www.thxou.com/firmwares/">Firmware del iOS 4.1</a> correspondiente a tu dispositivo.</li>
+    <li><a href="http://blog.thxou.com/firmwares/">Firmware del iOS 4.1</a> correspondiente a tu dispositivo.</li>
 </ul>
 
 
 <p><strong><span style="color: #99cc00;">PASO 1.</span></strong> Creamos una carpeta en el escritorio y metemos en ella el firmware que nos hemos descargado y PwnageTool (Monta el .dmg y arrastra el icono hacia la carpeta).</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/1.png"><img class="alignnone size-full wp-image-1814" title="1" src="http://www.thxou.com/wp-content/uploads/2010/10/1.png" alt="" width="500" height="347" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/1.png"><img class="alignnone size-full wp-image-1814" title="1" src="http://blog.thxou.com/wp-content/uploads/2010/10/1.png" alt="" width="500" height="347" /></a></p>
 
 
 <p><strong><span style="color: #99cc00;">PASO 2.</span></strong> Abrimos PwnageTool y damos en aceptar en la advertencia que nos aparece. En la segunda nos advierte sobre si nuestra tarjeta SIM es original o no. En el menú de la parte superior seleccionamos &ldquo;<strong>Expert Mode</strong>&rdquo;. Luego tiense que seleccionar la imagen correspondiente a tu dispositivo y seguidamente presionar en la flecha para seguir.</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/3.png"><img class="alignnone size-full wp-image-1815" title="3" src="http://www.thxou.com/wp-content/uploads/2010/10/3.png" alt="" width="450" height="401" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/3.png"><img class="alignnone size-full wp-image-1815" title="3" src="http://blog.thxou.com/wp-content/uploads/2010/10/3.png" alt="" width="450" height="401" /></a></p>
 
 
 <p><strong><span style="color: #99cc00;">PASO 3.</span></strong> En la siguiente pantalla haz clic en el botón &ldquo;<strong>Browse for IPSW&hellip;</strong>&rdquo; y en la ventana que aparece, selecciona el firmware que haz descargado a la carpeta de tu escritorio. Haz clic en &ldquo;Open&rdquo; y luego continúa.</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/4.png"><img class="alignnone size-full wp-image-1816" title="4" src="http://www.thxou.com/wp-content/uploads/2010/10/4.png" alt="" width="500" height="446" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/4.png"><img class="alignnone size-full wp-image-1816" title="4" src="http://blog.thxou.com/wp-content/uploads/2010/10/4.png" alt="" width="500" height="446" /></a></p>
 
 
 <p><strong><span style="color: #99cc00;">PASO 4.</span></strong> En esta pantalla selecciona la opción &ldquo;<strong>General</strong>&rdquo; y luego continúa para seguir configurando.</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/51.png"><img class="alignnone size-full wp-image-1822" title="51" src="http://www.thxou.com/wp-content/uploads/2010/10/51.png" alt="" width="500" height="446" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/51.png"><img class="alignnone size-full wp-image-1822" title="51" src="http://blog.thxou.com/wp-content/uploads/2010/10/51.png" alt="" width="500" height="446" /></a></p>
 
 
 <p><strong><span style="color: #99cc00;">PASO 5.</span></strong> En la siguientes pantallas podrás configurar si deseas Activar el iPhone. Este proceso engaña a iTunes para que te permita utilizar una SIM que no es oficial. Si tienes una oficial, <strong>NO MANTENGAS SELECCIONADA LA OPCION</strong>.</p>
 
 <p>También, en los iPhone 3G puedes habilitar la multitarea, la batería con porcentaje y el fondo de pantalla personalizado si deseas.</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/6.png"><img class="alignnone size-full wp-image-1817" title="6" src="http://www.thxou.com/wp-content/uploads/2010/10/6.png" alt="" width="500" height="446" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/6.png"><img class="alignnone size-full wp-image-1817" title="6" src="http://blog.thxou.com/wp-content/uploads/2010/10/6.png" alt="" width="500" height="446" /></a></p>
 
 
 <p><strong><span style="color: #99cc00;">PASO 6.</span></strong> Desde esta pantalla puedes personalizar como quieres que esté Cydia. Puedes agregarle sources para que estén instaladas por defecto cuando ya tengas el Jailbreak hecho. También puedes agregar paquetes personalizados .deb que deseas tener instalados por defecto.</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/7.png"><img class="alignnone size-full wp-image-1819" title="7" src="http://www.thxou.com/wp-content/uploads/2010/10/7.png" alt="" width="500" height="446" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/7.png"><img class="alignnone size-full wp-image-1819" title="7" src="http://blog.thxou.com/wp-content/uploads/2010/10/7.png" alt="" width="500" height="446" /></a></p>
 
 
 <p><strong><span style="color: #99cc00;">PASO 7.</span></strong> Ahora ya que haz terminado de configurarlo todo, haz clic en &ldquo;<strong>Build</strong>&rdquo; para empezar a crear el firmware personalizado. Cuando te aparezca la pantalla de guardar, guardalo en la carpeta que creamos al principio.</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/8.png"><img class="alignnone size-full wp-image-1820" title="8" src="http://www.thxou.com/wp-content/uploads/2010/10/8.png" alt="" width="500" height="446" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/8.png"><img class="alignnone size-full wp-image-1820" title="8" src="http://blog.thxou.com/wp-content/uploads/2010/10/8.png" alt="" width="500" height="446" /></a></p>
 
 
 <p><span style="color: #99cc00;"><strong>PASO 8.</strong></span> Una vez construido el firmware personalizado, se te <strong>pedirá conectar el dispositivo al Mac</strong> para ponerlo en modo DFU. Sigue las instrucciones que pone en pantalla:</p>
@@ -159,17 +159,17 @@
 </ol>
 
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/951.png"><img class="alignnone size-full wp-image-1825" title="951" src="http://www.thxou.com/wp-content/uploads/2010/10/951.png" alt="" width="490" height="212" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/951.png"><img class="alignnone size-full wp-image-1825" title="951" src="http://blog.thxou.com/wp-content/uploads/2010/10/951.png" alt="" width="490" height="212" /></a></p>
 
 
 <p><strong><span style="color: #99cc00;">PASO 9.</span></strong> Este es el último paso, al abrir iTunes, este debería detectar tu iPhone en modo DFU. Das aceptar en la venta que aparece y seguidamente procedes a restaurar el firmware personalizado que tienes en la carpeta que creamos al principio.</p>
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/961.png"><img class="alignnone size-full wp-image-1826" title="961" src="http://www.thxou.com/wp-content/uploads/2010/10/961.png" alt="" width="500" height="243" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/961.png"><img class="alignnone size-full wp-image-1826" title="961" src="http://blog.thxou.com/wp-content/uploads/2010/10/961.png" alt="" width="500" height="243" /></a></p>
 
 
 <p>Luego de que el proceso de restauración termine se reiniciará y al volver ya tendremos nuestro dispositivo con iOS 4.1 y Jailbreak instalado.</p>
 
-<p>[nota]Luego de haber hecho Jailbreak, puedes seguir <strong><a href="http://www.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">este tutorial</a></strong> para liberar/desbloquear tu iPhone y dejarlo libre de compañías móviles.[/nota]</p>
+<p>[nota]Luego de haber hecho Jailbreak, puedes seguir <strong><a href="http://blog.thxou.com/2010/08/30/liberar-el-iphone-4-iphone-3gs-y-iphone-3g-hasta-el-ios-4-0-2-con-ultrasn0w-1-1-1/">este tutorial</a></strong> para liberar/desbloquear tu iPhone y dejarlo libre de compañías móviles.[/nota]</p>
 
 <p>Cualquier duda escríbela en los comentarios.</p>
 
@@ -186,7 +186,7 @@
     <link href="http://www.thxou.com/2010/10/13/mac-saber-de-donde-fue-descargado-un-fichero/"/>
     <updated>2010-10-13T20:44:38+02:00</updated>
     <id>http://www.thxou.com/2010/10/13/mac-saber-de-donde-fue-descargado-un-fichero</id>
-    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/Captura-de-pantalla-2010-10-13-a-las-18.24.00.png"><img class="alignnone size-full wp-image-1683" title="file-downloaded-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/Captura-de-pantalla-2010-10-13-a-las-18.24.00.png" alt="" width="444" height="338" /></a></p>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/Captura-de-pantalla-2010-10-13-a-las-18.24.00.png"><img class="alignnone size-full wp-image-1683" title="file-downloaded-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2010/10/Captura-de-pantalla-2010-10-13-a-las-18.24.00.png" alt="" width="444" height="338" /></a></p>
 
 
 <p>Os dejo este tip sobre c<strong>omo saber desde que página Web fue descargado un fichero</strong>. A mi me ha servido hace unos instantes y quería compartirlo con vosotros. Hay muchas maneras, inclusive se puede hacer desde algún navegador buscando en el registro de descargas, pero si borraste ese registro que?!.</p>
@@ -211,7 +211,7 @@
     <link href="http://www.thxou.com/2010/10/08/permute-convierte-diversos-formatos-de-audio-y-video/"/>
     <updated>2010-10-08T00:19:34+02:00</updated>
     <id>http://www.thxou.com/2010/10/08/permute-convierte-diversos-formatos-de-audio-y-video</id>
-    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/one.png"><img class="alignnone size-medium wp-image-1615" title="permute-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/one-300x294.png" alt="" width="300" height="294" /></a></p>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/one.png"><img class="alignnone size-medium wp-image-1615" title="permute-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2010/10/one-300x294.png" alt="" width="300" height="294" /></a></p>
 
 
 <p><strong>Permute es un potente conversor de audio y video a diversos formatos</strong>. Una de sus mejores características es que es muy sencillo de manejar con una interfaz también muy sencilla. Desde las preferencias puedes ajustar a tus gustos la aplicación: configurar el formato de salida, calidad del audio, etc, e inclusive configurar perfiles para que la próxima vez que desees convertir audio o video, no tengas que recordar las opciones.</p>
@@ -227,7 +227,7 @@
 </ul>
 
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2010/10/two.png"><img class="alignnone size-medium wp-image-1616" title="permute-thxou.com" src="http://www.thxou.com/wp-content/uploads/2010/10/two-300x294.png" alt="" width="300" height="294" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2010/10/two.png"><img class="alignnone size-medium wp-image-1616" title="permute-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2010/10/two-300x294.png" alt="" width="300" height="294" /></a></p>
 
 
 <p>El precio de este programa para Mac es de <strong>14.95 dólares por licencia</strong>. Puedes descargar una versión de demostración y comprar una licencia directamente desde <a href="http://fuelcollective.com/permute">su página Web</a>. <strong>Es compatible con Mac OS</strong><strong>X 10.6+ con procesador Intel</strong>.</p>

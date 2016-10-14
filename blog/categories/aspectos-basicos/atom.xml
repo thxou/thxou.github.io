@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Aspectos Básicos | ThXou]]></title>
   <link href="http://www.thxou.com/blog/categories/aspectos-basicos/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-10-12T22:11:16+02:00</updated>
+  <updated>2016-10-14T13:54:54+02:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cardenas]]></name>
@@ -21,17 +21,18 @@
     <content type="html"><![CDATA[<p>Los literales son simplemente unos valores que los programadores podemos escribir &#8220;tal cual&#8221; en el código. En Objective-C (y por lo tanto en C) ya conocemos algunos ejemplos de esto con los valores primitivos:</p>
 
 
-<p>{% codeblock lang:objc %}
-float altura = 23.5;
-int piezas = 20;
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="kt">float</span> <span class="n">altura</span> <span class="o">=</span> <span class="mf">23.5</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">piezas</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Estos son: un literal float y un literal int respectivamente. Estos literales son comunes en la mayoría de los lenguajes, no obstante Objective-C tiene sus propios literales a parte de los mencionados, concretamente los que están basados en objetos:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSString *tarea = @”Buscar piso”;
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">tarea</span> <span class="o">=</span> <span class="err">@”</span><span class="n">Buscar</span> <span class="n">piso</span><span class="err">”</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Claro, a simple vista podemos decir: Vaya chorrada, lo he usado mil veces!, pero detente un momento a pensar en el ahorro que implica en líneas de código el hecho de tenerlos: como escribirías un número &#8220;sin números&#8221;?, algo aún más terrorífico, plantearse escribir un string de miles de caracteres &#8220;sin strings&#8221;.</p>
 
@@ -57,17 +58,18 @@ NSString *tarea = @”Buscar piso”;
 <p>Clang, el front end de LLVM, introdujo la sintaxis <code>@[ ]</code> para definir arrays, en el cual solo se deben incluir objetos separados por comas. Ojo!, solo objetos, nada de tipos escalares. Así, lo que antes escribíamos así:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSArray *ciudades = [NSArray arrayWithObjects:@&ldquo;Barcelona&rdquo;, @&ldquo;Lima&rdquo;, @&ldquo;Lyon&rdquo;, nil];
-</code>
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Barcelona</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Lima</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Lyon</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Ahora nos queda así:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSArray *ciudades = @[@”Barcelona”, @”Lima”, @”Lyon”];
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lima</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Lyon</span><span class="err">”</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Al ser una característica del lenguaje ya no es necesario definir el centinela nil, de hecho si lo pones como valor, tu ordenador explotará, ya que se realiza una validación como para el método <code>[NSArrayarrayWithObjects:count:]</code>, en el que se requiere que ningún objeto sea nil. Por lo tanto si quieres pasar nil como valor tendrás que hacerlo con el objeto <code>[NSNull null]</code>, que es su equivalente.</p>
 
@@ -78,16 +80,16 @@ NSArray *ciudades = @[@”Barcelona”, @”Lima”, @”Lyon”];
 <p>Aquí se introduce la sintaxis <code>@{ }</code>, similar a la de JSON o Javascript, pero con el @ característico de Objective-C. Esta sintaxis crea un diccionario de pares key-value, donde key tiene que ser un objeto que implemente el protocolo NSCopying (los string de toda la vida, vamos!) y value, como en el caso anterior, sólo pueden ser punteros a objetos Objective-C. Algo como:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSDictionary *usuario = [NSDictionary dictionaryWithObjectsAndKeys:@”ThXou”, @”nombre”, @”Barcelona”, @”ubicacion”, nil];
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span><span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">nombre</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Ahora se escribiría:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSDictionary *usuario = @{@”nombre” : @”ThXou”, @”ubicacion” : @”Barcelona”};
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="err">@”</span><span class="n">nombre</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">ThXou</span><span class="err">”</span><span class="p">,</span> <span class="err">@”</span><span class="n">ubicacion</span><span class="err">”</span> <span class="o">:</span> <span class="err">@”</span><span class="n">Barcelona</span><span class="err">”</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Como en el caso de los arrays, aquí tampoco es necesaria la centinela nil.</p>
 
@@ -107,23 +109,30 @@ NSDictionary *usuario = @{@”nombre” : @”ThXou”, @”ubicacion” : @”B
 <p>Ahora, cualquier valor escalar que empiece por el símbolo ‘@’ devolverá un objeto NSNumber inicializado con ese valor. Esto ya lo veíamos con los strings de C. Cuando escribíamos algo como:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSString *queja = @&ldquo;El billete de metro está caro&rdquo;;
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">queja</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">El</span> <span class="n">billete</span> <span class="n">de</span> <span class="n">metro</span> <span class="n">est</span><span class="err">á</span> <span class="n">caro</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>En realidad estamos convirtiendo un string en C a un objeto NSString con codificación UTF-8. Este literal está desde los inicios, pero para los otros valores escalares usábamos el método <code>numberWith<em>Tipo</em>:</code> para inicializar los objetos NSNumber. Ahora haremos:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSNumber <em>bool = @NO; // es equivalente a [NSNumber numberWithBool:NO]
-NSNumber </em>char = @&rsquo;d&#8217;; // es equivalente a [NSNumber numberWithChar:’d’]
-NSNumber <em>unsignedInt = @23U; // es equivalente a [NSNumber numberWithUnsignedInt:23U]
-NSNumber </em>int = @23; // es equivalente a [NSNumber numberWithInt:23]
-NSNumber <em>long = @23L; // es equivalente a [NSNumber numberWithLong:23L]
-NSNumber </em>longlong = @23LL; // es equivalente a [NSNumber numberWithLongLong:23LL]
-NSNumber <em>float = @5.2303F; // es equivalente a [NSNumber numberWithFloat:5.2303F]
-NSNumber </em>double = @2.2808; // es equivalente a [NSNumber numberWithDouble:2.2808]
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">bool</span> <span class="o">=</span> <span class="err">@</span><span class="n">NO</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithBool:NO]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">char</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="n">d</span><span class="err">&#39;</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithChar:’d’]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">unsignedInt</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23</span><span class="n">U</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithUnsignedInt:23U]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">int</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithInt:23]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">long</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23L</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithLong:23L]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">longlong</span> <span class="o">=</span> <span class="err">@</span><span class="mi">23L</span><span class="n">L</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithLongLong:23LL]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">float</span> <span class="o">=</span> <span class="err">@</span><span class="mf">5.2303F</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithFloat:5.2303F]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="kt">double</span> <span class="o">=</span> <span class="err">@</span><span class="mf">2.2808</span><span class="p">;</span> <span class="c1">// es equivalente a [NSNumber numberWithDouble:2.2808]</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Me encanta este literal, por lo menos a mi me ayuda haciendo más legible el código, sobre todo cuando tengo que hacer una lectura rápida.</p>
 
@@ -134,38 +143,39 @@ NSNumber </em>double = @2.2808; // es equivalente a [NSNumber numberWithDouble:2
 <p>Si la intuición os ha llevado a pensar: ¿Y qué pasa si hago <code>@2+2</code>, el compilador me lo pillará sin enfadarse?. Pues no, ya que hay una nueva sintaxis para esto y es envolver nuestras expresiones entre paréntesis: <code>@()</code>. Esto nos devolvería un objeto NSNumber inicializado con el resultado de la expresión que está entre estos. Y lo que antes hacíamos así:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSNumber *piMedios = [NSNumber numberWithDouble:M_PI / 2];
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithDouble:</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Ahora lo hacemos así:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSNumber *piMedios = @(M_PI / 2);
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piMedios</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Mucho más claro y sencillo. Lo genial es que también funciona pasándole propiedades de algunos objetos Objective-C que devuelven valores escalares. Por ejemplo si tenías que guardar en Core Data el valor de un objeto UISwitch, lo hacíamos así:</p>
 
 
-<p>{% codeblock lang:objc %}
-tarea.completado = [NSNumber numberWithBool:mySwitch.on];
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithBool:</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Ahora también lo puedes hacer simplemente así:</p>
 
 
-<p>{% codeblock lang:objc %}
-tarea.completado = @(mySwitch.on);
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">tarea</span><span class="p">.</span><span class="n">completado</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">mySwitch</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>También funciona para enumeraciones:</p>
 
 
-<p>{% codeblock lang:objc %}
-typedef enum { Barcelona, Lima, Lyon } Ciudad;
-NSNumber *ciudad = @(Lyon); // nos devolverá 1 y es equivalente a [NSNumber numberWithInt:((int)Lyon)]
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">Barcelona</span><span class="p">,</span> <span class="n">Lima</span><span class="p">,</span> <span class="n">Lyon</span> <span class="p">}</span> <span class="n">Ciudad</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">ciudad</span> <span class="o">=</span> <span class="err">@</span><span class="p">(</span><span class="n">Lyon</span><span class="p">);</span> <span class="c1">// nos devolverá 1 y es equivalente a [NSNumber numberWithInt:((int)Lyon)]</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>En este caso, para poder usar algún valor de la enumeración tenemos que envolverlo también como si se tratara de una expresión para poder usarlo como literal.</p>
 
@@ -182,10 +192,11 @@ NSNumber *ciudad = @(Lyon); // nos devolverá 1 y es equivalente a [NSNumber num
 <p>Para los arrays podemos usar un index para referirnos a la posición de un objeto dentro de ese array, tal como se hacía en C con valores escalares:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSArray <em>ciudades = @[@&ldquo;Barcelona&rdquo;, @&ldquo;Lima&rdquo;, @&ldquo;Lyon&rdquo;];
-NSString </em>ciudad = ciudades[2]; // ciudad = @&ldquo;Lyon&rdquo;
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSArray</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">ciudades</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Barcelona</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Lima</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Lyon</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">ciudad</span> <span class="o">=</span> <span class="n">ciudades</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// ciudad = @&amp;ldquo;Lyon&amp;rdquo;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Aquí se nos devuelve el elemento en la posición 2 que es <code>@"Lyon"</code>. Esto el compilador lo traduce por su equivalente en Objective-C: <code>[ciudades objectAtIndexedSubscript:2]</code>, lo cual es exactamente lo mismo que hacer: <code>[ciudades objectAtIndex:2]</code>.</p>
 
@@ -193,9 +204,9 @@ NSString </em>ciudad = ciudades[2]; // ciudad = @&ldquo;Lyon&rdquo;
 <p>De la misma forma, si tenemos un array mutable, entonces podemos hacer asignación directa de valores con esta misma sintaxis:</p>
 
 
-<p>{% codeblock lang:objc %}
-ciudades[1] = @&ldquo;Roma&rdquo;; // el array quedaría: @[@&ldquo;Barcelona&rdquo;, @&ldquo;Roma&rdquo;, @&ldquo;Lyon&rdquo;]
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">ciudades</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Roma</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span> <span class="c1">// el array quedaría: @[@&amp;ldquo;Barcelona&amp;rdquo;, @&amp;ldquo;Roma&amp;rdquo;, @&amp;ldquo;Lyon&amp;rdquo;]</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>El valor en la posición 1 es cambiado por el nuevo. Aquí el compilador hace una traducción al método <code>[ciudades setObject:@"Roma" atIndexedSubscript:1]</code></p>
 
@@ -206,10 +217,11 @@ ciudades[1] = @&ldquo;Roma&rdquo;; // el array quedaría: @[@&ldquo;Barcelona&rd
 <p>Para los diccionarios en vez de usar un index usamos keys para obtener los valores:</p>
 
 
-<p>{% codeblock lang:objc %}
-NSDictionary <em>usuario = @{@&ldquo;nombre&rdquo; : @&ldquo;ThXou&rdquo;, @&ldquo;ubicacion&rdquo; : @&ldquo;Barcelona&rdquo;};
-NSString </em>ubicacion = usuario[@&ldquo;ubicacion&rdquo;]; // ubicacion = @&ldquo;Barcelona&rdquo;
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">usuario</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">nombre</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="o">:</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ThXou</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ubicacion</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="o">:</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Barcelona</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;};</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">ubicacion</span> <span class="o">=</span> <span class="n">usuario</span><span class="p">[</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ubicacion</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span> <span class="c1">// ubicacion = @&amp;ldquo;Barcelona&amp;rdquo;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>El compilador hace la traducción a <code>[usuario objectForKeyedSubscript:@"ubicacion"]</code>, el cual es a su vez equivalente a <code>[usuario objectForKey:@"ubicacion"]</code>.</p>
 
@@ -217,10 +229,11 @@ NSString </em>ubicacion = usuario[@&ldquo;ubicacion&rdquo;]; // ubicacion = @&ld
 <p>Como en los arrays, pasa lo mismo para los diccionarios mutables y podemos reemplazar el valor correspondiente a la key que referenciemos:</p>
 
 
-<p>{% codeblock lang:objc %}
-usuario[@&ldquo;nombre&rdquo;] = @&ldquo;ThXou soy yo&rdquo;;
-// el diccionario quedaría: @{@&ldquo;nombre&rdquo; : @&ldquo;ThXou soy yo&rdquo;, @&ldquo;ubicacion&rdquo; : @&ldquo;Barcelona&rdquo;}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">usuario</span><span class="p">[</span><span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">nombre</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]</span> <span class="o">=</span> <span class="err">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">ThXou</span> <span class="n">soy</span> <span class="n">yo</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'><span class="c1">// el diccionario quedaría: @{@&amp;ldquo;nombre&amp;rdquo; : @&amp;ldquo;ThXou soy yo&amp;rdquo;, @&amp;ldquo;ubicacion&amp;rdquo; : @&amp;ldquo;Barcelona&amp;rdquo;}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>La traducción correspondiente es <code>[usuario setObject:@"ThXou soy yo" forKeyedSubscript:@"nombre"]</code>.</p>
 
@@ -260,19 +273,23 @@ usuario[@&ldquo;nombre&rdquo;] = @&ldquo;ThXou soy yo&rdquo;;
 <h2>Aplicación práctica</h2>
 
 
-<p>Well. Siguiendo con mi idea de que todo se aprende mejor si lo llevamos a la práctica, he desarrollado una pequeña aplicación que utiliza la clase <code>UIAlertView</code> para mostrar una ventana como la que vimos en la <a title="Programando notificaciones locales con UILocalNotification" href="http://www.thxou.com/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/">entrada anterior sobre notificaciones locales</a>. Esta ventana tiene unos botones, al presionarlos se altera el texto que hay en una etiqueta (<code>UILabel</code>) que está en la vista principal. Así de sencillo.</p>
+<p>Well. Siguiendo con mi idea de que todo se aprende mejor si lo llevamos a la práctica, he desarrollado una pequeña aplicación que utiliza la clase <code>UIAlertView</code> para mostrar una ventana como la que vimos en la <a title="Programando notificaciones locales con UILocalNotification" href="http://blog.thxou.com/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/">entrada anterior sobre notificaciones locales</a>. Esta ventana tiene unos botones, al presionarlos se altera el texto que hay en una etiqueta (<code>UILabel</code>) que está en la vista principal. Así de sencillo.</p>
 
 
 <p>La clase <code>UIAlertView</code> nos permite representar una ventana de alerta en una vista en concreto y lo hacemos así:</p>
 
 
-<p>{% codeblock lang:objc %}
-    UIAlertView *ventana = [[UIAlertView alloc] initWithTitle:@&ldquo;Mi Ventana&rdquo;
-                                                      message:@&ldquo;Aprendiendo sobre delegación en thxou.com&rdquo;
-                                                     delegate:self
-                                            cancelButtonTitle:@&ldquo;Cancelar&rdquo;
-                                            otherButtonTitles:@&ldquo;Limpiar Etiqueta!&rdquo;, @&ldquo;Opción 1&rdquo;, @&ldquo;Opción 2&rdquo;, nil];
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="bp">UIAlertView</span> <span class="o">*</span><span class="n">ventana</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Mi</span> <span class="n">Ventana</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span>
+</span><span class='line'>                                                      <span class="nl">message</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Aprendiendo</span> <span class="n">sobre</span> <span class="n">delegaci</span><span class="err">ó</span><span class="n">n</span> <span class="n">en</span> <span class="n">thxou</span><span class="p">.</span><span class="n">com</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span>
+</span><span class='line'>                                                     <span class="nl">delegate</span><span class="p">:</span><span class="nb">self</span>
+</span><span class='line'>                                            <span class="nl">cancelButtonTitle</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Cancelar</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span>
+</span><span class='line'>                                            <span class="nl">otherButtonTitles</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Limpiar</span> <span class="n">Etiqueta</span><span class="o">!&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Opci</span><span class="err">ó</span><span class="n">n</span> <span class="mi">1</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Opci</span><span class="err">ó</span><span class="n">n</span> <span class="mi">2</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>El método <code>initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles</code> se encarga de crear el objeto llamado <code>ventana</code>, que es una instancia de <code>UIAlertView</code>, con una información por defecto. Pues bien, <code>ventana</code> tiene botones y al presionarlos se envía el mensaje <code><a href="http://developer.apple.com/library/ios/DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html#//apple_ref/occ/intfm/UIAlertViewDelegate/alertView:clickedButtonAtIndex:">alertView:clickedButtonAtIndex:</a>.</code>Cuando este mensaje es enviado se ejecuta el comportamiento por defecto que es simplemente cerrar la ventana de alerta.</p>
 
@@ -283,11 +300,13 @@ usuario[@&ldquo;nombre&rdquo;] = @&ldquo;ThXou soy yo&rdquo;;
 <p>[note]Veremos que en la mayoría de los casos el delegado es asignado de esta manera:</p>
 
 
-<p>{% codeblock lang:objc %}
-[objeto setDelegate:self];
-//O también
-objeto.delegate = self;
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">objeto</span> <span class="nl">setDelegate:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'><span class="c1">//O también</span>
+</span><span class='line'><span class="n">objeto</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Este código cumple la misma función que en nuestro ejemplo.<br /> [/note]</p>
 
@@ -295,24 +314,39 @@ objeto.delegate = self;
 <p>Ya que no queremos que al presionar los botones se ejecute el comportamiento por defecto, nuestra clase <code>ViewController</code> necesita implementar este método disparado por el evento y así le decimos a <code>ventana</code> que hacer cuando se presione un botón.</p>
 
 
-<p>{% codeblock lang:objc %}
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 1:
-            self.mensaje.text = @&ldquo;&rdquo;;
-            break;
-        case 2:
-            self.mensaje.text = @&ldquo;Haz seleccionado la opción 1&rdquo;;
-            break;
-        case 3:
-            self.mensaje.text = @&ldquo;Haz seleccionado la opción 2&rdquo;;
-            break;
-        default:
-            break;
-    }
-}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">alertView:</span><span class="p">(</span><span class="bp">UIAlertView</span> <span class="o">*</span><span class="p">)</span><span class="nv">alertView</span> <span class="nf">clickedButtonAtIndex:</span><span class="p">(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="n">buttonIndex</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>            <span class="nb">self</span><span class="p">.</span><span class="n">mensaje</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>            <span class="nb">self</span><span class="p">.</span><span class="n">mensaje</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Haz</span> <span class="n">seleccionado</span> <span class="n">la</span> <span class="n">opci</span><span class="err">ó</span><span class="n">n</span> <span class="mi">1</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span><span class='line'>            <span class="nb">self</span><span class="p">.</span><span class="n">mensaje</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Haz</span> <span class="n">seleccionado</span> <span class="n">la</span> <span class="n">opci</span><span class="err">ó</span><span class="n">n</span> <span class="mi">2</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>La variable buttonIndex contiene los indices para cada uno de los botones que contiene la ventana de alerta. Así que podemos hacer cosas diferentes dependiendo de el &#8220;caso&#8221;.</p>
 
@@ -320,7 +354,7 @@ objeto.delegate = self;
 <p>Este método, como ya hemos explicado, no es de nuestro delegado, simplemente estamos habilitados para personalizar la respuesta a un evento usando este método, pero no lo creamos nosotros ni definimos la cabecera del método. Por lo tanto el compilador nos va a lanzar una excepción al momento de compilar el código y la aplicación va a petar. Para evitar esto, tenemos que hacer que nuestro delegado &#8220;sea conforme&#8221; al protocolo donde está definido este método (relacionado a un evento) y todos los disparados por la ventana de alerta.</p>
 
 
-<p style="text-align: center;"><a href="http://www.thxou.com/wp-content/uploads/2012/04/grafic-delegation.png"><img class=" wp-image-2185 aligncenter" title="grafic-delegation" src="http://www.thxou.com/wp-content/uploads/2012/04/grafic-delegation.png" alt="" width="463" height="248" /></a></p>
+<p style="text-align: center;"><a href="http://blog.thxou.com/wp-content/uploads/2012/04/grafic-delegation.png"><img class=" wp-image-2185 aligncenter" title="grafic-delegation" src="http://blog.thxou.com/wp-content/uploads/2012/04/grafic-delegation.png" alt="" width="463" height="248" /></a></p>
 
 
 <p style="text-align: center;"><small>Representación del patrón delegate</small></p>
@@ -332,23 +366,30 @@ objeto.delegate = self;
 <p>En un <strong>protocolo delegado</strong> podemos encontrarnos 2 tipos de métodos. Unos manipulan actualizaciones de información, como por ejemplo en el caso del GPS al principio, la localización será diferente siempre que te muevas, por lo tanto el método devolverá información diferente cada vez; Y otros, se envían como respuestas a entradas del usuario, como en nuestro caso, cuando el usuario pulsa un botón de la ventana de alerta. Hay algunos métodos que podrían entrar en una tercera categoría, y es el caso de <code><a href="http://developer.apple.com/library/ios/DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html#//apple_ref/occ/intfm/UIAlertViewDelegate/alertViewShouldEnableFirstOtherButton:">alertViewShouldEnableFirstOtherButton:</a></code>. En este método, la ventana de alerta pregunta al delegado si tiene que mostrar habilitado o deshabilitado el primero de los botones. La respuesta del delegado puede ser simplemente <code>YES</code> o <code>NO</code>. En nuestro caso he puesto <code>NO</code>, para que veas el comportamiento que tiene este método.</p>
 
 
-<p>{% codeblock lang:objc %}
-- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
-{
-    return NO;
-}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">alertViewShouldEnableFirstOtherButton:</span><span class="p">(</span><span class="n">UIAlertView</span> <span class="o">*</span><span class="p">)</span><span class="nv">alertView</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Ya solo nos queda hacer que nuestro delegado &#8220;sea conforme&#8221; a <code>UIAlertViewDelegate</code>. Esto lo hacemos en la cabecera de nuestra clase ViewController.h en la declaración <code>@interface</code>, entre signos de mayor y menor.</p>
 
 
-<p>{% codeblock lang:objc %}
-@interface ViewController : UIViewController &lt;UIAlertViewDelegate&gt;
-{
-@private
-    UILabel *mensaje;
-}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">ViewController</span> : <span class="nc">UIViewController</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">UIAlertViewDelegate</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="k">@private</span>
+</span><span class='line'>    <span class="n">UILabel</span> <span class="o">*</span><span class="n">mensaje</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>He creado una etiqueta <code>UILabel</code> para mostrar mensajes dependiendo de que botón ha sido pulsado llamada: <code>mensaje</code>.</p>
 
@@ -362,7 +403,7 @@ objeto.delegate = self;
 <p><a href="http://developer.apple.com/library/ios/#DOCUMENTATION/UIKit/Reference/UIAlertView_Class/UIAlertView/UIAlertView.html">UIAlertView</a> | <a href="http://developer.apple.com/library/ios/#DOCUMENTATION/UIKit/Reference/UIAlertViewDelegate_Protocol/UIAlertViewDelegate/UIAlertViewDelegate.html">UIAlertViewDelegate</a></p>
 
 
-<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/7f6fa46bc386d08c6100"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
+<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/7f6fa46bc386d08c6100"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
 
 ]]></content>
   </entry>
@@ -384,7 +425,7 @@ objeto.delegate = self;
 <p>Principalmente consiste en dividir tu aplicación en estas 3 capas. Cada clase que escribas, botón que pongas en el Interface Builder, o trozo de código que tengas que escribir, va a pertenecer a alguna de estas 3 capas.</p>
 
 
-<p style="text-align: center;"><img class="alignnone size-full wp-image-2118" title="MVC" src="http://www.thxou.com/wp-content/uploads/2011/11/MVC.png" alt="MVC-thxou.com" width="430" height="360" /></p>
+<p style="text-align: center;"><img class="alignnone size-full wp-image-2118" title="MVC" src="http://blog.thxou.com/wp-content/uploads/2011/11/MVC.png" alt="MVC-thxou.com" width="430" height="360" /></p>
 
 
 <p><strong>La Vista</strong> es todo lo que tu puedes ver de la aplicación y con la que el usuario puede interactuar, dentro de esta encontramos los botones, labels, campos de texto, etc; en general, la mayoría de los objetos que son subclases de UIView (También las clases predefinidas por el usuario).</p>
@@ -423,20 +464,33 @@ objeto.delegate = self;
 <p>Al abrir el proyecto verás en el panel de más a tu izquierda (<em>Project Navigator</em>: Es importante que te vayas quedando con estos nombres) la lista de los archivos que componen tu proyecto. Lo que salta a simple vista es una clase llamada <strong>MVCAppDelegate.h y .m</strong> (AppDelegate.h si usas XCode 4.2). Esta clase es el controlador de la aplicación y se encarga de cargar la vista por defecto y la aplicación en si. Bien, si abrimos el AppDelegate.h veremos esto si usas XCode 4.2:</p>
 
 
-<p>{% codeblock lang:objc %}</p>
-
-<h1>import &lt;UIKit/UIKit.h&gt;</h1>
-
-<p>@class ViewController;</p>
-
-<p>@interface AppDelegate : UIResponder &lt;UIApplicationDelegate&gt;</p>
-
-<p>@property (strong, nonatomic) UIWindow *window;</p>
-
-<p>@property (strong, nonatomic) ViewController *viewController;</p>
-
-<p>@end
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">UIKit</span><span class="o">/</span><span class="n">UIKit</span><span class="p">.</span><span class="n">h</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@class</span> <span class="nc">ViewController</span>;<span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@interface</span> <span class="nc">AppDelegate</span> : <span class="nc">UIResponder</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">UIApplicationDelegate</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIWindow</span> <span class="o">*</span><span class="n">window</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">ViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>De momento vamos a dejar de lado algunas cosas de este código porque las explicaré en entradas posteriores.</p>
 
@@ -447,26 +501,45 @@ objeto.delegate = self;
 <p>Si volvemos al <em>Project Navigator</em> veremos una clase llamada &#8220;ViewController&#8221;. Como su mismo nombre lo indica es un controlador, y es para una vista específica, en este caso la vista principal que verás al arrancar la aplicación.<br /> [nota]<br /> <strong>NOTA:</strong> Con respecto a los nombres para los controladores, es muy recomendable que el nombre incluya al final las palabras &#8221;<strong>Controller</strong>&#8221; o &#8221;<strong>View Controller</strong>&#8221; ya que esto te va a permitir organizar mejor tu <em>Project Navigator</em> y ubicar más rápido tus archivos para editarlos. Por lo general (por no decir siempre) te vas a encontrar con proyectos en que los controladores tienen nombres como: ListasViewController o GameController. Si son proyectos muy grandes, vas a agradecer que se nombren los controladores de esta manera, te liarás menos :).<br /> [/nota]<br /> Abrimos el archivo de cabecera de nuestro controlador: <strong>MVCViewController.h</strong>, y veremos el siguiente código:</p>
 
 
-<p>{% codeblock lang:objc %}</p>
-
-<h1>import &lt;UIKit/UIKit.h&gt;</h1>
-
-<p>@interface MVCViewController : UIViewController {
-    NSMutableArray *textos;</p>
-
-<pre><code>IBOutlet UILabel *texto1;
-IBOutlet UILabel *texto2;
-</code></pre>
-
-<p>}</p>
-
-<ul>
-<li>(IBAction)mostrarTextos:(id)sender;</li>
-</ul>
-
-
-<p>@end
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">UIKit</span><span class="o">/</span><span class="n">UIKit</span><span class="p">.</span><span class="n">h</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@interface</span> <span class="nc">MVCViewController</span> : <span class="bp">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="bp">NSMutableArray</span> <span class="o">*</span><span class="n">textos</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">IBOutlet</span> <span class="bp">UILabel</span> <span class="o">*</span><span class="n">texto1</span><span class="p">;</span>
+</span><span class='line'><span class="kt">IBOutlet</span> <span class="bp">UILabel</span> <span class="o">*</span><span class="n">texto2</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nl">mostrarTextos</span><span class="p">:(</span><span class="kt">id</span><span class="p">)</span><span class="n">sender</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>El Modelo suele utilizar objetos de colección como los <code>NSArray o NSDictionary</code> o los tipos como <code>NSString o NSNumber</code>, en nuestra aplicación podemos identificar como parte del modelo al objeto <code>*textos</code> de la clase NSMutableArray. También tenemos 2 objetos <code>UILabel</code>que corresponden a la interfaz de usuario y forman parte de la capa Vista. Los nombres de las clases personalizadas para la Vista suelen terminar con la palabra &#8221;<strong>View</strong>&#8221; como por ejemplo: GhaphicView, y eso por la misma razón que para los controladores. Estos también pertenecen a la capa Vista.</p>
 
@@ -480,21 +553,33 @@ IBOutlet UILabel *texto2;
 <p>Si abrimos el archivo de implementación: <strong>MVCViewController.m</strong>, podremos ver el método <code>mostrarTextos:sender</code>:</p>
 
 
-<p>{% codeblock lang:objc %}
-//Método que va a mostrar los textos
-- (IBAction)mostrarTextos:(id)sender {
-    //Inicializamos en un array los 2 textos a mostrar
-    textos = [[NSMutableArray alloc] initWithObjects:@&ldquo;Texto de ejemplo para MVC&rdquo;, @&ldquo;MVC mola cuando lo entiendes&rdquo;, nil];</p>
-
-<pre><code>NSString *txt1 = [textos objectAtIndex:0];
-NSString *txt2 = [textos objectAtIndex:1];
-
-[texto1 setText:txt1];
-[texto2 setText:txt2];
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//Método que va a mostrar los textos</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">mostrarTextos:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//Inicializamos en un array los 2 textos a mostrar</span>
+</span><span class='line'>    <span class="n">textos</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithObjects</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Texto</span> <span class="n">de</span> <span class="n">ejemplo</span> <span class="n">para</span> <span class="n">MVC</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">MVC</span> <span class="n">mola</span> <span class="n">cuando</span> <span class="n">lo</span> <span class="n">entiendes</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="nb">nil</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="bp">NSString</span> <span class="o">*</span><span class="n">txt1</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">*</span><span class="n">txt2</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">texto1</span> <span class="nl">setText</span><span class="p">:</span><span class="n">txt1</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">texto2</span> <span class="nl">setText</span><span class="p">:</span><span class="n">txt2</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Al presionarse el botón se ejecuta la acción (En realidad se envía un mensaje y ya veremos esto en otro capítulo) <code>mostrarTextos:sender</code>. En esta acción el controlador toma los datos que tiene disponibles la capa Modelo, en este caso la información cargada en el objeto <code>NSMutableArray</code> llamado <code>textos</code> y entonces asigna los valores recogidos en variables temporales y las devuelve a la vista para que los textos sean mostrados. El objeto <code>UILabel</code> sabe mostrar texto, pero NO SABE que texto mostrar, de igual manera el <code>NSMutableArray</code> sabe almacenar datos, pero NO SABE que datos tiene que almacenar, es por eso que usamos el controlador para esto.</p>
 
@@ -505,7 +590,7 @@ NSString *txt2 = [textos objectAtIndex:1];
 <p>Espero haberlos ayudado. Si me ha faltado algo, solo comentadlo. Puedes descargar los archivos del tutorial presionando el botón de abajo.</p>
 
 
-<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/26lmhu53g5hnzubajfuh"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://www.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
+<p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/26lmhu53g5hnzubajfuh"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
 
 ]]></content>
   </entry>
