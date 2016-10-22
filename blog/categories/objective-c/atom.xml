@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Objective-c | ThXou]]></title>
+  <title><![CDATA[Category: Objective-c | thxou]]></title>
   <link href="http://www.thxou.com/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-10-14T13:54:54+02:00</updated>
+  <updated>2016-10-23T00:24:24+02:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
-    <name><![CDATA[Luis Cardenas]]></name>
+    <name><![CDATA[Luis Cárdenas]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
