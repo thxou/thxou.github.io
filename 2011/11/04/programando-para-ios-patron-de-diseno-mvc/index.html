@@ -259,15 +259,15 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//Método que va a mostrar los textos</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">mostrarTextos:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">mostrarTextos:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
 </span><span class='line'>    <span class="c1">//Inicializamos en un array los 2 textos a mostrar</span>
-</span><span class='line'>    <span class="n">textos</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithObjects:</span><span class="s">@&quot;Texto de ejemplo para MVC&quot;</span><span class="p">,</span> <span class="s">@&quot;MVC mola cuando lo entiendes&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">textos</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithObjects</span><span class="p">:</span><span class="s">@&quot;Texto de ejemplo para MVC&quot;</span><span class="p">,</span> <span class="s">@&quot;MVC mola cuando lo entiendes&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">txt1</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex:</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">txt2</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">txt1</span> <span class="o">=</span> <span class="n">textos</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">txt2</span> <span class="o">=</span> <span class="n">textos</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="p">[</span><span class="n">texto1</span> <span class="nl">setText:</span><span class="n">txt1</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">texto2</span> <span class="nl">setText:</span><span class="n">txt2</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">texto1</span> <span class="nl">setText</span><span class="p">:</span><span class="n">txt1</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">texto2</span> <span class="nl">setText</span><span class="p">:</span><span class="n">txt2</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 <p>Al presionarse el botón se ejecuta la acción (En realidad se envía un mensaje y ya veremos esto en otro capítulo) <code>mostrarTextos:sender</code>. En esta acción el controlador toma los datos que tiene disponibles la capa Modelo, en este caso la información cargada en el objeto <code>NSMutableArray</code> llamado <code>textos</code> y entonces asigna los valores recogidos en variables temporales y las devuelve a la vista para que los textos sean mostrados. El objeto <code>UILabel</code> sabe mostrar texto, pero NO SABE que texto mostrar, de igual manera el <code>NSMutableArray</code> sabe almacenar datos, pero NO SABE que datos tiene que almacenar, es por eso que usamos el controlador para esto.</p><p>Recuerda respetar las reglas del MVC y así tus aplicaciones estarán bien estructuradas, de manera que cuando compartas tu código, este sea entendible.</p><p>Espero haberlos ayudado. Si me ha faltado algo, solo comentadlo. Puedes descargar los archivos del tutorial presionando el botón de abajo.</p><p style="text-align: center;"><a href="http://securelink.thxou.com/?https://www.box.com/s/26lmhu53g5hnzubajfuh"><img class="alignnone size-full wp-image-2134" title="boton-thxou.com" src="http://blog.thxou.com/wp-content/uploads/2011/11/boton-thxou.png" alt="" width="256" height="52" /></a></p>
@@ -321,10 +321,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2011/09/08/nos-volvemos-un-blog-de-desarrollo-y-programacion/" title="Previous Post: Nos volvemos un blog de desarrollo y programación">&laquo; Nos volvemos un blog de desarrollo y programación</a>
+        <a class="basic-alignment left" href="/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/" title="Previous Post: iOS: Programando notificaciones locales con UILocalNotification">&laquo; iOS: Programando notificaciones locales con UILocalNotification</a>
       
       
-        <a class="basic-alignment right" href="/2012/01/31/programando-notificaciones-locales-con-uilocalnotification/" title="Next Post: iOS: Programando notificaciones locales con UILocalNotification">iOS: Programando notificaciones locales con UILocalNotification &raquo;</a>
+        <a class="basic-alignment right" href="/2011/09/08/nos-volvemos-un-blog-de-desarrollo-y-programacion/" title="Next Post: Nos volvemos un blog de desarrollo y programación">Nos volvemos un blog de desarrollo y programación &raquo;</a>
       
     </p>
   </footer>

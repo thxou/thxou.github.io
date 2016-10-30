@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programación Para Ios | thxou]]></title>
   <link href="http://www.thxou.com/blog/categories/programacion-para-ios/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-10-23T00:24:24+02:00</updated>
+  <updated>2016-10-30T17:55:31+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cárdenas]]></name>
@@ -298,18 +298,10 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span><span class="err"> </span><span class="p">{</span>
 </span><span class='line'>    <span class="c1">// liberamos la memoria que ocupa el observador</span>
-</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver</span><span class="p">:</span><span class="nb">self</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="nb">super</span><span class="err"> </span><span class="n">dealloc</span><span class="p">];</span> <span class="c1">// quita esta línea si usas ARC</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver</span><span class="p">:</span><span class="nb">self</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>Como vez, no estamos utilizando el objeto <code>center</code>, y a decir verdad para ahorrarte una innecesaria línea de código te recomiendo no crear un objeto <code>NSNotificationCenter</code>, sino usar la forma: <code>[[NSNotificationCenter defaultCenter] ...</code> , como en el código de arriba.</p>
@@ -564,7 +556,6 @@
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-<span class='line-number'>20</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="p">[</span><span class="nb">super</span> <span class="n">viewDidLoad</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
@@ -575,7 +566,6 @@
 </span><span class='line'>                                                        <span class="nl">target</span><span class="p">:</span><span class="nb">self</span>
 </span><span class='line'>                                                        <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">generarJSON</span><span class="p">:)];</span>
 </span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">json</span><span class="p">;</span>
-</span><span class='line'><span class="p">[</span><span class="n">json</span> <span class="k">release</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// indicamos la url desde donde tomaremos los datos</span>
 </span><span class='line'><span class="bp">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span> <span class="nl">URLWithString</span><span class="p">:</span><span class="s">@&quot;http://dl.dropbox.com/u/270074/iOSTutorials/JSON/test.json&quot;</span><span class="p">];</span>
@@ -629,7 +619,7 @@
 </span><span class='line'>        <span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="nl">ERROR</span><span class="p">:</span> <span class="o">%</span><span class="p">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="o">=</span> <span class="p">[</span><span class="n">jsonDic</span> <span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">comunidades</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="o">=</span> <span class="n">jsonDic</span><span class="p">[@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">comunidades</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></p>
@@ -656,11 +646,11 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="bp">NSDictionary</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">comunidad</span> <span class="o">=</span> <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
-</span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">nombre</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="bp">NSDictionary</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">comunidad</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">comunidades</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
+</span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">comunidad</span><span class="p">[@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">nombre</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
 </span><span class='line'><span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">subtitle</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="nl">Superficie</span><span class="p">:</span> <span class="o">%</span><span class="p">@</span> <span class="o">-</span> <span class="o">%</span><span class="p">@</span><span class="o">%%&amp;</span><span class="n">rdquo</span><span class="p">;,</span>
-</span><span class='line'>                      <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">superficie</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;],</span>
-</span><span class='line'>                      <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">porcentaje</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]];</span>
+</span><span class='line'>                      <span class="n">comunidad</span><span class="p">[@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">superficie</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;],</span>
+</span><span class='line'>                      <span class="n">comunidad</span><span class="p">[@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">porcentaje</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]];</span>
 </span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">detailTextLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">subtitle</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
@@ -699,8 +689,6 @@
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">generarJSON:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="bp">NSError</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
@@ -719,8 +707,6 @@
 </span><span class='line'>                                       <span class="nl">cancelButtonTitle</span><span class="p">:</span><span class="s">@&quot;Ok&quot;</span>
 </span><span class='line'>                                       <span class="nl">otherButtonTitles</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
 </span><span class='line'><span class="p">[</span><span class="n">alerta</span> <span class="n">show</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">alerta</span> <span class="k">release</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">jsonString</span> <span class="k">release</span><span class="p">];</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
@@ -860,7 +846,6 @@
 <span class='line-number'>26</span>
 <span class='line-number'>27</span>
 <span class='line-number'>28</span>
-<span class='line-number'>29</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">application</span> <span class="nf">openURL:</span><span class="p">(</span><span class="bp">NSURL</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">url</span> <span class="nf">sourceApplication:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">sourceApplication</span> <span class="nf">annotation:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">annotation</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="c1">// comprobamos que se ha recibido una url</span>
@@ -871,7 +856,7 @@
 </span><span class='line'>        <span class="c1">// obtenemos el path de la url por partes. No se cuenta el host</span>
 </span><span class='line'>        <span class="bp">NSArray</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">urlComponents</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="n">pathComponents</span><span class="p">];</span>
 </span><span class='line'>        <span class="c1">// componemos el string a mostrar</span>
-</span><span class='line'>        <span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">texto</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Contenido</span> <span class="n">de</span> <span class="n">la</span> <span class="nl">URL</span><span class="p">:</span><span class="err">\</span><span class="n">n</span><span class="err">\</span><span class="nl">nHost</span><span class="p">:</span> <span class="o">%</span><span class="p">@</span><span class="err">\</span><span class="n">nPar</span><span class="err">á</span><span class="nl">metros</span><span class="p">:</span><span class="err">\</span><span class="n">n1</span><span class="p">.</span> <span class="o">%</span><span class="p">@</span><span class="err">\</span><span class="n">n2</span><span class="p">.</span> <span class="o">%</span><span class="p">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">urlHost</span><span class="p">,</span> <span class="p">[</span><span class="n">urlComponents</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">urlComponents</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">2</span><span class="p">]];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">texto</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Contenido</span> <span class="n">de</span> <span class="n">la</span> <span class="nl">URL</span><span class="p">:</span><span class="err">\</span><span class="n">n</span><span class="err">\</span><span class="nl">nHost</span><span class="p">:</span> <span class="o">%</span><span class="p">@</span><span class="err">\</span><span class="n">nPar</span><span class="err">á</span><span class="nl">metros</span><span class="p">:</span><span class="err">\</span><span class="n">n1</span><span class="p">.</span> <span class="o">%</span><span class="p">@</span><span class="err">\</span><span class="n">n2</span><span class="p">.</span> <span class="o">%</span><span class="p">@</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">urlHost</span><span class="p">,</span> <span class="n">urlComponents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">urlComponents</span><span class="p">[</span><span class="mi">2</span><span class="p">]];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="c1">// lanzamos un alertView que nos muestre el string</span>
 </span><span class='line'>    <span class="bp">UIAlertView</span> <span class="o">*</span><span class="n">alert</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle</span><span class="p">:</span><span class="s">@&quot;URL Scheme&quot;</span>
@@ -880,7 +865,6 @@
 </span><span class='line'>                                          <span class="nl">cancelButtonTitle</span><span class="p">:</span><span class="s">@&quot;Ok&quot;</span>
 </span><span class='line'>                                          <span class="nl">otherButtonTitles</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
 </span><span class='line'>    <span class="p">[</span><span class="n">alert</span> <span class="n">show</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">alert</span> <span class="k">release</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'><span class="k">else</span> <span class="p">{</span>
 </span><span class='line'>    <span class="c1">// si no hay URL retornamos NO</span>

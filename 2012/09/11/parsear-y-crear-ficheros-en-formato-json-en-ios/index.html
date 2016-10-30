@@ -247,24 +247,22 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1">// creamos un botón para generar el JSON</span>
-</span><span class='line'>    <span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">json</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;Generar JSON&quot;</span>
-</span><span class='line'>                                                             <span class="nl">style:</span><span class="n">UIBarButtonItemStylePlain</span>
-</span><span class='line'>                                                            <span class="nl">target:</span><span class="n">self</span>
-</span><span class='line'>                                                            <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">generarJSON:</span><span class="p">)];</span>
-</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">json</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">json</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">UIBarButtonItem</span> <span class="o">*</span><span class="n">json</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle</span><span class="p">:</span><span class="s">@&quot;Generar JSON&quot;</span>
+</span><span class='line'>                                                             <span class="nl">style</span><span class="p">:</span><span class="n">UIBarButtonItemStylePlain</span>
+</span><span class='line'>                                                            <span class="nl">target</span><span class="p">:</span><span class="nb">self</span>
+</span><span class='line'>                                                            <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">generarJSON</span><span class="p">:)];</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">json</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1">// indicamos la url desde donde tomaremos los datos</span>
-</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="s">@&quot;http://dl.dropbox.com/u/270074/iOSTutorials/JSON/test.json&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">NSData</span> <span class="o">*</span><span class="n">urlData</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nl">dataWithContentsOfURL:</span><span class="n">url</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span> <span class="nl">URLWithString</span><span class="p">:</span><span class="s">@&quot;http://dl.dropbox.com/u/270074/iOSTutorials/JSON/test.json&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">NSData</span> <span class="o">*</span><span class="n">urlData</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSData</span> <span class="nl">dataWithContentsOfURL</span><span class="p">:</span><span class="n">url</span><span class="p">];</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">empezarAParsear:</span><span class="n">urlData</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">empezarAParsear</span><span class="p">:</span><span class="n">urlData</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -290,20 +288,20 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">empezarAParsear:</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">urlData</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">empezarAParsear:</span><span class="p">(</span><span class="bp">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">urlData</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
 </span><span class='line'>    <span class="c1">// parseamos los datos de la URL</span>
-</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">jsonDic</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">JSONObjectWithData:</span><span class="n">urlData</span>
-</span><span class='line'>                                                            <span class="nl">options:</span><span class="n">kNilOptions</span>
-</span><span class='line'>                                                              <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">jsonDic</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSJSONSerialization</span> <span class="nl">JSONObjectWithData</span><span class="p">:</span><span class="n">urlData</span>
+</span><span class='line'>                                                            <span class="nl">options</span><span class="p">:</span><span class="n">kNilOptions</span>
+</span><span class='line'>                                                              <span class="nl">error</span><span class="p">:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
 </span><span class='line'>    <span class="c1">// si hubo algún error en el parseo lo mostramos</span>
 </span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;ERROR: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="o">=</span> <span class="p">[</span><span class="n">jsonDic</span> <span class="nl">objectForKey:</span><span class="s">@&quot;comunidades&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="o">=</span> <span class="n">jsonDic</span><span class="p">[</span><span class="s">@&quot;comunidades&quot;</span><span class="p">];</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -323,11 +321,11 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">comunidad</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">comunidades</span> <span class="nl">objectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
-</span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey:</span><span class="s">@&quot;nombre&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">subtitle</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;Superficie: %@ - %@%%&quot;</span><span class="p">,</span>
-</span><span class='line'>                      <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey:</span><span class="s">@&quot;superficie&quot;</span><span class="p">],</span>
-</span><span class='line'>                      <span class="p">[</span><span class="n">comunidad</span> <span class="nl">objectForKey:</span><span class="s">@&quot;porcentaje&quot;</span><span class="p">]];</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">comunidad</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">comunidades</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
+</span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">comunidad</span><span class="p">[</span><span class="s">@&quot;nombre&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">*</span><span class="n">subtitle</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;Superficie: %@ - %@%%&quot;</span><span class="p">,</span>
+</span><span class='line'>                      <span class="n">comunidad</span><span class="p">[</span><span class="s">@&quot;superficie&quot;</span><span class="p">],</span>
+</span><span class='line'>                      <span class="n">comunidad</span><span class="p">[</span><span class="s">@&quot;porcentaje&quot;</span><span class="p">]];</span>
 </span><span class='line'><span class="n">cell</span><span class="p">.</span><span class="n">detailTextLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">subtitle</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -356,28 +354,24 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">generarJSON:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">generarJSON:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
 </span><span class='line'>    <span class="c1">// generamos los datos en JSON</span>
-</span><span class='line'>    <span class="n">NSData</span> <span class="o">*</span><span class="n">json</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSJSONSerialization</span> <span class="nl">dataWithJSONObject:</span><span class="n">self</span><span class="p">.</span><span class="n">comunidades</span>
-</span><span class='line'>                                                   <span class="nl">options:</span><span class="n">NSJSONWritingPrettyPrinted</span>
-</span><span class='line'>                                                     <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">NSData</span> <span class="o">*</span><span class="n">json</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSJSONSerialization</span> <span class="nl">dataWithJSONObject</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">comunidades</span>
+</span><span class='line'>                                                   <span class="nl">options</span><span class="p">:</span><span class="n">NSJSONWritingPrettyPrinted</span>
+</span><span class='line'>                                                     <span class="nl">error</span><span class="p">:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1">// convertimos los datos a un string para poder mostrarlos</span>
-</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">jsonString</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData:</span><span class="n">json</span> <span class="nl">encoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">jsonString</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithData</span><span class="p">:</span><span class="n">json</span> <span class="nl">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1">// los mostramos en un alertView</span>
-</span><span class='line'>    <span class="n">UIAlertView</span> <span class="o">*</span><span class="n">alerta</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="nb">nil</span>
-</span><span class='line'>                                                     <span class="nl">message:</span><span class="n">jsonString</span>
-</span><span class='line'>                                                    <span class="nl">delegate:</span><span class="n">self</span>
-</span><span class='line'>                                           <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;Ok&quot;</span>
-</span><span class='line'>                                           <span class="nl">otherButtonTitles:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">UIAlertView</span> <span class="o">*</span><span class="n">alerta</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle</span><span class="p">:</span><span class="nb">nil</span>
+</span><span class='line'>                                                     <span class="nl">message</span><span class="p">:</span><span class="n">jsonString</span>
+</span><span class='line'>                                                    <span class="nl">delegate</span><span class="p">:</span><span class="nb">self</span>
+</span><span class='line'>                                           <span class="nl">cancelButtonTitle</span><span class="p">:</span><span class="s">@&quot;Ok&quot;</span>
+</span><span class='line'>                                           <span class="nl">otherButtonTitles</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
 </span><span class='line'>    <span class="p">[</span><span class="n">alerta</span> <span class="n">show</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">alerta</span> <span class="n">release</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">jsonString</span> <span class="n">release</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -462,10 +456,10 @@ Es muy sencillo aprender la notación de JSON ya que tan solo hay 3 cosas para c
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2012/09/05/keynote-para-el-12-de-setiembre/" title="Previous Post: Keynote para el 12 de setiembre">&laquo; Keynote para el 12 de setiembre</a>
+        <a class="basic-alignment left" href="/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores/" title="Previous Post: iOS 6 Golden Master ya disponible para los desarrolladores">&laquo; iOS 6 Golden Master ya disponible para los desarrolladores</a>
       
       
-        <a class="basic-alignment right" href="/2012/09/13/ios-6-golden-master-ya-disponible-para-los-desarrolladores/" title="Next Post: iOS 6 Golden Master ya disponible para los desarrolladores">iOS 6 Golden Master ya disponible para los desarrolladores &raquo;</a>
+        <a class="basic-alignment right" href="/2012/09/05/keynote-para-el-12-de-setiembre/" title="Next Post: Keynote para el 12 de setiembre">Keynote para el 12 de setiembre &raquo;</a>
       
     </p>
   </footer>

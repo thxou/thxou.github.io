@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-c | thxou]]></title>
   <link href="http://www.thxou.com/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-10-23T00:24:24+02:00</updated>
+  <updated>2016-10-30T17:55:31+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cárdenas]]></name>
@@ -726,18 +726,10 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span><span class="err"> </span><span class="p">{</span>
 </span><span class='line'>    <span class="c1">// liberamos la memoria que ocupa el observador</span>
-</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver</span><span class="p">:</span><span class="nb">self</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="nb">super</span><span class="err"> </span><span class="n">dealloc</span><span class="p">];</span> <span class="c1">// quita esta línea si usas ARC</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver</span><span class="p">:</span><span class="nb">self</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>Como vez, no estamos utilizando el objeto <code>center</code>, y a decir verdad para ahorrarte una innecesaria línea de código te recomiendo no crear un objeto <code>NSNotificationCenter</code>, sino usar la forma: <code>[[NSNotificationCenter defaultCenter] ...</code> , como en el código de arriba.</p>

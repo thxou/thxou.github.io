@@ -223,33 +223,31 @@
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
 <span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">openURL:</span><span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span> <span class="nf">sourceApplication:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">sourceApplication</span> <span class="nf">annotation:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">annotation</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">openURL:</span><span class="p">(</span><span class="bp">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span> <span class="nf">sourceApplication:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">sourceApplication</span> <span class="nf">annotation:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">annotation</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="c1">// comprobamos que se ha recibido una url</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">([[</span><span class="n">url</span> <span class="n">scheme</span><span class="p">]</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;scheme&quot;</span><span class="p">])</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([[</span><span class="n">url</span> <span class="n">scheme</span><span class="p">]</span> <span class="nl">isEqualToString</span><span class="p">:</span><span class="s">@&quot;scheme&quot;</span><span class="p">])</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="c1">// obtenemos el host de la url. En este caso será &quot;cualquiercosa&quot;</span>
-</span><span class='line'>        <span class="n">NSString</span> <span class="o">*</span><span class="n">urlHost</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="n">host</span><span class="p">];</span>
+</span><span class='line'>        <span class="bp">NSString</span> <span class="o">*</span><span class="n">urlHost</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="n">host</span><span class="p">];</span>
 </span><span class='line'>        <span class="c1">// obtenemos el path de la url por partes. No se cuenta el host</span>
-</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">urlComponents</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="n">pathComponents</span><span class="p">];</span>
+</span><span class='line'>        <span class="bp">NSArray</span> <span class="o">*</span><span class="n">urlComponents</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="n">pathComponents</span><span class="p">];</span>
 </span><span class='line'>        <span class="c1">// componemos el string a mostrar</span>
-</span><span class='line'>        <span class="n">NSString</span> <span class="o">*</span><span class="n">texto</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;Contenido de la URL:</span><span class="se">\n\n</span><span class="s">Host: %@</span><span class="se">\n</span><span class="s">Parámetros:</span><span class="se">\n</span><span class="s">1. %@</span><span class="se">\n</span><span class="s">2. %@&quot;</span><span class="p">,</span> <span class="n">urlHost</span><span class="p">,</span> <span class="p">[</span><span class="n">urlComponents</span> <span class="nl">objectAtIndex:</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">urlComponents</span> <span class="nl">objectAtIndex:</span><span class="mi">2</span><span class="p">]];</span>
+</span><span class='line'>        <span class="bp">NSString</span> <span class="o">*</span><span class="n">texto</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;Contenido de la URL:</span><span class="se">\n\n</span><span class="s">Host: %@</span><span class="se">\n</span><span class="s">Parámetros:</span><span class="se">\n</span><span class="s">1. %@</span><span class="se">\n</span><span class="s">2. %@&quot;</span><span class="p">,</span> <span class="n">urlHost</span><span class="p">,</span> <span class="n">urlComponents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">urlComponents</span><span class="p">[</span><span class="mi">2</span><span class="p">]];</span>
 </span><span class='line'>
 </span><span class='line'>        <span class="c1">// lanzamos un alertView que nos muestre el string</span>
-</span><span class='line'>        <span class="n">UIAlertView</span> <span class="o">*</span><span class="n">alert</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;URL Scheme&quot;</span>
-</span><span class='line'>                                                        <span class="nl">message:</span><span class="n">texto</span>
-</span><span class='line'>                                                       <span class="nl">delegate:</span><span class="n">self</span>
-</span><span class='line'>                                              <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;Ok&quot;</span>
-</span><span class='line'>                                              <span class="nl">otherButtonTitles:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>        <span class="bp">UIAlertView</span> <span class="o">*</span><span class="n">alert</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle</span><span class="p">:</span><span class="s">@&quot;URL Scheme&quot;</span>
+</span><span class='line'>                                                        <span class="nl">message</span><span class="p">:</span><span class="n">texto</span>
+</span><span class='line'>                                                       <span class="nl">delegate</span><span class="p">:</span><span class="nb">self</span>
+</span><span class='line'>                                              <span class="nl">cancelButtonTitle</span><span class="p">:</span><span class="s">@&quot;Ok&quot;</span>
+</span><span class='line'>                                              <span class="nl">otherButtonTitles</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
 </span><span class='line'>        <span class="p">[</span><span class="n">alert</span> <span class="n">show</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">alert</span> <span class="n">release</span><span class="p">];</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
 </span><span class='line'>        <span class="c1">// si no hay URL retornamos NO</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 <p>Después de esto, desde cualquier aplicación pueden enviar información a tu aplicación que tu puedas manipular con solo ejecutar este código desde un botón:</p>
@@ -307,10 +305,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/" title="Previous Post: iOS: Enviar correo electrónico desde la aplicación">&laquo; iOS: Enviar correo electrónico desde la aplicación</a>
+        <a class="basic-alignment left" href="/2012/09/05/keynote-para-el-12-de-setiembre/" title="Previous Post: Keynote para el 12 de setiembre">&laquo; Keynote para el 12 de setiembre</a>
       
       
-        <a class="basic-alignment right" href="/2012/09/05/keynote-para-el-12-de-setiembre/" title="Next Post: Keynote para el 12 de setiembre">Keynote para el 12 de setiembre &raquo;</a>
+        <a class="basic-alignment right" href="/2012/08/07/ios-enviar-correo-electronico-desde-la-aplicacion/" title="Next Post: iOS: Enviar correo electrónico desde la aplicación">iOS: Enviar correo electrónico desde la aplicación &raquo;</a>
       
     </p>
   </footer>

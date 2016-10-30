@@ -229,13 +229,9 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span><span class="err"> </span><span class="p">{</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span><span class="err"> </span><span class="p">{</span>
 </span><span class='line'>    <span class="c1">// liberamos la memoria que ocupa el observador</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">[</span><span class="n">super</span><span class="err"> </span><span class="n">dealloc</span><span class="p">];</span> <span class="c1">// quita esta línea si usas ARC</span>
+</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver</span><span class="p">:</span><span class="nb">self</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 <p>Como vez, no estamos utilizando el objeto <code>center</code>, y a decir verdad para ahorrarte una innecesaria línea de código te recomiendo no crear un objeto <code>NSNotificationCenter</code>, sino usar la forma: <code>[[NSNotificationCenter defaultCenter] ...</code> , como en el código de arriba.</p>
@@ -289,10 +285,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/" title="Previous Post: Trabajando con el Social Framework: SLRequest, publicar en Twitter y obtener el Timeline">&laquo; Trabajando con el Social Framework: SLRequest, publicar en Twitter y obtener el Timeline</a>
+        <a class="basic-alignment left" href="/2013/03/18/literales-en-objective-c/" title="Previous Post: Literales en Objective-C">&laquo; Literales en Objective-C</a>
       
       
-        <a class="basic-alignment right" href="/2013/03/18/literales-en-objective-c/" title="Next Post: Literales en Objective-C">Literales en Objective-C &raquo;</a>
+        <a class="basic-alignment right" href="/2012/09/20/trabajando-con-el-social-framework-de-ios-6-publicar-en-twitter-y-obtener-el-timeline/" title="Next Post: Trabajando con el Social Framework: SLRequest, publicar en Twitter y obtener el Timeline">Trabajando con el Social Framework: SLRequest, publicar en Twitter y obtener el Timeline &raquo;</a>
       
     </p>
   </footer>

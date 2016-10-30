@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Aspectos Básicos | thxou]]></title>
   <link href="http://www.thxou.com/blog/categories/aspectos-basicos/atom.xml" rel="self"/>
   <link href="http://www.thxou.com/"/>
-  <updated>2016-10-23T00:24:24+02:00</updated>
+  <updated>2016-10-30T17:55:31+01:00</updated>
   <id>http://www.thxou.com/</id>
   <author>
     <name><![CDATA[Luis Cárdenas]]></name>
@@ -571,8 +571,8 @@
 </span><span class='line'>    <span class="c1">//Inicializamos en un array los 2 textos a mostrar</span>
 </span><span class='line'>    <span class="n">textos</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithObjects</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Texto</span> <span class="n">de</span> <span class="n">ejemplo</span> <span class="n">para</span> <span class="n">MVC</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">MVC</span> <span class="n">mola</span> <span class="n">cuando</span> <span class="n">lo</span> <span class="n">entiendes</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="nb">nil</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="bp">NSString</span> <span class="o">*</span><span class="n">txt1</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'><span class="bp">NSString</span> <span class="o">*</span><span class="n">txt2</span> <span class="o">=</span> <span class="p">[</span><span class="n">textos</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="bp">NSString</span> <span class="o">*</span><span class="n">txt1</span> <span class="o">=</span> <span class="n">textos</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">*</span><span class="n">txt2</span> <span class="o">=</span> <span class="n">textos</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'><span class="p">[</span><span class="n">texto1</span> <span class="nl">setText</span><span class="p">:</span><span class="n">txt1</span><span class="p">];</span>
 </span><span class='line'><span class="p">[</span><span class="n">texto2</span> <span class="nl">setText</span><span class="p">:</span><span class="n">txt2</span><span class="p">];</span>
