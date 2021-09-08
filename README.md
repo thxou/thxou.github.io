@@ -1,4 +1,4 @@
 thxou.github.io
 ===============
 
-The Source code for the ThXou's blog.
+The Source code for my blog.
