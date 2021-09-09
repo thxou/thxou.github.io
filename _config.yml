@@ -32,11 +32,13 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-archives
 
 header_pages:
   - path: about.markdown
 
 google_analytics: UA-2267618-8
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.

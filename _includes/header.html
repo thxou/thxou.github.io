@@ -18,10 +18,11 @@
 
         <div class="trigger">
           <a class="page-link" href="https://thxou.com">Main</a>
+          <a class="page-link" href="/search">Search</a>
           {%- for path in page_paths -%}
             {%- for page in site.pages -%}
               {%- if page.path == path.path and page.title -%}  
-              <a class="page-link" href="{{ my_page.url | relative_url }}">{{ page.title | escape }}</a>
+              <a class="page-link" href="{{ page.url | relative_url }}">{{ page.title | escape }}</a>
               {%- endif -%}
             {%- endfor -%}
           {%- endfor -%}
