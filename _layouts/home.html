@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<div class="intro" style="text-align:center;">
+    <div>
+        <h1>Welcome To My Blog</h1><br /><br />
+        <p>Select the language in which you want to see the blog:</p>
+        <p>
+            {% for lang in site.data.languages %}
+            {% assign language = lang[1] %}
+            <a href="{{ site.baseurl }}{{ lang[0] }}">{{ language.icon }} {{ language.label }} ({{ language.code }})</a><br />
+            {% endfor %}
+        </p>
+    </div>
+</div>

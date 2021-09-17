@@ -3,7 +3,8 @@
   <div class="wrapper">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}"><img src="https://thxou.com/img/icon-circle.png" width="30" height="30">&nbsp;{{ site.title | escape }}</a>
+    {%- assign lang = page.path | split: '/' | first -%}
+    <a class="site-title" rel="author" href="{{ '/' | relative_url }}{{ lang }}"><img src="https://thxou.com/img/icon-circle.png" width="30" height="30">&nbsp;{{ site.title | escape }}</a>
 
     {%- if page_paths -%}
       <nav class="site-nav">
@@ -17,15 +18,20 @@
         </label>
 
         <div class="trigger">
-          <a class="page-link" href="https://thxou.com">Main</a>
-          <a class="page-link" href="/search">Search</a>
+          <a class="page-link" href="https://thxou.com">{{ site.data.translations['main'][lang] }}</a>
           {%- for path in page_paths -%}
-            {%- for page in site.pages -%}
+            {% assign pages_list = site.pages | where: "lang", lang %}
+            {%- for page in pages_list -%}
               {%- if page.path == path.path and page.title -%}  
               <a class="page-link" href="{{ page.url | relative_url }}">{{ page.title | escape }}</a>
               {%- endif -%}
             {%- endfor -%}
           {%- endfor -%}
+          
+          {% for lang in site.data.languages %}
+            {% assign language = lang[1] %}
+            <a href="/{{ lang[0] }}">{{ language.icon }}</a>
+          {% endfor %}
         </div>
       </nav>
     {%- endif -%}

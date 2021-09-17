@@ -1,0 +1,37 @@
+# Site language translation keys
+
+default: en
+
+related-posts:
+  en: "Related Posts"
+  es: "Artículos Relacionados"
+post-lang-change:
+  en: "Read this page in a different language"
+  es: "Lea esta página en un idioma diferente"
+
+# Pages
+
+search:
+  en: "Search"
+  es: "Buscar"
+main:
+  en: "Main"
+  es: "Principal"
+share:
+  en: "Share"
+  es: "Comparte"
+subscribe:
+  en: "Subscribe"
+  es: "Suscríbete"
+
+# Footer
+
+find-me:
+  en: "Find me here"
+  es: "Encuéntrame aquí"
+footer-description:
+  en: "Useful information about Swift programming and other technological stuff."
+  es: "Información útil sobre programación en Swift y otras cosas sobre tecnología."
+contact:
+  en: "Contact"
+  es: "Contacto"

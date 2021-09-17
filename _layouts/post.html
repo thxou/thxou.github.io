@@ -1,0 +1,57 @@
+---
+layout: default
+---
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.author -%}
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
+      {%- endif -%}</p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+  <hr />
+
+  {% if include.pageurl != nil and include.pageurl != '' %}
+  {% assign pageurl = include.pageurl %}
+  {% else %}
+  {% assign pageurl = page.url %}
+  {% endif %}
+
+  <br />
+  <span>{{ site.data.translations['share'][page.lang] }}:</span>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ pageurl }}"><i class="fab fa-facebook"></i></a>
+  <a href="https://twitter.com/intent/tweet?url={{ site.url }}{{ pageurl }}"><i class="fab fa-twitter"></i></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ pageurl }}&title={{ page.title }}&summary=Share%20to%20LinkedIn&source=https%3A%2F%2Fblog.thxou.com"><i class="fab fa-linkedin"></i></a>
+  <a href="https://www.reddit.com/submit?url={{ site.url }}{{ pageurl }}"><i class="fab fa-reddit"></i></a>
+  <a href="mailto:?&body={{ site.url }}{{ pageurl }}"><i class="fa fa-envelope"></i></a><br /><br />
+  
+  {% assign posts=site.posts | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+  {% if posts.size == 0 %}
+      {% assign posts=site.pages | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+  {% endif %}
+  {% if posts.size > 1 %}
+  <footer class="lang-options">
+      <em>{{ site.data.translations['post-lang-change'][page.lang] }}:</em><br />
+      
+      {% for post in posts %}
+      <a href="{{ site.base-url }}{{ post.url }}" class="{{ post.lang }}" title="View in {{post.lang}}">{{ site.data.languages[post.lang].icon }} {{ site.data.languages[post.lang].label }}</a>
+      {% endfor %}
+      
+  </footer>
+  {% endif %}
+
+  {%- if site.disqus.shortname -%}
+    {%- include disqus_comments.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
