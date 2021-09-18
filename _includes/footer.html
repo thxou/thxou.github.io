@@ -1,19 +1,17 @@
 <footer class="site-footer h-card">
-  <data class="u-url" href="{{ "/" | relative_url }}"></data>
-
+  <data class="u-url" href="{{ '/' | relative_url }}"></data>
+  {%- assign lang = page.path | split: '/' | first -%}
   <div class="wrapper">
 
-    <h2 class="footer-heading">Find me here</h2>
+    <h2 class="footer-heading">{{ site.data.translations['find-me'][lang] }}</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li class="p-name">
-            Contact
+            {{ site.data.translations['contact'][lang] }}
             </li>
-            {%- if site.email -%}
-            <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-            {%- endif -%}
+            <li>me at thxou dot com</a></li>
         </ul>
       </div>
 
@@ -22,7 +20,8 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>{{- site.description | escape -}}</p>
+        <p>{{ site.data.translations['footer-description'][lang] }}</p>
+        <!--<p>{{- site.description | escape -}}</p>-->
       </div>
     </div>
 

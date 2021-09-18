@@ -32,11 +32,18 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-archives
 
 header_pages:
-  - path: about.markdown
+  - path: en/about.markdown
+  - path: es/about.markdown
+  - path: en/search.markdown
+  - path: es/search.markdown
 
 google_analytics: UA-2267618-8
+
+paginate: 1
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
